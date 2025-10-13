@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iñaki Sobera - Desarrollador de Software</title>
+    <link rel="icon" href="images/yo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+    <nav class="bubble-menu fixed" aria-label="Main navigation">
+
+
+        <button type="button" class="bubble toggle-bubble menu-btn" aria-label="Toggle menu" aria-pressed="false">
+            <span class="menu-line"></span>
+            <span class="menu-line"></span>
+        </button>
+    </nav>
+    <div class="bubble-menu-items fixed" style="display: none;" aria-hidden="true">
+        <ul class="pill-list" role="menu" aria-label="Menu links">
+            <li role="none" class="pill-col">
+                <a role="menuitem" href="#about" aria-label="Sobre Mí" class="pill-link" style="--item-rot: -8deg; --hover-bg: #3b82f6; --hover-color: #ffffff;">
+                    <span class="pill-label">Sobre Mí</span>
+                </a>
+            </li>
+            <li role="none" class="pill-col">
+                <a role="menuitem" href="#portfolio" aria-label="Portafolio" class="pill-link" style="--item-rot: 8deg; --hover-bg: #10b981; --hover-color: #ffffff;">
+                    <span class="pill-label">Portafolio</span>
+                </a>
+            </li>
+            <li role="none" class="pill-col">
+                <a role="menuitem" href="#education" aria-label="Educación" class="pill-link" style="--item-rot: 8deg; --hover-bg: #f59e0b; --hover-color: #ffffff;">
+                    <span class="pill-label">Educación</span>
+                </a>
+            </li>
+            <li role="none" class="pill-col">
+                <a role="menuitem" href="#skills" aria-label="Habilidades" class="pill-link" style="--item-rot: 8deg; --hover-bg: #ef4444; --hover-color: #ffffff;">
+                    <span class="pill-label">Habilidades</span>
+                </a>
+            </li>
+            <li role="none" class="pill-col">
+                <a role="menuitem" href="#contact" aria-label="Contacto" class="pill-link" style="--item-rot: -8deg; --hover-bg: #8b5cf6; --hover-color: #ffffff;">
+                    <span class="pill-label">Contacto</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <header id="hero" class="hero">
+        <canvas id="glitch-canvas"></canvas>
+        <div class="container">
+            <div class="hero-text">
+                <h1 id="scramble-text" class="animate-on-scroll">Iñaki Sobera Sotomayor</h1>
+                <p class="animate-on-scroll">Apasionado por la programación, la IA y la ciberseguridad.</p>
+                <a href="#contact" class="btn btn-primary animate-on-scroll" target="_blank">Contáctame</a>
+            </div>
+            <div class="scroll-indicator animate-on-scroll">
+                <span>Scroll</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Sobre Mí</h2>
+                <div class="about-content">
+                    <div class="about-image animate-on-scroll">
+                        <img src="images/yo.png?v=1.1" alt="Foto de Iñaki Sobera" class="float-animation">
+                    </div>
+                    <div class="about-text animate-on-scroll">
+                        <h2>Perfil Profesional</h2>
+                        <p class="split-text-animate">Desarrollador orientado a resultados, con experiencia en programación orientada a objetos y desarrollo backend, adquirida mediante la realización de proyectos personales en entornos Linux. Apasionado por la innovación tecnológica y la resolución de problemas complejos, con capacidad demostrada para transformar ideas en soluciones funcionales y eficientes.</p>
+                        <p class="split-text-animate">Busco incorporarme a un equipo profesional donde pueda aplicar mis conocimientos técnicos, seguir desarrollándome y contribuir al logro de objetivos estratégicos.</p>
+                        <h3>Habilidades y Herramientas</h3>
+                        <p class="split-text-animate">Poseo experiencia práctica en un amplio y diverso conjunto de frameworks y librerías de desarrollo. Empleo Spring Boot para diseñar y construir servicios backend escalables en el ecosistema Java, y Flask para el desarrollo rápido de APIs y aplicaciones web con Python. Además, aplico herramientas especializadas como TensorFlow para crear e implementar modelos de Machine Learning, así como OpenCV para el procesamiento de imágenes y la ejecución de proyectos de visión por computadora.</p>
+                        <div class="cv-download-section">
+                            <p>Abierto a nuevas <strong>oportunidades laborales</strong> – no dudes en revisar mi CV:</p>
+                            <a href="cv/cv_inaki_sobera.pdf?v=1.1" class="btn btn-primary animate-on-scroll" target="_blank">Descargar CV</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Portafolio</h2>
+                <div class="portfolio-grid">
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/Rentas.png" alt="Administracion de Rentas">
+                            <div class="portfolio-info">
+                                <h3>Programa de Administración de Rentas con Python y Flask</h3>
+                                <p>Sistema web integral para la administración de propiedades de alquiler, desarrollado con Python y Flask. Esta aplicación robusta centraliza la gestión de propiedades, inquilinos y contratos, automatizando el seguimiento de pagos y la generación de reportes. Incluye un panel de control intuitivo que ofrece una visión clara del estado de las rentas y facilita la toma de decisiones. La arquitectura se apoya en PostgreSQL para garantizar la integridad y seguridad de los datos.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://web-production-2446e.up.railway.app/login" class="btn btn-info" target="_blank">Ver Aplicación</a>
+                                    <a href="https://github.com/nanisadw3/Administracion_Rentas" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/Sistema_gestion_inventario.png?v=1.1" alt="Sistema de Gestión de Inventario">
+                            <div class="portfolio-info">
+                                <h3>Sistema de Gestión de Inventario (Python GUI con BD)</h3>
+                                <p>Aplicación de escritorio diseñada para la gestión eficiente de inventarios. Desarrollada en Python con una interfaz gráfica (GUI) intuitiva, permite un control detallado de productos, categorías y stock. El sistema se conecta a una base de datos relacional para asegurar la persistencia de los datos, registrando cada movimiento de entrada y salida. Es una solución ideal para pequeños y medianos negocios que buscan optimizar su logística y control de existencias de manera efectiva.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/api_nasa.png" alt="Página de la NASA con Flask">
+                            <div class="portfolio-info">
+                                <h3>Página de la NASA con Flask</h3>
+                                <p>Aplicación web interactiva que consume la API de la NASA para explorar el cosmos. Permite a los usuarios descubrir la 'Foto Astronómica del Día' (APOD), obtener información sobre objetos cercanos a la Tierra y explorar una vasta galería de imágenes del espacio. Desarrollada con Python y Flask, esta aplicación ofrece una experiencia de usuario fluida y educativa, acercando las maravillas del universo a través de una interfaz atractiva y fácil de usar.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://nasa-production-c942.up.railway.app/" class="btn btn-info" target="_blank">Ver Aplicación</a>
+                                    <a href="https://github.com/nanisadw3/Nasa" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/portfolio-2.jpg" alt="To-Do App">
+                            <div class="portfolio-info">
+                                <h3>To-Do App (Python y Flask)</h3>
+                                <p>Aplicación web minimalista para la gestión de tareas diarias, construida con Python y Flask. Esta herramienta permite a los usuarios organizar sus actividades de manera eficiente, ofreciendo funcionalidades CRUD completas (Crear, Leer, Actualizar y Eliminar tareas) a través de una interfaz limpia. Es un proyecto que demuestra la implementación de una API RESTful básica y la interacción con una base de datos para la persistencia de la información del usuario de forma segura.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://to-do-app-5pas.onrender.com" class="btn btn-info" target="_blank">Ver Aplicación</a>
+                                    <a href="https://github.com/nanisadw3/To_do_app" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/FX.jpg" alt="Java FX">
+                            <div class="portfolio-info">
+                                <h3>Java FX</h3>
+                                <p>Colección de proyectos de escritorio que exploran el poder del framework JavaFX para crear interfaces de usuario ricas. Las aplicaciones implementan el patrón de diseño Modelo-Vista-Controlador (MVC), asegurando una separación clara de la lógica de negocio, los datos y la presentación. Estos ejemplos demuestran habilidades en el desarrollo de software modular, mantenible y escalable en el ecosistema de Java, mostrando la versatilidad de la plataforma.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://github.com/nanisadw3/Practicas_javaFX.git" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/Juego.jpeg" alt="Juego en C#">
+                            <div class="portfolio-info">
+                                <h3>Juego en C#</h3>
+                                <p>Juego de rol y exploración de mazmorras (dungeon crawler) desarrollado en C#. Este proyecto aplica la Programación Orientada a Objetos (POO) para modelar el comportamiento de personajes, la IA de los enemigos y la generación procedural de niveles. La arquitectura del juego está diseñada para ser extensible, permitiendo la fácil adición de nuevos contenidos como ítems, habilidades y monstruos, ofreciendo una base sólida para un juego completo.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://github.com/nanisadw3/Calabozo" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="education" class="education">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Educación</h2>
+                <div class="stepper-container">
+                    <div class="stepper-header">
+                        <div class="step-indicator active" data-step="1">1</div>
+                        <div class="step-connector"></div>
+                        <div class="step-indicator" data-step="2">2</div>
+                        <div class="step-connector"></div>
+                        <div class="step-indicator" data-step="3">3</div>
+                    </div>
+                    <div class="stepper-content">
+                        <div class="step-content-item active" data-step="1">
+                            <h3>Ingeniería en Sistemas Computacionales</h3>
+                            <p><strong>UNITEC Campus Atizapán</strong> — <em>2021 - 2025</em></p>
+                            <p>Estudiante activo de Ingeniería en Sistemas Computacionales, enfocado en el desarrollo de software, inteligencia artificial y ciberseguridad. Participación en proyectos académicos y extracurriculares, aplicando conocimientos en programación, bases de datos y redes.</p>
+                        </div>
+                        <div class="step-content-item" data-step="2">
+                            <h3>Certificación en Linux</h3>
+                            <p><strong>Hack4u.io</strong> — <em>2024</em></p>
+                            <p>Certificación avanzada en Linux, cubriendo administración de sistemas, seguridad y scripting. Obtuve habilidades prácticas en gestión de sistemas operativos, automatización de tareas con Bash, configuración de redes, y fortalecimiento de la seguridad del sistema, esenciales para entornos de desarrollo y ciberseguridad.</p>
+                            <p>Código de certificado: <span id="linux-cert-code">2154-4957-5308-3366</span></p>
+                            <div class="button-group" style="display: flex; gap: 1rem;">
+                                <a href="https://hack4u.io/check-certificate/" class="btn btn-info" target="_blank">Verificar</a>
+                                <button id="copy-cert-button" class="btn btn-info" onclick="copyToClipboard('linux-cert-code', 'copy-cert-button')">Copiar</button>
+                            </div>
+                        </div>
+                        <div class="step-content-item" data-step="3">
+                            <h3>Certificado en Python Ofensivo</h3>
+                            <p><strong>Hack4u.io</strong> — <em>2024</em></p>
+                            <p>Certificado de Python Ofensivo en Hack4u.io, enfocado en el uso de Python para la seguridad ofensiva y el hacking ético. Adquirí conocimientos en la creación de herramientas de seguridad, automatización de ataques, análisis de vulnerabilidades y desarrollo de exploits, aplicando Python en escenarios de ciberseguridad.</p>
+                        </div>
+                    </div>
+                    <div class="stepper-footer">
+                        <button id="stepper-back" disabled><i class="fas fa-arrow-left"></i></button>
+                        <button id="stepper-next"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Habilidades</h2>
+                <div class="skills-grid">
+                    <div class="skill-category animate-on-scroll">
+                        <h3>Lenguajes de Programación</h3>
+                        <div class="skills-icons">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3>Desarrollo Frontend</h3>
+                        <div class="skills-icons">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3>IDEs</h3>
+                        <div class="skills-icons">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg" alt="Neovim">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" alt="PyCharm">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" alt="IntelliJ">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3>Bases de Datos</h3>
+                        <div class="skills-icons">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3>Herramientas</h3>
+                        <div class="skills-icons">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3>Idiomas</h3>
+                        <div class="skills-progress">
+                            <div class="progress-item">
+                                <p>Español</p>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" data-progress="100"><span>100%</span></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <p>Inglés</p>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" data-progress="70"><span>70%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Contacto</h2>
+                <div class="contact-content">
+                    <div class="contact-info animate-on-scroll">
+                        <p>¿Interesado en colaborar o tienes alguna pregunta? ¡No dudes en contactarme!</p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:inakisobera8@gmail.com" target="_blank">inakisobera8@gmail.com</a></p>
+                        <p><i class="fas fa-phone"></i> +52 5510310275</p>
+                    </div>
+                    <div class="contact-form animate-on-scroll">
+                        <form action="https://api.web3forms.com/submit" method="POST">
+
+                            <!-- Replace with your Access Key -->
+                            <input type="hidden" name="access_key" value="7f917ac8-8646-41b5-9450-187a24ad314c">
+
+                            <!-- Form Inputs. Each input must have a name="" attribute -->
+                            <input type="text" name="name" placeholder="Nombre" required>
+                            <input type="email" name="email" placeholder="Correo Electrónico" required>
+                            <textarea name="message" placeholder="Mensaje" required></textarea>
+
+                            <!-- Honeypot Spam Protection -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                            <!-- Custom Confirmation / Success Page -->
+                            <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
+
+                            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Iñaki Sobera. Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="https://github.com/nanisadw3" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/i%C3%B1aki-sobera-sotomayor-40a87b300/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://x.com/InakiSobera" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://gravatar.com/inakisobera8" target="_blank"><i class="fas fa-user-circle"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="text-scramble.js"></script>
+    <script src="bubble-menu.js"></script>
+    <script src="letter-glitch.js"></script>
+    <script src="script.js"></script>
+    <script src="stepper.js"></script>
+
+    <a href="https://wa.me/525510310275" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+</html>
