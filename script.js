@@ -136,3 +136,61 @@ document.addEventListener('DOMContentLoaded', () => {
     next();
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const seeMoreCheckbox = document.getElementById('see-more-checkbox');
+    const seeMoreText = document.getElementById('see-more-text');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    const updatePortfolioItems = () => {
+        const screenWidth = window.innerWidth;
+        let itemsToShow;
+
+        if (screenWidth >= 960 && screenWidth < 1280) {
+            itemsToShow = 4;
+        } else {
+            itemsToShow = 3;
+        }
+
+        portfolioItems.forEach((item, index) => {
+            if (seeMoreCheckbox.checked) {
+                item.classList.remove('hidden');
+                item.style.display = 'flex';
+            } else {
+                if (index >= itemsToShow) {
+                    item.classList.add('hidden');
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 500);
+                } else {
+                    item.classList.remove('hidden');
+                    item.style.display = 'flex';
+                }
+            }
+        });
+    };
+
+    if (seeMoreCheckbox) {
+        seeMoreCheckbox.addEventListener('change', () => {
+            if (seeMoreCheckbox.checked) {
+                portfolioItems.forEach((item, index) => {
+                    item.style.display = 'flex';
+                    setTimeout(() => {
+                        item.classList.remove('hidden');
+                    }, index * 100);
+                });
+                seeMoreText.textContent = 'Ver menos';
+            } else {
+                portfolioItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        updatePortfolioItems();
+                    }, index * 100);
+                });
+                seeMoreText.textContent = 'Ver más';
+            }
+        });
+    }
+
+    window.addEventListener('resize', updatePortfolioItems);
+    updatePortfolioItems();
+});

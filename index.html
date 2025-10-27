@@ -57,9 +57,13 @@
                 <p class="animate-on-scroll">Apasionado por la programación, la IA y la ciberseguridad.</p>
                 <a href="#contact" class="btn btn-primary animate-on-scroll" target="_blank">Contáctame</a>
             </div>
-            <div class="scroll-indicator animate-on-scroll">
-                <span>Scroll</span>
-                <i class="fas fa-chevron-down"></i>
+            <div class="scroll-indicator-container">
+                <div class="scrolldown">
+                    <div class="chevrons">
+                        <div class="chevrondown"></div>
+                        <div class="chevrondown"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -75,9 +79,9 @@
                     <div class="about-text animate-on-scroll">
                         <h2>Perfil Profesional</h2>
                         <p class="split-text-animate">Desarrollador orientado a resultados, con experiencia en programación orientada a objetos y desarrollo backend, adquirida mediante la realización de proyectos personales en entornos Linux. Apasionado por la innovación tecnológica y la resolución de problemas complejos, con capacidad demostrada para transformar ideas en soluciones funcionales y eficientes.</p>
-                        <p class="split-text-animate">Busco incorporarme a un equipo profesional donde pueda aplicar mis conocimientos técnicos, seguir desarrollándome y contribuir al logro de objetivos estratégicos.</p>
+                        <p class="split-text-animate">Busco incorporarme a un equipo profesional donde pueda aplicar mis conocimientos técnicos y seguir desarrollándome, con un enfoque claro en el desarrollo backend. Mi objetivo es especializarme en la construcción de sistemas robustos y escalables, en lugar de roles full-stack.</p>
                         <h3>Habilidades y Herramientas</h3>
-                        <p class="split-text-animate">Poseo experiencia práctica en un amplio y diverso conjunto de frameworks y librerías de desarrollo. Empleo Spring Boot para diseñar y construir servicios backend escalables en el ecosistema Java, y Flask para el desarrollo rápido de APIs y aplicaciones web con Python. Además, aplico herramientas especializadas como TensorFlow para crear e implementar modelos de Machine Learning, así como OpenCV para el procesamiento de imágenes y la ejecución de proyectos de visión por computadora.</p>
+                        <p class="split-text-animate">Poseo experiencia práctica en un amplio y diverso conjunto de frameworks y librerías de desarrollo. Empleo Spring Boot para diseñar y construir servicios backend escalables en el ecosistema Java, y Flask para el desarrollo rápido de APIs y aplicaciones web con Python. Para aplicaciones de escritorio, tengo conocimientos en JavaFX y CustomTkinter. Además, utilizo herramientas como OpenCV para el procesamiento de imágenes y la ejecución de proyectos de visión por computadora.</p>
                         <div class="cv-download-section">
                             <p>Abierto a nuevas <strong>oportunidades laborales</strong> – no dudes en revisar mi CV:</p>
                             <a href="cv/cv_inaki_sobera.pdf?v=1.1" class="btn btn-primary animate-on-scroll" target="_blank">Descargar CV</a>
@@ -95,7 +99,7 @@
                             <img src="images/Rentas.png" alt="Administracion de Rentas">
                             <div class="portfolio-info">
                                 <h3>Programa de Administración de Rentas con Python y Flask</h3>
-                                <p>Sistema web integral para la administración de propiedades de alquiler, desarrollado con Python y Flask. Esta aplicación robusta centraliza la gestión de propiedades, inquilinos y contratos, automatizando el seguimiento de pagos y la generación de reportes. Incluye un panel de control intuitivo que ofrece una visión clara del estado de las rentas y facilita la toma de decisiones. La arquitectura se apoya en PostgreSQL para garantizar la integridad y seguridad de los datos.</p>
+                                <p>Sistema web para administrar propiedades de alquiler con Python y Flask. Centraliza la gestión de propiedades, inquilinos y contratos, automatizando el seguimiento de pagos y la generación de reportes. Incluye un panel de control intuitivo y utiliza PostgreSQL.</p>
                                 <div class="portfolio-buttons">
                                     <a href="https://app-rentas-df0b56466a50.herokuapp.com/login" class="btn btn-info" target="_blank">Ver Aplicación</a>
                                     <a href="https://github.com/nanisadw3/Administracion_Rentas" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
@@ -103,20 +107,10 @@
                             </div>
                         </div>
                         <div class="portfolio-item animate-on-scroll">
-                            <img src="images/Sistema_gestion_inventario.png?v=1.1" alt="Sistema de Gestión de Inventario">
-                            <div class="portfolio-info">
-                                <h3>Sistema de Gestión de Inventario (Python GUI con BD)</h3>
-                                <p>Aplicación de escritorio diseñada para la gestión eficiente de inventarios. Desarrollada en Python con una interfaz gráfica (GUI) intuitiva, permite un control detallado de productos, categorías y stock. El sistema se conecta a una base de datos relacional para asegurar la persistencia de los datos, registrando cada movimiento de entrada y salida. Es una solución ideal para pequeños y medianos negocios que buscan optimizar su logística y control de existencias de manera efectiva.</p>
-                                <div class="portfolio-buttons">
-                                    <a href="https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio-item animate-on-scroll">
                             <img src="images/api_nasa.png" alt="Página de la NASA con Flask">
                             <div class="portfolio-info">
                                 <h3>Página de la NASA con Flask</h3>
-                                <p>Aplicación web interactiva que consume la API de la NASA para explorar el cosmos. Permite a los usuarios descubrir la 'Foto Astronómica del Día' (APOD), obtener información sobre objetos cercanos a la Tierra y explorar una vasta galería de imágenes del espacio. Desarrollada con Python y Flask, esta aplicación ofrece una experiencia de usuario fluida y educativa, acercando las maravillas del universo a través de una interfaz atractiva y fácil de usar.</p>
+                                <p>Aplicación web interactiva que consume la API de la NASA para explorar el cosmos. Permite descubrir la 'Foto Astronómica del Día' (APOD), obtener información sobre objetos cercanos a la Tierra y explorar una galería de imágenes del espacio. Desarrollada con Python y Flask.</p>
                                 <div class="portfolio-buttons">
                                     <a href="https://fast-caverns-93506-bec36e522de8.herokuapp.com/" class="btn btn-info" target="_blank">Ver Aplicación</a>
                                     <a href="https://github.com/nanisadw3/Nasa" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
@@ -127,7 +121,7 @@
                             <img src="images/portfolio-2.jpg" alt="To-Do App">
                             <div class="portfolio-info">
                                 <h3>To-Do App (Python y Flask)</h3>
-                                <p>Aplicación web minimalista para la gestión de tareas diarias, construida con Python y Flask. Esta herramienta permite a los usuarios organizar sus actividades de manera eficiente, ofreciendo funcionalidades CRUD completas (Crear, Leer, Actualizar y Eliminar tareas) a través de una interfaz limpia. Es un proyecto que demuestra la implementación de una API RESTful básica y la interacción con una base de datos para la persistencia de la información del usuario de forma segura.</p>
+                                <p>Aplicación web minimalista para la gestión de tareas diarias con Python y Flask. Permite organizar actividades con funcionalidades CRUD completas a través de una interfaz limpia, implementando una API RESTful básica.</p>
                                 <div class="portfolio-buttons">
                                     <a href="https://app-todo-a153aad9ca29.herokuapp.com/" class="btn btn-info" target="_blank">Ver Aplicación</a>
                                     <a href="https://github.com/nanisadw3/To_do_app" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
@@ -135,10 +129,30 @@
                             </div>
                         </div>
                         <div class="portfolio-item animate-on-scroll">
+                            <img src="images/yolo.png" alt="YOLO Vision">
+                            <div class="portfolio-info">
+                                <h3>YOLO Vision</h3>
+                                <p>Sistema de detección de objetos en tiempo real con el modelo YOLO. Procesa video de cámaras web o archivos, identificando y clasificando objetos. Desarrollado en Python con OpenCV, es personalizable para diferentes modelos de YOLO y fuentes de video.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://github.com/nanisadw3/YOLO-Vision.git" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
+                            <img src="images/Sistema_gestion_inventario.png?v=1.1" alt="Sistema de Gestión de Inventario">
+                            <div class="portfolio-info">
+                                <h3>Sistema de Gestión de Inventario (Python GUI con BD)</h3>
+                                <p>Aplicación de escritorio para la gestión de inventarios con Python y una GUI intuitiva. Permite el control de productos, categorías y stock, conectándose a una base de datos relacional para la persistencia de datos.</p>
+                                <div class="portfolio-buttons">
+                                    <a href="https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item animate-on-scroll">
                             <img src="images/FX.jpg" alt="Java FX">
                             <div class="portfolio-info">
                                 <h3>Java FX</h3>
-                                <p>Colección de proyectos de escritorio que exploran el poder del framework JavaFX para crear interfaces de usuario ricas. Las aplicaciones implementan el patrón de diseño Modelo-Vista-Controlador (MVC), asegurando una separación clara de la lógica de negocio, los datos y la presentación. Estos ejemplos demuestran habilidades en el desarrollo de software modular, mantenible y escalable en el ecosistema de Java, mostrando la versatilidad de la plataforma.</p>
+                                <p>Colección de proyectos de escritorio con JavaFX que implementan el patrón MVC. Demuestran habilidades en el desarrollo de software modular, mantenible y escalable en Java.</p>
                                 <div class="portfolio-buttons">
                                     <a href="https://github.com/nanisadw3/Practicas_javaFX.git" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
                                 </div>
@@ -148,12 +162,19 @@
                             <img src="images/Juego.jpeg" alt="Juego en C#">
                             <div class="portfolio-info">
                                 <h3>Juego en C#</h3>
-                                <p>Juego de rol y exploración de mazmorras (dungeon crawler) desarrollado en C#. Este proyecto aplica la Programación Orientada a Objetos (POO) para modelar el comportamiento de personajes, la IA de los enemigos y la generación procedural de niveles. La arquitectura del juego está diseñada para ser extensible, permitiendo la fácil adición de nuevos contenidos como ítems, habilidades y monstruos, ofreciendo una base sólida para un juego completo.</p>
+                                <p>Juego de rol y exploración de mazmorras (dungeon crawler) en C#. Aplica POO para modelar personajes, IA de enemigos y generación procedural de niveles. Su arquitectura extensible permite añadir nuevos contenidos fácilmente.</p>
                                 <div class="portfolio-buttons">
                                     <a href="https://github.com/nanisadw3/Calabozo" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="portfolio-footer">
+                        <label class="see-more-container">
+                            <input id="see-more-checkbox" type="checkbox">
+                            <svg viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="chevron-down"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
+                            <span id="see-more-text">Ver más</span>
+                        </label>
                     </div>
             </div>
         </section>
@@ -168,6 +189,10 @@
                         <div class="step-indicator" data-step="2">2</div>
                         <div class="step-connector"></div>
                         <div class="step-indicator" data-step="3">3</div>
+                        <div class="step-connector"></div>
+                        <div class="step-indicator" data-step="4">4</div>
+                        <div class="step-connector"></div>
+                        <div class="step-indicator" data-step="5">5</div>
                     </div>
                     <div class="stepper-content">
                         <div class="step-content-item active" data-step="1">
@@ -177,22 +202,36 @@
                         </div>
                         <div class="step-content-item" data-step="2">
                             <h3>Certificación en Linux</h3>
-                            <p><strong>Hack4u.io</strong> — <em>2024</em></p>
-                            <p style="text-align: justify;">Curso de introducción a Linux para todos los niveles. Abarca desde los fundamentos más básicos, como la instalación y navegación del sistema, <strong>hasta temas para usuarios más experimentados</strong>.</p>
+                            <p><strong>Hack4u.io</strong> — <em>25/07/2025</em></p>
+                            <p style="text-align: justify;">Obtuve una comprensión integral del sistema operativo Linux, desde los fundamentos y la navegación del sistema hasta la administración avanzada de procesos, redes, y la configuración de servicios como SSH. Este curso me proporcionó las habilidades para gestionar y asegurar servidores Linux de manera eficiente.</p>
                             <p>Código de certificado: <span id="linux-cert-code">2154-4957-5308-3366</span></p>
                             <div class="button-group">
                                 <a href="cr/inaki_sobera_cr_linux.pdf" class="btn btn-info" target="_blank" download>Descargar</a>
                                 <a href="https://hack4u.io/check-certificate/" class="btn btn-info" target="_blank">Verificar</a>
-                                <button id="copy-cert-button" class="btn btn-info" onclick="copyToClipboard('linux-cert-code', 'copy-cert-button')">Copiar</button>
+                                <a href="#" id="copy-cert-button" class="btn btn-info" onclick="copyToClipboard('linux-cert-code', 'copy-cert-button'); return false;">Copiar</a>
                             </div>
                         </div>
                         <div class="step-content-item" data-step="3">
+                            <h3>Certificación Fundamentos de IA de Oracle</h3>
+                            <p><strong>Oracle</strong> — <em>25/10/2025</em></p>
+                            <p style="text-align: justify;">Con la certificación de Fundamentos de IA de Oracle Cloud Infrastructure (OCI), adquirí conocimientos sobre los conceptos fundamentales de la inteligencia artificial (IA) y el aprendizaje automático (AA). Pude profundizar en la aplicación práctica de estas tecnologías en Oracle Cloud Infrastructure. Este curso me proporcionó una base sólida en IA y AA sin necesidad de experiencia técnica previa.</p>
+                            <div class="button-group">
+                                <a href="cr/eCertificate.pdf" class="btn btn-info" target="_blank" download>Descargar</a>
+                                <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=6D1FB7CBF3FBA537BBEDA88165A459092AB4323ECAD0D17D0900742075E69B19" class="btn btn-info" target="_blank">Verificar</a>
+                            </div>
+                        </div>
+                        <div class="step-content-item" data-step="4">
                             <h3>Certificado en Python Ofensivo</h3>
                             <p><strong>Hack4u.io</strong> — <em>2024</em></p>
                             <p style="text-align: justify;">Certificado de Python Ofensivo en Hack4u.io, enfocado en el uso de Python para la seguridad ofensiva y el hacking ético. Adquirí conocimientos en la creación de herramientas de seguridad, automatización de ataques, análisis de vulnerabilidades y desarrollo de exploits, aplicando Python en escenarios de ciberseguridad.</p>
                             <div class="button-group">
                                 <a href="https://hack4u.io/check-certificate/" class="btn btn-info" target="_blank">Verificar</a>
                             </div>
+                        </div>
+                        <div class="step-content-item" data-step="5">
+                            <h3>Certificación en GitHub Foundations</h3>
+                            <p><strong>GitHub</strong> — <em>En proceso</em></p>
+                            <p style="text-align: justify;">Actualmente me encuentro en proceso de obtener la certificación de GitHub Foundations. Este curso valida mi comprensión de los conceptos fundamentales de Git y GitHub, incluyendo control de versiones, repositorios, y el flujo de trabajo de GitHub. Estoy adquiriendo habilidades en características de colaboración como issues y pull requests, así como en desarrollo moderno con herramientas como GitHub Copilot y Codespaces. Esta certificación demuestra mi capacidad para colaborar eficazmente en proyectos de desarrollo de software.</p>
                         </div>
                     </div>
                     <div class="stepper-footer">
@@ -215,7 +254,6 @@
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
                         </div>
                     </div>
                     <div class="skill-category animate-on-scroll">
@@ -223,6 +261,7 @@
                         <div class="skills-icons">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
                         </div>
                     </div>
                     <div class="skill-category animate-on-scroll">
@@ -239,12 +278,14 @@
                         <div class="skills-icons">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server">
                         </div>
                     </div>
                     <div class="skill-category animate-on-scroll">
                         <h3>Herramientas</h3>
                         <div class="skills-icons">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
                         </div>
@@ -292,7 +333,7 @@
                             <textarea name="message" placeholder="Mensaje" required></textarea>
 
                             <!-- Honeypot Spam Protection -->
-                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                            <input type="checkbox" name="botcheck" style="display: none;">
 
                             <!-- Custom Confirmation / Success Page -->
                             <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
