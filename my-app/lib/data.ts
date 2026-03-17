@@ -29,12 +29,6 @@ export const portfolioData = {
       demo: "https://oyster-app-xwu29.ondigitalocean.app/",
     },
     {
-      title: "Juego en C#",
-      description: "RPG dungeon crawler en C#. Aplica POO para personajes, IA de enemigos y generación procedural de niveles.",
-      image: "Juego.jpeg",
-      github: "https://github.com/nanisadw3/Calabozo",
-    },
-    {
       title: "YOLO Vision",
       description: "Sistema de detección de objetos en tiempo real con YOLO. Procesa video identificando y clasificando objetos. Python con OpenCV.",
       image: "yolo.png",
@@ -45,6 +39,13 @@ export const portfolioData = {
       description: "Chat seguro con CustomTkinter. Utiliza cifrado SSL para proteger comunicaciones en tiempo real entre múltiples usuarios.",
       image: "chat.png",
       github: "https://github.com/nanisadw3/Chat.git",
+    },
+    {
+      title: "Página de la NASA con Flask",
+      description: "Aplicación web interactiva que consume la API de la NASA para explorar el cosmos (APOD, objetos cercanos, galería). Desarrollada con Python y Flask.",
+      image: "api_nasa.png",
+      github: "https://github.com/nanisadw3/Nasa",
+      demo: "https://fast-caverns-93506-bec36e522de8.herokuapp.com/",
     },
     {
       title: "Programa de Administración de Rentas con Python y Flask",
@@ -66,11 +67,10 @@ export const portfolioData = {
       github: "https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-",
     },
     {
-      title: "Página de la NASA con Flask",
-      description: "Aplicación web interactiva que consume la API de la NASA para explorar el cosmos (APOD, objetos cercanos, galería). Desarrollada con Python y Flask.",
-      image: "api_nasa.png",
-      github: "https://github.com/nanisadw3/Nasa",
-      demo: "https://fast-caverns-93506-bec36e522de8.herokuapp.com/",
+      title: "Juego en C#",
+      description: "RPG dungeon crawler en C#. Aplica POO para personajes, IA de enemigos y generación procedural de niveles.",
+      image: "Juego.jpeg",
+      github: "https://github.com/nanisadw3/Calabozo",
     },
   ],
   education: [
