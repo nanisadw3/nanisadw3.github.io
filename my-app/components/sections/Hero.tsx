@@ -1,13 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import ScrambleText from "../effects/ScrambleText";
 import GlitchCanvas from "../effects/GlitchCanvas";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles } from "lucide-react";
+import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Users } from "lucide-react";
 
 export default function Hero() {
   const { hero, contact } = portfolioData;
+  const [githubStats, setGithubStats] = useState({ repos: 0, followers: 0 });
+
+  useEffect(() => {
+    // Obtener datos reales de GitHub
+    fetch(`https://api.github.com/users/nanisadw3`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.public_repos) {
+          setGithubStats({
+            repos: data.public_repos,
+            followers: data.followers
+          });
+        }
+      })
+      .catch(err => console.error("Error cargando GitHub stats:", err));
+  }, []);
 
   const floatingIcons = [
     { Icon: Code2, color: "text-blue-500", top: "20%", left: "15%", delay: 0 },
@@ -77,7 +94,7 @@ export default function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">
-              Disponible para nuevos proyectos
+              Datos de GitHub en tiempo real
             </span>
           </motion.div>
 
@@ -122,15 +139,15 @@ export default function Hero() {
               Contáctame
             </motion.a>
 
-            {/* 4. Quick Stats */}
+            {/* 4. Quick Stats (Conectadas a GitHub) */}
             <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-3xl border-t border-zinc-800/50 pt-12">
               <div className="space-y-1">
-                <p className="text-2xl md:text-3xl font-black text-white">+10</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Proyectos</p>
+                <p className="text-2xl md:text-3xl font-black text-white">{githubStats.repos || "..."}</p>
+                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Repositorios</p>
               </div>
               <div className="space-y-1">
-                <p className="text-2xl md:text-3xl font-black text-white">4</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Certificaciones</p>
+                <p className="text-2xl md:text-3xl font-black text-white">{githubStats.followers || "..."}</p>
+                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Seguidores</p>
               </div>
               <div className="space-y-1">
                 <p className="text-2xl md:text-3xl font-black text-white">ISC</p>
