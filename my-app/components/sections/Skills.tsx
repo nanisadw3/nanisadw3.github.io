@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
 import { Code2, Layout, Database, Wrench, Globe } from "lucide-react";
@@ -15,7 +15,7 @@ const iconMap = {
 export default function Skills() {
   const { skills } = portfolioData;
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -23,7 +23,7 @@ export default function Skills() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8, y: 10 },
     visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
   };
