@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from "react";
 export default function Background() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
   }, []);
 
   useEffect(() => {
@@ -22,9 +24,8 @@ export default function Background() {
     let animationFrameId: number;
     let particles: Particle[] = [];
     
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const particleCount = isMobile ? 30 : 70;
-    const connectionDistance = isMobile ? 100 : 160;
+    const connectionDistance = isMobile ? 90 : 160;
     const mouse = { x: -1000, y: -1000, radius: 150 };
 
     class Particle {
@@ -63,7 +64,7 @@ export default function Background() {
 
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = "rgba(140, 200, 255, 0.8)"; 
+        ctx.fillStyle = isMobile ? "rgba(100, 160, 255, 0.4)" : "rgba(140, 200, 255, 0.8)"; 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -104,7 +105,9 @@ export default function Background() {
 
           if (distSq < minDistSq) {
             const dist = Math.sqrt(distSq);
-            ctx.strokeStyle = `rgba(140, 200, 255, ${0.4 * (1 - dist / connectionDistance)})`;
+            ctx.strokeStyle = isMobile 
+              ? `rgba(100, 160, 255, ${0.3 * (1 - dist / connectionDistance)})`
+              : `rgba(140, 200, 255, ${0.4 * (1 - dist / connectionDistance)})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -146,21 +149,23 @@ export default function Background() {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [mounted]);
+  }, [mounted, isMobile]);
 
   return (
     <>
-      {/* 1. Fondo negro base (Detrás de todo) */}
-      <div className="fixed inset-0 -z-[100] bg-[#020202]" />
+      {/* Fondo negro puro (En móviles se ve mucho mejor) */}
+      <div className={`fixed inset-0 -z-[100] ${isMobile ? 'bg-black' : 'bg-[#020202]'}`} />
       
-      {/* 2. Canvas de partículas (Encima de todo pero no bloquea clics) */}
-      <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+      {/* Canvas de partículas */}
+      <div className={`fixed inset-0 pointer-events-none overflow-hidden ${isMobile ? '-z-50' : 'z-50'}`}>
         <canvas
           ref={canvasRef}
-          className="w-full h-full opacity-50"
+          className={`w-full h-full ${isMobile ? 'opacity-30' : 'opacity-50'}`}
         />
-        {/* Viñeta sutil */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.5)_100%)]" />
+        {/* Viñeta: Solo la dejamos en PC, en móviles a veces causa bandas de color */}
+        {!isMobile && (
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.5)_100%)]" />
+        )}
       </div>
     </>
   );
