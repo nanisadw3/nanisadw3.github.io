@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Section from "../ui/Section";
-import { Github, Users, Calendar, Clock, BarChart3, Activity, Award } from "lucide-react";
+import { Github, Users, Calendar, Clock, BarChart3, Activity, Terminal } from "lucide-react";
 
 interface GitHubUserData {
   followers: number;
@@ -81,10 +81,10 @@ export default function Stats() {
           ))}
         </div>
 
-        {/* 3. Sección de Gráficos Detallados (Calificación + Lenguajes) */}
+        {/* 3. Sección de Gráficos Detallados (Racha + Lenguajes) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
-          {/* Calificación General (Reemplazando Racha de Código) */}
+          {/* Racha de Código (RESTAURADA) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -92,19 +92,19 @@ export default function Stats() {
             className="bg-zinc-900/50 border border-zinc-800 rounded-[2.5rem] p-8 flex flex-col gap-6 backdrop-blur-sm"
           >
             <div className="flex items-center gap-3">
-              <Award className="w-6 h-6 text-blue-400" />
-              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Calificación General</h4>
+              <Terminal className="w-6 h-6 text-blue-500" />
+              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Racha de Código</h4>
             </div>
-            <div className="w-full overflow-hidden rounded-2xl bg-black/20 p-4 flex items-center justify-center min-h-[150px]">
+            <div className="w-full overflow-hidden rounded-2xl bg-black/20 p-2">
               <img 
-                src="https://github-readme-stats.vercel.app/api?username=nanisadw3&show_icons=true&theme=transparent&title_color=3b82f6&text_color=94a3b8&icon_color=3b82f6&hide_border=true&rank_icon=github&hide_title=true" 
-                alt="GitHub Rank"
-                className="w-full h-auto max-h-[140px] object-contain"
+                src="https://github-readme-streak-stats.herokuapp.com/?user=nanisadw3&theme=dark&hide_border=true&background=00000000&stroke=3b82f6&ring=3b82f6&fire=3b82f6&currStreakLabel=3b82f6" 
+                alt="GitHub Streak"
+                className="w-full h-auto"
                 loading="lazy"
               />
             </div>
             <p className="text-[10px] text-zinc-500 font-mono text-center uppercase tracking-widest">
-              Análisis dinámico de calidad y actividad de código.
+              Días consecutivos de actividad y compromiso.
             </p>
           </motion.div>
 
