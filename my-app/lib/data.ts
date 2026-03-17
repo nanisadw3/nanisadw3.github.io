@@ -36,11 +36,11 @@ export const portfolioData = {
       demo: "https://fast-caverns-93506-bec36e522de8.herokuapp.com/",
     },
     {
-      title: "To-Do App (Python y Flask)",
-      description: "Aplicación web minimalista para la gestión de tareas con funcionalidades CRUD completas e interfaz limpia.",
-      image: "portfolio-2.jpg",
-      github: "https://github.com/nanisadw3/To_do_app",
-      demo: "https://app-todo-a153aad9ca29.herokuapp.com/",
+      title: "Pokémon Adivina Quién (Multijugador)",
+      description: "Juego multijugador en tiempo real que utiliza la PokeAPI para un desafío de adivinar el Pokémon. Desarrollé tanto el frontend interactivo como el servidor para gestionar las partidas en red.",
+      image: "pokemon.png",
+      github: "https://github.com/nanisadw3/Pokemon_game",
+      demo: "https://oyster-app-xwu29.ondigitalocean.app/",
     },
     {
       title: "YOLO Vision",
