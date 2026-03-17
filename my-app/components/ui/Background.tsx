@@ -4,55 +4,61 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Background() {
-  const [particles, setParticles] = useState<{ id: number; x: number; y: number; size: number; duration: number }[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const newParticles = Array.from({ length: 40 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      duration: Math.random() * 20 + 20,
-    }));
-    setParticles(newParticles);
+    setMounted(true);
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-20 bg-black overflow-hidden pointer-events-none">
-      {/* Very subtle grid */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]" 
-        style={{ 
-          backgroundImage: `linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)`,
-          backgroundSize: '100px 100px' 
-        }}
-      />
-      
-      {/* Floating particles */}
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute bg-blue-500/20 rounded-full"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-          }}
-          animate={{
-            y: [0, -100, 0],
-            opacity: [0.1, 0.4, 0.1],
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
+    <div className="fixed inset-0 -z-50 bg-[#030303] overflow-hidden pointer-events-none">
+      {mounted && (
+        <>
+          {/* 1. Malla de Puntos (Dot Grid) */}
+          <div 
+            className="absolute inset-0 opacity-25" 
+            style={{ 
+              backgroundImage: `radial-gradient(circle, #ffffff 1px, transparent 1px)`,
+              backgroundSize: '40px 40px' 
+            }}
+          />
 
-      {/* Radial overlay for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_85%)]" />
+          {/* 2. Nebulosas Animadas (Blobs) */}
+          <motion.div
+            animate={{
+              x: [0, 80, -80, 0],
+              y: [0, -120, 120, 0],
+              scale: [1, 1.2, 0.9, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-[-5%] left-[-5%] w-[70%] h-[70%] bg-blue-600/30 rounded-full blur-[120px]"
+          />
+
+          <motion.div
+            animate={{
+              x: [0, -100, 60, 0],
+              y: [0, 120, -120, 0],
+              scale: [1, 1.1, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-[-5%] right-[-5%] w-[60%] h-[60%] bg-emerald-600/25 rounded-full blur-[120px]"
+          />
+
+          {/* 3. Filtro de Grano */}
+          <div className="absolute inset-0 opacity-[0.1] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+          {/* 4. Viñeta */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)]" />
+        </>
+      )}
     </div>
   );
 }

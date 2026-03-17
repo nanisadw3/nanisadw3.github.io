@@ -9,7 +9,7 @@ export default function Contact() {
   const { contact } = portfolioData;
 
   return (
-    <Section id="contact" title="Contacto" className="bg-zinc-950/50">
+    <Section id="contact" title="Contacto" className="bg-transparent">
       <div className="flex flex-col lg:flex-row gap-16 items-start">
         {/* Info Column */}
         <motion.div
@@ -29,7 +29,7 @@ export default function Contact() {
           <div className="space-y-6">
             <a
               href={`mailto:${contact.email}`}
-              className="group flex items-center gap-5 p-4 bg-zinc-900 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all"
+              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all backdrop-blur-sm"
             >
               <div className="p-3 bg-blue-600/10 rounded-xl group-hover:scale-110 transition-transform">
                 <Mail className="w-6 h-6 text-blue-400" />
@@ -44,7 +44,7 @@ export default function Contact() {
               href={`https://wa.me/${contact.whatsapp.replace(/\+/g, "").replace(/\s/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-5 p-4 bg-zinc-900 border border-zinc-800 rounded-2xl hover:border-emerald-500/50 transition-all"
+              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-emerald-500/50 transition-all backdrop-blur-sm"
             >
               <div className="p-3 bg-emerald-600/10 rounded-xl group-hover:scale-110 transition-transform">
                 <MessageSquare className="w-6 h-6 text-emerald-400" />
@@ -55,7 +55,7 @@ export default function Contact() {
               </div>
             </a>
 
-            <div className="group flex items-center gap-5 p-4 bg-zinc-900 border border-zinc-800 rounded-2xl">
+            <div className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl backdrop-blur-sm">
               <div className="p-3 bg-zinc-800 rounded-xl group-hover:scale-110 transition-transform">
                 <Phone className="w-6 h-6 text-zinc-400" />
               </div>
@@ -132,7 +132,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-12 border-t border-zinc-900 bg-black">
+    <footer className="py-12 border-t border-zinc-900 bg-transparent relative z-10">
       <div className="container px-6 mx-auto flex flex-col items-center space-y-8">
         <div className="flex gap-6">
           <a href={contact.github} target="_blank" className="text-zinc-500 hover:text-white transition-colors">

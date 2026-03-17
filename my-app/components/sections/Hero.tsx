@@ -24,21 +24,37 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10"
+            className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-10"
           >
-            {hero.summary}
+            {hero.summary.split(" ").map((word, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, filter: "blur(5px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ delay: 1.2 + i * 0.1, duration: 0.4 }}
+                className="inline-block mr-1.5"
+              >
+                {word}
+              </motion.span>
+            ))}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2 }}
           >
-            <a
+            <motion.a
               href="#contact"
-              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all transform hover:scale-105 inline-block shadow-lg shadow-blue-600/20"
+              whileHover={{ 
+                scale: 1.1, 
+                boxShadow: "0 0 30px rgba(37, 99, 235, 0.5)",
+                y: -5
+              }}
+              whileTap={{ scale: 0.9 }}
+              className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block"
             >
               Contáctame
-            </a>
+            </motion.a>
           </motion.div>
         </motion.div>
       </div>

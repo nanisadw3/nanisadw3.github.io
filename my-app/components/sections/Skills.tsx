@@ -15,6 +15,19 @@ const iconMap = {
 export default function Skills() {
   const { skills } = portfolioData;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 10 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
+  };
+
   return (
     <Section id="skills" title="Habilidades">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -25,15 +38,19 @@ export default function Skills() {
           return (
             <motion.div
               key={category}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl hover:border-blue-500/30 transition-colors"
+              className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl hover:border-blue-500/30 transition-colors group/card"
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-blue-600/10 rounded-2xl">
+                <motion.div 
+                  whileHover={{ rotate: 15, scale: 1.1 }}
+                  className="p-3 bg-blue-600/10 rounded-2xl group-hover/card:bg-blue-600/20 transition-colors"
+                >
                   <Icon className="w-6 h-6 text-blue-400" />
-                </div>
+                </motion.div>
                 <h3 className="text-xl font-bold text-white capitalize">
                   {category === "programming" ? "Lenguajes" : 
                    category === "frontend" ? "Frontend" :
@@ -41,16 +58,18 @@ export default function Skills() {
                 </h3>
               </div>
               
-              <div className="flex flex-wrap gap-3">
+              <motion.div className="flex flex-wrap gap-3">
                 {(list as string[]).map((skill) => (
-                  <span
+                  <motion.span
                     key={skill}
-                    className="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-xl text-zinc-300 text-sm font-medium hover:text-white hover:border-blue-500/50 transition-all cursor-default"
+                    variants={itemVariants}
+                    whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.1)", borderColor: "rgba(59, 130, 246, 0.5)" }}
+                    className="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-xl text-zinc-300 text-sm font-medium hover:text-white transition-all cursor-default"
                   >
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           );
         })}
@@ -81,8 +100,8 @@ export default function Skills() {
                     initial={{ width: 0 }}
                     whileInView={{ width: `${lang.level}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    className="h-full bg-gradient-to-r from-emerald-600 to-teal-400 rounded-full"
+                    transition={{ duration: 1.5, delay: 0.5, ease: "circOut" }}
+                    className="h-full bg-gradient-to-r from-emerald-600 to-teal-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.4)]"
                   />
                 </div>
               </div>

@@ -13,14 +13,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #000000;
     color: #ffffff;
   }
   body {
-    background-color: #000000;
     color: #ffffff;
     margin: 0;
     font-family: sans-serif;
+    background-color: transparent;
   }
 }
 
