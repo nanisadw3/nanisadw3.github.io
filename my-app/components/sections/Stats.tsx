@@ -106,24 +106,6 @@ export default function Stats() {
           </motion.div>
 
         </div>
-
-        {/* Medallas (Trophies) en la parte inferior de la sección, más visibles */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 flex flex-col items-center gap-6"
-        >
-          <div className="flex items-center gap-3">
-            <Trophy className="w-6 h-6 text-yellow-500" />
-            <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Medallas de Honor</h4>
-          </div>
-          <img 
-            src="https://github-profile-trophy.vercel.app/?username=nanisadw3&theme=darkhub&no-frame=true&column=5&margin-w=15" 
-            alt="GitHub Trophies"
-            className="w-full h-auto max-w-4xl"
-          />
-        </motion.div>
       </div>
     </Section>
   );
