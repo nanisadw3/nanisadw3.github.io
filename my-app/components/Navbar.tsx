@@ -9,6 +9,7 @@ const navLinks = [
   { name: "Inicio", href: "#hero" },
   { name: "Sobre Mí", href: "#about" },
   { name: "Portafolio", href: "#portfolio" },
+  { name: "GitHub Insights", href: "#stats" },
   { name: "Educación", href: "#education" },
   { name: "Habilidades", href: "#skills" },
   { name: "Contacto", href: "#contact" },
