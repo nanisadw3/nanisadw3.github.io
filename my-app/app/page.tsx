@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Portfolio from "@/components/sections/Portfolio";
+import Stats from "@/components/sections/Stats";
 import Education from "@/components/sections/Education";
 import Skills from "@/components/sections/Skills";
 import Contact, { Footer } from "@/components/sections/Contact";
@@ -24,6 +25,7 @@ export default function Home() {
       </div>
       <About />
       <Portfolio />
+      <Stats />
       <Education />
       <Skills />
       <Contact />

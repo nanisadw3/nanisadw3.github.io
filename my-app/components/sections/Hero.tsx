@@ -5,25 +5,38 @@ import { useEffect, useState } from "react";
 import ScrambleText from "../effects/ScrambleText";
 import GlitchCanvas from "../effects/GlitchCanvas";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Users } from "lucide-react";
+import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Star, Code } from "lucide-react";
 
 export default function Hero() {
   const { hero, contact } = portfolioData;
-  const [githubStats, setGithubStats] = useState({ repos: 0, followers: 0 });
+  const [githubStats, setGithubStats] = useState({ repos: 0, stars: 0, topLanguage: "" });
 
   useEffect(() => {
-    // Obtener datos reales de GitHub
     fetch(`https://api.github.com/users/nanisadw3`)
       .then(res => res.json())
-      .then(data => {
-        if (data.public_repos) {
-          setGithubStats({
-            repos: data.public_repos,
-            followers: data.followers
+      .then(userData => {
+        fetch(`https://api.github.com/users/nanisadw3/repos?per_page=100`)
+          .then(res => res.json())
+          .then(repos => {
+            if (Array.isArray(repos)) {
+              const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+              const langs: Record<string, number> = {};
+              repos.forEach(repo => {
+                if (repo.language) {
+                  langs[repo.language] = (langs[repo.language] || 0) + 1;
+                }
+              });
+              const topLang = Object.keys(langs).reduce((a, b) => langs[a] > langs[b] ? a : b, "Software");
+
+              setGithubStats({
+                repos: userData.public_repos,
+                stars: totalStars,
+                topLanguage: topLang
+              });
+            }
           });
-        }
       })
-      .catch(err => console.error("Error cargando GitHub stats:", err));
+      .catch(err => console.error("Error Hero stats:", err));
   }, []);
 
   const floatingIcons = [
@@ -37,7 +50,6 @@ export default function Hero() {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <GlitchCanvas />
 
-      {/* 1. Redes Sociales Laterales (Izquierda) */}
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -53,22 +65,11 @@ export default function Hero() {
         <div className="w-[1px] h-20 bg-zinc-800 mx-auto mt-2" />
       </motion.div>
 
-      {/* 2. Iconos Flotantes de Fondo */}
       {floatingIcons.map((item, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: [0.1, 0.3, 0.1],
-            y: [0, -20, 0],
-            rotate: [0, 10, 0]
-          }}
-          transition={{ 
-            duration: 5, 
-            repeat: Infinity, 
-            delay: item.delay,
-            ease: "easeInOut"
-          }}
+          animate={{ opacity: [0.1, 0.3, 0.1], y: [0, -20, 0], rotate: [0, 10, 0] }}
+          transition={{ duration: 5, repeat: Infinity, delay: item.delay, ease: "easeInOut" }}
           style={{ top: item.top, left: item.left, right: item.right }}
           className={`absolute z-0 hidden md:block ${item.color}`}
         >
@@ -82,19 +83,15 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          {/* 3. Status Badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
+            <Code className="w-3 h-3 text-blue-400" />
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">
-              Datos de GitHub en tiempo real
+              Ingeniería en Sistemas Computacionales
             </span>
           </motion.div>
 
@@ -108,17 +105,7 @@ export default function Hero() {
             transition={{ delay: 1, duration: 0.8 }}
             className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12"
           >
-            {hero.summary.split(" ").map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, filter: "blur(5px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                transition={{ delay: 1.2 + i * 0.1, duration: 0.4 }}
-                className="inline-block mr-1.5"
-              >
-                {word}
-              </motion.span>
-            ))}
+            {hero.summary}
           </motion.p>
 
           <motion.div
@@ -129,29 +116,28 @@ export default function Hero() {
           >
             <motion.a
               href="#contact"
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: "0 0 30px rgba(37, 99, 235, 0.4)",
-              }}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37, 99, 235, 0.4)" }}
               whileTap={{ scale: 0.95 }}
               className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block"
             >
               Contáctame
             </motion.a>
 
-            {/* 4. Quick Stats (Conectadas a GitHub) */}
             <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-3xl border-t border-zinc-800/50 pt-12">
               <div className="space-y-1">
                 <p className="text-2xl md:text-3xl font-black text-white">{githubStats.repos || "..."}</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Repositorios</p>
+                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Proyectos</p>
               </div>
               <div className="space-y-1">
-                <p className="text-2xl md:text-3xl font-black text-white">{githubStats.followers || "..."}</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Seguidores</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  <p className="text-2xl md:text-3xl font-black text-white">{githubStats.stars || "0"}</p>
+                </div>
+                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Estrellas</p>
               </div>
               <div className="space-y-1">
-                <p className="text-2xl md:text-3xl font-black text-white">ISC</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Ingeniería</p>
+                <p className="text-2xl md:text-3xl font-black text-blue-400">{githubStats.topLanguage || "..."}</p>
+                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Main Stack</p>
               </div>
             </div>
           </motion.div>
@@ -165,11 +151,7 @@ export default function Hero() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <div className="w-6 h-10 border-2 border-zinc-800 rounded-full flex justify-center p-2 backdrop-blur-sm">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-1 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-          />
+          <motion.div animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="w-1 h-2 bg-blue-500 rounded-full" />
         </div>
       </motion.div>
     </section>
