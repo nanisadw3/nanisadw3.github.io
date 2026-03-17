@@ -89,17 +89,6 @@ export default function Portfolio() {
                           <Github className="w-4 h-4" />
                         </motion.div>
                         <span>GitHub</span>
-                        
-                        {/* Indicador de flecha que aparece al hacer hover */}
-                        <motion.span
-                          variants={{
-                            initial: { opacity: 0, x: -10 },
-                            hover: { opacity: 1, x: 0 }
-                          }}
-                          className="ml-auto"
-                        >
-                          →
-                        </motion.span>
                       </motion.a>
                     )}
                     {project.demo && (
