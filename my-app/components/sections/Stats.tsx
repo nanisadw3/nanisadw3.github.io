@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Section from "../ui/Section";
-import { Github, Users, Calendar, Clock, Trophy, BarChart3 } from "lucide-react";
+import { Github, Users, Calendar, Clock, Trophy, BarChart3, Activity } from "lucide-react";
 
 export default function Stats() {
   const [githubData, setGithubData] = useState<any>(null);
@@ -51,10 +51,10 @@ export default function Stats() {
           ))}
         </div>
 
-        {/* Sección de Medallas y Stats Visuales */}
+        {/* Sección de Actividad y Stats Visuales */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
           
-          {/* GitHub Trophies - Versión Optimizada */}
+          {/* Gráfico de Actividad (Reemplazo de las medallas si no cargan) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,25 +62,20 @@ export default function Stats() {
             className="bg-zinc-900/50 border border-zinc-800 rounded-[2.5rem] p-8 flex flex-col gap-6 backdrop-blur-sm"
           >
             <div className="flex items-center gap-3">
-              <Trophy className="w-6 h-6 text-yellow-500" />
-              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Logros de Desarrollador</h4>
+              <Activity className="w-6 h-6 text-emerald-500" />
+              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Contribuciones</h4>
             </div>
             
-            <div className="relative w-full overflow-hidden rounded-2xl bg-black/20 p-4 min-h-[150px] flex items-center justify-center">
-              {/* Cambié el tema a 'onedark' que es más compatible */}
+            <div className="w-full overflow-hidden rounded-2xl bg-black/20 p-2">
               <img 
-                src="https://github-profile-trophy.vercel.app/?username=nanisadw3&theme=onedark&no-frame=true&column=3&margin-w=15&margin-h=15" 
-                alt="GitHub Trophies"
-                className="w-full h-auto max-h-[300px] object-contain"
-                onError={(e) => {
-                  // Si falla, mostramos un mensaje sutil
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const parent = target.parentElement;
-                  if (parent) parent.innerHTML = '<p class="text-zinc-500 font-mono text-sm text-center italic">Cargando medallas de honor...</p>';
-                }}
+                src="https://github-readme-streak-stats.herokuapp.com/?user=nanisadw3&theme=dark&hide_border=true&background=00000000&stroke=3b82f6&ring=3b82f6&fire=3b82f6&currStreakLabel=3b82f6" 
+                alt="GitHub Streak"
+                className="w-full h-auto"
               />
             </div>
+            <p className="text-[10px] text-zinc-500 font-mono text-center uppercase tracking-widest">
+              Racha actual y actividad constante en repositorios.
+            </p>
           </motion.div>
 
           {/* GitHub Engineering Card */}
@@ -93,24 +88,42 @@ export default function Stats() {
           >
             <div className="flex items-center gap-3">
               <BarChart3 className="w-6 h-6 text-blue-500" />
-              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Actividad de Código</h4>
+              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Resumen de Lenguajes</h4>
             </div>
             
             <div className="w-full space-y-6">
               <img 
-                src="https://github-readme-stats.vercel.app/api?username=nanisadw3&show_icons=true&theme=transparent&title_color=3b82f6&text_color=94a3b8&icon_color=3b82f6&hide_border=true&rank_icon=github" 
-                alt="GitHub Stats"
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=nanisadw3&layout=compact&theme=dark&hide_border=true&bg_color=00000000&title_color=3b82f6&text_color=94a3b8" 
+                alt="Top Langs"
                 className="w-full h-auto"
               />
               <img 
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=nanisadw3&layout=compact&theme=transparent&title_color=10b981&text_color=94a3b8&hide_border=true" 
-                alt="Top Langs"
+                src="https://github-readme-stats.vercel.app/api?username=nanisadw3&show_icons=true&theme=dark&hide_border=true&bg_color=00000000&title_color=10b981&text_color=94a3b8&icon_color=10b981" 
+                alt="GitHub Stats"
                 className="w-full h-auto"
               />
             </div>
           </motion.div>
 
         </div>
+
+        {/* Medallas (Trophies) en la parte inferior de la sección, más visibles */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 flex flex-col items-center gap-6"
+        >
+          <div className="flex items-center gap-3">
+            <Trophy className="w-6 h-6 text-yellow-500" />
+            <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Medallas de Honor</h4>
+          </div>
+          <img 
+            src="https://github-profile-trophy.vercel.app/?username=nanisadw3&theme=darkhub&no-frame=true&column=5&margin-w=15" 
+            alt="GitHub Trophies"
+            className="w-full h-auto max-w-4xl"
+          />
+        </motion.div>
       </div>
     </Section>
   );

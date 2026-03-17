@@ -15,9 +15,9 @@ export default function Education() {
     navigator.clipboard.writeText(text);
   };
 
-  // Scroll automático al paso activo en móviles
+  // Solo hace scroll automático en móviles (pantallas < 640px)
   useEffect(() => {
-    if (stepperRef.current) {
+    if (stepperRef.current && window.innerWidth < 640) {
       const activeElement = stepperRef.current.children[activeStep + 1] as HTMLElement;
       if (activeElement) {
         const scrollLeft = activeElement.offsetLeft - stepperRef.current.offsetWidth / 2 + activeElement.offsetWidth / 2;
@@ -30,22 +30,22 @@ export default function Education() {
     <Section id="education" title="Educación">
       <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-10 shadow-2xl overflow-hidden">
         
-        {/* Stepper Header Optimizado */}
+        {/* Stepper Header: Responsivo (Scroll en móvil, Justificado en PC) */}
         <div 
           ref={stepperRef}
-          className="flex items-center mb-12 relative max-w-full overflow-x-auto pb-6 sm:pb-2 scrollbar-hide snap-x snap-mandatory"
+          className="flex items-center mb-12 relative max-w-full overflow-x-auto sm:overflow-x-visible pb-6 sm:pb-0 scrollbar-hide snap-x snap-mandatory sm:justify-between sm:max-w-4xl sm:mx-auto"
         >
-          {/* Línea de fondo */}
-          <div className="absolute top-[40px] left-0 min-w-full h-0.5 bg-zinc-800 z-0" />
+          {/* Línea de fondo (Solo en PC es fija, en móvil se mueve con el scroll) */}
+          <div className="absolute top-[40px] left-0 w-full h-0.5 bg-zinc-800 z-0 sm:block" />
           
-          {/* Espaciador inicial para centrar el primer elemento en scroll */}
-          <div className="flex-shrink-0 w-[10%]" />
+          {/* Espaciador inicial (Solo móvil) */}
+          <div className="flex-shrink-0 w-[10%] sm:hidden" />
           
           {education.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveStep(index)}
-              className="relative z-10 flex flex-col items-center group flex-shrink-0 px-4 sm:px-8 py-4 snap-center"
+              className="relative z-10 flex flex-col items-center group flex-shrink-0 px-4 sm:px-0 py-4 snap-center"
             >
               <motion.div
                 animate={{
@@ -54,21 +54,21 @@ export default function Education() {
                   scale: activeStep === index ? 1.2 : 1,
                   boxShadow: activeStep === index ? "0 0 20px rgba(37,99,235,0.4)" : "0 0 0px rgba(0,0,0,0)",
                 }}
-                className="w-12 h-12 aspect-square rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all group-hover:border-blue-400"
+                className="w-12 h-12 aspect-square rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all group-hover:border-blue-400 z-10 bg-zinc-900"
               >
                 {index + 1}
               </motion.div>
               <motion.span 
                 animate={{ opacity: activeStep === index ? 1 : 0.4 }}
-                className="text-[10px] mt-2 font-black uppercase tracking-widest text-zinc-500"
+                className="text-[10px] mt-2 font-black uppercase tracking-widest text-zinc-500 hidden sm:block"
               >
-                Paso {index + 1}
+                {index === 0 ? "Inicio" : `Paso ${index + 1}`}
               </motion.span>
             </button>
           ))}
 
-          {/* Espaciador final */}
-          <div className="flex-shrink-0 w-[10%]" />
+          {/* Espaciador final (Solo móvil) */}
+          <div className="flex-shrink-0 w-[10%] sm:hidden" />
         </div>
 
         {/* Content Area */}
@@ -83,18 +83,17 @@ export default function Education() {
               className="flex flex-col items-center text-center space-y-6"
             >
               <div className="space-y-3">
-                <h3 className="text-xl sm:text-3xl font-bold text-white px-2">
+                <h3 className="text-xl sm:text-4xl font-black text-white px-2 tracking-tight">
                   {education[activeStep].title}
                 </h3>
                 <div className="inline-block px-4 py-1 bg-blue-600/10 border border-blue-500/20 rounded-full">
-                  <p className="text-blue-400 text-sm font-medium">
-                    {education[activeStep].institution} —{" "}
-                    <em>{education[activeStep].period || education[activeStep].date}</em>
+                  <p className="text-blue-400 text-sm font-bold uppercase tracking-wider">
+                    {education[activeStep].institution} — {education[activeStep].period || education[activeStep].date}
                   </p>
                 </div>
               </div>
 
-              <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+              <p className="text-gray-400 text-base sm:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
                 {education[activeStep].description}
               </p>
 
@@ -119,9 +118,9 @@ export default function Education() {
                     href={`/${education[activeStep].certLink}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-sm sm:text-base rounded-xl transition-all shadow-lg"
+                    className="flex items-center gap-2 px-6 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-2xl transition-all shadow-xl"
                   >
-                    <Download className="w-5 h-5" /> Certificado
+                    <Download className="w-5 h-5" /> Certificado PDF
                   </a>
                 )}
                 {education[activeStep].verifyLink && (
@@ -129,9 +128,9 @@ export default function Education() {
                     href={education[activeStep].verifyLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-3 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 text-sm sm:text-base border border-blue-500/30 rounded-xl transition-all"
+                    className="flex items-center gap-2 px-6 py-4 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 font-bold border border-blue-500/30 rounded-2xl transition-all"
                   >
-                    <CheckCircle className="w-5 h-5" /> Verificar
+                    <CheckCircle className="w-5 h-5" /> Verificar Online
                   </a>
                 )}
               </div>
@@ -139,23 +138,22 @@ export default function Education() {
           </AnimatePresence>
         </div>
 
-        {/* Footer Navigation Optimizado */}
+        {/* Footer Navigation */}
         <div className="flex justify-between items-center mt-12 pt-8 border-t border-zinc-800">
           <button
             onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
             disabled={activeStep === 0}
-            className="group flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-xl text-white transition-all border border-transparent hover:border-white/10"
+            className="group flex items-center gap-2 px-5 py-3 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-2xl text-white transition-all border border-transparent hover:border-white/10"
           >
             <ChevronLeft className="w-5 h-5" />
-            <span className="text-sm font-bold hidden sm:inline">Anterior</span>
+            <span className="text-sm font-bold hidden sm:inline uppercase">Anterior</span>
           </button>
           
-          {/* Indicador de puntos (Dots) - Más compacto en móvil */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2">
             {education.map((_, i) => (
               <div 
                 key={i}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeStep === i ? "w-6 bg-blue-500" : "bg-zinc-700"}`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${activeStep === i ? "w-8 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-zinc-700"}`}
               />
             ))}
           </div>
@@ -163,9 +161,9 @@ export default function Education() {
           <button
             onClick={() => setActiveStep(Math.min(education.length - 1, activeStep + 1))}
             disabled={activeStep === education.length - 1}
-            className="group flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-xl text-white transition-all border border-transparent hover:border-white/10"
+            className="group flex items-center gap-2 px-5 py-3 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-2xl text-white transition-all border border-transparent hover:border-white/10"
           >
-            <span className="text-sm font-bold hidden sm:inline">Siguiente</span>
+            <span className="text-sm font-bold hidden sm:inline uppercase">Siguiente</span>
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
