@@ -36,33 +36,51 @@ export default function About() {
     <Section id="about" title="Sobre Mí">
       <div className="flex flex-col md:flex-row gap-16 items-center lg:items-start">
         
-        {/* Digital ID Card Container */}
+        {/* Digital ID Card Container con Animación de Caída */}
         <div 
-          className="perspective-[1000px] select-none"
+          className="perspective-[1000px] select-none pt-20" // Espacio para el listón
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
           <motion.div
             ref={cardRef}
+            // Animación de caída y balanceo
+            initial={{ y: -400, opacity: 0, rotateZ: -10 }}
+            whileInView={{ 
+              y: 0, 
+              opacity: 1, 
+              rotateZ: [0, 5, -3, 1, 0], // Balanceo al final de la caída
+            }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ 
+              y: { type: "spring", stiffness: 100, damping: 15, duration: 1.5 },
+              rotateZ: { delay: 0.8, duration: 2, ease: "easeInOut" },
+              opacity: { duration: 0.5 }
+            }}
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative w-64 h-96 sm:w-72 sm:h-[420px] shrink-0 group"
+            className="relative w-64 h-96 sm:w-72 sm:h-[420px] shrink-0 group origin-top"
           >
+            {/* Listón del Gafete (Lanyard) */}
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-4 h-24 bg-gradient-to-b from-blue-900/50 via-blue-700/80 to-blue-600 rounded-full -z-10 shadow-[0_0_15px_rgba(37,99,235,0.3)]">
+              {/* El gancho que une el listón con el gafete */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 border-4 border-zinc-700 rounded-full bg-zinc-800" />
+            </div>
+
             {/* Background Glow */}
             <div className="absolute inset-0 bg-blue-600/20 rounded-[2rem] blur-3xl group-hover:bg-blue-500/40 transition-colors duration-500" />
 
             {/* The Main Card */}
             <div className="relative w-full h-full bg-zinc-900/80 backdrop-blur-md rounded-[2rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col p-6 translate-z-[20px]">
               
+              {/* Ranura para el listón */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-2 bg-black/40 rounded-full border border-white/5" />
+
               {/* Corner Accents */}
               <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-blue-500 rounded-tl-2xl opacity-50" />
               <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-blue-500 rounded-br-2xl opacity-50" />
 
               {/* ID Header */}
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-6 mt-2">
                 <div className="flex items-center gap-2">
                   <Fingerprint className="w-5 h-5 text-blue-500" />
                   <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest">Access Granted</span>
