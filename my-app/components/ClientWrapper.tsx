@@ -3,6 +3,7 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./Navbar";
 import Background from "./ui/Background";
+import ScrollToTop from "./ui/ScrollToTop";
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const { scrollYProgress } = useScroll();
@@ -20,6 +21,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
       />
       <Background />
       <Navbar />
+      <ScrollToTop />
       {children}
     </>
   );
