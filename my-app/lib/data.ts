@@ -67,10 +67,10 @@ export const portfolioData = {
       github: "https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-",
     },
     {
-      title: "Juego en C#",
-      description: "RPG dungeon crawler en C#. Aplica POO para personajes, IA de enemigos y generación procedural de niveles.",
-      image: "Juego.jpeg",
-      github: "https://github.com/nanisadw3/Calabozo",
+      title: "Mi Spotify",
+      description: "Conexión a la API de Spotify para obtener tus canciones favoritas y descargarlas de YouTube. Funciona como un reproductor integrado para escuchar toda tu música descargada.",
+      image: "Spotify.png",
+      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
     },
   ],
   education: [
