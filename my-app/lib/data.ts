@@ -22,6 +22,13 @@ export const portfolioData = {
       github: "https://github.com/nanisadw3/Juego_pygame.git",
     },
     {
+      title: "Pokémon Adivina Quién (Multijugador)",
+      description: "Juego multijugador en tiempo real que utiliza la PokeAPI para un desafío de adivinar el Pokémon. Desarrollé tanto el frontend interactivo como el servidor para gestionar las partidas en red.",
+      image: "images/pokemon.png",
+      github: "https://github.com/nanisadw3/Pokemon-Game",
+      demo: "https://oyster-app-xwu29.ondigitalocean.app/",
+    },
+    {
       title: "Programa de Administración de Rentas con Python y Flask",
       description: "Sistema web para administrar propiedades de alquiler. Centraliza la gestión de propiedades, inquilinos y contratos, automatizando el seguimiento de pagos y reportes. Utiliza PostgreSQL.",
       image: "Rentas.png",
@@ -34,13 +41,6 @@ export const portfolioData = {
       image: "api_nasa.png",
       github: "https://github.com/nanisadw3/Nasa",
       demo: "https://fast-caverns-93506-bec36e522de8.herokuapp.com/",
-    },
-    {
-      title: "Pokémon Adivina Quién (Multijugador)",
-      description: "Juego multijugador en tiempo real que utiliza la PokeAPI para un desafío de adivinar el Pokémon. Desarrollé tanto el frontend interactivo como el servidor para gestionar las partidas en red.",
-      image: "images/pokemon.png",
-      github: "https://github.com/nanisadw3/Pokemon-Game",
-      demo: "https://oyster-app-xwu29.ondigitalocean.app/",
     },
     {
       title: "YOLO Vision",
