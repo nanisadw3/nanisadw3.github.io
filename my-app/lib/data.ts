@@ -35,6 +35,12 @@ export const portfolioData = {
       github: "https://github.com/nanisadw3/YOLO-Vision.git",
     },
     {
+      title: "Mi Spotify",
+      description: "Conexión a la API de Spotify para obtener tus canciones favoritas y descargarlas de YouTube. Funciona como un reproductor integrado para escuchar toda tu música descargada.",
+      image: "Spotify.png",
+      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
+    },
+    {
       title: "Chat multiusuario con cifrado SSL",
       description: "Chat seguro con CustomTkinter. Utiliza cifrado SSL para proteger comunicaciones en tiempo real entre múltiples usuarios.",
       image: "chat.png",
@@ -65,12 +71,6 @@ export const portfolioData = {
       description: "Aplicación de escritorio con GUI intuitiva para el control de productos, categorías y stock. Conexión a base de datos relacional.",
       image: "Sistema_gestion_inventario.png",
       github: "https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-",
-    },
-    {
-      title: "Mi Spotify",
-      description: "Conexión a la API de Spotify para obtener tus canciones favoritas y descargarlas de YouTube. Funciona como un reproductor integrado para escuchar toda tu música descargada.",
-      image: "Spotify.png",
-      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
     },
   ],
   education: [
