@@ -67,11 +67,39 @@ export default function Portfolio() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ y: -2 }}
+                        whileHover="hover"
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 text-xs font-bold text-white bg-zinc-800 border border-zinc-700 hover:border-blue-500/50 px-4 py-2 rounded-lg transition-all"
+                        className="relative flex items-center gap-2 text-xs font-bold text-white bg-zinc-800 border border-zinc-700 hover:border-blue-500/50 px-5 py-2.5 rounded-lg transition-all overflow-hidden"
                       >
-                        <Github className="w-4 h-4" /> <span>GitHub</span>
+                        {/* Efecto de brillo que atraviesa el botón */}
+                        <motion.div
+                          variants={{
+                            hover: { x: ["-100%", "100%"] }
+                          }}
+                          transition={{ duration: 0.5, ease: "easeInOut" }}
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/10 to-transparent -translate-x-full"
+                        />
+                        
+                        <motion.div
+                          variants={{
+                            hover: { rotate: [0, -10, 10, -10, 0] }
+                          }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          <Github className="w-4 h-4" />
+                        </motion.div>
+                        <span>GitHub</span>
+                        
+                        {/* Indicador de flecha que aparece al hacer hover */}
+                        <motion.span
+                          variants={{
+                            initial: { opacity: 0, x: -10 },
+                            hover: { opacity: 1, x: 0 }
+                          }}
+                          className="ml-auto"
+                        >
+                          →
+                        </motion.span>
                       </motion.a>
                     )}
                     {project.demo && (
@@ -79,11 +107,18 @@ export default function Portfolio() {
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ y: -2 }}
+                        whileHover="hover"
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-all shadow-lg shadow-blue-600/20"
+                        className="relative flex items-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-lg transition-all shadow-lg shadow-blue-600/20 overflow-hidden"
                       >
-                        <ExternalLink className="w-4 h-4" /> <span>Live Demo</span>
+                        <motion.div
+                          variants={{
+                            hover: { scale: 1.2, rotate: 15 }
+                          }}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </motion.div>
+                        <span>Live Demo</span>
                       </motion.a>
                     )}
                   </div>
