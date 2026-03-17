@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
+  --background: #020202;
   --foreground: #ffffff;
 }
 
@@ -14,12 +14,14 @@
   html {
     scroll-behavior: smooth;
     color: #ffffff;
+    background-color: #020202; /* Match Background.tsx */
   }
   body {
     color: #ffffff;
     margin: 0;
     font-family: sans-serif;
-    background-color: transparent;
+    background-color: #020202; /* Prevent white gaps on scroll/bounce */
+    min-height: 100%;
   }
 }
 
