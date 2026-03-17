@@ -9,14 +9,17 @@ export default function Background() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     let animationFrameId: number;
     let particles: Particle[] = [];
-    const particleCount = 80;
-    const connectionDistance = 150;
-    const mouse = { x: -1000, y: -1000, radius: 150 };
+    
+    // Optimizaciones para móviles
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const particleCount = isMobile ? 35 : 80;
+    const connectionDistance = isMobile ? 100 : 150;
+    const mouse = { x: -1000, y: -1000, radius: isMobile ? 100 : 150 };
 
     class Particle {
       x: number;
@@ -28,9 +31,10 @@ export default function Background() {
       constructor(width: number, height: number) {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2 + 1;
+        // Velocidad ligeramente más lenta para mayor fluidez
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.size = Math.random() * 1.5 + 1;
       }
 
       update(width: number, height: number) {
@@ -40,20 +44,21 @@ export default function Background() {
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        // Interacción suave con el mouse
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < mouse.radius) {
-          const force = (mouse.radius - distance) / mouse.radius;
-          this.x -= dx * force * 0.02;
-          this.y -= dy * force * 0.02;
+        if (mouse.x > 0) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < mouse.radius) {
+            const force = (mouse.radius - distance) / mouse.radius;
+            this.x -= dx * force * 0.015;
+            this.y -= dy * force * 0.015;
+          }
         }
       }
 
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = "rgba(100, 150, 255, 0.5)";
+        ctx.fillStyle = "rgba(100, 150, 255, 0.4)";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -63,30 +68,40 @@ export default function Background() {
     const init = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+      
+      // Limitar el Device Pixel Ratio en móviles para mejorar rendimiento
+      const dpr = isMobile ? Math.min(window.devicePixelRatio, 2) : (window.devicePixelRatio || 1);
+      
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.scale(dpr, dpr);
+
       particles = Array.from({ length: particleCount }, () => new Particle(width, height));
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      const width = canvas.width;
-      const height = canvas.height;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
 
-      particles.forEach((p, i) => {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
         p.update(width, height);
         p.draw();
 
-        // Dibujar líneas entre partículas cercanas
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy; // Usar distancia al cuadrado es más rápido (evita Math.sqrt)
+          const minDistSq = connectionDistance * connectionDistance;
 
-          if (dist < connectionDistance) {
-            ctx.strokeStyle = `rgba(100, 150, 255, ${1 - dist / connectionDistance})`;
+          if (distSq < minDistSq) {
+            const dist = Math.sqrt(distSq);
+            ctx.strokeStyle = `rgba(100, 150, 255, ${0.8 * (1 - dist / connectionDistance)})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -94,7 +109,7 @@ export default function Background() {
             ctx.stroke();
           }
         }
-      });
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -104,11 +119,19 @@ export default function Background() {
       mouse.y = e.clientY;
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    };
+
     const handleResize = () => {
       init();
     };
 
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
     window.addEventListener("resize", handleResize);
     
     init();
@@ -116,6 +139,7 @@ export default function Background() {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
@@ -125,9 +149,8 @@ export default function Background() {
     <div className="fixed inset-0 -z-50 bg-[#020202] overflow-hidden pointer-events-none">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-40"
+        className="absolute inset-0 w-full h-full opacity-40 will-change-transform"
       />
-      {/* Mantenemos un degradado de fondo para dar profundidad */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
     </div>
   );
