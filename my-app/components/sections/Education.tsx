@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
 import { useState } from "react";
-import { Download, CheckCircle, ExternalLink, Copy } from "lucide-react";
+import { Download, CheckCircle, ChevronLeft, ChevronRight, Copy } from "lucide-react";
 
 export default function Education() {
   const { education } = portfolioData;
@@ -12,7 +12,6 @@ export default function Education() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    // Could add a toast here
   };
 
   return (
@@ -25,15 +24,15 @@ export default function Education() {
             <button
               key={index}
               onClick={() => setActiveStep(index)}
-              className="relative z-10 flex flex-col items-center group flex-shrink-0 mx-2 sm:mx-0"
+              className="relative z-10 flex flex-col items-center group flex-shrink-0 mx-4 sm:mx-6 py-4"
             >
               <motion.div
                 animate={{
                   backgroundColor: activeStep === index ? "#2563eb" : "#18181b",
                   borderColor: activeStep === index ? "#3b82f6" : "#3f3f46",
-                  scale: activeStep === index ? 1.2 : 1,
+                  scale: activeStep === index ? 1.25 : 1,
                 }}
-                className="w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all group-hover:border-blue-400"
+                className="w-12 h-12 aspect-square rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all group-hover:border-blue-400 shadow-lg shadow-black/50"
               >
                 {index + 1}
               </motion.div>
@@ -113,24 +112,39 @@ export default function Education() {
           <button
             onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
             disabled={activeStep === 0}
-            className="p-3 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-full text-white transition-all"
+            className="group flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-xl text-white transition-all border border-transparent hover:border-white/10"
           >
-            <motion.div whileHover={{ x: -2 }} whileTap={{ scale: 0.9 }}>
-              <ExternalLink className="w-5 h-5 rotate-180" />
+            <motion.div 
+              whileHover={{ x: -3 }} 
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center gap-2"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span className="text-sm font-bold hidden sm:inline">Anterior</span>
             </motion.div>
           </button>
           
-          <div className="text-zinc-500 text-sm font-medium">
-            {activeStep + 1} / {education.length}
+          <div className="flex items-center gap-2">
+            {education.map((_, i) => (
+              <div 
+                key={i}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeStep === i ? "w-6 bg-blue-500" : "bg-zinc-700"}`}
+              />
+            ))}
           </div>
 
           <button
             onClick={() => setActiveStep(Math.min(education.length - 1, activeStep + 1))}
             disabled={activeStep === education.length - 1}
-            className="p-3 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-full text-white transition-all"
+            className="group flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-xl text-white transition-all border border-transparent hover:border-white/10"
           >
-            <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.9 }}>
-              <ExternalLink className="w-5 h-5" />
+            <motion.div 
+              whileHover={{ x: 3 }} 
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center gap-2"
+            >
+              <span className="text-sm font-bold hidden sm:inline">Siguiente</span>
+              <ChevronRight className="w-5 h-5" />
             </motion.div>
           </button>
         </div>

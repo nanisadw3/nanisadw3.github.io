@@ -28,12 +28,10 @@ export default function Portfolio() {
               className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden group hover:border-blue-500/50 transition-colors shadow-xl"
             >
               <div className="relative h-48 sm:h-56 overflow-hidden">
-                <Image
+                <img
                   src={`/${project.image}`}
                   alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent" />
               </div>
@@ -48,24 +46,30 @@ export default function Portfolio() {
                 
                 <div className="flex gap-4 mt-auto">
                   {project.github && (
-                    <a
+                    <motion.a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-white bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg transition-all"
+                      whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(59, 130, 246, 0.5)" }}
+                      whileTap={{ scale: 0.95 }}
+                      className="group/btn flex items-center gap-2 text-sm font-bold text-white bg-zinc-800 border border-zinc-700 hover:border-blue-500/50 px-5 py-2.5 rounded-xl transition-all"
                     >
-                      <Github className="w-4 h-4" /> GitHub
-                    </a>
+                      <Github className="w-4 h-4 group-hover/btn:-rotate-12 transition-transform" />
+                      <span>GitHub</span>
+                    </motion.a>
                   )}
                   {project.demo && (
-                    <a
+                    <motion.a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-all"
+                      whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(16, 185, 129, 0.5)" }}
+                      whileTap={{ scale: 0.95 }}
+                      className="group/btn flex items-center gap-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-blue-600/20"
                     >
-                      <ExternalLink className="w-4 h-4" /> Ver
-                    </a>
+                      <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      <span>Ver Proyecto</span>
+                    </motion.a>
                   )}
                 </div>
               </div>

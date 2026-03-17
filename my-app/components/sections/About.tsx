@@ -22,12 +22,10 @@ export default function About() {
           <div className="absolute inset-0 bg-blue-600 rounded-2xl rotate-6 -z-10 opacity-20 blur-xl animate-pulse" />
           <div className="absolute inset-0 border-2 border-blue-500 rounded-2xl -rotate-3 -z-10" />
           <div className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl">
-            <Image
+            <img
               src={`/${about.imageUrl}`}
               alt="Iñaki Sobera"
-              fill
-              className="object-cover transition-transform duration-500 hover:scale-110"
-              sizes="(max-width: 768px) 256px, 320px"
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
             />
           </div>
         </motion.div>
