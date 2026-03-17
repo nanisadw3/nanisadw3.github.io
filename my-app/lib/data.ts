@@ -39,7 +39,7 @@ export const portfolioData = {
       title: "Pokémon Adivina Quién (Multijugador)",
       description: "Juego multijugador en tiempo real que utiliza la PokeAPI para un desafío de adivinar el Pokémon. Desarrollé tanto el frontend interactivo como el servidor para gestionar las partidas en red.",
       image: "images/pokemon.png",
-      github: "https://github.com/nanisadw3/Pokemon_game",
+      github: "https://github.com/nanisadw3/Pokemon-Game",
       demo: "https://oyster-app-xwu29.ondigitalocean.app/",
     },
     {
