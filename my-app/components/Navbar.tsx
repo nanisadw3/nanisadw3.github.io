@@ -33,7 +33,7 @@ export default function Navbar() {
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, cubicBezier: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`mx-auto max-w-fit pointer-events-auto flex items-center gap-2 p-2 rounded-full border transition-all duration-500 ${
           isScrolled 
             ? "bg-black/60 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]" 
