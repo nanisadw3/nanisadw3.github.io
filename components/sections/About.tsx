@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Download, ShieldCheck, Cpu, Fingerprint, ExternalLink } from "lucide-react";
+import { Download, ShieldCheck, Fingerprint } from "lucide-react";
 import { useRef } from "react";
 import { FadeIn, Reveal } from "../ui/Reveal";
 
@@ -131,7 +131,7 @@ export default function About() {
               <div className="p-8 rounded-3xl bg-zinc-900/30 border border-white/5 backdrop-blur-sm group hover:border-blue-500/20 transition-all duration-500">
                 <h4 className="text-sm font-black text-blue-400 uppercase tracking-[0.3em] mb-4">Core Stack & Vision</h4>
                 <p className="text-lg leading-relaxed text-zinc-300 font-light italic">
-                  "{about.skillsSummary}"
+                  &quot;{about.skillsSummary}&quot;
                 </p>
               </div>
             </FadeIn>

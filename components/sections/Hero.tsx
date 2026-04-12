@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import ScrambleText from "../effects/ScrambleText";
 import GlitchCanvas from "../effects/GlitchCanvas";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Star, Code, ArrowDown } from "lucide-react";
+import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Star } from "lucide-react";
 import { Reveal, FadeIn } from "../ui/Reveal";
 
 export default function Hero() {

@@ -5,7 +5,7 @@ import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
 import { Github, ExternalLink, ChevronDown, FolderOpen } from "lucide-react";
 import { useState } from "react";
-import { FadeIn, Reveal } from "../ui/Reveal";
+import { FadeIn } from "../ui/Reveal";
 
 export default function Portfolio() {
   const { projects } = portfolioData;

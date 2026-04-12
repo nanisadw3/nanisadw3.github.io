@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
 import { useState, useRef, useEffect } from "react";
-import { Download, CheckCircle, ChevronLeft, ChevronRight, Copy, Award, ShieldCheck } from "lucide-react";
-import { FadeIn, Reveal } from "../ui/Reveal";
+import { Download, ChevronLeft, ChevronRight, Copy, Award, ShieldCheck } from "lucide-react";
+import { FadeIn } from "../ui/Reveal";
 
 export default function Education() {
   const { education } = portfolioData;

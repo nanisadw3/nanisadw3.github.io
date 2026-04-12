@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Section from "../ui/Section";
-import { Github, Users, Calendar, Clock, Activity, Terminal, Shield } from "lucide-react";
-import { FadeIn, Reveal } from "../ui/Reveal";
+import { Github, Users, Calendar, Clock, Activity, Shield } from "lucide-react";
+import { FadeIn } from "../ui/Reveal";
 
 interface GitHubUserData {
   followers: number;

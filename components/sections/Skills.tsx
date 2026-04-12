@@ -3,7 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Code2, Layout, Database, Wrench, Globe, Terminal, Cpu } from "lucide-react";
+import { Code2, Layout, Database, Wrench, Globe, Terminal } from "lucide-react";
 import { FadeIn } from "../ui/Reveal";
 
 const iconMap = {
