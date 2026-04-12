@@ -1,95 +1,64 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Download } from "lucide-react";
-import { useRef } from "react";
+import { Download, ShieldCheck, Terminal } from "lucide-react";
 
 export default function About() {
   const { about, hero } = portfolioData;
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Valores para la inclinación 3D (Muy sutil)
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseX = useSpring(x, { stiffness: 150, damping: 20 });
-  const mouseY = useSpring(y, { stiffness: 150, damping: 20 });
-
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["5deg", "-5deg"]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-5deg", "5deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
 
   return (
     <Section id="about" title="Sobre Mí">
       <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start">
         
-        {/* Profile Image Frame (Clean & Professional) */}
-        <div 
-          className="perspective-[1000px] select-none"
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
-          <motion.div
-            ref={cardRef}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, type: "spring", stiffness: 50 }}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className="relative w-72 h-[400px] sm:w-80 sm:h-[450px] shrink-0"
-          >
-            {/* Soft Background Glow */}
-            <div className="absolute inset-0 bg-blue-600/5 rounded-[2.5rem] blur-3xl" />
+        {/* Profile Image Frame (Fixed & High-Tech) */}
+        <div className="relative group shrink-0">
+          {/* Estructura de marco tecnológico estático */}
+          <div className="relative w-72 h-[400px] sm:w-80 sm:h-[450px] p-1 bg-white/10 rounded-[2.5rem] overflow-hidden">
+            {/* Imagen principal */}
+            <div className="relative w-full h-full rounded-[2.3rem] overflow-hidden bg-black">
+              <img
+                src={`/${about.imageUrl}`}
+                alt="Iñaki Sobera"
+                className="w-full h-full object-cover transition-all duration-700"
+              />
+              
+              {/* Capa de scanner estática superior */}
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-500/10 via-transparent to-black/60" />
+              
+              {/* Líneas de mira en las esquinas */}
+              <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-blue-500" />
+              <div className="absolute top-6 right-6 w-4 h-4 border-t border-r border-blue-500" />
+              <div className="absolute bottom-6 left-6 w-4 h-4 border-b border-l border-blue-500" />
+              <div className="absolute bottom-6 right-6 w-4 h-4 border-b border-r border-blue-500" />
 
-            <div className="relative w-full h-full p-2 bg-gradient-to-b from-white/10 to-transparent rounded-[2.5rem] border border-white/5 shadow-2xl overflow-hidden translate-z-[20px]">
-              <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden bg-zinc-900">
-                <img
-                  src={`/${about.imageUrl}`}
-                  alt="Iñaki Sobera"
-                  className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
-                />
-                
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                
-                {/* Minimal Label */}
-                <div className="absolute bottom-8 left-0 w-full text-center">
-                  <h3 className="text-2xl font-black text-white uppercase tracking-tighter">
-                    {hero.name.split(' ')[0]} <span className="text-zinc-500">{hero.name.split(' ')[1]}</span>
-                  </h3>
-                  <p className="text-blue-400 text-[9px] font-black uppercase tracking-[0.3em] mt-1">
-                    Software Engineer
-                  </p>
+              {/* Texto de identidad integrado */}
+              <div className="absolute bottom-10 left-0 w-full text-center px-6">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <ShieldCheck className="w-3 h-3 text-emerald-500" />
+                  <span className="text-[8px] font-mono text-zinc-400 uppercase tracking-[0.3em]">Verified Personnel</span>
                 </div>
+                <h3 className="text-2xl font-black text-white uppercase tracking-tighter">
+                  {hero.name.split(' ')[0]} <span className="text-blue-500">{hero.name.split(' ')[1]}</span>
+                </h3>
               </div>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Decoración externa minimalista */}
+          <div className="absolute -bottom-4 -right-4 w-20 h-20 border-r-2 border-b-2 border-white/10 rounded-br-3xl pointer-events-none" />
+          <div className="absolute -top-4 -left-4 w-20 h-20 border-l-2 border-t-2 border-white/10 rounded-tl-3xl pointer-events-none" />
         </div>
 
         {/* Bio Content */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="flex-1 space-y-10"
-        >
+        <div className="flex-1 space-y-10">
           <div className="space-y-4">
-            <h3 className="text-4xl font-black text-white tracking-tight uppercase">Ingeniería de Sistemas</h3>
-            <div className="h-1.5 w-20 bg-blue-600 rounded-full" />
+            <h3 className="text-4xl font-black text-white tracking-tight uppercase flex items-center gap-4">
+              <Terminal className="w-8 h-8 text-blue-500" />
+              Ingeniería de Sistemas
+            </h3>
+            <div className="h-1.5 w-24 bg-blue-600 rounded-full" />
           </div>
           
           <div className="space-y-6 max-w-3xl">
@@ -101,7 +70,7 @@ export default function About() {
           </div>
           
           <div className="pt-6 space-y-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm group hover:border-blue-500/20 transition-all duration-500">
+            <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/5 backdrop-blur-sm transition-colors hover:border-blue-500/20">
               <h4 className="text-sm font-black text-blue-400 uppercase tracking-widest mb-4">Especialización Técnica</h4>
               <p className="text-lg leading-relaxed text-zinc-300">
                 {about.skillsSummary}
@@ -113,16 +82,16 @@ export default function About() {
                 href={`/${about.cvUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.02, x: 5 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-4 px-8 py-5 bg-white text-black rounded-2xl transition-all group font-bold shadow-xl"
+                className="flex items-center gap-4 px-10 py-5 bg-white text-black rounded-2xl transition-all font-bold shadow-xl hover:shadow-white/10"
               >
-                <Download className="w-5 h-5 transition-transform group-hover:translate-y-1" />
+                <Download className="w-5 h-5" />
                 Descargar Curriculum
               </motion.a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </Section>
   );

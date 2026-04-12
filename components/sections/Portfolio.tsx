@@ -18,69 +18,63 @@ interface Project {
 function ProjectCard({ project, index }: { project: Project, index: number }) {
   return (
     <motion.div
-      layout
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        duration: 0.6, 
-        delay: index * 0.1,
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative h-full"
     >
-      <div className="relative h-full flex flex-col bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] overflow-hidden transition-all duration-500 group-hover:border-white/20 group-hover:bg-[#111111] shadow-2xl">
+      {/* Tarjeta con diseño industrial limpio */}
+      <div className="relative h-full flex flex-col bg-[#080808] border border-white/5 rounded-[2rem] overflow-hidden transition-all duration-300 group-hover:border-blue-500/40 shadow-xl">
         
-        {/* Project Image */}
-        <div className="relative h-64 overflow-hidden">
+        {/* Imagen del Proyecto */}
+        <div className="relative h-64 overflow-hidden bg-black">
           <img
             src={`/${project.image}`}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-60" />
           
-          {/* Badge */}
-          <div className="absolute top-6 left-6">
-            <div className="px-4 py-1.5 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2">
-              <Terminal className="w-3 h-3 text-blue-400" />
-              <span className="text-[9px] font-black uppercase tracking-widest text-zinc-300">Engineering Unit</span>
+          {/* Badge superior minimalista */}
+          <div className="absolute top-5 left-5">
+            <div className="px-3 py-1 bg-blue-600 text-white rounded-md flex items-center gap-2 shadow-lg">
+              <Terminal className="w-3 h-3" />
+              <span className="text-[9px] font-black uppercase tracking-widest">Engineering Unit</span>
             </div>
           </div>
         </div>
 
-        {/* Project Info */}
+        {/* Información del Proyecto */}
         <div className="p-8 flex flex-col flex-grow">
-          <h3 className="text-3xl font-black text-white mb-4 tracking-tighter uppercase group-hover:text-blue-400 transition-colors">
+          <h3 className="text-2xl font-black text-white mb-3 tracking-tighter uppercase group-hover:text-blue-400 transition-colors">
             {project.title}
           </h3>
           
-          <p className="text-zinc-400 text-base leading-relaxed mb-8 flex-grow font-light">
+          <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-grow font-light">
             {project.description}
           </p>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-10">
+          {/* Tags de tecnología */}
+          <div className="flex flex-wrap gap-2 mb-8">
             {project.tags?.map((tag, i) => (
-              <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] font-bold text-zinc-500 tracking-wide uppercase">
+              <span key={i} className="px-2 py-1 bg-white/5 border border-white/5 rounded-md text-[9px] font-bold text-zinc-500 uppercase">
                 {tag}
               </span>
             ))}
           </div>
           
-          {/* Action Links */}
-          <div className="flex items-center gap-8">
+          {/* Enlaces de acción limpios */}
+          <div className="flex items-center gap-6 border-t border-white/5 pt-6">
             {project.github && (
               <a 
                 href={project.github} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors group/link"
+                className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors"
               >
-                <Github className="w-5 h-5 group-hover/link:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Source Code</span>
+                <Github className="w-4 h-4" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Source</span>
               </a>
             )}
             {project.demo && (
@@ -88,9 +82,9 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
                 href={project.demo} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors group/link"
+                className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors"
               >
-                <ExternalLink className="w-5 h-5 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                <ExternalLink className="w-4 h-4" />
                 <span className="text-[10px] font-black uppercase tracking-widest">Live System</span>
               </a>
             )}
@@ -122,8 +116,8 @@ export default function Portfolio() {
   const displayedProjects = showAll ? projects : projects.slice(0, 6);
 
   return (
-    <Section id="portfolio" title="Proyectos Seleccionados">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <Section id="portfolio" title="Proyectos de Ingeniería">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <AnimatePresence mode="popLayout">
           {displayedProjects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
@@ -132,20 +126,17 @@ export default function Portfolio() {
       </div>
 
       {projects.length > 6 && (
-        <div className="mt-24 text-center">
+        <div className="mt-20 text-center">
           <button
             onClick={toggleShowAll}
-            className="group flex flex-col items-center gap-4 mx-auto text-zinc-500 hover:text-white transition-all duration-500"
+            className="group flex flex-col items-center gap-4 mx-auto text-zinc-500 hover:text-white transition-all duration-300"
           >
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">
-              {showAll ? "Ver Menos" : "Mostrar todos los Proyectos"}
+              {showAll ? "Minimizar" : "Ver Todos los Proyectos"}
             </span>
-            <motion.div
-              animate={{ rotate: showAll ? 180 : 0 }}
-              className="p-4 border border-zinc-800 rounded-full group-hover:border-blue-500 transition-colors"
-            >
-              <ChevronDown className="w-6 h-6 text-blue-500" />
-            </motion.div>
+            <div className="p-4 border border-zinc-800 rounded-full group-hover:border-blue-500 transition-colors">
+              <ChevronDown className={`w-6 h-6 text-blue-500 transition-transform duration-500 ${showAll ? 'rotate-180' : ''}`} />
+            </div>
           </button>
         </div>
       )}
