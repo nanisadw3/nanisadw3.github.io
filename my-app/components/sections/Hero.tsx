@@ -47,7 +47,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden" aria-label="Hero Section">
       <GlitchCanvas />
 
       <motion.div 
@@ -56,10 +56,10 @@ export default function Hero() {
         transition={{ delay: 2 }}
         className="absolute left-6 bottom-32 hidden lg:flex flex-col gap-6 z-20"
       >
-        <a href={contact.github} target="_blank" className="text-zinc-500 hover:text-white hover:scale-125 transition-all">
+        <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white hover:scale-125 transition-all" aria-label="GitHub Profile">
           <Github className="w-6 h-6" />
         </a>
-        <a href={contact.linkedin} target="_blank" className="text-zinc-500 hover:text-white hover:scale-125 transition-all">
+        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white hover:scale-125 transition-all" aria-label="LinkedIn Profile">
           <Linkedin className="w-6 h-6" />
         </a>
         <div className="w-[1px] h-20 bg-zinc-800 mx-auto mt-2" />
@@ -72,6 +72,7 @@ export default function Hero() {
           transition={{ duration: 5, repeat: Infinity, delay: item.delay, ease: "easeInOut" }}
           style={{ top: item.top, left: item.left, right: item.right }}
           className={`absolute z-0 hidden md:block ${item.color}`}
+          aria-hidden="true"
         >
           <item.Icon className="w-12 h-12" />
         </motion.div>
@@ -95,7 +96,7 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight text-white mb-6">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight text-white mb-6">
             <ScrambleText text={hero.name} />
           </h1>
 
@@ -118,7 +119,7 @@ export default function Hero() {
               href="#contact"
               whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37, 99, 235, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block"
+              className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block focus:ring-2 focus:ring-blue-500 outline-none"
             >
               Contáctame
             </motion.a>

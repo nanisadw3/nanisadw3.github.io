@@ -29,7 +29,8 @@ export default function Contact() {
           <div className="space-y-6">
             <a
               href={`mailto:${contact.email}`}
-              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all backdrop-blur-sm"
+              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all backdrop-blur-sm focus:ring-2 focus:ring-blue-500 outline-none"
+              aria-label="Enviar correo electrónico"
             >
               <div className="p-3 bg-blue-600/10 rounded-xl group-hover:scale-110 transition-transform">
                 <Mail className="w-6 h-6 text-blue-400" />
@@ -44,7 +45,8 @@ export default function Contact() {
               href={`https://wa.me/${contact.whatsapp.replace(/\+/g, "").replace(/\s/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-emerald-500/50 transition-all backdrop-blur-sm"
+              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-emerald-500/50 transition-all backdrop-blur-sm focus:ring-2 focus:ring-emerald-500 outline-none"
+              aria-label="Contactar por WhatsApp"
             >
               <div className="p-3 bg-emerald-600/10 rounded-xl group-hover:scale-110 transition-transform">
                 <MessageSquare className="w-6 h-6 text-emerald-400" />
@@ -115,7 +117,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group flex items-center justify-center gap-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/20 active:scale-95"
+              className="group flex items-center justify-center gap-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/20 active:scale-95 focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               Enviar Mensaje
@@ -135,16 +137,16 @@ export function Footer() {
     <footer className="py-12 border-t border-zinc-900 bg-transparent relative z-10">
       <div className="container px-6 mx-auto flex flex-col items-center space-y-8">
         <div className="flex gap-6">
-          <a href={contact.github} target="_blank" className="text-zinc-500 hover:text-white transition-colors">
+          <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="GitHub">
             <Github className="w-6 h-6" />
           </a>
-          <a href={contact.linkedin} target="_blank" className="text-zinc-500 hover:text-white transition-colors">
+          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="LinkedIn">
             <Linkedin className="w-6 h-6" />
           </a>
-          <a href={contact.twitter} target="_blank" className="text-zinc-500 hover:text-white transition-colors">
+          <a href={contact.twitter} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="Twitter">
             <Twitter className="w-6 h-6" />
           </a>
-          <a href="https://gravatar.com/inakisobera8" target="_blank" className="text-zinc-500 hover:text-white transition-colors">
+          <a href="https://gravatar.com/inakisobera8" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="Gravatar">
             <UserCircle className="w-6 h-6" />
           </a>
         </div>

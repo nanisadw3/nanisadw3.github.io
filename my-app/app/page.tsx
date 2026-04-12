@@ -1,4 +1,3 @@
-// Force redeploy to restore original site
 "use client";
 
 import { useEffect } from "react";
@@ -21,9 +20,9 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      <div id="hero">
+      <section id="hero">
         <Hero />
-      </div>
+      </section>
       <About />
       <Portfolio />
       <Stats />

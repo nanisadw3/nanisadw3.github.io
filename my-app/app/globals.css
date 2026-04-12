@@ -14,14 +14,31 @@
   html {
     scroll-behavior: smooth;
     color: #ffffff;
-    background-color: #020202; /* Match Background.tsx */
+    background-color: #020202;
   }
   body {
     color: #ffffff;
     margin: 0;
     font-family: sans-serif;
-    background-color: #020202; /* Prevent white gaps on scroll/bounce */
+    background-color: #020202;
     min-height: 100%;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020202;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 10px;
+    border: 2px solid #020202;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
   }
 }
 
@@ -31,4 +48,11 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
