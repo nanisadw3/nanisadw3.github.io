@@ -19,7 +19,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ 
@@ -29,27 +29,24 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
         stiffness: 100,
         damping: 20
       }}
-      className="group relative"
+      className="group relative h-full"
     >
-      {/* Animated Glow behind the card */}
-      <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 to-emerald-500/20 rounded-[2.5rem] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700" />
-      
-      <div className="relative h-full flex flex-col bg-zinc-900/40 border border-white/10 rounded-[2.5rem] overflow-hidden backdrop-blur-sm transition-all duration-500 group-hover:translate-y-[-10px] group-hover:border-white/20 group-hover:bg-zinc-900/60 shadow-2xl">
+      <div className="relative h-full flex flex-col bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] overflow-hidden transition-all duration-500 group-hover:border-white/20 group-hover:bg-[#111111] shadow-2xl">
         
-        {/* Project Header / Image */}
-        <div className="relative h-64 overflow-hidden overflow-hidden">
+        {/* Project Image */}
+        <div className="relative h-64 overflow-hidden">
           <img
             src={`/${project.image}`}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
           
-          {/* Top Badge */}
+          {/* Badge */}
           <div className="absolute top-6 left-6">
             <div className="px-4 py-1.5 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2">
               <Terminal className="w-3 h-3 text-blue-400" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300">Software Architecture</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-zinc-300">Engineering Unit</span>
             </div>
           </div>
         </div>
@@ -65,16 +62,16 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
           </p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-10">
             {project.tags?.map((tag, i) => (
-              <span key={i} className="px-3 py-1 bg-white/5 border border-white/5 rounded-lg text-[10px] font-bold text-zinc-500 tracking-wide uppercase">
+              <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] font-bold text-zinc-500 tracking-wide uppercase">
                 {tag}
               </span>
             ))}
           </div>
           
           {/* Action Links */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             {project.github && (
               <a 
                 href={project.github} 
@@ -82,8 +79,8 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
                 rel="noopener noreferrer" 
                 className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors group/link"
               >
-                <Github className="w-5 h-5 group-hover/link:rotate-12 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">Source</span>
+                <Github className="w-5 h-5 group-hover/link:scale-110 transition-transform" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Source Code</span>
               </a>
             )}
             {project.demo && (
@@ -94,14 +91,11 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
                 className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors group/link"
               >
                 <ExternalLink className="w-5 h-5 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">Live Demo</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Live System</span>
               </a>
             )}
           </div>
         </div>
-
-        {/* Interactive Overlay on Image (only on hover) */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </motion.div>
   );
@@ -128,7 +122,7 @@ export default function Portfolio() {
   const displayedProjects = showAll ? projects : projects.slice(0, 6);
 
   return (
-    <Section id="portfolio" title="Proyectos Destacados">
+    <Section id="portfolio" title="Proyectos Seleccionados">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <AnimatePresence mode="popLayout">
           {displayedProjects.map((project, index) => (
@@ -144,7 +138,7 @@ export default function Portfolio() {
             className="group flex flex-col items-center gap-4 mx-auto text-zinc-500 hover:text-white transition-all duration-500"
           >
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">
-              {showAll ? "Ver Menos Proyectos" : "Explorar todos los Proyectos"}
+              {showAll ? "Ver Menos" : "Mostrar todos los Proyectos"}
             </span>
             <motion.div
               animate={{ rotate: showAll ? 180 : 0 }}
