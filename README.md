@@ -1,30 +1,36 @@
-# Portafolio de Desarrollador de Software - Iñaki Sobera
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Sobre este proyecto
+## Getting Started
 
-Este repositorio contiene el código fuente de mi portafolio digital. Aquí presento una selección de los proyectos más importantes que he construido y que reflejan mi trayectoria y crecimiento como desarrollador de software.
+First, run the development server:
 
-El objetivo de este espacio es mostrar mis habilidades técnicas, mi enfoque para resolver problemas y la calidad de mi trabajo a través de ejemplos prácticos y profesionales.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Características destacadas
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-*   **Animaciones dinámicas**: La interfaz incluye diversas animaciones personalizadas con JavaScript para crear una experiencia de usuario atractiva e interactiva.
-*   **Proyectos profesionales**: Todos los proyectos mostrados son trabajos reales y representativos de mis capacidades.
-*   **Actualización constante**: Este portafolio es un proyecto vivo. Lo actualizo frecuentemente con nuevos desarrollos, habilidades y conocimientos.
-*   **Diseño Responsivo**: Adaptado para una correcta visualización en diferentes dispositivos, desde móviles hasta ordenadores de escritorio.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Tecnologías utilizadas
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-*   **HTML5**
-*   **CSS3**
-*   **JavaScript (Vanilla)**
-    *   Efectos de texto (`text-scramble.js`, `letter-glitch.js`)
-    *   Menús interactivos (`bubble-menu.js`)
-    *   Componentes personalizados (`stepper.js`)
+## Learn More
 
-## Contacto
+To learn more about Next.js, take a look at the following resources:
 
-Si mi trabajo te ha resultado interesante o estás buscando un desarrollador para colaborar en un proyecto, no dudes en ponerte en contacto conmigo.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-*   **LinkedIn**: [Iñaki Sobera Sotomayor](https://www.linkedin.com/in/i%C3%B1aki-sobera-sotomayor-40a87b300/)
-*   **Email**: inakisobera8@gmail.com
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

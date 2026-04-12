@@ -3,7 +3,7 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - React # Se activa cuando subes cambios a la rama React
+      - React
 
 permissions:
   contents: write
@@ -20,20 +20,17 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: my-app/package-lock.json
 
       - name: Install dependencies
         run: npm install
-        working-directory: my-app
 
       - name: Build with Next.js
         run: npm run build
-        working-directory: my-app
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: my-app/out # La carpeta que genera Next.js con el comando build
-          branch: gh-pages # Rama donde se subirá el sitio estático
+          folder: out
+          branch: gh-pages
           clean: true
-          cname: inakisobera.me # Mantiene tu dominio personalizado
+          cname: inakisobera.me
