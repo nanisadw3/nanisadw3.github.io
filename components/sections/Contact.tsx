@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Mail, Phone, MessageSquare, Send, Github, Linkedin, Twitter, UserCircle, Globe } from "lucide-react";
+import { Mail, MessageSquare, Send, Github, Linkedin, Twitter, Globe } from "lucide-react";
 import { FadeIn, Reveal } from "../ui/Reveal";
 
 export default function Contact() {
@@ -146,7 +146,7 @@ export function Footer() {
             Architecting the future of software with integrity and precision.
           </p>
           <p className="text-zinc-800 text-[8px] font-mono mt-10">
-            &copy; {currentYear} // ALL RIGHTS RESERVED // SECURE CONNECTION
+            &copy; {currentYear} {"//"} ALL RIGHTS RESERVED {"//"} SECURE CONNECTION
           </p>
         </div>
       </div>

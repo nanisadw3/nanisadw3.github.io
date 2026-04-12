@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
 import { Award, Download, ShieldCheck, Cpu, Code2, Database } from "lucide-react";
-import { FadeIn, Reveal } from "../ui/Reveal";
 
 export default function Education() {
   const { education } = portfolioData;

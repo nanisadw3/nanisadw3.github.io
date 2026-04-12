@@ -1,35 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import ScrambleText from "../effects/ScrambleText";
 import GlitchCanvas from "../effects/GlitchCanvas";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Star, Terminal, Shield, Cpu, Activity } from "lucide-react";
+import { Github, Linkedin, Terminal, Shield, Activity } from "lucide-react";
 import { Reveal, FadeIn } from "../ui/Reveal";
 
 export default function Hero() {
   const { hero, contact } = portfolioData;
-  const [githubStats, setGithubStats] = useState({ repos: 0, stars: 0 });
-
-  useEffect(() => {
-    fetch(`https://api.github.com/users/nanisadw3`)
-      .then(res => res.json())
-      .then(userData => {
-        fetch(`https://api.github.com/users/nanisadw3/repos?per_page=100`)
-          .then(res => res.json())
-          .then(repos => {
-            if (Array.isArray(repos)) {
-              const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-              setGithubStats({
-                repos: userData.public_repos,
-                stars: totalStars,
-              });
-            }
-          });
-      })
-      .catch(err => console.error("Error Hero stats:", err));
-  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-grid" aria-label="Hero Section">

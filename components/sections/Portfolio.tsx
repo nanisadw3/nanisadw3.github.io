@@ -3,9 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Github, ExternalLink, ChevronDown, Terminal, Layers } from "lucide-react";
+import { Github, ExternalLink, ChevronDown, Terminal } from "lucide-react";
 import { useState } from "react";
-import { FadeIn } from "../ui/Reveal";
 
 export default function Portfolio() {
   const { projects } = portfolioData;

@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { ShieldCheck, Cpu, Fingerprint, Activity, Github, Users, Calendar, Clock, Terminal } from "lucide-react";
-import { FadeIn, Reveal } from "./Reveal";
+import { ShieldCheck, Cpu, Fingerprint, Activity, Github, Users, Terminal } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface GitHubUserData {
@@ -33,6 +32,7 @@ export default function BentoProfile() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="md:col-span-4 lg:col-span-3 row-span-2 glass-card rounded-[2.5rem] p-10 flex flex-col justify-between group overflow-hidden relative"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -58,8 +58,8 @@ export default function BentoProfile() {
 
           <div className="mt-10 pt-10 border-t border-white/5 relative z-10 flex justify-between items-center">
             <div className="flex gap-4">
-              <a href={contact.linkedin} target="_blank" className="p-3 glass rounded-xl hover:text-blue-400 transition-all"><Github className="w-4 h-4" /></a>
-              <a href={contact.github} target="_blank" className="p-3 glass rounded-xl hover:text-blue-400 transition-all"><Users className="w-4 h-4" /></a>
+              <a href={contact.linkedin} target="_blank" className="p-3 glass rounded-xl hover:text-blue-400 transition-all" aria-label="LinkedIn"><Github className="w-4 h-4" /></a>
+              <a href={contact.github} target="_blank" className="p-3 glass rounded-xl hover:text-blue-400 transition-all" aria-label="GitHub"><Users className="w-4 h-4" /></a>
             </div>
             <a href={`/${about.cvUrl}`} target="_blank" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">Download CV</a>
           </div>
@@ -69,6 +69,7 @@ export default function BentoProfile() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.1 }}
           className="md:col-span-4 lg:col-span-3 glass-card rounded-[2.5rem] p-8 flex flex-col justify-between group overflow-hidden"
         >
@@ -92,6 +93,7 @@ export default function BentoProfile() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           className="md:col-span-2 lg:col-span-2 glass-card rounded-[2.5rem] p-8 flex flex-col group overflow-hidden"
         >
@@ -113,6 +115,7 @@ export default function BentoProfile() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.3 }}
           className="md:col-span-2 lg:col-span-1 glass-card rounded-[2.5rem] p-8 flex flex-col items-center justify-center text-center gap-2 hover:border-blue-500/30 transition-all"
         >
@@ -124,6 +127,7 @@ export default function BentoProfile() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.4 }}
           className="md:col-span-4 lg:col-span-3 glass-card rounded-[2.5rem] p-8 flex items-center justify-between group overflow-hidden"
         >
