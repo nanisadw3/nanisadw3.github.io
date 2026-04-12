@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { ShieldCheck, Cpu, Fingerprint, Activity, Github, Users, Terminal } from "lucide-react";
+import { ShieldCheck, Cpu, Fingerprint, Activity, Github, Terminal, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface GitHubUserData {
@@ -106,7 +106,7 @@ export default function BentoProfile() {
               <span className="text-xs font-mono text-emerald-500">99.2%</span>
             </div>
             <p className="text-[10px] text-zinc-500 leading-relaxed italic">
-              "Continuous delivery is the only standard for engineering excellence."
+              &quot;Continuous delivery is the only standard for engineering excellence.&quot;
             </p>
           </div>
         </motion.div>
@@ -191,4 +191,4 @@ export default function BentoProfile() {
   );
 }
 
-import { Linkedin } from "lucide-react";
+

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Home, User, Briefcase, Mail, FileText, Github, Linkedin } from "lucide-react";
+import { motion, useScroll } from "framer-motion";
+import { Home, User, Briefcase, Mail, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { portfolioData } from "@/lib/data";
 

@@ -52,18 +52,13 @@ export default function Education() {
                     </div>
 
                     <p className="text-zinc-400 text-base leading-relaxed font-light">
-                      {item.description}
+                      {item.focus}
                     </p>
 
                     <div className={`flex flex-wrap gap-4 ${isEven ? 'sm:justify-end' : 'sm:justify-start'}`}>
                       {item.certLink && (
                         <a href={`/${item.certLink}`} target="_blank" rel="noopener noreferrer" className="p-3 glass rounded-xl hover:bg-white hover:text-black transition-all">
                           <Download className="w-4 h-4" />
-                        </a>
-                      )}
-                      {item.verifyLink && (
-                        <a href={item.verifyLink} target="_blank" rel="noopener noreferrer" className="px-4 py-2 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest text-zinc-500 hover:text-white hover:border-white/30 transition-all">
-                          Verify Node
                         </a>
                       )}
                     </div>
