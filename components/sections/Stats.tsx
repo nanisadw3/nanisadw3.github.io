@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Section from "../ui/Section";
-import { Github, Users, Calendar, Clock, BarChart3, Activity, Terminal } from "lucide-react";
+import { Github, Users, Calendar, Clock, Activity, Terminal } from "lucide-react";
 
 interface GitHubUserData {
   followers: number;

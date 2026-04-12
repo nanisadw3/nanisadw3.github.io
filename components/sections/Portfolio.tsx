@@ -3,10 +3,19 @@
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Github, ExternalLink, ChevronDown, Folder, Code2, Sparkles } from "lucide-react";
+import { ChevronDown, Folder, Code2, Sparkles } from "lucide-react";
 import { useState, useRef } from "react";
 
-function ProjectCard({ project, index }: { project: any, index: number }) {
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  github?: string;
+  demo?: string;
+  tags?: string[];
+}
+
+function ProjectCard({ project, index }: { project: Project, index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   
   // 3D Tilt Values
