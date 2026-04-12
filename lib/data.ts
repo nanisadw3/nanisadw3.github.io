@@ -12,7 +12,7 @@ export const portfolioData = {
     ],
     skillsSummary: "Experto en el diseño de microservicios con Spring Boot y APIs ágiles con Flask. Sólida experiencia en administración avanzada de Linux, orquestación con Docker y desarrollo de interfaces de control con JavaFX. Especialista en visión artificial mediante OpenCV para automatización industrial.",
     cvUrl: "cv/cv_inaki_sobera.pdf",
-    imageUrl: "images/portfolio-2.jpg",
+    imageUrl: "images/yo.png",
   },
   projects: [
     {

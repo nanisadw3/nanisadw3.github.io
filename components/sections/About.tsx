@@ -1,142 +1,52 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Download, Terminal, ShieldCheck, Fingerprint } from "lucide-react";
-import { useRef } from "react";
+import { Download, Terminal } from "lucide-react";
 
 export default function About() {
   const { about, hero } = portfolioData;
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Física de inclinación 3D impulsada por resortes
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseX = useSpring(x, { stiffness: 150, damping: 20 });
-  const mouseY = useSpring(y, { stiffness: 150, damping: 20 });
-
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
 
   return (
     <Section id="about" title="Sobre Mí">
       <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start">
         
-        {/* REALISTIC ID BADGE SYSTEM */}
-        <div 
-          className="perspective-[1200px] select-none pt-24"
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
+        {/* CLEAN PROFESSIONAL PHOTO FRAME */}
+        <div className="relative group shrink-0">
           <motion.div
-            ref={cardRef}
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ 
-              y: 0, 
-              opacity: 1,
-            }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ 
-              duration: 1,
-              ease: "easeOut"
-            }}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className="relative w-[320px] h-[480px] shrink-0 group origin-top"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative w-[320px] h-[400px] md:w-[400px] md:h-[500px]"
           >
-            {/* LANYARD (LISTÓN) - Refined */}
-            <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-6 h-36 z-0 pointer-events-none">
-              <div className="w-full h-full bg-[#0a1a3a] rounded-full border-x border-white/10 shadow-2xl relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-400/20 via-transparent to-transparent" />
-              </div>
-              {/* PROFESSIONAL CLIP */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-zinc-300 via-zinc-400 to-zinc-500 rounded-lg shadow-xl flex items-center justify-center border border-white/30">
-                <div className="w-4 h-4 rounded-full bg-zinc-800 border border-white/10 shadow-inner" />
-              </div>
-            </div>
-
-            {/* CARD BODY - Ultra Clean White */}
-            <div className="relative w-full h-full bg-white rounded-[1.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col translate-z-[40px] border border-white/40">
+            {/* Background Accent / Border Glow */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/20 via-emerald-500/20 to-purple-600/20 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+            
+            {/* Main Image Container */}
+            <div className="relative h-full w-full rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900 shadow-2xl">
+              <img
+                src={`/${about.imageUrl}`}
+                alt={hero.name}
+                className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+              />
               
-              {/* MAGNETIC STRIP / TOP ACCENT */}
-              <div className="h-16 w-full bg-zinc-900 flex items-center px-6 justify-between border-b-2 border-blue-600">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-blue-500" />
-                  <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-mono">SECURITY ACCESS</span>
-                </div>
-                <div className="text-[8px] font-mono text-zinc-500">AUTH. GRANTED</div>
+              {/* Professional Subtle Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+              
+              {/* Clean Label */}
+              <div className="absolute bottom-8 left-8">
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-1">Lead Developer</p>
+                <h4 className="text-2xl font-black text-white uppercase tracking-tighter">
+                  {hero.name.split(' ')[0]} {hero.name.split(' ')[1]}
+                </h4>
               </div>
-
-              <div className="p-6 flex-grow flex flex-col relative">
-                {/* WATERMARK BACKGROUND */}
-                <div className="absolute inset-0 opacity-[0.02] flex items-center justify-center pointer-events-none">
-                  <Fingerprint className="w-64 h-64 text-black" />
-                </div>
-
-                {/* PROFILE IMAGE - Professional Frame */}
-                <div className="relative w-full aspect-square bg-[#f3f4f6] rounded-xl overflow-hidden border border-zinc-100 mb-6 shadow-sm group-hover:border-blue-500/30 transition-colors duration-500">
-                  <img
-                    src={`/${about.imageUrl}`}
-                    alt={hero.name}
-                    className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
-                  />
-                  {/* SUBTLE OVERLAY */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-purple-500/5 opacity-50" />
-                </div>
-
-                {/* IDENTITY DATA */}
-                <div className="space-y-4 relative z-10">
-                  <div>
-                    <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest mb-1">Full Name</p>
-                    <h3 className="text-2xl font-black text-zinc-900 uppercase tracking-tighter leading-none border-b border-zinc-100 pb-2">
-                      {hero.name}
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest mb-1">Designation</p>
-                      <p className="text-xs font-bold text-blue-600 uppercase tracking-tight">Systems Engineer</p>
-                    </div>
-                    <div>
-                      <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest mb-1">Access Level</p>
-                      <p className="text-xs font-bold text-zinc-900 uppercase tracking-tight">Tier 1 // Admin</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* FOOTER DATA / BARCODE AREA */}
-                <div className="mt-auto flex items-end justify-between border-t border-zinc-100 pt-4">
-                  <div className="flex flex-col gap-1">
-                    <p className="text-[7px] font-mono text-zinc-400 uppercase tracking-widest">Employee ID</p>
-                    <p className="text-[10px] font-mono font-bold text-zinc-800">ISO-215488-CORE</p>
-                  </div>
-                  {/* REALISTIC CHIP */}
-                  <div className="w-10 h-8 bg-gradient-to-br from-yellow-300 via-yellow-500 to-yellow-600 rounded-md shadow-md border border-black/10 relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-30 bg-[linear-gradient(rgba(0,0,0,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.2)_1px,transparent_1px)] bg-[size:4px_4px]" />
-                  </div>
-                </div>
-              </div>
-
-              {/* BOTTOM SECURITY LINE */}
-              <div className="h-2 w-full bg-gradient-to-r from-blue-600 via-emerald-500 to-blue-600" />
             </div>
 
-            {/* FLOATING SHADOW FOR REALISM */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-6 bg-black/40 blur-2xl rounded-full scale-x-150 pointer-events-none" />
+            {/* Decorative Element */}
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 border-r-2 border-b-2 border-blue-500/30 rounded-br-3xl hidden md:block" />
+            <div className="absolute -top-6 -left-6 w-24 h-24 border-l-2 border-t-2 border-emerald-500/30 rounded-tl-3xl hidden md:block" />
           </motion.div>
         </div>
 
