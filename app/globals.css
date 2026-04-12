@@ -3,6 +3,8 @@
 :root {
   --background: #020202;
   --foreground: #ffffff;
+  --accent: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.3);
   --font-inter: 'Inter', sans-serif;
   --font-space: 'Space Grotesk', sans-serif;
 }
@@ -10,6 +12,7 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
   --font-sans: var(--font-inter);
   --font-display: var(--font-space);
 }
@@ -17,66 +20,56 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    color: #ffffff;
-    background-color: #020202;
+    background-color: var(--background);
+    -webkit-font-smoothing: antialiased;
   }
+  
   body {
-    color: #ffffff;
-    margin: 0;
-    font-family: var(--font-inter);
-    background-color: #020202;
-    min-height: 100%;
+    background-color: var(--background);
+    color: var(--foreground);
     overflow-x: hidden;
+    font-family: var(--font-inter);
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-space);
-  }
-
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #020202;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #111111;
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #2563eb;
+  ::selection {
+    background: var(--accent);
+    color: white;
   }
 }
 
 @layer utilities {
-  .glass {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  
-  .glass-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .noise {
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.05;
+    pointer-events: none;
   }
 
-  .text-glow {
-    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .bg-grid {
-    background-size: 40px 40px;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  .stroke-text {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    color: transparent;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(160px, auto);
+    gap: 1.5rem;
   }
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+/* Custom Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

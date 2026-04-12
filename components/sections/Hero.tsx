@@ -4,136 +4,104 @@ import { motion } from "framer-motion";
 import ScrambleText from "../effects/ScrambleText";
 import GlitchCanvas from "../effects/GlitchCanvas";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Terminal, Shield, Activity } from "lucide-react";
+import { Github, Linkedin, Terminal, Activity, ArrowRight, Shield } from "lucide-react";
 import { Reveal, FadeIn } from "../ui/Reveal";
 
 export default function Hero() {
   const { hero, contact } = portfolioData;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-grid" aria-label="Hero Section">
-      {/* Dynamic Background Elements */}
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020202]">
+      {/* Background Layer */}
       <div className="absolute inset-0 z-0">
         <GlitchCanvas />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-[#020202]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020202_80%)]" />
       </div>
 
-      {/* Floating Status Bar (Top) */}
-      <div className="absolute top-10 left-0 w-full px-10 flex justify-between items-center z-20">
-        <FadeIn delay={0.5}>
-          <div className="flex items-center gap-4 px-4 py-2 glass rounded-full">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">System Online // v2.0.26</span>
-          </div>
-        </FadeIn>
-        <div className="hidden md:flex items-center gap-8">
-          {[
-            { label: "LATENCY", value: "24ms" },
-            { label: "UPTIME", value: "99.9%" },
-            { label: "ENCRYPTION", value: "AES-256" }
-          ].map((item, i) => (
-            <FadeIn key={i} delay={0.6 + i * 0.1}>
-              <div className="flex flex-col items-end">
-                <span className="text-[8px] font-black text-zinc-600 tracking-[0.2em]">{item.label}</span>
-                <span className="text-[10px] font-mono text-blue-500 font-bold">{item.value}</span>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
+      {/* Decorative Lines */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full border-l border-r border-white/[0.03] z-0 pointer-events-none" />
 
       <div className="container px-6 relative z-10">
-        <div className="flex flex-col items-center text-center max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center">
           
-          <Reveal delay={0.2} width="100%">
-            <span className="inline-block text-blue-500 font-black uppercase tracking-[0.5em] text-xs mb-6 px-4 py-1 border-l border-r border-blue-500/30">
-              {hero.tagline}
-            </span>
-          </Reveal>
-
-          <Reveal delay={0.4} width="100%">
-            <h1 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter text-white mb-10 leading-[0.85] uppercase">
-              <ScrambleText text={hero.name.split(' ')[0]} /><br/>
-              <span className="text-transparent stroke-text" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)" }}>
-                <ScrambleText text={hero.name.split(' ')[1]} />
+          <FadeIn delay={0.2}>
+            <div className="mb-10 px-6 py-2 glass-morphism rounded-full flex items-center gap-3">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
-            </h1>
-          </Reveal>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center mt-10">
-            <div className="lg:col-span-4 text-left order-2 lg:order-1">
-              <FadeIn delay={0.8}>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4 group cursor-default">
-                    <div className="p-3 bg-blue-600/10 rounded-xl border border-blue-500/20 group-hover:border-blue-500 transition-colors">
-                      <Terminal className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active Focus</p>
-                      <p className="text-sm font-bold text-white tracking-wide uppercase">Backend Engineering</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 group cursor-default">
-                    <div className="p-3 bg-emerald-600/10 rounded-xl border border-emerald-500/20 group-hover:border-emerald-500 transition-colors">
-                      <Shield className="w-5 h-5 text-emerald-400" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Security Core</p>
-                      <p className="text-sm font-bold text-white tracking-wide uppercase">Infrastructure Defense</p>
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400/80">
+                {hero.tagline}
+              </span>
             </div>
+          </FadeIn>
 
-            <div className="lg:col-span-4 order-1 lg:order-2 flex justify-center">
-              <FadeIn delay={1}>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative group"
-                >
-                  <div className="absolute inset-0 bg-blue-600/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  <a 
-                    href="#portfolio"
-                    className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full border border-white/10 flex flex-col items-center justify-center gap-4 glass group-hover:border-blue-500 transition-all duration-700"
-                  >
-                    <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center">
-                      <Activity className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Initiate Sequence</span>
-                  </a>
-                </motion.div>
-              </FadeIn>
-            </div>
-
-            <div className="lg:col-span-4 text-right order-3">
-              <FadeIn delay={1.2}>
-                <div className="flex flex-col items-end gap-2">
-                  <div className="flex gap-4 mb-4">
-                    <a href={contact.github} target="_blank" rel="noopener noreferrer" className="p-4 glass rounded-2xl hover:text-blue-400 hover:border-blue-500/50 transition-all">
-                      <Github className="w-5 h-5" />
-                    </a>
-                    <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 glass rounded-2xl hover:text-blue-400 hover:border-blue-500/50 transition-all">
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                  </div>
-                  <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em]">Available for projects</p>
-                  <p className="text-xl font-black text-white uppercase tracking-tighter">Remote // Global</p>
-                </div>
-              </FadeIn>
-            </div>
+          <div className="mb-16">
+            <Reveal delay={0.4} width="100%">
+              <h1 className="text-7xl sm:text-9xl md:text-[12rem] font-black tracking-tighter text-white leading-[0.8] uppercase flex flex-col items-center">
+                <span className="relative">
+                  <ScrambleText text={hero.firstName} />
+                </span>
+                <span className="stroke-text -mt-2 sm:-mt-6">
+                  <ScrambleText text={hero.lastName} />
+                </span>
+              </h1>
+            </Reveal>
           </div>
+
+          <FadeIn delay={0.8}>
+            <div className="max-w-2xl mx-auto mb-16 space-y-8">
+              <p className="text-xl sm:text-2xl text-zinc-400 font-light leading-relaxed">
+                {hero.summary}
+              </p>
+              <div className="flex items-center justify-center gap-10">
+                <div className="flex flex-col items-center gap-2">
+                  <Terminal className="w-5 h-5 text-blue-500" />
+                  <span className="text-[8px] font-black uppercase tracking-widest text-zinc-600">Backend System</span>
+                </div>
+                <div className="w-px h-8 bg-white/10" />
+                <div className="flex flex-col items-center gap-2">
+                  <Shield className="w-5 h-5 text-emerald-500" />
+                  <span className="text-[8px] font-black uppercase tracking-widest text-zinc-600">Cyber Defense</span>
+                </div>
+                <div className="w-px h-8 bg-white/10" />
+                <div className="flex flex-col items-center gap-2">
+                  <Activity className="w-5 h-5 text-purple-500" />
+                  <span className="text-[8px] font-black uppercase tracking-widest text-zinc-600">AI Integration</span>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={1.2}>
+            <div className="flex flex-wrap justify-center gap-6">
+              <motion.a
+                href="#portfolio"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-12 py-6 bg-white text-black rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-4 transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]"
+              >
+                Initiate Explore <ArrowRight className="w-4 h-4" />
+              </motion.a>
+              <div className="flex gap-2">
+                <a href={contact.github} target="_blank" className="p-6 glass-morphism rounded-2xl hover:text-blue-400 transition-all"><Github className="w-5 h-5" /></a>
+                <a href={contact.linkedin} target="_blank" className="p-6 glass-morphism rounded-2xl hover:text-blue-400 transition-all"><Linkedin className="w-5 h-5" /></a>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </div>
 
-      {/* Decorative Sidebar Elements */}
-      <div className="absolute bottom-10 left-10 hidden lg:block">
-        <FadeIn delay={1.5}>
-          <div className="space-y-4">
-            <div className="w-px h-20 bg-gradient-to-t from-blue-500 to-transparent mx-auto" />
-            <span className="text-[8px] font-mono text-zinc-700 [writing-mode:vertical-lr] tracking-[0.5em] uppercase">Architecture // Security // AI</span>
-          </div>
-        </FadeIn>
+      {/* Side Status Indicators */}
+      <div className="absolute right-10 bottom-10 hidden lg:flex flex-col items-end gap-2 overflow-hidden">
+        <motion.div 
+          animate={{ x: [100, 0] }} 
+          transition={{ duration: 1, delay: 2 }}
+          className="flex flex-col items-end"
+        >
+          <span className="text-[8px] font-mono text-zinc-700 tracking-widest uppercase">System Entropy</span>
+          <span className="text-[10px] font-mono text-blue-500 font-bold">STABLE // 0.002s</span>
+        </motion.div>
       </div>
     </section>
   );
