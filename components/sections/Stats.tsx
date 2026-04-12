@@ -81,15 +81,14 @@ export default function Stats() {
           ))}
         </div>
 
-        {/* 3. Sección de Gráficos Detallados (Racha + Lenguajes) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+        {/* 3. Sección de Gráficos Detallados (Racha) */}
+        <div className="flex justify-center w-full">
           {/* Racha de Código (RESTAURADA) */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-zinc-900/50 border border-zinc-800 rounded-[2.5rem] p-8 flex flex-col gap-6 backdrop-blur-sm"
+            className="bg-zinc-900/50 border border-zinc-800 rounded-[2.5rem] p-8 flex flex-col gap-6 backdrop-blur-sm w-full max-w-2xl"
           >
             <div className="flex items-center gap-3">
               <Terminal className="w-6 h-6 text-blue-500" />
@@ -107,28 +106,6 @@ export default function Stats() {
               Días consecutivos de actividad y compromiso.
             </p>
           </motion.div>
-
-          {/* Resumen de Lenguajes */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-zinc-900/50 border border-zinc-800 rounded-[2.5rem] p-8 flex flex-col gap-6 backdrop-blur-sm"
-          >
-            <div className="flex items-center gap-3">
-              <BarChart3 className="w-6 h-6 text-emerald-500" />
-              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Lenguajes más usados</h4>
-            </div>
-            <div className="w-full space-y-6">
-              <img 
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=nanisadw3&layout=compact&theme=dark&hide_border=true&bg_color=00000000&title_color=3b82f6&text_color=94a3b8" 
-                alt="Top Langs"
-                className="w-full h-auto"
-                loading="lazy"
-              />
-            </div>
-          </motion.div>
-
         </div>
       </div>
     </Section>
