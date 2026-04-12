@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - React
+      - Professional-Upgrade
 
 permissions:
   contents: write
