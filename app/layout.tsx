@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Iñaki Sobera Portfolio",
     images: [
       {
-        url: "/yo.png",
+        url: "/portfolio-2.jpg",
         width: 800,
         height: 800,
         alt: "Iñaki Sobera Sotomayor",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Iñaki Sobera Sotomayor | Software Developer",
     description: "Desarrollador de Software apasionado por la innovación.",
-    images: ["/yo.png"],
+    images: ["/portfolio-2.jpg"],
   },
   alternates: {
     canonical: "https://nanisadw3.github.io",

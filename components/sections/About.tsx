@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { Download, Terminal, ShieldCheck, Cpu, Fingerprint } from "lucide-react";
+import { Download, Terminal, ShieldCheck, Fingerprint } from "lucide-react";
 import { useRef } from "react";
 
 export default function About() {
@@ -36,7 +36,7 @@ export default function About() {
     <Section id="about" title="Sobre Mí">
       <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start">
         
-        {/* Perfil Estilo Gafete con Física y Animación de Caída */}
+        {/* REALISTIC ID BADGE SYSTEM */}
         <div 
           className="perspective-[1200px] select-none pt-24"
           onMouseMove={handleMouseMove}
@@ -44,92 +44,103 @@ export default function About() {
         >
           <motion.div
             ref={cardRef}
-            // Animación de entrada: cae desde arriba y se balancea
-            initial={{ y: -500, opacity: 0, rotateZ: -15 }}
+            initial={{ y: 50, opacity: 0 }}
             whileInView={{ 
               y: 0, 
-              opacity: 1, 
-              rotateZ: [0, 8, -4, 2, 0] 
+              opacity: 1,
             }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ 
-              y: { type: "spring", stiffness: 80, damping: 12, duration: 2 },
-              rotateZ: { delay: 0.5, duration: 2.5, ease: "easeInOut" },
-              opacity: { duration: 0.6 }
+              duration: 1,
+              ease: "easeOut"
             }}
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className="relative w-72 h-[420px] sm:w-80 sm:h-[480px] shrink-0 group origin-top"
+            className="relative w-[320px] h-[480px] shrink-0 group origin-top"
           >
-            {/* Listón del Gafete (Lanyard) - Estética de Ingeniería */}
-            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-5 h-32 bg-gradient-to-b from-blue-900/40 via-blue-600/60 to-blue-500 rounded-full -z-10 shadow-[0_0_20px_rgba(37,99,235,0.2)]">
-              {/* Clip de unión metálico */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-8 border-4 border-zinc-700 rounded-full bg-zinc-800 shadow-xl" />
+            {/* LANYARD (LISTÓN) - Refined */}
+            <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-6 h-36 z-0 pointer-events-none">
+              <div className="w-full h-full bg-[#0a1a3a] rounded-full border-x border-white/10 shadow-2xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-400/20 via-transparent to-transparent" />
+              </div>
+              {/* PROFESSIONAL CLIP */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-zinc-300 via-zinc-400 to-zinc-500 rounded-lg shadow-xl flex items-center justify-center border border-white/30">
+                <div className="w-4 h-4 rounded-full bg-zinc-800 border border-white/10 shadow-inner" />
+              </div>
             </div>
 
-            {/* Brillo de fondo dinámico */}
-            <div className="absolute inset-0 bg-blue-600/15 rounded-[2.5rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
-            {/* Cuerpo del Gafete */}
-            <div className="relative w-full h-full bg-zinc-900/90 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col p-7 translate-z-[30px]">
+            {/* CARD BODY - Ultra Clean White */}
+            <div className="relative w-full h-full bg-white rounded-[1.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col translate-z-[40px] border border-white/40">
               
-              {/* Slot superior del gafete */}
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-2.5 bg-black/60 rounded-full border border-white/5" />
-
-              {/* Cabecera del Gafete */}
-              <div className="flex justify-between items-center mb-6 mt-4">
+              {/* MAGNETIC STRIP / TOP ACCENT */}
+              <div className="h-16 w-full bg-zinc-900 flex items-center px-6 justify-between border-b-2 border-blue-600">
                 <div className="flex items-center gap-2">
-                  <Fingerprint className="w-5 h-5 text-blue-500" />
-                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest">ID Verified</span>
+                  <ShieldCheck className="w-5 h-5 text-blue-500" />
+                  <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-mono">SECURITY ACCESS</span>
                 </div>
-                <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                <div className="text-[8px] font-mono text-zinc-500">AUTH. GRANTED</div>
               </div>
 
-              {/* Imagen de Perfil con Efecto HUD */}
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-white/5 bg-black group-hover:border-blue-500/30 transition-colors duration-500">
-                <img
-                  src={`/${about.imageUrl}`}
-                  alt="Iñaki Sobera"
-                  className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-                />
-                
-                {/* Scanner Laser animado */}
-                <motion.div 
-                  animate={{ top: ["-5%", "105%"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="absolute left-0 w-full h-[2px] bg-blue-400/80 shadow-[0_0_15px_rgba(59,130,246,1)] z-10"
-                />
-                
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.4)_100%)]" />
-              </div>
+              <div className="p-6 flex-grow flex flex-col relative">
+                {/* WATERMARK BACKGROUND */}
+                <div className="absolute inset-0 opacity-[0.02] flex items-center justify-center pointer-events-none">
+                  <Fingerprint className="w-64 h-64 text-black" />
+                </div>
 
-              {/* Información del Usuario */}
-              <div className="mt-8 space-y-2 text-center">
-                <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none">
-                  {hero.name.split(' ')[0]}<br/>
-                  <span className="text-blue-500">{hero.name.split(' ')[1]}</span>
-                </h3>
-                <div className="inline-block px-3 py-1 bg-blue-600/10 border border-blue-500/20 rounded-md">
-                  <p className="text-blue-400 text-[9px] font-black uppercase tracking-widest">Systems Engineer</p>
+                {/* PROFILE IMAGE - Professional Frame */}
+                <div className="relative w-full aspect-square bg-[#f3f4f6] rounded-xl overflow-hidden border border-zinc-100 mb-6 shadow-sm group-hover:border-blue-500/30 transition-colors duration-500">
+                  <img
+                    src={`/${about.imageUrl}`}
+                    alt={hero.name}
+                    className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
+                  />
+                  {/* SUBTLE OVERLAY */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-purple-500/5 opacity-50" />
+                </div>
+
+                {/* IDENTITY DATA */}
+                <div className="space-y-4 relative z-10">
+                  <div>
+                    <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest mb-1">Full Name</p>
+                    <h3 className="text-2xl font-black text-zinc-900 uppercase tracking-tighter leading-none border-b border-zinc-100 pb-2">
+                      {hero.name}
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest mb-1">Designation</p>
+                      <p className="text-xs font-bold text-blue-600 uppercase tracking-tight">Systems Engineer</p>
+                    </div>
+                    <div>
+                      <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest mb-1">Access Level</p>
+                      <p className="text-xs font-bold text-zinc-900 uppercase tracking-tight">Tier 1 // Admin</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* FOOTER DATA / BARCODE AREA */}
+                <div className="mt-auto flex items-end justify-between border-t border-zinc-100 pt-4">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[7px] font-mono text-zinc-400 uppercase tracking-widest">Employee ID</p>
+                    <p className="text-[10px] font-mono font-bold text-zinc-800">ISO-215488-CORE</p>
+                  </div>
+                  {/* REALISTIC CHIP */}
+                  <div className="w-10 h-8 bg-gradient-to-br from-yellow-300 via-yellow-500 to-yellow-600 rounded-md shadow-md border border-black/10 relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-30 bg-[linear-gradient(rgba(0,0,0,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.2)_1px,transparent_1px)] bg-[size:4px_4px]" />
+                  </div>
                 </div>
               </div>
 
-              {/* Pie del Gafete */}
-              <div className="mt-auto pt-4 flex justify-between items-center opacity-40 border-t border-white/5">
-                <span className="text-[7px] font-mono text-zinc-400">SEC-PROTOCOL: ALPHA-9</span>
-                <Cpu className="w-4 h-4 text-zinc-400" />
-              </div>
+              {/* BOTTOM SECURITY LINE */}
+              <div className="h-2 w-full bg-gradient-to-r from-blue-600 via-emerald-500 to-blue-600" />
             </div>
 
-            {/* Efecto de partículas orbitando el gafete */}
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-6 border border-dashed border-blue-500/10 rounded-full -z-10 pointer-events-none"
-            />
+            {/* FLOATING SHADOW FOR REALISM */}
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-6 bg-black/40 blur-2xl rounded-full scale-x-150 pointer-events-none" />
           </motion.div>
         </div>
 
-        {/* Contenido de la Biografía */}
+        {/* Bio Content */}
         <div className="flex-1 space-y-12">
           <div className="space-y-4">
             <h3 className="text-4xl font-black text-white tracking-tight uppercase flex items-center gap-4">
