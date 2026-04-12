@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Section from "../ui/Section";
 import { portfolioData } from "@/lib/data";
-import { ChevronDown, Folder, Code2, Sparkles } from "lucide-react";
-import { useState, useRef } from "react";
+import { ChevronDown, ExternalLink, Github, Terminal } from "lucide-react";
+import { useState } from "react";
 
 interface Project {
   title: string;
@@ -16,140 +16,93 @@ interface Project {
 }
 
 function ProjectCard({ project, index }: { project: Project, index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  
-  // 3D Tilt Values
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseX = useSpring(x, { stiffness: 150, damping: 20 });
-  const mouseY = useSpring(y, { stiffness: 150, damping: 20 });
-
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  // Spotlight Effect Values
-  const spotlightX = useSpring(useMotionValue(0));
-  const spotlightY = useSpring(useMotionValue(0));
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    
-    // For Tilt
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-
-    // For Spotlight
-    spotlightX.set(e.clientX - rect.left);
-    spotlightY.set(e.clientY - rect.top);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ 
-        duration: 0.8, 
+        duration: 0.6, 
         delay: index * 0.1,
         type: "spring",
-        stiffness: 50
+        stiffness: 100,
+        damping: 20
       }}
-      className="relative perspective-[1000px]"
+      className="group relative"
     >
-      <motion.div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative h-full min-h-[480px] bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] overflow-hidden flex flex-col group transition-colors duration-500 hover:border-blue-500/30 shadow-2xl"
-      >
-        {/* Dynamic Spotlight Background */}
-        <motion.div 
-          style={{
-            background: useTransform(
-              [spotlightX, spotlightY],
-              ([sx, sy]) => `radial-gradient(600px circle at ${sx}px ${sy}px, rgba(59, 130, 246, 0.06), transparent 40%)`
-            )
-          }}
-          className="absolute inset-0 z-0 pointer-events-none"
-        />
-
-        {/* Image Section */}
-        <div className="relative h-60 overflow-hidden m-4 rounded-[2rem] border border-white/5">
+      {/* Animated Glow behind the card */}
+      <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 to-emerald-500/20 rounded-[2.5rem] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700" />
+      
+      <div className="relative h-full flex flex-col bg-zinc-900/40 border border-white/10 rounded-[2.5rem] overflow-hidden backdrop-blur-sm transition-all duration-500 group-hover:translate-y-[-10px] group-hover:border-white/20 group-hover:bg-zinc-900/60 shadow-2xl">
+        
+        {/* Project Header / Image */}
+        <div className="relative h-64 overflow-hidden overflow-hidden">
           <img
             src={`/${project.image}`}
             alt={project.title}
-            className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-out"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
           
-          {/* Tags Overlay */}
-          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-            {project.tags?.map((tag: string, i: number) => (
-              <span key={i} className="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-black uppercase tracking-widest text-blue-400">
+          {/* Top Badge */}
+          <div className="absolute top-6 left-6">
+            <div className="px-4 py-1.5 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2">
+              <Terminal className="w-3 h-3 text-blue-400" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300">Software Architecture</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Project Info */}
+        <div className="p-8 flex flex-col flex-grow">
+          <h3 className="text-3xl font-black text-white mb-4 tracking-tighter uppercase group-hover:text-blue-400 transition-colors">
+            {project.title}
+          </h3>
+          
+          <p className="text-zinc-400 text-base leading-relaxed mb-8 flex-grow font-light">
+            {project.description}
+          </p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.tags?.map((tag, i) => (
+              <span key={i} className="px-3 py-1 bg-white/5 border border-white/5 rounded-lg text-[10px] font-bold text-zinc-500 tracking-wide uppercase">
                 {tag}
               </span>
             ))}
           </div>
-        </div>
-        
-        {/* Content Section */}
-        <div className="p-8 pt-4 flex flex-col flex-grow relative z-10 translate-z-[30px]">
-          <div className="flex items-center gap-2 mb-4">
-            <Folder className="w-4 h-4 text-zinc-600 group-hover:text-blue-500 transition-colors" />
-            <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Deployment Active</span>
-          </div>
-
-          <h3 className="text-3xl font-black text-white mb-4 leading-tight tracking-tighter uppercase font-display group-hover:text-blue-400 transition-colors">
-            {project.title}
-          </h3>
           
-          <p className="text-zinc-400 text-sm leading-relaxed mb-8 flex-grow font-light italic">
-            &quot;{project.description}&quot;
-          </p>
-          
-          {/* Action Buttons */}
-          <div className="flex gap-4 mt-auto">
+          {/* Action Links */}
+          <div className="flex items-center gap-6">
             {project.github && (
-              <motion.a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest text-white bg-white/5 border border-white/10 hover:bg-white hover:text-black hover:border-white py-4 rounded-xl transition-all duration-300"
+              <a 
+                href={project.github} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors group/link"
               >
-                <Code2 className="w-4 h-4" />
-                <span>Engine</span>
-              </motion.a>
+                <Github className="w-5 h-5 group-hover/link:rotate-12 transition-transform" />
+                <span className="text-xs font-black uppercase tracking-widest">Source</span>
+              </a>
             )}
             {project.demo && (
-              <motion.a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest text-black bg-white hover:bg-blue-600 hover:text-white py-4 rounded-xl transition-all duration-300 shadow-xl shadow-white/5"
+              <a 
+                href={project.demo} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors group/link"
               >
-                <Sparkles className="w-4 h-4" />
-                <span>Live Alpha</span>
-              </motion.a>
+                <ExternalLink className="w-5 h-5 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                <span className="text-xs font-black uppercase tracking-widest">Live Demo</span>
+              </a>
             )}
           </div>
         </div>
 
-        {/* Decorative corner accent */}
-        <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-transparent to-blue-500/5 -rotate-45 translate-x-12 translate-y-12" />
-      </motion.div>
+        {/* Interactive Overlay on Image (only on hover) */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </div>
     </motion.div>
   );
 }
@@ -175,7 +128,7 @@ export default function Portfolio() {
   const displayedProjects = showAll ? projects : projects.slice(0, 6);
 
   return (
-    <Section id="portfolio" title="Proyectos de Ingeniería">
+    <Section id="portfolio" title="Proyectos Destacados">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <AnimatePresence mode="popLayout">
           {displayedProjects.map((project, index) => (
@@ -188,21 +141,14 @@ export default function Portfolio() {
         <div className="mt-24 text-center">
           <button
             onClick={toggleShowAll}
-            className="group inline-flex flex-col items-center gap-4 mx-auto text-zinc-500 hover:text-white transition-all duration-500"
+            className="group flex flex-col items-center gap-4 mx-auto text-zinc-500 hover:text-white transition-all duration-500"
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] mb-2">
-              {showAll ? "Terminate Grid" : "Initialize more instances"}
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">
+              {showAll ? "Ver Menos Proyectos" : "Explorar todos los Proyectos"}
             </span>
             <motion.div
-              animate={{ 
-                rotate: showAll ? 180 : 0,
-                y: showAll ? 0 : [0, 10, 0]
-              }}
-              transition={{ 
-                rotate: { duration: 0.5 },
-                y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
-              }}
-              className="p-5 border border-zinc-800 rounded-full bg-[#0a0a0a] group-hover:border-blue-500 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all"
+              animate={{ rotate: showAll ? 180 : 0 }}
+              className="p-4 border border-zinc-800 rounded-full group-hover:border-blue-500 transition-colors"
             >
               <ChevronDown className="w-6 h-6 text-blue-500" />
             </motion.div>
