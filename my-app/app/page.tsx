@@ -1,3 +1,4 @@
+// Force redeploy to restore original site
 "use client";
 
 import { useEffect } from "react";
