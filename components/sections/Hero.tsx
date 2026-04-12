@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import ScrambleText from "../effects/ScrambleText";
 import GlitchCanvas from "../effects/GlitchCanvas";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Star } from "lucide-react";
+import { Github, Linkedin, Star, Terminal, Shield, Cpu, Activity } from "lucide-react";
 import { Reveal, FadeIn } from "../ui/Reveal";
 
 export default function Hero() {
   const { hero, contact } = portfolioData;
-  const [githubStats, setGithubStats] = useState({ repos: 0, stars: 0, topLanguage: "" });
+  const [githubStats, setGithubStats] = useState({ repos: 0, stars: 0 });
 
   useEffect(() => {
     fetch(`https://api.github.com/users/nanisadw3`)
@@ -21,18 +21,9 @@ export default function Hero() {
           .then(repos => {
             if (Array.isArray(repos)) {
               const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-              const langs: Record<string, number> = {};
-              repos.forEach(repo => {
-                if (repo.language) {
-                  langs[repo.language] = (langs[repo.language] || 0) + 1;
-                }
-              });
-              const topLang = Object.keys(langs).reduce((a, b) => langs[a] > langs[b] ? a : b, "Software");
-
               setGithubStats({
                 repos: userData.public_repos,
                 stars: totalStars,
-                topLanguage: topLang
               });
             }
           });
@@ -40,144 +31,131 @@ export default function Hero() {
       .catch(err => console.error("Error Hero stats:", err));
   }, []);
 
-  const floatingIcons = [
-    { Icon: Code2, color: "text-blue-500/40", top: "15%", left: "10%", delay: 0 },
-    { Icon: Terminal, color: "text-emerald-500/40", top: "70%", left: "15%", delay: 1 },
-    { Icon: Cpu, color: "text-purple-500/40", top: "20%", right: "10%", delay: 0.5 },
-    { Icon: Sparkles, color: "text-yellow-500/40", top: "60%", right: "15%", delay: 1.5 },
-  ];
-
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden" aria-label="Hero Section">
-      <GlitchCanvas />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-grid" aria-label="Hero Section">
+      {/* Dynamic Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <GlitchCanvas />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-[#020202]" />
+      </div>
 
-      {/* Social Sidebar */}
-      <motion.div 
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ type: "spring", stiffness: 50, damping: 20, delay: 1.5 }}
-        className="absolute left-8 bottom-32 hidden lg:flex flex-col gap-8 z-20"
-      >
-        <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-blue-400 hover:scale-125 transition-all duration-300" aria-label="GitHub Profile">
-          <Github className="w-6 h-6" />
-        </a>
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-blue-400 hover:scale-125 transition-all duration-300" aria-label="LinkedIn Profile">
-          <Linkedin className="w-6 h-6" />
-        </a>
-        <div className="w-[1px] h-24 bg-gradient-to-b from-zinc-800 to-transparent mx-auto mt-2" />
-      </motion.div>
+      {/* Floating Status Bar (Top) */}
+      <div className="absolute top-10 left-0 w-full px-10 flex justify-between items-center z-20">
+        <FadeIn delay={0.5}>
+          <div className="flex items-center gap-4 px-4 py-2 glass rounded-full">
+            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">System Online // v2.0.26</span>
+          </div>
+        </FadeIn>
+        <div className="hidden md:flex items-center gap-8">
+          {[
+            { label: "LATENCY", value: "24ms" },
+            { label: "UPTIME", value: "99.9%" },
+            { label: "ENCRYPTION", value: "AES-256" }
+          ].map((item, i) => (
+            <FadeIn key={i} delay={0.6 + i * 0.1}>
+              <div className="flex flex-col items-end">
+                <span className="text-[8px] font-black text-zinc-600 tracking-[0.2em]">{item.label}</span>
+                <span className="text-[10px] font-mono text-blue-500 font-bold">{item.value}</span>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
 
-      {/* Floating Elements with organic motion */}
-      {floatingIcons.map((item, i) => (
-        <motion.div
-          key={i}
-          animate={{ 
-            y: [0, -30, 0],
-            rotate: [0, 5, -5, 0],
-            opacity: [0.2, 0.5, 0.2]
-          }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity, 
-            delay: item.delay, 
-            ease: "easeInOut" 
-          }}
-          style={{ top: item.top, left: item.left, right: item.right }}
-          className={`absolute z-0 hidden md:block ${item.color}`}
-          aria-hidden="true"
-        >
-          <item.Icon className="w-16 h-16 blur-[1px]" />
-        </motion.div>
-      ))}
-
-      <div className="container px-6 relative z-10 text-center">
-        <div className="max-w-5xl mx-auto">
-          <FadeIn delay={0.2}>
-            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-blue-500/5 border border-blue-500/10 mb-10 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-              </span>
-              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-blue-400/80">
-                {hero.tagline}
-              </span>
-            </div>
-          </FadeIn>
+      <div className="container px-6 relative z-10">
+        <div className="flex flex-col items-center text-center max-w-6xl mx-auto">
+          
+          <Reveal delay={0.2} width="100%">
+            <span className="inline-block text-blue-500 font-black uppercase tracking-[0.5em] text-xs mb-6 px-4 py-1 border-l border-r border-blue-500/30">
+              {hero.tagline}
+            </span>
+          </Reveal>
 
           <Reveal delay={0.4} width="100%">
-            <h1 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              <ScrambleText text={hero.name} />
+            <h1 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter text-white mb-10 leading-[0.85] uppercase">
+              <ScrambleText text={hero.name.split(' ')[0]} /><br/>
+              <span className="text-transparent stroke-text" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)" }}>
+                <ScrambleText text={hero.name.split(' ')[1]} />
+              </span>
             </h1>
           </Reveal>
 
-          <Reveal delay={0.6} width="100%">
-            <p className="text-xl sm:text-2xl md:text-3xl text-zinc-400 max-w-3xl mx-auto mb-16 leading-relaxed font-light">
-              {hero.summary}
-            </p>
-          </Reveal>
-
-          <FadeIn delay={1.2}>
-            <div className="flex flex-col items-center gap-16">
-              <div className="flex flex-wrap justify-center gap-6">
-                <motion.a
-                  href="#portfolio"
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-12 py-6 bg-white text-black rounded-full font-black uppercase tracking-widest transition-all shadow-2xl hover:shadow-white/10 inline-block focus:ring-2 focus:ring-white outline-none"
-                >
-                  View Work
-                </motion.a>
-                <motion.a
-                  href="#contact"
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-12 py-6 bg-transparent border border-white/10 text-white rounded-full font-black uppercase tracking-widest transition-all hover:bg-white/5 inline-block focus:ring-2 focus:ring-white outline-none"
-                >
-                  Get in Touch
-                </motion.a>
-              </div>
-
-              {/* Stats Bar */}
-              <div className="grid grid-cols-3 gap-8 md:gap-20 max-w-4xl border-t border-zinc-800/30 pt-16">
-                {[
-                  { label: "Proyectos", value: githubStats.repos || "30+" },
-                  { label: "Estrellas", value: githubStats.stars || "12", icon: Star },
-                  { label: "Main Stack", value: githubStats.topLanguage || "Java/Python", color: "text-blue-400" }
-                ].map((stat, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.5 + (i * 0.1), type: "spring" }}
-                    className="space-y-2 group"
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      {stat.icon && <stat.icon className="w-4 h-4 text-yellow-500 fill-yellow-500 group-hover:scale-125 transition-transform" />}
-                      <p className={`text-3xl md:text-4xl font-black text-white ${stat.color || ""}`}>
-                        {stat.value}
-                      </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center mt-10">
+            <div className="lg:col-span-4 text-left order-2 lg:order-1">
+              <FadeIn delay={0.8}>
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-blue-600/10 rounded-xl border border-blue-500/20 group-hover:border-blue-500 transition-colors">
+                      <Terminal className="w-5 h-5 text-blue-400" />
                     </div>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-bold group-hover:text-zinc-300 transition-colors">
-                      {stat.label}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+                    <div>
+                      <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active Focus</p>
+                      <p className="text-sm font-bold text-white tracking-wide uppercase">Backend Engineering</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-emerald-600/10 rounded-xl border border-emerald-500/20 group-hover:border-emerald-500 transition-colors">
+                      <Shield className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Security Core</p>
+                      <p className="text-sm font-bold text-white tracking-wide uppercase">Infrastructure Defense</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
             </div>
-          </FadeIn>
+
+            <div className="lg:col-span-4 order-1 lg:order-2 flex justify-center">
+              <FadeIn delay={1}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="relative group"
+                >
+                  <div className="absolute inset-0 bg-blue-600/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                  <a 
+                    href="#portfolio"
+                    className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full border border-white/10 flex flex-col items-center justify-center gap-4 glass group-hover:border-blue-500 transition-all duration-700"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center">
+                      <Activity className="w-6 h-6" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Initiate Sequence</span>
+                  </a>
+                </motion.div>
+              </FadeIn>
+            </div>
+
+            <div className="lg:col-span-4 text-right order-3">
+              <FadeIn delay={1.2}>
+                <div className="flex flex-col items-end gap-2">
+                  <div className="flex gap-4 mb-4">
+                    <a href={contact.github} target="_blank" rel="noopener noreferrer" className="p-4 glass rounded-2xl hover:text-blue-400 hover:border-blue-500/50 transition-all">
+                      <Github className="w-5 h-5" />
+                    </a>
+                    <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 glass rounded-2xl hover:text-blue-400 hover:border-blue-500/50 transition-all">
+                      <Linkedin className="w-5 h-5" />
+                    </a>
+                  </div>
+                  <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em]">Available for projects</p>
+                  <p className="text-xl font-black text-white uppercase tracking-tighter">Remote // Global</p>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Animated Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-      >
-        <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-600 font-bold">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-blue-500 to-transparent animate-pulse" />
-      </motion.div>
+
+      {/* Decorative Sidebar Elements */}
+      <div className="absolute bottom-10 left-10 hidden lg:block">
+        <FadeIn delay={1.5}>
+          <div className="space-y-4">
+            <div className="w-px h-20 bg-gradient-to-t from-blue-500 to-transparent mx-auto" />
+            <span className="text-[8px] font-mono text-zinc-700 [writing-mode:vertical-lr] tracking-[0.5em] uppercase">Architecture // Security // AI</span>
+          </div>
+        </FadeIn>
+      </div>
     </section>
   );
 }

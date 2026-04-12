@@ -2,16 +2,14 @@
 
 import { useEffect } from "react";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
 import Portfolio from "@/components/sections/Portfolio";
-import Stats from "@/components/sections/Stats";
 import Education from "@/components/sections/Education";
-import Skills from "@/components/sections/Skills";
 import Contact, { Footer } from "@/components/sections/Contact";
+import BentoProfile from "@/components/ui/BentoProfile";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 export default function Home() {
   useEffect(() => {
-    // Forzar scroll al inicio al cargar o refrescar
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
@@ -19,17 +17,18 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <section id="hero">
-        <Hero />
-      </section>
-      <About />
-      <Portfolio />
-      <Stats />
-      <Education />
-      <Skills />
-      <Contact />
+    <main className="flex flex-col min-h-screen bg-[#020202]">
+      <Hero />
+      
+      <div className="space-y-32 pb-32">
+        <BentoProfile />
+        <Portfolio />
+        <Education />
+        <Contact />
+      </div>
+
       <Footer />
+      <ScrollToTop />
     </main>
   );
 }

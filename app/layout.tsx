@@ -1,9 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ClientWrapper from "@/components/ClientWrapper";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+});
+
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ["latin"],
+  variable: '--font-space',
+});
 
 export const metadata: Metadata = {
   title: "Iñaki Sobera Sotomayor | Software Developer Portfolio",
@@ -75,7 +83,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} text-white antialiased bg-[#020202]`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans text-white antialiased bg-[#020202]`}>
         <ClientWrapper>
           {children}
         </ClientWrapper>
