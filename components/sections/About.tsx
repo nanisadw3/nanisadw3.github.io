@@ -149,21 +149,23 @@ export default function About() {
           className="flex-1 space-y-8 text-gray-300 md:pt-6"
         >
           <div className="space-y-4">
-            <h3 className="text-4xl font-black text-white tracking-tight">Perfil Profesional</h3>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full" />
+            <h3 className="text-4xl font-black text-white tracking-tight uppercase">Ingeniería de Sistemas</h3>
+            <div className="h-1.5 w-20 bg-blue-600 rounded-full" />
           </div>
           
           {about.bio.map((paragraph, index) => (
-            <p key={index} className="text-lg leading-relaxed text-zinc-400">
-              {paragraph}
+            <p key={index} className="text-xl leading-relaxed text-zinc-400 font-light italic">
+              &quot;{paragraph}&quot;
             </p>
           ))}
           
-          <div className="pt-6 space-y-6">
-            <h4 className="text-xl font-bold text-white">Habilidades y Herramientas</h4>
-            <p className="text-lg leading-relaxed text-zinc-400">
-              {about.skillsSummary}
-            </p>
+          <div className="pt-6 space-y-8">
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <h4 className="text-sm font-black text-blue-400 uppercase tracking-widest mb-3">Especialización Técnica</h4>
+              <p className="text-lg leading-relaxed text-zinc-300">
+                {about.skillsSummary}
+              </p>
+            </div>
             
             <div className="flex flex-wrap gap-6 items-center pt-4">
               <a

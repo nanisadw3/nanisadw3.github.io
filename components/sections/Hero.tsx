@@ -51,9 +51,9 @@ export default function Hero() {
       <GlitchCanvas />
 
       <motion.div 
-        initial={{ opacity: 0, x: -20 }}
+        initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2 }}
+        transition={{ type: "spring", stiffness: 50, damping: 20, delay: 1.5 }}
         className="absolute left-6 bottom-32 hidden lg:flex flex-col gap-6 z-20"
       >
         <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white hover:scale-125 transition-all" aria-label="GitHub Profile">
@@ -68,26 +68,35 @@ export default function Hero() {
       {floatingIcons.map((item, i) => (
         <motion.div
           key={i}
-          animate={{ opacity: [0.1, 0.3, 0.1], y: [0, -20, 0], rotate: [0, 10, 0] }}
-          transition={{ duration: 5, repeat: Infinity, delay: item.delay, ease: "easeInOut" }}
+          animate={{ 
+            y: [0, -30, 0],
+            rotate: [0, 5, -5, 0],
+            opacity: [0.1, 0.4, 0.1]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            delay: item.delay, 
+            ease: "easeInOut" 
+          }}
           style={{ top: item.top, left: item.left, right: item.right }}
           className={`absolute z-0 hidden md:block ${item.color}`}
           aria-hidden="true"
         >
-          <item.Icon className="w-12 h-12" />
+          <item.Icon className="w-12 h-12 blur-[1px]" />
         </motion.div>
       ))}
 
       <div className="container px-6 relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 40, damping: 25, duration: 1 }}
         >
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.2 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8"
           >
             <Code className="w-3 h-3 text-blue-400" />
@@ -103,8 +112,8 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12"
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 font-light"
           >
             {hero.summary}
           </motion.p>
@@ -112,12 +121,12 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2 }}
+            transition={{ type: "spring", stiffness: 50, damping: 20, delay: 1.2 }}
             className="flex flex-col items-center gap-12"
           >
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37, 99, 235, 0.4)" }}
+              whileHover={{ scale: 1.05, y: -5, boxShadow: "0 20px 40px rgba(37, 99, 235, 0.2)" }}
               whileTap={{ scale: 0.95 }}
               className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block focus:ring-2 focus:ring-blue-500 outline-none"
             >
@@ -148,7 +157,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <div className="w-6 h-10 border-2 border-zinc-800 rounded-full flex justify-center p-2 backdrop-blur-sm">
