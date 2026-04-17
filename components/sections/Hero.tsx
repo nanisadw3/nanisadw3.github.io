@@ -125,9 +125,12 @@ export default function Hero() {
           >
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05, y: -5, boxShadow: "0 20px 40px rgba(37, 99, 235, 0.2)" }}
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+              }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block focus:ring-2 focus:ring-blue-500 outline-none"
+              className="btn-primary px-10 py-5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest inline-block focus:ring-2 focus:ring-blue-500 outline-none z-30"
             >
               Contáctame
             </motion.a>
