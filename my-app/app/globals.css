@@ -79,7 +79,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #0f172a;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -117,6 +117,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    background: radial-gradient(circle at top right, #1e293b, #0f172a);
+    background-attachment: fixed;
+    @apply text-foreground;
   }
 }
