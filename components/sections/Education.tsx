@@ -27,7 +27,7 @@ export default function Education() {
   }, [activeStep]);
 
   return (
-    <Section id="education" title="Educación">
+    <Section id="education" title="Educación" animationType="bounce">
       <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-10 shadow-2xl overflow-hidden">
         
         {/* Stepper Header: Responsivo (Scroll en móvil, Justificado en PC) */}

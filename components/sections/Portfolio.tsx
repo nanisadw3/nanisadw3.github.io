@@ -116,7 +116,7 @@ export default function Portfolio() {
   const displayedProjects = showAll ? projects : projects.slice(0, 6);
 
   return (
-    <Section id="portfolio" title="Proyectos Seleccionados">
+    <Section id="portfolio" title="Proyectos Seleccionados" animationType="reveal">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <AnimatePresence mode="popLayout">
           {displayedProjects.map((project, index) => (

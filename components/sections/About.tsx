@@ -9,7 +9,7 @@ export default function About() {
   const { about, hero } = portfolioData;
 
   return (
-    <Section id="about" title="Sobre Mí">
+    <Section id="about" title="Sobre Mí" animationType="typewriter">
       <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start">
         
         {/* CLEAN PROFESSIONAL PHOTO FRAME */}

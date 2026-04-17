@@ -29,7 +29,7 @@ export default function Skills() {
   };
 
   return (
-    <Section id="skills" title="Habilidades">
+    <Section id="skills" title="Habilidades" animationType="glitch">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {Object.entries(skills).map(([category, list]) => {
           if (category === "languages") return null;

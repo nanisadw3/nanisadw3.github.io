@@ -9,7 +9,7 @@ export default function Contact() {
   const { contact } = portfolioData;
 
   return (
-    <Section id="contact" title="Contacto" className="bg-transparent">
+    <Section id="contact" title="Contacto" className="bg-transparent" animationType="reveal">
       <div className="flex flex-col lg:flex-row gap-16 items-start">
         {/* Info Column */}
         <motion.div
