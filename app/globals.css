@@ -19,8 +19,7 @@
     color: #ffffff;
     margin: 0;
     font-family: sans-serif;
-    background: radial-gradient(circle at top right, #1e293b, #0f172a);
-    background-attachment: fixed;
+    background-color: #0f172a;
     min-height: 100vh;
   }
 

@@ -89,8 +89,8 @@ const InteractiveBackground: React.FC = () => {
 
           if (distance < 150) {
             const opacity = 1 - distance / 150;
-            ctx.strokeStyle = `rgba(144, 202, 249, ${opacity * 0.4})`;
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = `rgba(100, 181, 246, ${opacity * 0.3})`;
+            ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
@@ -124,8 +124,11 @@ const InteractiveBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none"
-      style={{ background: 'transparent' }}
+      className="fixed top-0 left-0 w-full h-full pointer-events-none"
+      style={{ 
+        zIndex: -1,
+        background: 'radial-gradient(circle at top right, #1e293b, #0f172a)'
+      }}
     />
   );
 };
