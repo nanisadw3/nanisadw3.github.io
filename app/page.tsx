@@ -8,6 +8,7 @@ import Stats from "@/components/sections/Stats";
 import Education from "@/components/sections/Education";
 import Skills from "@/components/sections/Skills";
 import Contact, { Footer } from "@/components/sections/Contact";
+import InteractiveBackground from "@/components/effects/InteractiveBackground";
 
 export default function Home() {
   useEffect(() => {
@@ -19,7 +20,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen relative">
+      <InteractiveBackground />
       <section id="hero">
         <Hero />
       </section>
