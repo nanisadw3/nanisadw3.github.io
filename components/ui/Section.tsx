@@ -63,7 +63,7 @@ export default function Section({ children, id, className = "", title, animation
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="text-4xl sm:text-6xl font-black mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-white to-emerald-500 uppercase tracking-tighter whitespace-nowrap"
+              className="text-4xl sm:text-6xl font-black mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-white to-emerald-500 uppercase tracking-tighter leading-[1.1] sm:leading-none"
             >
               {title}
             </motion.h2>
