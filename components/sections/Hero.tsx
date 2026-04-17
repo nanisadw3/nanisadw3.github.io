@@ -48,8 +48,7 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden" aria-label="Hero Section">
-      <GlitchCanvas />
-
+      
       <motion.div 
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}

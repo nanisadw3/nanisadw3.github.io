@@ -51,7 +51,7 @@ const InteractiveBackground: React.FC = () => {
 
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fillStyle = 'rgba(200, 200, 200, 0.4)'; // Gris claro y sutil
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -64,7 +64,7 @@ const InteractiveBackground: React.FC = () => {
       canvas.width = width;
       canvas.height = height;
       particles = [];
-      const numberOfParticles = Math.floor((width * height) / 10000); // More particles
+      const numberOfParticles = Math.floor((width * height) / 12000); // Un poco menos de densidad
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new Particle(width, height));
       }
@@ -89,7 +89,7 @@ const InteractiveBackground: React.FC = () => {
 
           if (distance < 150) {
             const opacity = 1 - distance / 150;
-            ctx.strokeStyle = `rgba(100, 181, 246, ${opacity * 0.3})`;
+            ctx.strokeStyle = `rgba(200, 200, 200, ${opacity * 0.15})`; // Conexiones grisáceas tenues
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
