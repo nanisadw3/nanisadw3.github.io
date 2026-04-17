@@ -19,7 +19,7 @@
     color: #ffffff;
     margin: 0;
     font-family: sans-serif;
-    background: radial-gradient(circle at top right, #1e293b, #0f172a);
+    background: radial-gradient(circle at top right, #1a1a1a, #000000);
     background-attachment: fixed;
     min-height: 100vh;
     position: relative;
