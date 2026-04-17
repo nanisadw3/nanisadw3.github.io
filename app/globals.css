@@ -24,6 +24,10 @@
     min-height: 100vh;
   }
 
+  section {
+    background-color: transparent !important;
+  }
+
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
