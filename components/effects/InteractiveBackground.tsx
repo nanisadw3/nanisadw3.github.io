@@ -126,8 +126,8 @@ const InteractiveBackground: React.FC = () => {
       ref={canvasRef}
       className="fixed top-0 left-0 w-full h-full pointer-events-none"
       style={{ 
-        zIndex: -1,
-        background: 'radial-gradient(circle at top right, #1e293b, #0f172a)'
+        zIndex: 1,
+        background: 'transparent'
       }}
     />
   );
