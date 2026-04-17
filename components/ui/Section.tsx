@@ -63,7 +63,7 @@ export default function Section({ children, id, className = "", title, animation
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="text-4xl sm:text-6xl font-black mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-white to-emerald-500 uppercase tracking-tighter leading-[1.1] sm:leading-none"
+              className="text-4xl sm:text-6xl font-black mb-6 text-center text-white uppercase tracking-tighter leading-[1.1] sm:leading-none"
             >
               {title}
             </motion.h2>
@@ -72,7 +72,7 @@ export default function Section({ children, id, className = "", title, animation
               whileInView={{ width: "100px", opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5, ease: "circOut" }}
-              className="h-2 bg-blue-600 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.6)]"
+              className="h-2 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.6)]"
             />
           </div>
         )}
