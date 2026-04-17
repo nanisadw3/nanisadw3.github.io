@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020202;
+  --background: #0f172a;
   --foreground: #ffffff;
 }
 
@@ -14,14 +14,14 @@
   html {
     scroll-behavior: smooth;
     color: #ffffff;
-    background-color: #020202;
   }
   body {
     color: #ffffff;
     margin: 0;
     font-family: sans-serif;
-    background-color: #020202;
-    min-height: 100%;
+    background: radial-gradient(circle at top right, #1e293b, #0f172a);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   /* Custom Scrollbar */
