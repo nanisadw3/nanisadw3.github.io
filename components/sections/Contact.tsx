@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { Mail, Github, Linkedin, Send, MapPin, ArrowUpRight, MessageSquare, Twitter, Zap, Share2 } from "lucide-react";
+import { Mail, Github, Linkedin, Send, ArrowUpRight, MessageSquare, Twitter, Zap, Share2 } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
@@ -60,7 +60,6 @@ export default function Contact() {
   };
 
   return (
-<<<<<<< HEAD
     <section id="contact" className="py-32 relative overflow-hidden bg-background">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-brutalist-grid opacity-10 pointer-events-none" />
@@ -84,24 +83,6 @@ export default function Contact() {
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         className="absolute -bottom-1/4 -right-1/4 w-[800px] h-[800px] bg-accent/15 blur-[150px] rounded-full pointer-events-none" 
       />
-=======
-    <Section id="contact" title="Contacto" className="bg-transparent" animationType="reveal">
-      <div className="flex flex-col lg:flex-row gap-16 items-start">
-        {/* Info Column */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="lg:w-1/3 space-y-10"
-        >
-          <div className="space-y-4">
-            <h3 className="text-3xl font-bold text-white">¡Hablemos!</h3>
-            <p className="text-gray-400 text-lg">
-              ¿Interesado en colaborar o tienes alguna pregunta? No dudes en escribirme por cualquiera de estos medios.
-            </p>
-          </div>
->>>>>>> d045758b8479252506457ca41416b94ece1286b9
 
       <div className="container px-6 mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
@@ -168,7 +149,6 @@ export default function Contact() {
             className="lg:col-span-7"
           >
             <div className="relative p-12 md:p-16 rounded-[4rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl overflow-hidden group/form shadow-2xl">
-              {/* Internal Decorative Animations */}
               <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover/form:opacity-[0.08] transition-opacity duration-700">
                 <Share2 className="w-48 h-48 text-white rotate-12" />
               </div>
@@ -226,15 +206,15 @@ export default function Contact() {
                   <motion.button
                     whileHover={{ 
                       scale: 1.02,
-                      boxShadow: "0 15px 30px rgba(139,92,246,0.2)"
+                      boxShadow: "0 20px 40px rgba(139,92,246,0.3)"
                     }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full py-4 bg-primary text-white rounded-2xl font-black uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-3 group overflow-hidden relative shadow-xl"
+                    className="w-full py-7 bg-primary text-white rounded-[2rem] font-black uppercase tracking-[0.5em] text-[12px] transition-all flex items-center justify-center gap-4 group overflow-hidden relative shadow-2xl"
                   >
-                    <span className="relative z-10 flex items-center gap-2">
+                    <span className="relative z-10 flex items-center gap-3">
                       Initialize Transmission
-                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+                      <Send className="w-5 h-5 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
                     </span>
                     <motion.div 
                       className="absolute inset-0 bg-white"

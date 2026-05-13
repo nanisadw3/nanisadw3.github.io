@@ -21,19 +21,11 @@ export default function About() {
   ];
 
   return (
-<<<<<<< HEAD
     <section id="about" className="py-32 relative bg-background">
       <div className="container px-6 mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
           {/* Image Side (Bento Style) */}
-=======
-    <Section id="about" title="Sobre Mí" animationType="typewriter">
-      <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start">
-        
-        {/* CLEAN PROFESSIONAL PHOTO FRAME */}
-        <div className="relative group shrink-0">
->>>>>>> d045758b8479252506457ca41416b94ece1286b9
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
