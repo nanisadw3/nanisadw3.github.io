@@ -119,7 +119,7 @@ export const portfolioData = {
   skills: {
     programming: ["Java", "Python", "Ruby", "Bash", "C#"],
     frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    tools: ["Linux Admin", "Git/GitHub", "Docker", "CI/CD", "Neovim"],
+    tools: ["Linux Admin", "Git/GitHub", "Docker", "CI/CD", "Neovim", "Power BI"],
     databases: ["PostgreSQL", "MySQL", "SQL Server", "Redis"],
     languages: [
       { name: "Español", level: 100 },

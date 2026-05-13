@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Portfolio from "@/components/sections/Portfolio";
-import Stats from "@/components/sections/Stats";
 import Education from "@/components/sections/Education";
 import Skills from "@/components/sections/Skills";
 import Contact, { Footer } from "@/components/sections/Contact";
 
 export default function Home() {
   useEffect(() => {
-    // Forzar scroll al inicio al cargar o refrescar
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
@@ -19,16 +18,21 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <section id="hero">
+    <main className="flex flex-col min-h-screen bg-background text-foreground selection:bg-blue-500/30">
+      <Navbar />
+      
+      <div className="relative">
         <Hero />
-      </section>
-      <About />
-      <Portfolio />
-      <Stats />
-      <Education />
-      <Skills />
-      <Contact />
+        
+        <div className="relative z-10 bg-background">
+          <About />
+          <Portfolio />
+          <Skills />
+          <Education />
+          <Contact />
+        </div>
+      </div>
+      
       <Footer />
     </main>
   );

@@ -1,159 +1,290 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Section from "../ui/Section";
+import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { Mail, Phone, MessageSquare, Send, Github, Linkedin, Twitter, UserCircle } from "lucide-react";
+import { Mail, Github, Linkedin, Send, MapPin, ArrowUpRight, MessageSquare, Twitter, Zap, Share2 } from "lucide-react";
+import { useState } from "react";
 
 export default function Contact() {
   const { contact } = portfolioData;
+  const [focused, setFocused] = useState<string | null>(null);
+
+  const contactLinks = [
+    {
+      label: "Direct Mail",
+      value: contact.email,
+      href: `mailto:${contact.email}`,
+      icon: Mail,
+      color: "text-primary",
+      bg: "bg-primary/10",
+      delay: 0.1
+    },
+    {
+      label: "LinkedIn",
+      value: "Iñaki Sobera",
+      href: contact.linkedin,
+      icon: Linkedin,
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
+      delay: 0.2
+    },
+    {
+      label: "WhatsApp",
+      value: contact.whatsapp,
+      href: `https://wa.me/${contact.whatsapp.replace('+', '')}`,
+      icon: MessageSquare,
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10",
+      delay: 0.3
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
 
   return (
-    <Section id="contact" title="Contacto" className="bg-transparent">
-      <div className="flex flex-col lg:flex-row gap-16 items-start">
-        {/* Info Column */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="lg:w-1/3 space-y-10"
-        >
-          <div className="space-y-4">
-            <h3 className="text-3xl font-bold text-white">¡Hablemos!</h3>
-            <p className="text-gray-400 text-lg">
-              ¿Interesado en colaborar o tienes alguna pregunta? No dudes en escribirme por cualquiera de estos medios.
-            </p>
-          </div>
+    <section id="contact" className="py-32 relative overflow-hidden bg-background">
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full bg-brutalist-grid opacity-10 pointer-events-none" />
+      
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.2, 0.1],
+          rotate: [0, 45, 0]
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-primary/20 blur-[150px] rounded-full pointer-events-none" 
+      />
+      
+      <motion.div 
+        animate={{ 
+          scale: [1.2, 1, 1.2],
+          opacity: [0.1, 0.15, 0.1],
+          rotate: [0, -45, 0]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute -bottom-1/4 -right-1/4 w-[800px] h-[800px] bg-accent/15 blur-[150px] rounded-full pointer-events-none" 
+      />
 
-          <div className="space-y-6">
-            <a
-              href={`mailto:${contact.email}`}
-              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all backdrop-blur-sm focus:ring-2 focus:ring-blue-500 outline-none"
-              aria-label="Enviar correo electrónico"
-            >
-              <div className="p-3 bg-blue-600/10 rounded-xl group-hover:scale-110 transition-transform">
-                <Mail className="w-6 h-6 text-blue-400" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-sm text-zinc-500">Correo Electrónico</p>
-                <p className="text-white font-medium">{contact.email}</p>
-              </div>
-            </a>
+      <div className="container px-6 mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+          
+          {/* Info Side */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="lg:col-span-5 flex flex-col justify-center"
+          >
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-10 w-fit backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Connection: Active</span>
+            </motion.div>
+            
+            <motion.h2 variants={itemVariants} className="text-7xl md:text-9xl font-black mb-10 tracking-tighter leading-[0.85]">
+              LET&apos;S <br />
+              <span className="gradient-text">SYNC.</span>
+            </motion.h2>
+            
+            <motion.p variants={itemVariants} className="text-zinc-500 text-lg md:text-xl font-medium leading-relaxed mb-16 max-w-sm">
+              Iniciemos una conversación sobre sistemas, arquitectura o innovación. El canal está abierto.
+            </motion.p>
 
-            <a
-              href={`https://wa.me/${contact.whatsapp.replace(/\+/g, "").replace(/\s/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-emerald-500/50 transition-all backdrop-blur-sm focus:ring-2 focus:ring-emerald-500 outline-none"
-              aria-label="Contactar por WhatsApp"
-            >
-              <div className="p-3 bg-emerald-600/10 rounded-xl group-hover:scale-110 transition-transform">
-                <MessageSquare className="w-6 h-6 text-emerald-400" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-sm text-zinc-500">WhatsApp</p>
-                <p className="text-white font-medium">Contáctame</p>
-              </div>
-            </a>
+            <div className="space-y-4">
+              {contactLinks.map((link, idx) => (
+                <motion.a
+                  key={idx}
+                  variants={itemVariants}
+                  href={link.href}
+                  target="_blank"
+                  whileHover={{ x: 15, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex items-center justify-between p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 hover:border-primary/40 hover:bg-white/[0.06] transition-all duration-500 shadow-xl"
+                >
+                  <div className="flex items-center gap-6">
+                    <div className={`p-4 rounded-2xl ${link.bg} transition-transform duration-500 group-hover:rotate-12`}>
+                      <link.icon className={`w-7 h-7 ${link.color}`} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 mb-1.5">{link.label}</p>
+                      <p className="text-white font-bold text-lg tracking-tight">{link.value}</p>
+                    </div>
+                  </div>
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
+                    <ArrowUpRight className="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors" />
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
-            <div className="group flex items-center gap-5 p-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl backdrop-blur-sm">
-              <div className="p-3 bg-zinc-800 rounded-xl group-hover:scale-110 transition-transform">
-                <Phone className="w-6 h-6 text-zinc-400" />
+          {/* Form Side - Pushed down to the maximum in Y axis */}
+          <motion.div
+            initial={{ opacity: 0, y: 350 }}
+            whileInView={{ opacity: 1, y: 300 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
+          >
+            <div className="relative p-12 md:p-16 rounded-[4rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl overflow-hidden group/form shadow-2xl">
+              {/* Internal Decorative Animations */}
+              <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover/form:opacity-[0.08] transition-opacity duration-700">
+                <Share2 className="w-48 h-48 text-white rotate-12" />
               </div>
-              <div className="space-y-0.5">
-                <p className="text-sm text-zinc-500">Teléfono</p>
-                <p className="text-white font-medium">{contact.phone}</p>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-12">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-primary animate-pulse" />
+                  </div>
+                  <h3 className="text-2xl font-black text-white tracking-tight uppercase">Transmission Protocol</h3>
+                </div>
+
+                <form action={`https://api.web3forms.com/submit`} method="POST" className="space-y-10">
+                  <input type="hidden" name="access_key" value={contact.web3FormsKey} />
+                  
+                  <div className="relative group/input">
+                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[10px] ${focused === 'name' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 text-zinc-600'}`}>Identity</label>
+                    <input 
+                      type="text" 
+                      name="name"
+                      required
+                      onFocus={() => setFocused('name')}
+                      onBlur={(e) => !e.target.value && setFocused(null)}
+                      placeholder="" 
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all font-bold"
+                    />
+                  </div>
+
+                  <div className="relative group/input">
+                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[10px] ${focused === 'email' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 text-zinc-600'}`}>Signal Source</label>
+                    <input 
+                      type="email" 
+                      name="email"
+                      required
+                      onFocus={() => setFocused('email')}
+                      onBlur={(e) => !e.target.value && setFocused(null)}
+                      placeholder="" 
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all font-bold"
+                    />
+                  </div>
+
+                  <div className="relative group/input">
+                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[10px] ${focused === 'message' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 text-zinc-600'}`}>Payload Data</label>
+                    <textarea 
+                      name="message"
+                      required
+                      rows={4}
+                      onFocus={() => setFocused('message')}
+                      onBlur={(e) => !e.target.value && setFocused(null)}
+                      placeholder="" 
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all font-bold resize-none"
+                    />
+                  </div>
+
+                  <motion.button
+                    whileHover={{ 
+                      scale: 1.02,
+                      boxShadow: "0 15px 30px rgba(139,92,246,0.2)"
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="w-full py-4 bg-primary text-white rounded-2xl font-black uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-3 group overflow-hidden relative shadow-xl"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Initialize Transmission
+                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+                    </span>
+                    <motion.div 
+                      className="absolute inset-0 bg-white"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.8 }}
+                      style={{ mixBlendMode: 'difference' }}
+                    />
+                  </motion.button>
+                </form>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Form Column */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="flex-1 w-full bg-zinc-900/50 border border-zinc-800 p-8 sm:p-12 rounded-[2.5rem] shadow-2xl backdrop-blur-sm"
-        >
-          <form action="https://api.web3forms.com/submit" method="POST" className="space-y-8">
-            <input type="hidden" name="access_key" value={contact.web3FormsKey} />
-            <input type="checkbox" name="botcheck" className="hidden" />
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-zinc-400 px-1">Tu Nombre</label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Ej. Juan Pérez"
-                  required
-                  className="w-full bg-zinc-800/50 border border-zinc-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-zinc-600"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-zinc-400 px-1">Tu Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="correo@ejemplo.com"
-                  required
-                  className="w-full bg-zinc-800/50 border border-zinc-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-zinc-600"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-zinc-400 px-1">Mensaje</label>
-              <textarea
-                name="message"
-                placeholder="¿En qué puedo ayudarte?"
-                required
-                rows={5}
-                className="w-full bg-zinc-800/50 border border-zinc-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-zinc-600 resize-none"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="group flex items-center justify-center gap-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/20 active:scale-95 focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              Enviar Mensaje
-            </button>
-          </form>
-        </motion.div>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }
 
 export function Footer() {
   const { contact } = portfolioData;
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="py-12 border-t border-zinc-900 bg-transparent relative z-10">
-      <div className="container px-6 mx-auto flex flex-col items-center space-y-8">
-        <div className="flex gap-6">
-          <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="GitHub">
-            <Github className="w-6 h-6" />
-          </a>
-          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="LinkedIn">
-            <Linkedin className="w-6 h-6" />
-          </a>
-          <a href={contact.twitter} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="Twitter">
-            <Twitter className="w-6 h-6" />
-          </a>
-          <a href="https://gravatar.com/inakisobera8" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-all hover:scale-110" aria-label="Gravatar">
-            <UserCircle className="w-6 h-6" />
-          </a>
+    <footer className="py-16 bg-background relative overflow-hidden border-t border-white/5">
+      <div className="container px-6 mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+          {/* Enhanced Minimal Logo */}
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-4 group cursor-default"
+          >
+            <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center group-hover:border-primary transition-colors duration-500">
+              <span className="text-primary font-black text-xl">IS</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[12px] font-black uppercase tracking-[0.5em] text-white">Iñaki Sobera</span>
+              <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-zinc-600">Engineering Portfolio</span>
+            </div>
+          </motion.div>
+          
+          {/* Socials with Hover Effects */}
+          <div className="flex items-center gap-10">
+            {[
+              { icon: Github, href: contact.github },
+              { icon: Linkedin, href: contact.linkedin },
+              { icon: Twitter, href: contact.twitter }
+            ].map((social, i) => (
+              <motion.a 
+                key={i}
+                whileHover={{ y: -5, color: "#8b5cf6" }}
+                href={social.href} 
+                target="_blank" 
+                className="text-zinc-600 transition-colors duration-300"
+              >
+                <social.icon className="w-6 h-6" />
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Clean Copyright */}
+          <div className="flex flex-col items-center md:items-end">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-1">
+              © {new Date().getFullYear()} ALL RIGHTS RESERVED
+            </p>
+            <p className="text-[8px] font-bold text-zinc-800 uppercase tracking-widest">
+              Design & Dev by Sobera Labs
+            </p>
+          </div>
         </div>
-        
-        <p className="text-zinc-500 text-sm">
-          &copy; {currentYear} Iñaki Sobera. Todos los derechos reservados.
-        </p>
       </div>
     </footer>
   );

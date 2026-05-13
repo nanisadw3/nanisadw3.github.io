@@ -1,168 +1,159 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import ScrambleText from "../effects/ScrambleText";
-import GlitchCanvas from "../effects/GlitchCanvas";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { portfolioData } from "@/lib/data";
-import { Github, Linkedin, Code2, Terminal, Cpu, Sparkles, Star, Code } from "lucide-react";
+import { Github, Linkedin, Rocket, Sparkles } from "lucide-react";
 
 export default function Hero() {
-  const { hero, contact } = portfolioData;
-  const [githubStats, setGithubStats] = useState({ repos: 0, stars: 0, topLanguage: "" });
+  const { contact } = portfolioData;
+  const containerRef = useRef(null);
+  
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const scale = useTransform(scrollY, [0, 300], [1, 0.9]);
 
-  useEffect(() => {
-    fetch(`https://api.github.com/users/nanisadw3`)
-      .then(res => res.json())
-      .then(userData => {
-        fetch(`https://api.github.com/users/nanisadw3/repos?per_page=100`)
-          .then(res => res.json())
-          .then(repos => {
-            if (Array.isArray(repos)) {
-              const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-              const langs: Record<string, number> = {};
-              repos.forEach(repo => {
-                if (repo.language) {
-                  langs[repo.language] = (langs[repo.language] || 0) + 1;
-                }
-              });
-              const topLang = Object.keys(langs).reduce((a, b) => langs[a] > langs[b] ? a : b, "Software");
+  // Animación para las letras individuales
+  const titleContainer = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.3 * i },
+    }),
+  };
 
-              setGithubStats({
-                repos: userData.public_repos,
-                stars: totalStars,
-                topLanguage: topLang
-              });
-            }
-          });
-      })
-      .catch(err => console.error("Error Hero stats:", err));
-  }, []);
+  const letterAnimation = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 50,
+      rotateX: 90,
+    },
+  };
 
-  const floatingIcons = [
-    { Icon: Code2, color: "text-blue-500", top: "20%", left: "15%", delay: 0 },
-    { Icon: Terminal, color: "text-emerald-500", top: "60%", left: "10%", delay: 1 },
-    { Icon: Cpu, color: "text-purple-500", top: "25%", right: "15%", delay: 0.5 },
-    { Icon: Sparkles, color: "text-yellow-500", top: "65%", right: "12%", delay: 1.5 },
-  ];
+  const line1 = "ENGINEERING".split("");
+  const line2 = "THE FUTURE".split("");
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden" aria-label="Hero Section">
-      <GlitchCanvas />
+    <section 
+      ref={containerRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-bg pt-32 pb-20"
+    >
+      <div className="absolute inset-0 z-0">
+        <motion.div 
+          animate={{ x: [0, 100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full opacity-50"
+        />
+        <motion.div 
+          animate={{ x: [0, -100, 0], y: [0, -50, 0], scale: [1.2, 1, 1.2] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-accent/20 blur-[140px] rounded-full opacity-50"
+        />
+      </div>
 
       <motion.div 
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ type: "spring", stiffness: 50, damping: 20, delay: 1.5 }}
-        className="absolute left-6 bottom-32 hidden lg:flex flex-col gap-6 z-20"
+        style={{ y, opacity, scale }}
+        className="container px-6 relative z-10"
       >
-        <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white hover:scale-125 transition-all" aria-label="GitHub Profile">
-          <Github className="w-6 h-6" />
-        </a>
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white hover:scale-125 transition-all" aria-label="LinkedIn Profile">
-          <Linkedin className="w-6 h-6" />
-        </a>
-        <div className="w-[1px] h-20 bg-zinc-800 mx-auto mt-2" />
-      </motion.div>
+        <div className="flex flex-col items-center text-center">
+          
+          <motion.div 
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "80px", opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="h-1 bg-gradient-to-r from-primary to-accent mb-12 rounded-full"
+          />
 
-      {floatingIcons.map((item, i) => (
-        <motion.div
-          key={i}
-          animate={{ 
-            y: [0, -30, 0],
-            rotate: [0, 5, -5, 0],
-            opacity: [0.1, 0.4, 0.1]
-          }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity, 
-            delay: item.delay, 
-            ease: "easeInOut" 
-          }}
-          style={{ top: item.top, left: item.left, right: item.right }}
-          className={`absolute z-0 hidden md:block ${item.color}`}
-          aria-hidden="true"
-        >
-          <item.Icon className="w-12 h-12 blur-[1px]" />
-        </motion.div>
-      ))}
+          {/* New Dynamic Title: ENGINEERING THE FUTURE */}
+          <div className="mb-12 perspective-[1000px]">
+            <motion.div
+              variants={titleContainer}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col gap-2"
+            >
+              {/* Primera Línea */}
+              <motion.h1 className="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] flex justify-center">
+                {line1.map((char, index) => (
+                  <motion.span
+                    key={index}
+                    variants={letterAnimation}
+                    className="inline-block text-white hover:text-primary transition-colors cursor-default"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.h1>
 
-      <div className="container px-6 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 40, damping: 25, duration: 1 }}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8"
-          >
-            <Code className="w-3 h-3 text-blue-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">
-              Ingeniería en Sistemas Computacionales
-            </span>
-          </motion.div>
-
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight text-white mb-6">
-            <ScrambleText text={hero.name} />
-          </h1>
+              {/* Segunda Línea con Gradiente */}
+              <motion.h1 className="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] flex justify-center">
+                {line2.map((char, index) => (
+                  <motion.span
+                    key={index}
+                    variants={letterAnimation}
+                    className="inline-block gradient-text hover:brightness-125 transition-all cursor-default"
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </motion.h1>
+            </motion.div>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 font-light"
+            transition={{ delay: 1.5, duration: 0.8 }}
+            className="text-xl md:text-3xl text-zinc-400 max-w-4xl mb-16 font-medium leading-tight px-4"
           >
-            {hero.summary}
+            Iñaki Sobera • Arquitecturas <span className="text-white">backend de alto rendimiento</span> y ecosistemas de <span className="text-accent italic font-bold">IA</span> evolucionados.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 50, damping: 20, delay: 1.2 }}
-            className="flex flex-col items-center gap-12"
+            transition={{ delay: 1.8, duration: 0.8 }}
+            className="flex flex-col md:flex-row items-center gap-8 mb-24"
           >
             <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -5, boxShadow: "0 20px 40px rgba(37, 99, 235, 0.2)" }}
+              href="#portfolio"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(139,92,246,0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 inline-block focus:ring-2 focus:ring-blue-500 outline-none"
+              className="group relative px-14 py-7 bg-primary text-white rounded-[2rem] font-black uppercase tracking-[0.3em] text-[10px] overflow-hidden transition-all"
             >
-              Contáctame
+              <span className="relative z-10 flex items-center gap-3">
+                Desplegar Proyectos <Rocket className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary via-violet-400 to-primary translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
             </motion.a>
 
-            <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-3xl border-t border-zinc-800/50 pt-12">
-              <div className="space-y-1">
-                <p className="text-2xl md:text-3xl font-black text-white">{githubStats.repos || "..."}</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Proyectos</p>
-              </div>
-              <div className="space-y-1">
-                <div className="flex items-center justify-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                  <p className="text-2xl md:text-3xl font-black text-white">{githubStats.stars || "0"}</p>
-                </div>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Estrellas</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-2xl md:text-3xl font-black text-blue-400">{githubStats.topLanguage || "..."}</p>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Main Stack</p>
-              </div>
+            <div className="flex items-center gap-6">
+               <motion.a whileHover={{ y: -5, scale: 1.1 }} href={contact.github} target="_blank" className="p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:border-primary transition-all hover:bg-white/10 group relative overflow-hidden">
+                <Github className="w-7 h-7 group-hover:text-primary transition-colors relative z-10" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+               </motion.a>
+               <motion.a whileHover={{ y: -5, scale: 1.1 }} href={contact.linkedin} target="_blank" className="p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:border-primary transition-all hover:bg-white/10 group relative overflow-hidden">
+                <Linkedin className="w-7 h-7 group-hover:text-primary transition-colors relative z-10" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+               </motion.a>
             </div>
           </motion.div>
-        </motion.div>
-      </div>
-      
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-zinc-800 rounded-full flex justify-center p-2 backdrop-blur-sm">
-          <motion.div animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="w-1 h-2 bg-blue-500 rounded-full" />
         </div>
+      </motion.div>
+      
+      <motion.div animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-1/3 right-10 hidden lg:block">
+        <Sparkles className="w-8 h-8 text-primary/30 blur-[1px]" />
       </motion.div>
     </section>
   );

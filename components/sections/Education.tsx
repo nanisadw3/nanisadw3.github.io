@@ -1,173 +1,149 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import Section from "../ui/Section";
+import { motion } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { useState, useRef, useEffect } from "react";
-import { Download, CheckCircle, ChevronLeft, ChevronRight, Copy } from "lucide-react";
+import { GraduationCap, Award, ExternalLink, MapPin, CheckCircle2, Calendar, ShieldCheck } from "lucide-react";
 
 export default function Education() {
   const { education } = portfolioData;
-  const [activeStep, setActiveStep] = useState(0);
-  const stepperRef = useRef<HTMLDivElement>(null);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
-
-  // Solo hace scroll automático en móviles (pantallas < 640px)
-  useEffect(() => {
-    if (stepperRef.current && window.innerWidth < 640) {
-      const activeElement = stepperRef.current.children[activeStep + 1] as HTMLElement;
-      if (activeElement) {
-        const scrollLeft = activeElement.offsetLeft - stepperRef.current.offsetWidth / 2 + activeElement.offsetWidth / 2;
-        stepperRef.current.scrollTo({ left: scrollLeft, behavior: "smooth" });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
       }
     }
-  }, [activeStep]);
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
 
   return (
-    <Section id="education" title="Educación">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-10 shadow-2xl overflow-hidden">
-        
-        {/* Stepper Header: Responsivo (Scroll en móvil, Justificado en PC) */}
-        <div 
-          ref={stepperRef}
-          className="flex items-center mb-12 relative max-w-full overflow-x-auto sm:overflow-x-visible pb-6 sm:pb-0 scrollbar-hide snap-x snap-mandatory sm:justify-between sm:max-w-4xl sm:mx-auto"
+    <section id="education" className="py-32 relative overflow-hidden bg-background">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="container px-6 mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-24 flex flex-col items-center md:items-start"
         >
-          {/* Línea de fondo (Solo en PC es fija, en móvil se mueve con el scroll) */}
-          <div className="absolute top-[40px] left-0 w-full h-0.5 bg-zinc-800 z-0 sm:block" />
-          
-          {/* Espaciador inicial (Solo móvil) */}
-          <div className="flex-shrink-0 w-[10%] sm:hidden" />
-          
-          {education.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveStep(index)}
-              className="relative z-10 flex flex-col items-center group flex-shrink-0 px-4 sm:px-0 py-4 snap-center"
-            >
-              <motion.div
-                animate={{
-                  backgroundColor: activeStep === index ? "#2563eb" : "#18181b",
-                  borderColor: activeStep === index ? "#3b82f6" : "#3f3f46",
-                  scale: activeStep === index ? 1.2 : 1,
-                  boxShadow: activeStep === index ? "0 0 20px rgba(37,99,235,0.4)" : "0 0 0px rgba(0,0,0,0)",
-                }}
-                className="w-12 h-12 aspect-square rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all group-hover:border-blue-400 z-10 bg-zinc-900"
-              >
-                {index + 1}
-              </motion.div>
-              <motion.span 
-                animate={{ opacity: activeStep === index ? 1 : 0.4 }}
-                className="text-[10px] mt-2 font-black uppercase tracking-widest text-zinc-500 hidden sm:block"
-              >
-                {index === 0 ? "Inicio" : `Paso ${index + 1}`}
-              </motion.span>
-            </button>
-          ))}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 backdrop-blur-md">
+            <ShieldCheck className="w-3.5 h-3.5 text-accent" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent">Academic & Certs</span>
+          </div>
+          <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter text-center md:text-left leading-none uppercase">
+            TRAINING & <br />
+            <span className="gradient-text">CREDENTIALS</span>
+          </h2>
+        </motion.div>
 
-          {/* Espaciador final (Solo móvil) */}
-          <div className="flex-shrink-0 w-[10%] sm:hidden" />
-        </div>
-
-        {/* Content Area */}
-        <div className="relative min-h-[300px] px-2">
-          <AnimatePresence mode="wait">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 gap-8"
+        >
+          {education.map((item, index) => (
             <motion.div
-              key={activeStep}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="flex flex-col items-center text-center space-y-6"
+              key={index}
+              variants={cardVariants}
+              whileHover={{ x: 15 }}
+              onClick={() => item.certLink && window.open(item.certLink, '_blank')}
+              className={`group relative flex flex-col md:flex-row gap-10 p-10 md:p-14 rounded-[3.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/30 hover:bg-white/[0.04] transition-all duration-500 overflow-hidden shadow-2xl ${item.certLink ? 'cursor-pointer' : ''}`}
             >
-              <div className="space-y-3">
-                <h3 className="text-xl sm:text-4xl font-black text-white px-2 tracking-tight">
-                  {education[activeStep].title}
-                </h3>
-                <div className="inline-block px-4 py-1 bg-blue-600/10 border border-blue-500/20 rounded-full">
-                  <p className="text-blue-400 text-sm font-bold uppercase tracking-wider">
-                    {education[activeStep].institution} — {education[activeStep].period || education[activeStep].date}
+              {/* Animated Progress/Vertical Line */}
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-primary/40 to-transparent scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-top" />
+
+              {/* Icon Section */}
+              <div className="flex-shrink-0">
+                <motion.div 
+                  whileHover={{ rotate: 15, scale: 1.1 }}
+                  className="w-20 h-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500 shadow-inner"
+                >
+                  {item.institution.toLowerCase().includes('hack4u') || item.title.toLowerCase().includes('certif') ? (
+                    <Award className="w-10 h-10 text-primary group-hover:text-white transition-colors" />
+                  ) : (
+                    <GraduationCap className="w-10 h-10 text-primary group-hover:text-white transition-colors" />
+                  )}
+                </motion.div>
+              </div>
+              
+              <div className="flex-grow">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full bg-white/5 text-zinc-500 border border-white/10">
+                        {item.period || item.date}
+                      </span>
+                      {item.certCode && (
+                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[9px] font-black uppercase tracking-widest animate-pulse">
+                          <CheckCircle2 className="w-3 h-3" />
+                          Validated
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="text-3xl md:text-4xl font-black text-white group-hover:text-primary transition-colors leading-none tracking-tighter uppercase mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-accent font-black text-sm uppercase tracking-widest">
+                      {item.institution}
+                    </p>
+                  </div>
+                  
+                  {item.certLink && (
+                    <motion.a 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href={item.certLink} 
+                      target="_blank"
+                      className="flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-white hover:bg-primary hover:border-primary transition-all shadow-xl group/btn"
+                    >
+                      Verify Badge
+                      <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                    </motion.a>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <p className="text-zinc-400 text-lg font-medium leading-relaxed mb-8 max-w-4xl border-l-2 border-white/10 pl-8 group-hover:border-primary/50 transition-colors duration-500">
+                    {item.description}
                   </p>
                 </div>
+
+                <div className="flex flex-wrap items-center gap-8 text-zinc-600">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-zinc-700" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Remote Node / Global</span>
+                  </div>
+                  {item.certCode && (
+                    <div className="flex items-center gap-2 font-mono text-[10px] tracking-tighter bg-black/40 px-4 py-2 rounded-xl border border-white/5">
+                      <span className="text-zinc-700">ID_SPEC:</span>
+                      <span className="text-zinc-400">{item.certCode}</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <p className="text-gray-400 text-base sm:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
-                {education[activeStep].description}
-              </p>
-
-              {education[activeStep].certCode && (
-                <div className="bg-black/40 border border-white/5 px-4 py-2 rounded-lg flex items-center gap-3">
-                  <span className="text-zinc-500 text-xs sm:text-sm uppercase tracking-wider font-bold">ID:</span>
-                  <code className="text-blue-300 font-mono text-xs sm:text-sm tracking-wider">
-                    {education[activeStep].certCode}
-                  </code>
-                  <button
-                    onClick={() => copyToClipboard(education[activeStep].certCode!)}
-                    className="hover:text-blue-400 text-zinc-500 transition-colors"
-                  >
-                    <Copy className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
-
-              <div className="flex flex-wrap justify-center gap-4 pt-4">
-                {education[activeStep].certLink && (
-                  <a
-                    href={`/${education[activeStep].certLink}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-2xl transition-all shadow-xl"
-                  >
-                    <Download className="w-5 h-5" /> Certificado PDF
-                  </a>
-                )}
-                {education[activeStep].verifyLink && (
-                  <a
-                    href={education[activeStep].verifyLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-4 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 font-bold border border-blue-500/30 rounded-2xl transition-all"
-                  >
-                    <CheckCircle className="w-5 h-5" /> Verificar Online
-                  </a>
-                )}
+              {/* Decorative Corner Text */}
+              <div className="absolute top-10 right-10 text-[10rem] font-black text-white/[0.01] pointer-events-none select-none leading-none group-hover:text-white/[0.03] transition-colors duration-700">
+                {index + 1}
               </div>
             </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Footer Navigation */}
-        <div className="flex justify-between items-center mt-12 pt-8 border-t border-zinc-800">
-          <button
-            onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
-            disabled={activeStep === 0}
-            className="group flex items-center gap-2 px-5 py-3 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-2xl text-white transition-all border border-transparent hover:border-white/10"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            <span className="text-sm font-bold hidden sm:inline uppercase">Anterior</span>
-          </button>
-          
-          <div className="flex items-center gap-2">
-            {education.map((_, i) => (
-              <div 
-                key={i}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${activeStep === i ? "w-8 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-zinc-700"}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={() => setActiveStep(Math.min(education.length - 1, activeStep + 1))}
-            disabled={activeStep === education.length - 1}
-            className="group flex items-center gap-2 px-5 py-3 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-20 disabled:cursor-not-allowed rounded-2xl text-white transition-all border border-transparent hover:border-white/10"
-          >
-            <span className="text-sm font-bold hidden sm:inline uppercase">Siguiente</span>
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
+          ))}
+        </motion.div>
       </div>
-    </Section>
+    </section>
   );
 }

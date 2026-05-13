@@ -1,127 +1,76 @@
 "use client";
 
+import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
-import { portfolioData } from "@/lib/data";
-
-const navLinks = [
-  { name: "Inicio", href: "#hero" },
-  { name: "Sobre Mí", href: "#about" },
-  { name: "Portafolio", href: "#portfolio" },
-  { name: "GitHub Insights", href: "#stats" },
-  { name: "Educación", href: "#education" },
-  { name: "Habilidades", href: "#skills" },
-  { name: "Contacto", href: "#contact" },
-];
+import { 
+  Home, 
+  User, 
+  Code2, 
+  BookOpen, 
+  Mail, 
+  ExternalLink 
+} from "lucide-react";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const { contact } = portfolioData;
+  const { scrollY } = useScroll();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return scrollY.onChange((latest) => {
+      setIsScrolled(latest > 50);
+    });
+  }, [scrollY]);
+
+  const navItems = [
+    { name: "Inicio", href: "#", icon: Home },
+    { name: "Perfil", href: "#about", icon: User },
+    { name: "Proyectos", href: "#portfolio", icon: Code2 },
+    { name: "Especialidad", href: "#skills", icon: BookOpen },
+    { name: "Contacto", href: "#contact", icon: Mail },
+  ];
 
   return (
-    <div className="fixed top-6 left-0 w-full z-50 px-6 pointer-events-none">
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`mx-auto max-w-fit pointer-events-auto flex items-center gap-2 p-2 rounded-full border transition-all duration-500 ${
-          isScrolled 
-            ? "bg-black/60 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]" 
-            : "bg-zinc-900/40 backdrop-blur-md border-white/5"
-        }`}
-      >
-        <a 
-          href="#hero" 
-          className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full text-white font-black text-sm hover:scale-110 transition-transform"
-        >
-          IS
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 flex justify-center pt-6"
+    >
+      <nav className={`flex items-center gap-10 px-8 py-3 rounded-2xl transition-all duration-500 ${
+        isScrolled 
+          ? "neo-blur shadow-[0_0_50px_rgba(0,0,0,0.5)] border-primary/20 scale-95" 
+          : "bg-white/5 border border-white/10"
+      }`}>
+        <a href="#" className="flex items-center gap-3 group mr-4">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-black text-white group-hover:rotate-[360deg] transition-transform duration-700">
+            IS
+          </div>
+          <span className="hidden sm:block font-black text-sm tracking-widest text-white uppercase">
+            Iñaki Sobera
+          </span>
         </a>
 
-        <div className="hidden md:flex items-center px-2">
-          {navLinks.map((link) => (
+        <div className="flex items-center gap-2">
+          {navItems.map((item) => (
             <a
-              key={link.name}
-              href={link.href}
-              onMouseEnter={() => setHoveredLink(link.name)}
-              onMouseLeave={() => setHoveredLink(null)}
-              className="relative px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+              key={item.name}
+              href={item.href}
+              className="relative px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-all group flex items-center gap-2"
             >
-              {hoveredLink === link.name && (
-                <motion.div
-                  layoutId="nav-hover"
-                  className="absolute inset-0 bg-white/5 rounded-full -z-10"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-              )}
-              {link.name}
+              <item.icon className="w-3.5 h-3.5 sm:hidden" />
+              <span className="hidden sm:inline">{item.name}</span>
+              <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
             </a>
           ))}
         </div>
 
-        <div className="hidden md:block w-px h-4 bg-white/10 mx-2" />
-
-        <div className="hidden md:flex items-center gap-1 pr-2">
-          <a href={contact.github} target="_blank" className="p-2 text-gray-400 hover:text-white transition-colors">
-            <Github className="w-4 h-4" />
-          </a>
-          <a href={contact.linkedin} target="_blank" className="p-2 text-gray-400 hover:text-white transition-colors">
-            <Linkedin className="w-4 h-4" />
-          </a>
-          <a href={`mailto:${contact.email}`} className="p-2 text-gray-400 hover:text-white transition-colors">
-            <Mail className="w-4 h-4" />
-          </a>
-        </div>
-
-        <button
-          className="md:hidden w-10 h-10 flex items-center justify-center text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        <a
+          href="#contact"
+          className="ml-4 p-2.5 bg-white text-black rounded-xl hover:bg-primary hover:text-white transition-all duration-300 group shadow-lg"
         >
-          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </motion.nav>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[calc(100%-3rem)] max-w-sm bg-zinc-900/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 shadow-2xl md:hidden pointer-events-auto"
-          >
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 text-lg font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <div className="h-px bg-white/10 my-2" />
-              <div className="flex justify-center gap-6 py-2">
-                <a href={contact.github} target="_blank" className="text-gray-400 hover:text-white"><Github /></a>
-                <a href={contact.linkedin} target="_blank" className="text-gray-400 hover:text-white"><Linkedin /></a>
-                <a href={`mailto:${contact.email}`} className="text-gray-400 hover:text-white"><Mail /></a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+          <ExternalLink className="w-4 h-4 group-hover:rotate-45 transition-transform" />
+        </a>
+      </nav>
+    </motion.header>
   );
 }
