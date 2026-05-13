@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { portfolioData } from "@/lib/data";
 import { GraduationCap, Award, ExternalLink, MapPin, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export default function Education() {
   const { education } = portfolioData;
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -17,12 +17,15 @@ export default function Education() {
     }
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, x: -30 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { 
+        duration: 0.8, 
+        ease: "easeOut" 
+      }
     }
   };
 
