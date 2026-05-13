@@ -90,56 +90,9 @@ export default function Skills() {
   };
 
   return (
-<<<<<<< HEAD
     <section id="skills" className="py-32 relative bg-background">
       {/* Background Decorative Element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
-=======
-    <Section id="skills" title="Habilidades" animationType="glitch">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {Object.entries(skills).map(([category, list]) => {
-          if (category === "languages") return null;
-          const Icon = iconMap[category as keyof typeof iconMap] || Code2;
-          
-          return (
-            <motion.div
-              key={category}
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl hover:border-blue-500/30 transition-colors group/card"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <motion.div 
-                  whileHover={{ rotate: 15, scale: 1.1 }}
-                  className="p-3 bg-blue-600/10 rounded-2xl group-hover/card:bg-blue-600/20 transition-colors"
-                >
-                  <Icon className="w-6 h-6 text-blue-400" />
-                </motion.div>
-                <h3 className="text-xl font-bold text-white capitalize">
-                  {category === "programming" ? "Lenguajes" : 
-                   category === "frontend" ? "Frontend" :
-                   category === "databases" ? "Bases de Datos" : "Herramientas"}
-                </h3>
-              </div>
-              
-              <motion.div className="flex flex-wrap gap-3">
-                {(list as string[]).map((skill) => (
-                  <motion.span
-                    key={skill}
-                    variants={itemVariants}
-                    whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.1)", borderColor: "rgba(59, 130, 246, 0.5)" }}
-                    className="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-xl text-zinc-300 text-sm font-medium hover:text-white transition-all cursor-default"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </motion.div>
-            </motion.div>
-          );
-        })}
->>>>>>> d045758b8479252506457ca41416b94ece1286b9
 
       <div className="container px-6 mx-auto relative z-10">
         <motion.div

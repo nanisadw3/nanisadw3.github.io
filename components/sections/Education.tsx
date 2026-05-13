@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { GraduationCap, Award, ExternalLink, MapPin, CheckCircle2, Calendar, ShieldCheck } from "lucide-react";
+import { GraduationCap, Award, ExternalLink, MapPin, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export default function Education() {
   const { education } = portfolioData;
@@ -27,7 +27,6 @@ export default function Education() {
   };
 
   return (
-<<<<<<< HEAD
     <section id="education" className="py-32 relative overflow-hidden bg-background">
       {/* Background Decor */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
@@ -38,15 +37,6 @@ export default function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mb-24 flex flex-col items-center md:items-start"
-=======
-    <Section id="education" title="Educación" animationType="bounce">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-10 shadow-2xl overflow-hidden">
-        
-        {/* Stepper Header: Responsivo (Scroll en móvil, Justificado en PC) */}
-        <div 
-          ref={stepperRef}
-          className="flex items-center mb-12 relative max-w-full overflow-x-auto sm:overflow-x-visible pb-6 sm:pb-0 scrollbar-hide snap-x snap-mandatory sm:justify-between sm:max-w-4xl sm:mx-auto"
->>>>>>> d045758b8479252506457ca41416b94ece1286b9
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 backdrop-blur-md">
             <ShieldCheck className="w-3.5 h-3.5 text-accent" />
