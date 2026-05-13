@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { portfolioData } from "@/lib/data";
 import { Github, Linkedin, Rocket, Sparkles } from "lucide-react";
 
@@ -117,7 +117,7 @@ export default function Hero() {
             transition={{ delay: 1.5, duration: 0.8 }}
             className="text-xl md:text-3xl text-zinc-400 max-w-4xl mb-16 font-medium leading-tight px-4"
           >
-            Iñaki Sobera • Arquitecturas <span className="text-white">backend de alto rendimiento</span> y ecosistemas de <span className="text-accent italic font-bold">IA</span> evolucionados.
+            Iñaki Sobera • Arquitecturas <span className="text-white border-b-2 border-primary/30">backend de alto rendimiento</span> y ecosistemas de <span className="text-accent italic font-bold">IA</span> evolucionados.
           </motion.p>
 
           <motion.div

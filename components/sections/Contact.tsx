@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { Mail, Github, Linkedin, Send, ArrowUpRight, MessageSquare, Twitter, Zap, Share2 } from "lucide-react";
+import { Mail, Github, Linkedin, Send, ArrowUpRight, MessageSquare, Zap, Share2, Twitter } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
@@ -39,7 +39,7 @@ export default function Contact() {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -50,12 +50,15 @@ export default function Contact() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { 
+        duration: 0.8, 
+        ease: [0.16, 1, 0.3, 1] 
+      }
     }
   };
 
