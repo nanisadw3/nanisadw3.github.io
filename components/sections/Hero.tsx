@@ -45,6 +45,7 @@ export default function Hero() {
   const line2 = "THE FUTURE".split("");
 
   return (
+<<<<<<< HEAD
     <section 
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-bg pt-32 pb-20"
@@ -62,6 +63,10 @@ export default function Hero() {
         />
       </div>
 
+=======
+    <section className="relative h-screen flex items-center justify-center overflow-hidden" aria-label="Hero Section">
+      
+>>>>>>> d045758b8479252506457ca41416b94ece1286b9
       <motion.div 
         style={{ y, opacity, scale }}
         className="container px-6 relative z-10"
@@ -127,10 +132,20 @@ export default function Hero() {
             className="flex flex-col md:flex-row items-center gap-8 mb-24"
           >
             <motion.a
+<<<<<<< HEAD
               href="#portfolio"
               whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(139,92,246,0.4)" }}
               whileTap={{ scale: 0.95 }}
               className="group relative px-14 py-7 bg-primary text-white rounded-[2rem] font-black uppercase tracking-[0.3em] text-[10px] overflow-hidden transition-all"
+=======
+              href="#contact"
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary px-10 py-5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest inline-block focus:ring-2 focus:ring-blue-500 outline-none z-30"
+>>>>>>> d045758b8479252506457ca41416b94ece1286b9
             >
               <span className="relative z-10 flex items-center gap-3">
                 Desplegar Proyectos <Rocket className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

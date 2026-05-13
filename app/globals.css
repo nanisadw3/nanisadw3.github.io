@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 :root {
+<<<<<<< HEAD
   --background: #020205;
   --foreground: #f8fafc;
   --primary: #8b5cf6;
   --accent: #22d3ee;
+=======
+  --background: #0f172a;
+  --foreground: #ffffff;
+>>>>>>> d045758b8479252506457ca41416b94ece1286b9
 }
 
 @theme {
@@ -14,11 +19,56 @@
   --color-accent: var(--accent);
 }
 
+<<<<<<< HEAD
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+=======
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color: #ffffff;
+  }
+  body {
+    color: #ffffff;
+    margin: 0;
+    font-family: sans-serif;
+    background: radial-gradient(circle at top right, #1a1a1a, #000000);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  section {
+    background-color: transparent !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  main {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020202;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 10px;
+    border: 2px solid #020202;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+  }
+>>>>>>> d045758b8479252506457ca41416b94ece1286b9
 }
 
 .neo-blur {
@@ -58,4 +108,41 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+/* Advanced Button Styles */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.4);
+  transform: translateY(-3px);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
 }

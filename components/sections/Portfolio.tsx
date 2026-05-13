@@ -24,9 +24,20 @@ export default function Portfolio() {
   const visibleProjects = showAll ? projects : projects.slice(0, 3);
 
   return (
+<<<<<<< HEAD
     <section ref={sectionRef} id="portfolio" className="py-32 relative overflow-hidden bg-background">
       {/* Subtle Background Animation */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+=======
+    <Section id="portfolio" title="Proyectos Seleccionados" animationType="reveal">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <AnimatePresence mode="popLayout">
+          {displayedProjects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </AnimatePresence>
+      </div>
+>>>>>>> d045758b8479252506457ca41416b94ece1286b9
 
       <div className="container px-6 mx-auto relative z-10">
         <motion.div

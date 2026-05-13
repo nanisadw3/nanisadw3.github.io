@@ -60,6 +60,7 @@ export default function Contact() {
   };
 
   return (
+<<<<<<< HEAD
     <section id="contact" className="py-32 relative overflow-hidden bg-background">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-brutalist-grid opacity-10 pointer-events-none" />
@@ -83,6 +84,24 @@ export default function Contact() {
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         className="absolute -bottom-1/4 -right-1/4 w-[800px] h-[800px] bg-accent/15 blur-[150px] rounded-full pointer-events-none" 
       />
+=======
+    <Section id="contact" title="Contacto" className="bg-transparent" animationType="reveal">
+      <div className="flex flex-col lg:flex-row gap-16 items-start">
+        {/* Info Column */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="lg:w-1/3 space-y-10"
+        >
+          <div className="space-y-4">
+            <h3 className="text-3xl font-bold text-white">¡Hablemos!</h3>
+            <p className="text-gray-400 text-lg">
+              ¿Interesado en colaborar o tienes alguna pregunta? No dudes en escribirme por cualquiera de estos medios.
+            </p>
+          </div>
+>>>>>>> d045758b8479252506457ca41416b94ece1286b9
 
       <div className="container px-6 mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
