@@ -16,8 +16,7 @@ export default function Contact() {
       href: `mailto:${contact.email}`,
       icon: Mail,
       color: "text-primary",
-      bg: "bg-primary/10",
-      delay: 0.1
+      bg: "bg-primary/10"
     },
     {
       label: "LinkedIn",
@@ -25,8 +24,7 @@ export default function Contact() {
       href: contact.linkedin,
       icon: Linkedin,
       color: "text-blue-500",
-      bg: "bg-blue-500/10",
-      delay: 0.2
+      bg: "bg-blue-500/10"
     },
     {
       label: "WhatsApp",
@@ -34,8 +32,7 @@ export default function Contact() {
       href: `https://wa.me/${contact.whatsapp.replace('+', '')}`,
       icon: MessageSquare,
       color: "text-emerald-500",
-      bg: "bg-emerald-500/10",
-      delay: 0.3
+      bg: "bg-emerald-500/10"
     }
   ];
 
@@ -55,16 +52,12 @@ export default function Contact() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.16, 1, 0.3, 1] 
-      }
+      transition: { duration: 0.8, ease: "easeOut" }
     }
   };
 
   return (
     <section id="contact" className="py-32 relative overflow-hidden bg-background">
-      {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-brutalist-grid opacity-10 pointer-events-none" />
       
       <motion.div 
@@ -90,7 +83,6 @@ export default function Contact() {
       <div className="container px-6 mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* Info Side */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -143,12 +135,11 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Form Side - Pushed down to the maximum in Y axis */}
           <motion.div
             initial={{ opacity: 0, y: 350 }}
             whileInView={{ opacity: 1, y: 300 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1, ease: "easeOut" }}
             className="lg:col-span-7"
           >
             <div className="relative p-12 md:p-16 rounded-[4rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl overflow-hidden group/form shadow-2xl">
@@ -175,7 +166,6 @@ export default function Contact() {
                       required
                       onFocus={() => setFocused('name')}
                       onBlur={(e) => !e.target.value && setFocused(null)}
-                      placeholder="" 
                       className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all font-bold"
                     />
                   </div>
@@ -188,7 +178,6 @@ export default function Contact() {
                       required
                       onFocus={() => setFocused('email')}
                       onBlur={(e) => !e.target.value && setFocused(null)}
-                      placeholder="" 
                       className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all font-bold"
                     />
                   </div>
@@ -201,23 +190,19 @@ export default function Contact() {
                       rows={4}
                       onFocus={() => setFocused('message')}
                       onBlur={(e) => !e.target.value && setFocused(null)}
-                      placeholder="" 
                       className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all font-bold resize-none"
                     />
                   </div>
 
                   <motion.button
-                    whileHover={{ 
-                      scale: 1.02,
-                      boxShadow: "0 20px 40px rgba(139,92,246,0.3)"
-                    }}
+                    whileHover={{ scale: 1.02, boxShadow: "0 15px 30px rgba(139,92,246,0.2)" }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full py-7 bg-primary text-white rounded-[2rem] font-black uppercase tracking-[0.5em] text-[12px] transition-all flex items-center justify-center gap-4 group overflow-hidden relative shadow-2xl"
+                    className="w-full py-4 bg-primary text-white rounded-2xl font-black uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-3 group overflow-hidden relative shadow-xl"
                   >
-                    <span className="relative z-10 flex items-center gap-3">
+                    <span className="relative z-10 flex items-center gap-2">
                       Initialize Transmission
-                      <Send className="w-5 h-5 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
                     </span>
                     <motion.div 
                       className="absolute inset-0 bg-white"
@@ -244,11 +229,7 @@ export function Footer() {
     <footer className="py-16 bg-background relative overflow-hidden border-t border-white/5">
       <div className="container px-6 mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12">
-          {/* Enhanced Minimal Logo */}
-          <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-4 group cursor-default"
-          >
+          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center gap-4 group cursor-default">
             <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center group-hover:border-primary transition-colors duration-500">
               <span className="text-primary font-black text-xl">IS</span>
             </div>
@@ -258,7 +239,6 @@ export function Footer() {
             </div>
           </motion.div>
           
-          {/* Socials with Hover Effects */}
           <div className="flex items-center gap-10">
             {[
               { icon: Github, href: contact.github },
@@ -277,7 +257,6 @@ export function Footer() {
             ))}
           </div>
 
-          {/* Clean Copyright */}
           <div className="flex flex-col items-center md:items-end">
             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-1">
               © {new Date().getFullYear()} ALL RIGHTS RESERVED

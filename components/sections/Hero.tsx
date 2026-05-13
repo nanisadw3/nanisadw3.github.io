@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRef } from "react";
 import { portfolioData } from "@/lib/data";
 import { Github, Linkedin, Rocket, Sparkles } from "lucide-react";
@@ -14,16 +14,15 @@ export default function Hero() {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.9]);
 
-  // Animación para las letras individuales
-  const titleContainer = {
+  const titleContainer: Variants = {
     hidden: { opacity: 0 },
-    visible: (i = 1) => ({
+    visible: (i: number = 1) => ({
       opacity: 1,
       transition: { staggerChildren: 0.08, delayChildren: 0.3 * i },
     }),
   };
 
-  const letterAnimation = {
+  const letterAnimation: Variants = {
     visible: {
       opacity: 1,
       y: 0,
@@ -75,7 +74,6 @@ export default function Hero() {
             className="h-1 bg-gradient-to-r from-primary to-accent mb-12 rounded-full"
           />
 
-          {/* New Dynamic Title: ENGINEERING THE FUTURE */}
           <div className="mb-12 perspective-[1000px]">
             <motion.div
               variants={titleContainer}
@@ -83,7 +81,6 @@ export default function Hero() {
               animate="visible"
               className="flex flex-col gap-2"
             >
-              {/* Primera Línea */}
               <motion.h1 className="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] flex justify-center">
                 {line1.map((char, index) => (
                   <motion.span
@@ -96,7 +93,6 @@ export default function Hero() {
                 ))}
               </motion.h1>
 
-              {/* Segunda Línea con Gradiente */}
               <motion.h1 className="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] flex justify-center">
                 {line2.map((char, index) => (
                   <motion.span

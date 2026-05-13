@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import { Github, ExternalLink, Code2, ArrowRight, Layers, ChevronDown, Sparkles } from "lucide-react";
+import { Github, ExternalLink, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { useState, useRef } from "react";
 
 export default function Portfolio() {
@@ -45,7 +45,7 @@ export default function Portfolio() {
               />
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic">Works & Labs</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-8 leading-none tracking-tighter">
+            <h2 className="text-6xl md:text-8xl font-black mb-8 leading-none tracking-tighter uppercase">
               PROYECTOS <br />
               <span className="gradient-text">DESTACADOS</span>
             </h2>
@@ -74,7 +74,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                 whileHover={{ y: -10 }}
                 className="group bento-card flex flex-col h-full !p-0 overflow-hidden !rounded-[3rem] shadow-2xl hover:shadow-primary/20 transition-all duration-500"
               >

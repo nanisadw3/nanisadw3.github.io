@@ -1,19 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { portfolioData } from "@/lib/data";
 import { 
   Terminal, 
   Database, 
   Layout, 
   Cpu, 
-  CheckCircle2,
-  Code2,
   Network,
   Zap,
   Globe,
-  Layers,
-  Container
+  Layers
 } from "lucide-react";
 
 export default function Skills() {
@@ -72,7 +69,7 @@ export default function Skills() {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -80,18 +77,17 @@ export default function Skills() {
     }
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: { 
       y: 0, 
-      opacity: 1,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+      opacity: 1, 
+      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 
   return (
     <section id="skills" className="py-32 relative bg-background">
-      {/* Background Decorative Element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="container px-6 mx-auto relative z-10">
@@ -105,7 +101,7 @@ export default function Skills() {
             <div className="w-12 h-[2px] bg-primary" />
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Capabilities</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-none">
+          <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-none uppercase">
             TECHNICAL <span className="gradient-text">MASTERY</span>
           </h2>
           <p className="text-zinc-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
@@ -128,7 +124,6 @@ export default function Skills() {
               whileHover={{ y: -10 }}
               className={`${cat.colSpan} relative group overflow-hidden bg-white/[0.02] border border-white/5 rounded-[3rem] p-10 transition-all duration-500 hover:bg-white/[0.04] hover:border-white/10`}
             >
-              {/* Animated Gradient Background */}
               <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${cat.gradient} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
               
               <div className="flex items-start justify-between mb-10 relative z-10">
@@ -160,16 +155,10 @@ export default function Skills() {
                   </motion.div>
                 ))}
               </div>
-
-              {/* Decorative Corner Element */}
-              <div className="absolute bottom-6 right-8 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
-                <cat.icon className="w-16 h-16 text-white" />
-              </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Global Tech Stats Footer */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -199,7 +188,6 @@ export default function Skills() {
                       <span className="text-sm font-bold text-white uppercase tracking-tighter">{lang.name}</span>
                       <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full">{lang.level}%</span>
                     </div>
-                    {/* Animated Progress Bar for Language */}
                     <div className="w-24 h-1 bg-white/5 rounded-full mt-2 overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
