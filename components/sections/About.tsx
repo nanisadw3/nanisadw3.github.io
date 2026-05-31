@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { Zap, FileText, Fingerprint, Shield, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function About() {
-  const { about } = portfolioData;
+  const { t } = useLanguage();
+  const { about } = t;
 
   const highlights = [
     {
@@ -47,8 +48,8 @@ export default function About() {
                     <Fingerprint className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-zinc-500">Identity Verified</p>
-                    <p className="text-white font-bold text-xs md:text-sm">Software Engineer</p>
+                    <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-zinc-500">{t.ui.about.verified}</p>
+                    <p className="text-white font-bold text-xs md:text-sm">{t.ui.about.role}</p>
                   </div>
                 </div>
               </div>
@@ -64,7 +65,7 @@ export default function About() {
           >
             <div className="flex items-center gap-3 mb-6 md:mb-8 justify-center md:justify-start">
               <div className="w-8 md:w-12 h-[2px] bg-primary" />
-              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary">Biometric Profile</span>
+              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.ui.about.biometric}</span>
             </div>
             
             <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-10 leading-[1] tracking-tighter text-center md:text-left">
@@ -98,13 +99,13 @@ export default function About() {
                 className="group flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-white text-black rounded-xl md:rounded-2xl font-black uppercase tracking-widest text-[9px] md:text-[10px] transition-all hover:bg-primary hover:text-white"
               >
                 <FileText className="w-4 h-4" />
-                Capture CV
+                {t.ui.about.download}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               
               <div className="flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 neo-blur border border-white/5 rounded-xl md:rounded-2xl">
                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-zinc-400">Systems Active</span>
+                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-zinc-400">{t.ui.about.systems}</span>
               </div>
             </div>
           </motion.div>

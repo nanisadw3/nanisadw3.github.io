@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { Briefcase, Terminal, BarChart3, Bot } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Experience() {
-  const { experience } = portfolioData;
+  const { t } = useLanguage();
+  const { experience } = t;
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -50,11 +51,11 @@ export default function Experience() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 backdrop-blur-md">
             <Briefcase className="w-3.5 h-3.5 text-primary" />
-            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary">Professional Track</span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary">{t.ui.experience.badge}</span>
           </div>
           <h2 className="text-4xl md:text-8xl font-black mb-6 md:mb-8 tracking-tighter leading-none uppercase">
-            EXPERIENCIA <br />
-            <span className="gradient-text">PROFESIONAL</span>
+            {t.ui.experience.title1} <br />
+            <span className="gradient-text">{t.ui.experience.title2}</span>
           </h2>
         </motion.div>
 
@@ -88,7 +89,7 @@ export default function Experience() {
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
-                        Activo
+                        {t.ui.experience.active}
                       </div>
                     </div>
                     
@@ -118,7 +119,7 @@ export default function Experience() {
 
                 {/* Highlights Right Side */}
                 <div className="lg:w-2/3 flex flex-col gap-6 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-14">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 mb-2">Logros e Impacto Operativo</h4>
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 mb-2">{t.ui.experience.subtitle}</h4>
                   
                   <div className="space-y-6">
                     {item.highlights.map((highlight, hIdx) => {

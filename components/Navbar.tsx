@@ -9,12 +9,15 @@ import {
   Code2, 
   BookOpen, 
   Mail, 
-  ExternalLink 
+  ExternalLink,
+  Globe
 } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     return scrollY.onChange((latest) => {
@@ -23,12 +26,12 @@ export default function Navbar() {
   }, [scrollY]);
 
   const navItems = [
-    { name: "Inicio", href: "#", icon: Home },
-    { name: "Perfil", href: "#about", icon: User },
-    { name: "Exp.", href: "#experience", icon: Briefcase },
-    { name: "Proyectos", href: "#portfolio", icon: Code2 },
-    { name: "Especialidad", href: "#skills", icon: BookOpen },
-    { name: "Contacto", href: "#contact", icon: Mail },
+    { name: t.ui.nav.home, href: "#", icon: Home },
+    { name: t.ui.nav.profile, href: "#about", icon: User },
+    { name: t.ui.nav.exp, href: "#experience", icon: Briefcase },
+    { name: t.ui.nav.projects, href: "#portfolio", icon: Code2 },
+    { name: t.ui.nav.skills, href: "#skills", icon: BookOpen },
+    { name: t.ui.nav.contact, href: "#contact", icon: Mail },
   ];
 
   return (
@@ -66,12 +69,24 @@ export default function Navbar() {
           ))}
         </div>
 
-        <a
-          href="#contact"
-          className="ml-0 sm:ml-4 p-2.5 bg-white text-black rounded-xl hover:bg-primary hover:text-white transition-all duration-300 group shadow-lg shrink-0"
-        >
-          <ExternalLink className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-        </a>
+        <div className="flex items-center gap-2 ml-0 sm:ml-4 shrink-0">
+          {/* Language Switcher */}
+          <button
+            onClick={() => setLanguage(language === "es" ? "en" : "es")}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/10 rounded-xl hover:border-primary/50 text-[9px] font-black uppercase tracking-widest text-zinc-400 hover:text-white transition-all cursor-pointer shadow-lg"
+            title={language === "es" ? "Switch to English" : "Cambiar a Español"}
+          >
+            <Globe className="w-3 h-3 text-zinc-500" />
+            <span>{language === "es" ? "EN" : "ES"}</span>
+          </button>
+
+          <a
+            href="#contact"
+            className="p-2.5 bg-white text-black rounded-xl hover:bg-primary hover:text-white transition-all duration-300 group shadow-lg"
+          >
+            <ExternalLink className="w-4 h-4 group-hover:rotate-45 transition-transform" />
+          </a>
+        </div>
       </nav>
     </motion.header>
   );

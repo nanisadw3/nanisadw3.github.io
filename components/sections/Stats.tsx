@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Section from "../ui/Section";
 import { Github, Users, Calendar, Clock, Activity, Terminal } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface GitHubUserData {
   followers: number;
@@ -14,6 +15,7 @@ interface GitHubUserData {
 }
 
 export default function Stats() {
+  const { language, t } = useLanguage();
   const [githubData, setGithubData] = useState<GitHubUserData | null>(null);
 
   useEffect(() => {
@@ -24,18 +26,18 @@ export default function Stats() {
   }, []);
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' });
+    return new Date(dateStr).toLocaleDateString(language === "es" ? "es-ES" : "en-US", { month: "short", day: "numeric", year: "numeric" });
   };
 
   const statCards = githubData ? [
-    { label: "Seguidores", value: githubData.followers, Icon: Users, color: "text-purple-400", bg: "bg-purple-500/10" },
-    { label: "En GitHub desde", value: new Date(githubData.created_at).getFullYear(), Icon: Calendar, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-    { label: "Última Actividad", value: formatDate(githubData.updated_at), Icon: Clock, color: "text-blue-400", bg: "bg-blue-500/10" },
-    { label: "Siguiendo", value: githubData.following, Icon: Github, color: "text-zinc-400", bg: "bg-zinc-500/10" }
+    { label: t.ui.stats.followers, value: githubData.followers, Icon: Users, color: "text-purple-400", bg: "bg-purple-500/10" },
+    { label: t.ui.stats.since, value: new Date(githubData.created_at).getFullYear(), Icon: Calendar, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+    { label: t.ui.stats.activity, value: formatDate(githubData.updated_at), Icon: Clock, color: "text-blue-400", bg: "bg-blue-500/10" },
+    { label: t.ui.stats.following, value: githubData.following, Icon: Github, color: "text-zinc-400", bg: "bg-zinc-500/10" }
   ] : [];
 
   return (
-    <Section id="stats" title="GitHub Insights">
+    <Section id="stats" title={t.ui.stats.title}>
       <div className="space-y-8">
         
         {/* 1. Gráfico de Contribuciones (Los cuadritos verdes) */}
@@ -47,7 +49,7 @@ export default function Stats() {
         >
           <div className="flex items-center gap-3 mb-6">
             <Activity className="w-6 h-6 text-emerald-500" />
-            <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Calendario de Contribuciones</h4>
+            <h4 className="text-xl font-bold text-white uppercase tracking-tighter">{t.ui.stats.contributions}</h4>
           </div>
           <div className="w-full overflow-hidden rounded-xl bg-black/20 p-2 sm:p-4 text-center">
             <img 
@@ -92,7 +94,7 @@ export default function Stats() {
           >
             <div className="flex items-center gap-3">
               <Terminal className="w-6 h-6 text-blue-500" />
-              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">Racha de Código</h4>
+              <h4 className="text-xl font-bold text-white uppercase tracking-tighter">{t.ui.stats.streak}</h4>
             </div>
             <div className="w-full overflow-hidden rounded-2xl bg-black/20 p-2">
               <img 
@@ -103,7 +105,7 @@ export default function Stats() {
               />
             </div>
             <p className="text-[10px] text-zinc-500 font-mono text-center uppercase tracking-widest">
-              Días consecutivos de actividad y compromiso.
+              {t.ui.stats.streakDesc}
             </p>
           </motion.div>
         </div>

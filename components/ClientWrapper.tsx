@@ -4,6 +4,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./Navbar";
 import Background from "./ui/Background";
 import ScrollToTop from "./ui/ScrollToTop";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const { scrollYProgress } = useScroll();
@@ -14,7 +15,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
   });
 
   return (
-    <>
+    <LanguageProvider>
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-emerald-500 origin-left z-[100]"
         style={{ scaleX }}
@@ -23,6 +24,6 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
       <Navbar />
       <ScrollToTop />
       {children}
-    </>
+    </LanguageProvider>
   );
 }

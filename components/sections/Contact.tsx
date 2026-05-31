@@ -1,12 +1,13 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { Mail, Github, Linkedin, Send, ArrowUpRight, MessageSquare, Zap, Share2, Twitter } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Contact() {
-  const { contact } = portfolioData;
+  const { t } = useLanguage();
+  const { contact } = t;
   const [focused, setFocused] = useState<string | null>(null);
 
   const contactLinks = [
@@ -87,16 +88,16 @@ export default function Contact() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Connection: Active</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">{t.ui.contact.badge}</span>
             </motion.div>
             
             <motion.h2 variants={itemVariants} className="text-6xl md:text-9xl font-black mb-8 md:mb-10 tracking-tighter leading-[0.85]">
-              LET&apos;S <br />
-              <span className="gradient-text">SYNC.</span>
+              {t.ui.contact.title1} <br />
+              <span className="gradient-text">{t.ui.contact.title2}</span>
             </motion.h2>
             
             <motion.p variants={itemVariants} className="text-zinc-500 text-base md:text-xl font-medium leading-relaxed mb-12 md:mb-16 max-w-sm">
-              Iniciemos una conversación sobre sistemas o arquitectura. El canal está abierto.
+              {t.ui.contact.desc}
             </motion.p>
 
             <div className="space-y-4">
@@ -152,7 +153,7 @@ export default function Contact() {
                   <input type="hidden" name="access_key" value={contact.web3FormsKey} />
                   
                   <div className="relative group/input">
-                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] ${focused === 'name' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 md:top-6 text-zinc-600'}`}>Identity</label>
+                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] ${focused === 'name' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 md:top-6 text-zinc-600'}`}>{t.ui.contact.identity}</label>
                     <input 
                       type="text" 
                       name="name"
@@ -164,7 +165,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative group/input">
-                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] ${focused === 'email' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 md:top-6 text-zinc-600'}`}>Signal Source</label>
+                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] ${focused === 'email' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 md:top-6 text-zinc-600'}`}>{t.ui.contact.source}</label>
                     <input 
                       type="email" 
                       name="email"
@@ -176,7 +177,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative group/input">
-                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] ${focused === 'message' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 md:top-6 text-zinc-600'}`}>Payload Data</label>
+                    <label className={`absolute left-8 transition-all duration-300 pointer-events-none font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] ${focused === 'message' ? '-top-3 text-primary bg-background px-4 py-1 rounded-full' : 'top-5 md:top-6 text-zinc-600'}`}>{t.ui.contact.payload}</label>
                     <textarea 
                       name="message"
                       required
@@ -194,7 +195,7 @@ export default function Contact() {
                     className="w-full py-5 md:py-7 bg-primary text-white rounded-2xl md:rounded-[2rem] font-black uppercase tracking-[0.5em] text-[10px] md:text-[12px] transition-all flex items-center justify-center gap-4 relative shadow-2xl"
                   >
                     <span className="relative z-10 flex items-center gap-3">
-                      Send Transmission
+                      {t.ui.contact.send}
                       <Send className="w-4 h-4 md:w-5 md:h-5" />
                     </span>
                   </motion.button>
@@ -210,7 +211,8 @@ export default function Contact() {
 }
 
 export function Footer() {
-  const { contact } = portfolioData;
+  const { language, t } = useLanguage();
+  const { contact } = t;
   return (
     <footer className="py-12 md:py-16 bg-background relative overflow-hidden border-t border-white/5 px-4 md:px-0">
       <div className="container px-4 md:px-6 mx-auto">
@@ -222,7 +224,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col text-center md:text-left">
               <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] text-white">Iñaki Sobera</span>
-              <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-zinc-600">Engineering Portfolio</span>
+              <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-zinc-600">{language === 'es' ? 'Portafolio de Ingeniería' : 'Engineering Portfolio'}</span>
             </div>
           </div>
           
@@ -248,10 +250,10 @@ export function Footer() {
           {/* Clean Copyright */}
           <div className="flex flex-col items-center md:items-end">
             <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-1">
-              © {new Date().getFullYear()} ALL RIGHTS RESERVED
+              © {new Date().getFullYear()} {t.ui.contact.rights}
             </p>
             <p className="text-[8px] font-bold text-zinc-800 uppercase tracking-widest text-center md:text-right">
-              Design & Dev by Sobera Labs
+              {t.ui.contact.design}
             </p>
           </div>
         </div>

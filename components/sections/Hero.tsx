@@ -2,11 +2,12 @@
 
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRef } from "react";
-import { portfolioData } from "@/lib/data";
 import { Github, Linkedin, Rocket, Sparkles } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Hero() {
-  const { contact } = portfolioData;
+  const { t } = useLanguage();
+  const { contact } = t;
   const containerRef = useRef(null);
   
   const { scrollY } = useScroll();
@@ -125,7 +126,7 @@ export default function Hero() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="text-base md:text-3xl text-zinc-400 max-w-4xl mb-12 md:mb-16 font-medium leading-snug px-2"
           >
-            Iñaki Sobera • Arquitecturas <span className="text-white">backend</span> y ecosistemas de <span className="text-accent italic font-bold">IA</span> evolucionados.
+            {t.hero.summary}
           </motion.p>
 
           <motion.div
@@ -141,7 +142,7 @@ export default function Hero() {
               className="group relative px-10 md:px-14 py-5 md:py-7 bg-primary text-white rounded-2xl md:rounded-[2rem] font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] overflow-hidden transition-all w-full sm:w-auto"
             >
               <span className="relative z-10 flex items-center justify-center gap-3">
-                Proyectos <Rocket className="w-4 h-4" />
+                {t.ui.hero.projectsBtn} <Rocket className="w-4 h-4" />
               </span>
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </motion.a>

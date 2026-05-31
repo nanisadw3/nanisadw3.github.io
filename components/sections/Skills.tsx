@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { 
   Terminal, 
   Database, 
@@ -12,59 +11,71 @@ import {
   Globe,
   Layers
 } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Skills() {
-  const { skills } = portfolioData;
+  const { language, t } = useLanguage();
+  const { skills } = t;
 
   const categories = [
     {
-      title: "Backend Engine",
+      title: language === "es" ? "Motor Backend" : "Backend Engine",
       icon: Terminal,
       skills: skills.programming,
       color: "text-primary",
       gradient: "from-primary/20 via-primary/5 to-transparent",
       colSpan: "md:col-span-2",
-      description: "Desarrollo de lógica de servidor robusta y sistemas de alta disponibilidad.",
+      description: language === "es" 
+        ? "Desarrollo de lógica de servidor robusta y sistemas de alta disponibilidad." 
+        : "Development of robust server logic and high availability systems.",
       stats: "Core Architecture"
     },
     {
-      title: "Data & Analysis",
+      title: language === "es" ? "Datos & Análisis" : "Data & Analysis",
       icon: Database,
       skills: [...skills.databases, "Power BI"],
       color: "text-blue-400",
       gradient: "from-blue-500/20 via-blue-500/5 to-transparent",
       colSpan: "md:col-span-1",
-      description: "Gestión avanzada de persistencia y visualización estratégica de datos.",
+      description: language === "es" 
+        ? "Gestión avanzada de persistencia y visualización estratégica de datos." 
+        : "Advanced persistence management and strategic data visualization.",
       stats: "BI & Data Intelligence"
     },
     {
-      title: "Infrastructure",
+      title: language === "es" ? "Infraestructura" : "Infrastructure",
       icon: Cpu,
       skills: skills.tools,
       color: "text-emerald-400",
       gradient: "from-emerald-500/20 via-emerald-500/5 to-transparent",
       colSpan: "md:col-span-1",
-      description: "Entornos virtualizados y automatización de despliegues.",
+      description: language === "es" 
+        ? "Entornos virtualizados y automatización de despliegues." 
+        : "Virtualized environments and deployment automation.",
       stats: "DevOps Ready"
     },
     {
-      title: "Architecture & Patterns",
+      title: language === "es" ? "Arquitectura & Patrones" : "Architecture & Patterns",
       icon: Network,
       skills: ["MVC Pattern", "Microservices", "REST APIs", "Sockets", "Concurrency"],
       color: "text-accent",
       gradient: "from-accent/20 via-accent/5 to-transparent",
       colSpan: "md:col-span-2",
-      description: "Diseño de software escalable basado en estándares industriales.",
+      description: language === "es" 
+        ? "Diseño de software escalable basado en estándares industriales." 
+        : "Scalable software design based on industrial standards.",
       stats: "Distributed Systems"
     },
     {
-      title: "Interface Design",
+      title: language === "es" ? "Diseño de Interfaces" : "Interface Design",
       icon: Layout,
       skills: skills.frontend,
       color: "text-violet-400",
       gradient: "from-violet-500/20 via-violet-500/5 to-transparent",
       colSpan: "md:col-span-2",
-      description: "Creación de experiencias de usuario modernas y reactivas.",
+      description: language === "es" 
+        ? "Creación de experiencias de usuario modernas y reactivas." 
+        : "Creation of modern and reactive user experiences.",
       stats: "Full-Stack Ops"
     }
   ];
@@ -99,14 +110,13 @@ export default function Skills() {
         >
           <div className="flex items-center gap-3 mb-4 md:mb-6 justify-center md:justify-start">
             <div className="w-8 md:w-12 h-[2px] bg-primary" />
-            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary">Capabilities</span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.ui.skills.badge}</span>
           </div>
           <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-8 tracking-tighter leading-none uppercase">
-            TECHNICAL <span className="gradient-text">MASTERY</span>
+            {t.ui.skills.title1} <span className="gradient-text">{t.ui.skills.title2}</span>
           </h2>
           <p className="text-zinc-500 text-base md:text-xl font-medium leading-relaxed max-w-xl mx-auto md:mx-0">
-            Un stack tecnológico diseñado para la <span className="text-white">eficiencia</span>, 
-            la <span className="text-white">seguridad</span> y la <span className="text-white">escalabilidad</span>.
+            {t.ui.skills.desc}
           </p>
         </motion.div>
 
@@ -169,7 +179,7 @@ export default function Skills() {
               <Globe className="w-6 h-6 text-primary" />
             </div>
             <div className="text-center md:text-left">
-              <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 md:mb-1">Global Communication</p>
+              <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 md:mb-1">{t.ui.skills.languages}</p>
               <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6">
                 {skills.languages.map((lang, lIdx) => (
                   <div key={lIdx} className="flex flex-col">
@@ -193,7 +203,7 @@ export default function Skills() {
           
           <div className="flex items-center gap-4 text-zinc-600 transition-colors">
             <Layers className="w-5 h-5" />
-            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em]">Verified Professional Stack</span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em]">{t.ui.skills.verified}</span>
           </div>
         </motion.div>
       </div>

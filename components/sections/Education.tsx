@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { GraduationCap, Award, ExternalLink, MapPin, CheckCircle2, ShieldCheck } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Education() {
-  const { education } = portfolioData;
+  const { t } = useLanguage();
+  const { education } = t;
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -39,11 +40,11 @@ export default function Education() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 backdrop-blur-md">
             <ShieldCheck className="w-3.5 h-3.5 text-accent" />
-            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-accent">Academic & Certs</span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-accent">{t.ui.education.badge}</span>
           </div>
           <h2 className="text-4xl md:text-8xl font-black mb-6 md:mb-8 tracking-tighter leading-none uppercase">
-            TRAINING & <br />
-            <span className="gradient-text">CREDENTIALS</span>
+            {t.ui.education.title1} <br />
+            <span className="gradient-text">{t.ui.education.title2}</span>
           </h2>
         </motion.div>
 
@@ -84,7 +85,7 @@ export default function Education() {
                       {item.certCode && (
                         <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[8px] md:text-[9px] font-black uppercase tracking-widest">
                           <CheckCircle2 className="w-2.5 h-2.5" />
-                          Validated
+                          {t.ui.education.validated}
                         </div>
                       )}
                     </div>
@@ -98,7 +99,7 @@ export default function Education() {
                   
                   {item.certLink && (
                     <div className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-[0.1em] text-white group-hover:bg-primary group-hover:border-primary transition-all w-fit">
-                      Verify Badge
+                      {t.ui.education.verify}
                       <ExternalLink className="w-3.5 h-3.5" />
                     </div>
                   )}
@@ -113,7 +114,7 @@ export default function Education() {
                 <div className="flex flex-wrap items-center gap-4 md:gap-8 text-zinc-600">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-3.5 h-3.5 text-zinc-700" />
-                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em]">Remote / Global</span>
+                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em]">{t.ui.education.location}</span>
                   </div>
                   {item.certCode && (
                     <div className="flex items-center gap-2 font-mono text-[9px] md:text-[10px] tracking-tighter bg-black/40 px-3 py-1.5 md:px-4 md:py-2 rounded-lg md:rounded-xl border border-white/5">

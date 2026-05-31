@@ -1,12 +1,13 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { Github, ExternalLink, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { useState, useRef } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Portfolio() {
-  const { projects } = portfolioData;
+  const { t } = useLanguage();
+  const { projects } = t;
   const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -39,11 +40,11 @@ export default function Portfolio() {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="w-2 h-2 rounded-full bg-primary"
               />
-              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary italic">Works & Labs</span>
+              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary italic">{t.ui.portfolio.badge}</span>
             </div>
             <h2 className="text-4xl md:text-8xl font-black mb-6 md:mb-8 leading-none tracking-tighter uppercase">
-              PROYECTOS <br />
-              <span className="gradient-text">DESTACADOS</span>
+              {t.ui.portfolio.title1} <br />
+              <span className="gradient-text">{t.ui.portfolio.title2}</span>
             </h2>
           </div>
           
@@ -53,7 +54,7 @@ export default function Portfolio() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 md:gap-4 px-8 md:px-10 py-4 md:py-5 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:border-primary transition-all group h-fit shadow-xl justify-center"
           >
-            GitHub Archive <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+            {t.ui.portfolio.archiveBtn} <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
           </motion.a>
         </motion.div>
 
@@ -120,10 +121,10 @@ export default function Portfolio() {
                   <div className="pt-6 md:pt-8 border-t border-white/5 mt-auto flex items-center justify-between group/link">
                     <div className="flex items-center gap-2 md:gap-3">
                       <div className="w-2 h-2 rounded-full bg-primary/20 animate-pulse" />
-                      <span className="text-[9px] md:text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active System</span>
+                      <span className="text-[9px] md:text-[10px] font-black text-zinc-500 uppercase tracking-widest">{t.ui.portfolio.activeSystem}</span>
                     </div>
                     <div className="flex items-center gap-2 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-primary">
-                      Ver Archivo <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
+                      {t.ui.portfolio.viewArchive} <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
                     </div>
                   </div>
                 </div>
@@ -139,7 +140,7 @@ export default function Portfolio() {
           >
             <div className="relative z-10 flex items-center gap-4 md:gap-5 text-white font-black uppercase tracking-[0.4em] text-[9px] md:text-[11px]">
               <Sparkles className="w-4 h-4 text-primary" />
-              {showAll ? "Colapsar Archivo" : "Desplegar Laboratorio"} 
+              {showAll ? t.ui.portfolio.collapse : t.ui.portfolio.expand} 
               <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 text-primary transition-transform duration-500 ${showAll ? "rotate-180" : ""}`} />
             </div>
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
