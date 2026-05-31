@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
+import Experience from "@/components/sections/Experience";
 import Portfolio from "@/components/sections/Portfolio";
 import Education from "@/components/sections/Education";
 import Skills from "@/components/sections/Skills";
@@ -26,6 +27,7 @@ export default function Home() {
         
         <div className="relative z-10 bg-background">
           <About />
+          <Experience />
           <Portfolio />
           <Skills />
           <Education />

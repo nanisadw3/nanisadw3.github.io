@@ -84,10 +84,16 @@ export const portfolioData = {
   ],
   education: [
     {
+      title: "Maestría en Dirección de Proyectos",
+      institution: "UNITEC Campus Atizapán",
+      period: "2026 - En curso",
+      description: "Especialización enfocada en metodologías de gestión ágil, control de presupuestos, gestión del alcance y dirección de equipos multidisciplinarios para el éxito de iniciativas tecnológicas.",
+    },
+    {
       title: "Ingeniería en Sistemas Computacionales",
       institution: "UNITEC Campus Atizapán",
-      period: "2021 - 2025",
-      description: "Formación de alto nivel enfocada en el ciclo de vida del software, IA aplicada y ciberseguridad avanzada.",
+      period: "2023 - 2026",
+      description: "Graduado con formación de alto nivel enfocada en el ciclo de vida del software, IA aplicada y ciberseguridad avanzada.",
     },
     {
       title: "Advanced Linux Systems Administration",
@@ -115,6 +121,26 @@ export const portfolioData = {
       certLink: "cr/inaki_sobera_cr_python.pdf",
       verifyLink: "https://hack4u.io/check-certificate/",
     },
+    {
+      title: "GitHub Foundations Certification",
+      institution: "GitHub",
+      date: "2026",
+      description: "Certificación oficial en administración de repositorios, flujos de trabajo colaborativos y control de versiones profesional con Git y GitHub.",
+    },
+  ],
+  experience: [
+    {
+      role: "Analista en Tecnologías de Operación",
+      company: "PEMEX",
+      period: "Mayo 2026 - Presente",
+      description: "Liderazgo técnico en la automatización de procesos operativos y analítica avanzada para tecnologías de operación.",
+      highlights: [
+        "Inteligencia Artificial y Automatización: Establecí flujos de notificación autónomos integrando modelos de IA locales con servidores de correo, implementando pipelines de orquestación en n8n.",
+        "Análisis de Datos (BI): Optimicé la visibilidad de métricas operativas al consolidar múltiples fuentes de datos en tiempo real mediante la construcción de dashboards interactivos en Power BI.",
+        "Desarrollo Backend: Reduje significativamente la captura manual de información departamental desarrollando y desplegando scripts personalizados en Python."
+      ],
+      tags: ["AI Integration", "n8n Pipelines", "Power BI", "Python Scripting"]
+    }
   ],
   skills: {
     programming: ["Java", "Python", "Ruby", "Bash", "C#"],

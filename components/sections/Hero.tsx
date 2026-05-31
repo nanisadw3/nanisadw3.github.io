@@ -40,8 +40,8 @@ export default function Hero() {
     },
   };
 
-  const line1 = "ENGINEERING".split("");
-  const line2 = "THE FUTURE".split("");
+  const line1Words = "ENGINEERING".split(" ");
+  const line2Words = "THE FUTURE".split(" ");
 
   return (
     <section 
@@ -84,28 +84,36 @@ export default function Hero() {
               className="flex flex-col gap-1 md:gap-2"
             >
               {/* Primera Línea */}
-              <motion.h1 className="text-[12vw] sm:text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] flex justify-center flex-wrap">
-                {line1.map((char, index) => (
-                  <motion.span
-                    key={index}
-                    variants={letterAnimation}
-                    className="inline-block text-white"
-                  >
-                    {char}
-                  </motion.span>
+              <motion.h1 className="text-[8.5vw] sm:text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] flex justify-center flex-wrap gap-x-[0.3em]">
+                {line1Words.map((word, wordIndex) => (
+                  <span key={wordIndex} className="inline-flex whitespace-nowrap">
+                    {word.split("").map((char, charIndex) => (
+                      <motion.span
+                        key={charIndex}
+                        variants={letterAnimation}
+                        className="inline-block text-white"
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </span>
                 ))}
               </motion.h1>
 
               {/* Segunda Línea con Gradiente */}
-              <motion.h1 className="text-[12vw] sm:text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] flex justify-center flex-wrap">
-                {line2.map((char, index) => (
-                  <motion.span
-                    key={index}
-                    variants={letterAnimation}
-                    className="inline-block gradient-text"
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
+              <motion.h1 className="text-[8.5vw] sm:text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] flex justify-center flex-wrap gap-x-[0.3em]">
+                {line2Words.map((word, wordIndex) => (
+                  <span key={wordIndex} className="inline-flex whitespace-nowrap">
+                    {word.split("").map((char, charIndex) => (
+                      <motion.span
+                        key={charIndex}
+                        variants={letterAnimation}
+                        className="inline-block gradient-text"
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </span>
                 ))}
               </motion.h1>
             </motion.div>

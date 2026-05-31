@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Iñaki Sobera Sotomayor | Software Developer Portfolio",
-  description: "Portafolio profesional de Iñaki Sobera Sotomayor, Desarrollador de Software especializado en Backend, IA y Ciberseguridad. Estudiante de Ingeniería en Sistemas Computacionales.",
+  description: "Portafolio profesional de Iñaki Sobera Sotomayor, Desarrollador de Software especializado en Backend, IA y Ciberseguridad. Graduado en Ingeniería en Sistemas Computacionales.",
   keywords: ["Iñaki Sobera Sotomayor", "Software Developer", "Backend Developer", "Java", "Python", "IA", "Ciberseguridad", "Portafolio"],
   authors: [{ name: "Iñaki Sobera Sotomayor" }],
   openGraph: {

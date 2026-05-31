@@ -21,7 +21,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-20 md:py-32 relative bg-background px-4 md:px-0">
+    <section id="about" className="py-20 md:py-32 relative overflow-hidden bg-background px-4 md:px-0">
       <div className="container px-2 md:px-6 mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center">
           
