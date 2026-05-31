@@ -73,11 +73,11 @@ export default function Navbar() {
           {/* Language Switcher */}
           <button
             onClick={() => setLanguage(language === "es" ? "en" : "es")}
-            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/10 rounded-xl hover:border-primary/50 text-[9px] font-black uppercase tracking-widest text-zinc-400 hover:text-white transition-all cursor-pointer shadow-lg"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/10 rounded-xl hover:border-primary/50 text-[11px] font-black uppercase tracking-widest text-zinc-400 hover:text-white transition-all cursor-pointer shadow-lg"
             title={language === "es" ? "Switch to English" : "Cambiar a Español"}
           >
             <Globe className="w-3 h-3 text-zinc-500" />
-            <span>{language === "es" ? "EN" : "ES"}</span>
+            <span className="text-sm leading-none">{language === "es" ? "🇺🇸" : "🇲🇽"}</span>
           </button>
 
           <a
