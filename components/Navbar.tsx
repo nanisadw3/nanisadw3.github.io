@@ -132,7 +132,7 @@ export default function Navbar() {
             title={language === "es" ? "Switch to English" : "Cambiar a Español"}
           >
             <Globe className="w-3 h-3 text-zinc-500" />
-            {language === "es" ? <USAFlag /> : <MexicoFlag />}
+            {language === "es" ? <MexicoFlag /> : <USAFlag />}
           </button>
 
           <a
