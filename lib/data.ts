@@ -132,6 +132,7 @@ export const portfolioDataEs = {
     {
       role: "Analista en Tecnologías de Operación",
       company: "PEMEX",
+      encrypted: true,
       period: "Mayo 2026 - Presente",
       description: "Liderazgo técnico en la automatización de procesos operativos y analítica avanzada para tecnologías de operación.",
       highlights: [
@@ -372,6 +373,7 @@ export const portfolioDataEn = {
     {
       role: "Operations Technology Analyst",
       company: "PEMEX",
+      encrypted: true,
       period: "May 2026 - Present",
       description: "Technical leadership in operational process automation and advanced analytics for operations technology.",
       highlights: [

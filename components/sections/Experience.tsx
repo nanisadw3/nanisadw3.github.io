@@ -1,11 +1,44 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
-import { Briefcase, Terminal, BarChart3, Bot } from "lucide-react";
+import { Briefcase, Terminal, BarChart3, Bot, Lock } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 
+// Reusable cryptographic scrambling cipher text component
+function TextCipher({ text, active = true }: { text: string; active?: boolean }) {
+  const [displayText, setDisplayText] = useState(text);
+
+  useEffect(() => {
+    if (!active) {
+      setDisplayText(text);
+      return;
+    }
+
+    const chars = "X01Z!@#$&*()-_+=/[]{};:<>.,ABCDEFGHIJKLMNOPQRSTUVW";
+    
+    const interval = setInterval(() => {
+      const scrambled = text
+        .split("")
+        .map((char) => {
+          // Keep formatting characters intact to prevent layout shifts
+          if (char === " " || char === "\n" || char === ":" || char === "." || char === ",") {
+            return char;
+          }
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join("");
+      setDisplayText(scrambled);
+    }, 75);
+
+    return () => clearInterval(interval);
+  }, [text, active]);
+
+  return <span className="font-mono text-zinc-500/70 tracking-wider break-all">{displayText}</span>;
+}
+
 export default function Experience() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const { experience } = t;
 
   const containerVariants: Variants = {
@@ -29,10 +62,10 @@ export default function Experience() {
 
   // Helper to map highlight to relevant sub-icon
   const getSubIcon = (text: string) => {
-    if (text.toLowerCase().includes("inteligencia") || text.toLowerCase().includes("ia")) {
+    if (text.toLowerCase().includes("inteligencia") || text.toLowerCase().includes("ia") || text.toLowerCase().includes("artificial")) {
       return Bot;
     }
-    if (text.toLowerCase().includes("datos") || text.toLowerCase().includes("power bi")) {
+    if (text.toLowerCase().includes("datos") || text.toLowerCase().includes("power bi") || text.toLowerCase().includes("analytics")) {
       return BarChart3;
     }
     return Terminal;
@@ -82,19 +115,29 @@ export default function Experience() {
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-4">
                       <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                        {item.period}
+                        {item.encrypted ? <TextCipher text={item.period} /> : item.period}
                       </span>
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-black uppercase tracking-widest">
-                        <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
-                        {t.ui.experience.active}
-                      </div>
+                      {item.encrypted ? (
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 text-[9px] font-black uppercase tracking-widest animate-pulse select-none">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                          </span>
+                          {language === "es" ? "Cifrado / En Desarrollo" : "Encrypted / WIP"}
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-black uppercase tracking-widest">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                          </span>
+                          {t.ui.experience.active}
+                        </div>
+                      )}
                     </div>
                     
                     <h3 className="text-2xl md:text-4xl font-black text-white group-hover:text-primary transition-colors leading-tight tracking-tighter uppercase mb-2">
-                      {item.role}
+                      {item.encrypted ? <TextCipher text={item.role} /> : item.role}
                     </h3>
                     <p className="text-accent font-black text-sm uppercase tracking-[0.2em]">
                       {item.company}
@@ -102,7 +145,7 @@ export default function Experience() {
                   </div>
 
                   <p className="text-zinc-500 text-xs md:text-sm font-medium leading-relaxed max-w-sm">
-                    {item.description}
+                    {item.encrypted ? <TextCipher text={item.description} /> : item.description}
                   </p>
 
                   <div className="flex flex-wrap gap-2">
@@ -111,7 +154,7 @@ export default function Experience() {
                         key={tIdx}
                         className="px-3 py-1.5 bg-white/[0.03] border border-white/5 rounded-xl text-[9px] font-bold text-zinc-400 uppercase tracking-wider"
                       >
-                        {tag}
+                        {item.encrypted ? <TextCipher text={tag} /> : tag}
                       </span>
                     ))}
                   </div>
@@ -132,10 +175,10 @@ export default function Experience() {
                           </div>
                           <div>
                             <p className="text-white font-bold text-sm uppercase tracking-wider mb-1">
-                              {title}
+                              {item.encrypted ? <TextCipher text={title} /> : title}
                             </p>
                             <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-medium">
-                              {rest ? rest.trim() : ""}
+                              {item.encrypted ? <TextCipher text={rest ? rest.trim() : ""} /> : (rest ? rest.trim() : "")}
                             </p>
                           </div>
                         </div>
@@ -147,7 +190,8 @@ export default function Experience() {
               </div>
 
               {/* Huge watermarked index on the back */}
-              <div className="absolute top-6 right-10 text-6xl md:text-[10rem] font-black text-white/[0.01] pointer-events-none select-none leading-none group-hover:text-white/[0.02] transition-colors">
+              <div className="absolute top-6 right-10 text-6xl md:text-[10rem] font-black text-white/[0.01] pointer-events-none select-none leading-none group-hover:text-white/[0.02] transition-colors flex items-center gap-4">
+                {item.encrypted && <Lock className="w-12 h-12 md:w-20 md:h-20 text-red-500/10 animate-pulse shrink-0" />}
                 0{index + 1}
               </div>
             </motion.div>
