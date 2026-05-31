@@ -14,6 +14,61 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 
+// Universal high-fidelity SVG flag components to avoid OS/browser rendering discrepancies
+const MexicoFlag = () => (
+  <svg className="w-5 h-3.5 rounded-[3px] shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-white/10 shrink-0" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+    <rect width="10" height="20" fill="#006847" />
+    <rect x="10" width="10" height="20" fill="#FFFFFF" />
+    <rect x="20" width="10" height="20" fill="#C8102E" />
+    {/* Coat of arms eagle on cactus */}
+    <circle cx="15" cy="10" r="2" fill="#8B5B29" />
+    <circle cx="15" cy="11.2" r="1" fill="#006847" />
+  </svg>
+);
+
+const USAFlag = () => (
+  <svg className="w-5 h-3.5 rounded-[3px] shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-white/10 shrink-0" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+    <rect width="30" height="20" fill="#C8102E" />
+    {/* White stripes */}
+    <rect y="1.54" width="30" height="1.54" fill="#FFFFFF" />
+    <rect y="4.62" width="30" height="1.54" fill="#FFFFFF" />
+    <rect y="7.7" width="30" height="1.54" fill="#FFFFFF" />
+    <rect y="10.78" width="30" height="1.54" fill="#FFFFFF" />
+    <rect y="13.86" width="30" height="1.54" fill="#FFFFFF" />
+    <rect y="16.94" width="30" height="1.54" fill="#FFFFFF" />
+    {/* Blue canton */}
+    <rect width="13.85" height="10.78" fill="#002147" />
+    {/* Simplified stars grid */}
+    <circle cx="2.3" cy="2.1" r="0.45" fill="#FFFFFF" />
+    <circle cx="4.6" cy="2.1" r="0.45" fill="#FFFFFF" />
+    <circle cx="6.9" cy="2.1" r="0.45" fill="#FFFFFF" />
+    <circle cx="9.2" cy="2.1" r="0.45" fill="#FFFFFF" />
+    <circle cx="11.5" cy="2.1" r="0.45" fill="#FFFFFF" />
+    
+    <circle cx="3.4" cy="3.7" r="0.45" fill="#FFFFFF" />
+    <circle cx="5.7" cy="3.7" r="0.45" fill="#FFFFFF" />
+    <circle cx="8.0" cy="3.7" r="0.45" fill="#FFFFFF" />
+    <circle cx="10.3" cy="3.7" r="0.45" fill="#FFFFFF" />
+    
+    <circle cx="2.3" cy="5.3" r="0.45" fill="#FFFFFF" />
+    <circle cx="4.6" cy="5.3" r="0.45" fill="#FFFFFF" />
+    <circle cx="6.9" cy="5.3" r="0.45" fill="#FFFFFF" />
+    <circle cx="9.2" cy="5.3" r="0.45" fill="#FFFFFF" />
+    <circle cx="11.5" cy="5.3" r="0.45" fill="#FFFFFF" />
+    
+    <circle cx="3.4" cy="7.0" r="0.45" fill="#FFFFFF" />
+    <circle cx="5.7" cy="7.0" r="0.45" fill="#FFFFFF" />
+    <circle cx="8.0" cy="7.0" r="0.45" fill="#FFFFFF" />
+    <circle cx="10.3" cy="7.0" r="0.45" fill="#FFFFFF" />
+
+    <circle cx="2.3" cy="8.6" r="0.45" fill="#FFFFFF" />
+    <circle cx="4.6" cy="8.6" r="0.45" fill="#FFFFFF" />
+    <circle cx="6.9" cy="8.6" r="0.45" fill="#FFFFFF" />
+    <circle cx="9.2" cy="8.6" r="0.45" fill="#FFFFFF" />
+    <circle cx="11.5" cy="8.6" r="0.45" fill="#FFFFFF" />
+  </svg>
+);
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -77,7 +132,7 @@ export default function Navbar() {
             title={language === "es" ? "Switch to English" : "Cambiar a Español"}
           >
             <Globe className="w-3 h-3 text-zinc-500" />
-            <span className="text-sm leading-none">{language === "es" ? "🇺🇸" : "🇲🇽"}</span>
+            {language === "es" ? <USAFlag /> : <MexicoFlag />}
           </button>
 
           <a
