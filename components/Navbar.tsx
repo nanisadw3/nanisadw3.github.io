@@ -71,6 +71,7 @@ const USAFlag = () => (
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("#");
   const { scrollY } = useScroll();
   const { language, setLanguage, t } = useLanguage();
 
@@ -79,6 +80,43 @@ export default function Navbar() {
       setIsScrolled(latest > 50);
     });
   }, [scrollY]);
+
+  // Handle active section detection on scroll
+  useEffect(() => {
+    const sections = ["#", "#about", "#experience", "#portfolio", "#skills", "#contact"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-25% 0px -55% 0px",
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          setActiveSection(id ? `#${id}` : "#");
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((id) => {
+      if (id === "#") return;
+      const el = document.querySelector(id);
+      if (el) observer.observe(el);
+    });
+
+    const handleScroll = () => {
+      if (window.scrollY < 200) {
+        setActiveSection("#");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const navItems = [
     { name: t.ui.nav.home, href: "#", icon: Home },
@@ -110,18 +148,45 @@ export default function Navbar() {
           </span>
         </a>
 
-        <div className="flex items-center gap-1 sm:gap-2">
-          {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="relative px-2 py-2 sm:px-4 sm:py-2 text-[10px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] text-zinc-400 hover:text-white transition-all group flex items-center gap-2"
-            >
-              <item.icon className="w-3.5 h-3.5 sm:hidden" />
-              <span className="hidden sm:inline">{item.name}</span>
-              <span className="absolute bottom-0 left-2 right-2 sm:left-4 sm:right-4 h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-            </a>
-          ))}
+        <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href;
+            return (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                onClick={() => setActiveSection(item.href)}
+                whileTap={{ scale: 0.9 }}
+                className={`relative px-2.5 py-2.5 sm:px-4 sm:py-2 text-[10px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all group flex items-center gap-2 rounded-xl select-none ${
+                  isActive ? "text-white" : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                {/* Tactile bouncing animation on icon */}
+                <motion.div
+                  animate={{ scale: isActive ? 1.15 : 1, y: isActive ? -1 : 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                >
+                  <item.icon className="w-3.5 h-3.5 sm:hidden relative z-10 text-current" />
+                </motion.div>
+                
+                <span className="hidden sm:inline relative z-10">{item.name}</span>
+                
+                {/* Sliding Active Pill Background for magical mobile transition */}
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavBackground"
+                    className="absolute inset-0 bg-primary/10 border border-primary/20 rounded-xl -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+
+                {/* Desktop active underline */}
+                <span className={`absolute bottom-0 left-4 right-4 h-[2px] bg-primary transition-transform duration-300 origin-center hidden sm:block ${
+                  isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                }`} />
+              </motion.a>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2 ml-0 sm:ml-4 shrink-0">
