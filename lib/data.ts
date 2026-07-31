@@ -75,11 +75,11 @@ export const portfolioDataEs = {
       tags: ["Java", "MVC Pattern", "OOP"],
     },
     {
-      title: "Inventory Intelligence",
-      description: "Solución de escritorio para el control de existencias. Interfaz optimizada para la gestión eficiente de almacenes y logística corporativa.",
-      image: "images/Sistema_gestion_inventario.png",
-      github: "https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-",
-      tags: ["GUI Design", "Python", "Database"],
+      title: "MCP Relational AI Gateway",
+      description: "Portal de análisis y administración de bases de datos relacionales potenciado por Google Gemini bajo el estándar Model Context Protocol (MCP). Consulta tus bases de datos con lenguaje natural, gráficos dinámicos con zoom interactivo y tema Material Design 3.",
+      image: "images/MCP.png",
+      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
+      tags: ["Flask", "Google Gemini", "SQL Server"],
     },
   ],
   education: [
