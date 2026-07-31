@@ -16,6 +16,20 @@ export const portfolioDataEs = {
   },
   projects: [
     {
+      title: "MCP Relational AI Gateway",
+      description: "Portal de análisis y administración de bases de datos relacionales potenciado por Google Gemini bajo el estándar Model Context Protocol (MCP). Consulta tus bases de datos con lenguaje natural, gráficos dinámicos con zoom interactivo y tema Material Design 3.",
+      image: "images/MCP.png",
+      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
+      tags: ["Flask", "Google Gemini", "SQL Server"],
+    },
+    {
+      title: "YOLO Kinetic Vision",
+      description: "Detección y clasificación de objetos en tiempo real mediante redes neuronales convolucionales. Optimización de procesamiento de video para análisis de alta velocidad.",
+      image: "images/yolo.png",
+      github: "https://github.com/nanisadw3/YOLO-Vision.git",
+      tags: ["OpenCV", "Computer Vision", "Python"],
+    },
+    {
       title: "AI Survival Ecosystem",
       description: "Motor de juego avanzado con agentes autónomos. Implementación de algoritmos de navegación dinámica, gestión de estados complejos y recolección inteligente de recursos en tiempo real.",
       image: "images/inteligentes.png",
@@ -31,18 +45,12 @@ export const portfolioDataEs = {
       tags: ["Node.js", "WebSockets", "React"],
     },
     {
-      title: "YOLO Kinetic Vision",
-      description: "Detección y clasificación de objetos en tiempo real mediante redes neuronales convolucionales. Optimización de procesamiento de video para análisis de alta velocidad.",
-      image: "images/yolo.png",
-      github: "https://github.com/nanisadw3/YOLO-Vision.git",
-      tags: ["OpenCV", "Computer Vision", "Python"],
-    },
-    {
-      title: "Sync Spotify Client",
-      description: "Aplicación de escritorio para la gestión inteligente de catálogos musicales. Sincronización automatizada de metadatos mediante integración multicanal con APIs de streaming.",
-      image: "images/Spotify.png",
-      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
-      tags: ["Desktop App", "Spotify API", "Multimedia"],
+      title: "Property Management System",
+      description: "Software empresarial para administración de activos inmobiliarios. Automatización de flujos financieros y gestión de contratos integrados con PostgreSQL.",
+      image: "images/Rentas.png",
+      github: "https://github.com/nanisadw3/Administracion_Rentas",
+      demo: "https://app-rentas-df0b56466a50.herokuapp.com/login",
+      tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
     },
     {
       title: "Cipher-Stream Chat",
@@ -60,12 +68,11 @@ export const portfolioDataEs = {
       tags: ["Flask", "Astronomy Data", "Cloud Deploy"],
     },
     {
-      title: "Property Management System",
-      description: "Software empresarial para administración de activos inmobiliarios. Automatización de flujos financieros y gestión de contratos integrados con PostgreSQL.",
-      image: "images/Rentas.png",
-      github: "https://github.com/nanisadw3/Administracion_Rentas",
-      demo: "https://app-rentas-df0b56466a50.herokuapp.com/login",
-      tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
+      title: "Sync Spotify Client",
+      description: "Aplicación de escritorio para la gestión inteligente de catálogos musicales. Sincronización automatizada de metadatos mediante integración multicanal con APIs de streaming.",
+      image: "images/Spotify.png",
+      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
+      tags: ["Desktop App", "Spotify API", "Multimedia"],
     },
     {
       title: "Java FX MVC Architecture",
@@ -73,13 +80,6 @@ export const portfolioDataEs = {
       image: "images/FX.jpg",
       github: "https://github.com/nanisadw3/Practicas_javaFX.git",
       tags: ["Java", "MVC Pattern", "OOP"],
-    },
-    {
-      title: "MCP Relational AI Gateway",
-      description: "Portal de análisis y administración de bases de datos relacionales potenciado por Google Gemini bajo el estándar Model Context Protocol (MCP). Consulta tus bases de datos con lenguaje natural, gráficos dinámicos con zoom interactivo y tema Material Design 3.",
-      image: "images/MCP.png",
-      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
-      tags: ["Flask", "Google Gemini", "SQL Server"],
     },
   ],
   education: [
