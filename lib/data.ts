@@ -257,6 +257,20 @@ export const portfolioDataEn = {
   },
   projects: [
     {
+      title: "MCP Relational AI Gateway",
+      description: "Relational database analysis and administration portal powered by Google Gemini under the Model Context Protocol (MCP) standard. Query your databases in natural language, with dynamic interactive-zoom charts and a Material Design 3 theme.",
+      image: "images/MCP.png",
+      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
+      tags: ["Flask", "Google Gemini", "SQL Server"],
+    },
+    {
+      title: "YOLO Kinetic Vision",
+      description: "Real-time object detection and classification using convolutional neural networks. Video processing optimization for high-speed analysis.",
+      image: "images/yolo.png",
+      github: "https://github.com/nanisadw3/YOLO-Vision.git",
+      tags: ["OpenCV", "Computer Vision", "Python"],
+    },
+    {
       title: "AI Survival Ecosystem",
       description: "Advanced game engine with autonomous agents. Implementation of dynamic navigation algorithms, complex state management, and real-time intelligent resource gathering.",
       image: "images/inteligentes.png",
@@ -272,18 +286,12 @@ export const portfolioDataEn = {
       tags: ["Node.js", "WebSockets", "React"],
     },
     {
-      title: "YOLO Kinetic Vision",
-      description: "Real-time object detection and classification using convolutional neural networks. Video processing optimization for high-speed analysis.",
-      image: "images/yolo.png",
-      github: "https://github.com/nanisadw3/YOLO-Vision.git",
-      tags: ["OpenCV", "Computer Vision", "Python"],
-    },
-    {
-      title: "Sync Spotify Client",
-      description: "Desktop application for intelligent music catalog management. Automated metadata synchronization via multi-channel streaming API integration.",
-      image: "images/Spotify.png",
-      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
-      tags: ["Desktop App", "Spotify API", "Multimedia"],
+      title: "Property Management System",
+      description: "Enterprise software for real estate asset management. Automation of financial flows and contract management integrated with PostgreSQL.",
+      image: "images/Rentas.png",
+      github: "https://github.com/nanisadw3/Administracion_Rentas",
+      demo: "https://app-rentas-df0b56466a50.herokuapp.com/login",
+      tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
     },
     {
       title: "Cipher-Stream Chat",
@@ -301,12 +309,11 @@ export const portfolioDataEn = {
       tags: ["Flask", "Astronomy Data", "Cloud Deploy"],
     },
     {
-      title: "Property Management System",
-      description: "Enterprise software for real estate asset management. Automation of financial flows and contract management integrated with PostgreSQL.",
-      image: "images/Rentas.png",
-      github: "https://github.com/nanisadw3/Administracion_Rentas",
-      demo: "https://app-rentas-df0b56466a50.herokuapp.com/login",
-      tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
+      title: "Sync Spotify Client",
+      description: "Desktop application for intelligent music catalog management. Automated metadata synchronization via multi-channel streaming API integration.",
+      image: "images/Spotify.png",
+      github: "https://github.com/nanisadw3/Mi-Spotify-.git",
+      tags: ["Desktop App", "Spotify API", "Multimedia"],
     },
     {
       title: "Java FX MVC Architecture",
@@ -314,13 +321,6 @@ export const portfolioDataEn = {
       image: "images/FX.jpg",
       github: "https://github.com/nanisadw3/Practicas_javaFX.git",
       tags: ["Java", "MVC Pattern", "OOP"],
-    },
-    {
-      title: "Inventory Intelligence",
-      description: "Desktop solution for stock control. Optimized interface for efficient warehouse management and corporate logistics.",
-      image: "images/Sistema_gestion_inventario.png",
-      github: "https://github.com/nanisadw3/Sistema-de-Gesti-n-de-Inventario-Python-GUI-con-BD-",
-      tags: ["GUI Design", "Python", "Database"],
     },
   ],
   education: [
