@@ -48,11 +48,14 @@ export default function Portfolio() {
             </h2>
           </div>
           
-          <motion.a 
+          <motion.a
             href="https://github.com/nanisadw3"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 md:gap-4 px-8 md:px-10 py-4 md:py-5 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:border-primary transition-all group h-fit shadow-xl justify-center"
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="flex items-center gap-3 md:gap-4 px-8 md:px-10 py-4 md:py-5 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:border-primary transition-colors group h-fit shadow-xl justify-center"
           >
             {t.ui.portfolio.archiveBtn} <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
           </motion.a>
@@ -70,8 +73,9 @@ export default function Portfolio() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group bento-card flex flex-col h-full !p-0 overflow-hidden !rounded-[2rem] md:!rounded-[3rem] shadow-2xl transition-all duration-500"
+                whileHover={{ y: -10 }}
+                transition={{ duration: 0.5, delay: index * 0.1, y: { duration: 0.4, ease: "easeOut" } }}
+                className="group bento-card flex flex-col h-full !p-0 overflow-hidden !rounded-[2rem] md:!rounded-[3rem] shadow-2xl hover:shadow-primary/20 transition-shadow duration-500"
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
@@ -96,16 +100,51 @@ export default function Portfolio() {
                     <span className="text-[10px] md:text-[12px] font-black text-primary/40 group-hover:text-primary transition-colors tracking-[0.3em]">
                       PROTOCOL_0{index + 1}
                     </span>
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                       {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors">
-                          <Github className="w-4 h-4 md:w-5 md:h-5" />
-                        </a>
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Ver en GitHub"
+                          whileHover={{ scale: 1.15, rotate: -8 }}
+                          whileTap={{ scale: 0.9 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                          className="relative flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-xl text-zinc-500 hover:text-white overflow-hidden group/btn"
+                        >
+                          <motion.span
+                            initial={{ scale: 0, opacity: 0 }}
+                            whileHover={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.25 }}
+                            className="absolute inset-0 rounded-xl bg-white/10 border border-white/10"
+                          />
+                          <Github className="relative w-4 h-4 md:w-5 md:h-5" />
+                        </motion.a>
                       )}
                       {project.demo && (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-accent transition-colors">
-                          <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
-                        </a>
+                        <motion.a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Ver en vivo"
+                          whileHover={{ scale: 1.15, rotate: 8 }}
+                          whileTap={{ scale: 0.9 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                          className="relative flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-xl text-zinc-500 hover:text-accent overflow-hidden group/btn"
+                        >
+                          <motion.span
+                            initial={{ scale: 0, opacity: 0 }}
+                            whileHover={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.25 }}
+                            className="absolute inset-0 rounded-xl bg-accent/10 border border-accent/20"
+                          />
+                          <motion.span
+                            animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
+                            transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+                            className="absolute inset-0 rounded-xl bg-accent/20 pointer-events-none"
+                          />
+                          <ExternalLink className="relative w-4 h-4 md:w-5 md:h-5" />
+                        </motion.a>
                       )}
                     </div>
                   </div>
@@ -134,9 +173,12 @@ export default function Portfolio() {
         </motion.div>
 
         <motion.div layout className="mt-16 md:mt-24 flex justify-center">
-          <button 
+          <motion.button
             onClick={toggleProjects}
-            className="relative group px-10 md:px-16 py-5 md:py-7 overflow-hidden rounded-xl md:rounded-[2.5rem] border border-white/10 hover:border-primary transition-all bg-white/[0.02] shadow-2xl"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="relative group px-10 md:px-16 py-5 md:py-7 overflow-hidden rounded-xl md:rounded-[2.5rem] border border-white/10 hover:border-primary transition-colors bg-white/[0.02] shadow-2xl"
           >
             <div className="relative z-10 flex items-center gap-4 md:gap-5 text-white font-black uppercase tracking-[0.4em] text-[9px] md:text-[11px]">
               <Sparkles className="w-4 h-4 text-primary" />
@@ -144,7 +186,7 @@ export default function Portfolio() {
               <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 text-primary transition-transform duration-500 ${showAll ? "rotate-180" : ""}`} />
             </div>
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </button>
+          </motion.button>
         </motion.div>
       </div>
     </section>

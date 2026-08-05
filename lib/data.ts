@@ -64,7 +64,7 @@ export const portfolioDataEs = {
       description: "Explorador interactivo de telemetría espacial procesando datos dinámicos de la NASA. Visualización avanzada de objetos celestes y eventos astronómicos.",
       image: "images/api_nasa.png",
       github: "https://github.com/nanisadw3/Nasa",
-      demo: "https://fast-caverns-93506-bec36e522de8.herokuapp.com/",
+      demo: "https://inaki-vpn.asuscomm.com:8070/",
       tags: ["Flask", "Astronomy Data", "Cloud Deploy"],
     },
     {
@@ -297,7 +297,7 @@ export const portfolioDataEn = {
       description: "Interactive space telemetry explorer processing dynamic NASA data. Advanced visualization of celestial objects and astronomical events.",
       image: "images/api_nasa.png",
       github: "https://github.com/nanisadw3/Nasa",
-      demo: "https://fast-caverns-93506-bec36e522de8.herokuapp.com/",
+      demo: "https://inaki-vpn.asuscomm.com:8070/",
       tags: ["Flask", "Astronomy Data", "Cloud Deploy"],
     },
     {
