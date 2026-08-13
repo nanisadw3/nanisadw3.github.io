@@ -90,10 +90,10 @@ export default function Skills() {
 
   const cardVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { duration: 0.6, ease: "easeOut" }
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -106,6 +106,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-3xl mb-16 md:mb-24 text-center md:text-left"
         >
           <div className="flex items-center gap-3 mb-4 md:mb-6 justify-center md:justify-start">
@@ -168,10 +169,11 @@ export default function Skills() {
           ))}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 md:mt-12 p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] bg-white/[0.02] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10 group/footer"
         >
           <div className="flex flex-col md:flex-row items-center gap-6">

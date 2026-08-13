@@ -43,8 +43,8 @@ export default function ScrollToTop() {
             y: 40, 
             transition: { duration: 0.3, ease: "easeInOut" } 
           }}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.08, transition: { type: "spring", stiffness: 400, damping: 25 } }}
+          whileTap={{ scale: 0.95, transition: { type: "spring", stiffness: 400, damping: 25 } }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full flex items-center justify-center bg-[#020205]/80 border border-white/10 hover:border-accent/50 text-white shadow-[0_0_30px_rgba(0,0,0,0.6)] cursor-pointer group backdrop-blur-md"
           aria-label="Volver al inicio"

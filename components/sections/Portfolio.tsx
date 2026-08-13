@@ -31,6 +31,7 @@ export default function Portfolio() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24 text-center md:text-left"
         >
           <div className="max-w-2xl">
@@ -54,7 +55,7 @@ export default function Portfolio() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             className="flex items-center gap-3 md:gap-4 px-8 md:px-10 py-4 md:py-5 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:border-primary transition-colors group h-fit shadow-xl justify-center"
           >
             {t.ui.portfolio.archiveBtn} <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
@@ -71,10 +72,11 @@ export default function Portfolio() {
                 key={project.title}
                 layout
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 whileHover={{ y: -10 }}
-                transition={{ duration: 0.5, delay: index * 0.1, y: { duration: 0.4, ease: "easeOut" } }}
+                transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1], y: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }}
                 className="group bento-card flex flex-col h-full !p-0 overflow-hidden !rounded-[2rem] md:!rounded-[3rem] shadow-2xl hover:shadow-primary/20 transition-shadow duration-500"
               >
                 <div className="relative aspect-video overflow-hidden">
@@ -109,7 +111,7 @@ export default function Portfolio() {
                           aria-label="Ver en GitHub"
                           whileHover={{ scale: 1.15, rotate: -8 }}
                           whileTap={{ scale: 0.9 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
                           className="relative flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-xl text-zinc-500 hover:text-white overflow-hidden group/btn"
                         >
                           <motion.span
@@ -129,7 +131,7 @@ export default function Portfolio() {
                           aria-label="Ver en vivo"
                           whileHover={{ scale: 1.15, rotate: 8 }}
                           whileTap={{ scale: 0.9 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
                           className="relative flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-xl text-zinc-500 hover:text-accent overflow-hidden group/btn"
                         >
                           <motion.span
@@ -177,7 +179,7 @@ export default function Portfolio() {
             onClick={toggleProjects}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             className="relative group px-10 md:px-16 py-5 md:py-7 overflow-hidden rounded-xl md:rounded-[2.5rem] border border-white/10 hover:border-primary transition-colors bg-white/[0.02] shadow-2xl"
           >
             <div className="relative z-10 flex items-center gap-4 md:gap-5 text-white font-black uppercase tracking-[0.4em] text-[9px] md:text-[11px]">

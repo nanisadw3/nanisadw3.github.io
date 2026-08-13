@@ -31,6 +31,7 @@ export default function About() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative group"
           >
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 neo-blur group-hover:border-primary/50 transition-all duration-500">
@@ -61,6 +62,7 @@ export default function About() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7"
           >
             <div className="flex items-center gap-3 mb-6 md:mb-8 justify-center md:justify-start">

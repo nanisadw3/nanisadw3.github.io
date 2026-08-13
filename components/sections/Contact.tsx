@@ -50,10 +50,10 @@ export default function Contact() {
 
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -109,6 +109,7 @@ export default function Contact() {
                   target="_blank"
                   whileHover={{ x: 10, scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   className="group flex items-center justify-between p-6 md:p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:border-primary/40 transition-all duration-500 shadow-xl"
                 >
                   <div className="flex items-center gap-4 md:gap-6">
@@ -133,7 +134,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 lg:mt-48" // Using margin-top on desktop instead of heavy Y-transform
           >
             <div className="relative p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl overflow-hidden shadow-2xl">
@@ -191,6 +192,7 @@ export default function Contact() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     type="submit"
                     className="w-full py-5 md:py-7 bg-primary text-white rounded-2xl md:rounded-[2rem] font-black uppercase tracking-[0.5em] text-[10px] md:text-[12px] transition-all flex items-center justify-center gap-4 relative shadow-2xl"
                   >

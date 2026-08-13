@@ -87,7 +87,7 @@ export default function Navbar() {
     const observerOptions = {
       root: null,
       rootMargin: "-25% 0px -55% 0px",
-      threshold: 0.1,
+      threshold: 0,
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -157,6 +157,7 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setActiveSection(item.href)}
                 whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className={`relative px-2.5 py-2.5 sm:px-4 sm:py-2 text-[10px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all group flex items-center gap-2 rounded-xl select-none ${
                   isActive ? "text-white" : "text-zinc-400 hover:text-white"
                 }`}

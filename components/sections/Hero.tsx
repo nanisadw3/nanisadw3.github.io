@@ -139,6 +139,7 @@ export default function Hero() {
               href="#portfolio"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="group relative px-10 md:px-14 py-5 md:py-7 bg-primary text-white rounded-2xl md:rounded-[2rem] font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] overflow-hidden transition-all w-full sm:w-auto"
             >
               <span className="relative z-10 flex items-center justify-center gap-3">
@@ -148,18 +149,20 @@ export default function Hero() {
             </motion.a>
 
             <div className="flex items-center gap-4 md:gap-6">
-               <motion.a 
+               <motion.a
                 whileHover={{ y: -3 }}
-                href={contact.github} 
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                href={contact.github}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-4 md:p-6 rounded-xl md:rounded-[1.5rem] bg-white/5 border border-white/10 hover:border-primary transition-all"
                >
                 <Github className="w-5 h-5 md:w-7 md:h-7 group-hover:text-primary transition-colors" />
                </motion.a>
-               <motion.a 
+               <motion.a
                 whileHover={{ y: -3 }}
-                href={contact.linkedin} 
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                href={contact.linkedin}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-4 md:p-6 rounded-xl md:rounded-[1.5rem] bg-white/5 border border-white/10 hover:border-primary transition-all"
