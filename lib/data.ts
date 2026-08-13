@@ -49,7 +49,7 @@ export const portfolioDataEs = {
       description: "Software empresarial para administración de activos inmobiliarios. Automatización de flujos financieros y gestión de contratos integrados con PostgreSQL.",
       image: "images/Rentas.png",
       github: "https://github.com/nanisadw3/Administracion_Rentas",
-      demo: "https://inaki-vpn.asuscomm.com:5000/",
+      demo: "http://inaki-vpn.asuscomm.com:5000/",
       tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
     },
     {
@@ -290,7 +290,7 @@ export const portfolioDataEn = {
       description: "Enterprise software for real estate asset management. Automation of financial flows and contract management integrated with PostgreSQL.",
       image: "images/Rentas.png",
       github: "https://github.com/nanisadw3/Administracion_Rentas",
-      demo: "https://inaki-vpn.asuscomm.com:5000/",
+      demo: "http://inaki-vpn.asuscomm.com:5000/",
       tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
     },
     {
