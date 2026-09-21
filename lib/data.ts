@@ -1,7 +1,7 @@
 export const portfolioDataEs = {
   hero: {
     name: "Iñaki Sobera Sotomayor",
-    summary: "Ingeniero de Software especializado en el desarrollo de arquitecturas backend robustas, integración estratégica de IA y aseguramiento de infraestructuras críticas.",
+    summary: "Ingeniero de Software enfocado en arquitecturas backend de alto rendimiento, nuevas arquitecturas de IA (RAG, MCP, agentes autónomos y modelos locales de pesos abiertos), y administración avanzada de redes e infraestructura de sistemas.",
     glitchText: "Iñaki Sobera Sotomayor",
   },
   about: {
@@ -10,7 +10,7 @@ export const portfolioDataEs = {
       "Ingeniero de software impulsado por la intersección entre sistemas distribuidos de alto rendimiento y la nueva frontera de la Inteligencia Artificial. Mi trayectoria destaca por transformar desafíos técnicos complejos en soluciones escalables, robustas y de baja latencia, combinando un dominio profundo del ecosistema Linux y desarrollo backend con el despliegue de agentes autónomos, modelos locales y protocolos modernos como MCP.",
       "Creo firmemente que el futuro del desarrollo reside en la sinergia entre una ingeniería de software rigurosa y las capacidades cognitivas de la IA para potenciar decisiones en tiempo real. Mi visión se centra en construir e integrar sistemas donde la resiliencia arquitectónica, la automatización autónoma de flujos de trabajo y la innovación continua sean los pilares para resolver desafíos de alto impacto.",
     ],
-    skillsSummary: "Experto en el diseño de microservicios con Spring Boot y APIs ágiles con Flask. Sólida experiencia en administración avanzada de Linux, orquestación con Docker y desarrollo de interfaces de control con JavaFX. Especialista en visión artificial mediante OpenCV para automatización industrial.",
+    skillsSummary: "Especialista en nuevas arquitecturas de IA (RAG, Model Context Protocol, orquestación de agentes autónomos y despliegue/creación de modelos de pesos abiertos con Ollama). Amplia experiencia en desarrollo backend robusto (Java, Python, Spring Boot, Flask), mantenimiento de sistemas, administración de servidores Linux, redes empresariales y visión computacional (OpenCV/YOLO).",
     cvUrl: "cv/cv_inaki_sobera.pdf",
     imageUrl: "images/yo.png",
   },
@@ -242,7 +242,7 @@ export const portfolioDataEs = {
 export const portfolioDataEn = {
   hero: {
     name: "Iñaki Sobera Sotomayor",
-    summary: "Software Engineer specialized in developing robust backend architectures, strategic AI integration, and securing critical infrastructures.",
+    summary: "Software Engineer focused on high-performance backend architectures, modern AI architectures (RAG, MCP, autonomous agents, and local open-weights models), and advanced network and systems maintenance.",
     glitchText: "Iñaki Sobera Sotomayor",
   },
   about: {
@@ -251,7 +251,7 @@ export const portfolioDataEn = {
       "Software engineer driven by the intersection of high-performance distributed systems and the emerging frontier of Artificial Intelligence. My background centers on transforming complex technical challenges into scalable, robust, and low-latency architectures, blending deep Linux ecosystem expertise and backend engineering with the deployment of autonomous agents, local LLMs, and modern protocols like MCP.",
       "I firmly believe that the future of engineering lies in the synergy between rigorous foundational code and cognitive AI capabilities that augment human decision-making in real time. My vision is to build and empower systems where architectural resilience, intelligent workflow automation, and continuous innovation serve as catalysts for solving high-impact real-world problems.",
     ],
-    skillsSummary: "Expert in microservices design with Spring Boot and agile APIs with Flask. Solid experience in advanced Linux administration, orchestration with Docker, and control interface development with JavaFX. Specialist in computer vision using OpenCV for industrial automation.",
+    skillsSummary: "Specialist in modern AI architectures (RAG pipelines, Model Context Protocol, autonomous agent orchestration, and open-weights model deployment with Ollama). Deep experience in robust backend engineering (Java, Python, Spring Boot, Flask), systems maintenance, Linux server administration, enterprise networking, and computer vision (OpenCV/YOLO).",
     cvUrl: "cv/cv_inaki_sobera.pdf",
     imageUrl: "images/yo.png",
   },
