@@ -1,7 +1,7 @@
 export const portfolioDataEs = {
   hero: {
     name: "Iñaki Sobera Sotomayor",
-    summary: "Ingeniero de Software enfocado en arquitecturas backend de alto rendimiento, nuevas arquitecturas de IA (RAG, MCP, agentes autónomos y modelos locales de pesos abiertos), y administración avanzada de redes e infraestructura de sistemas.",
+    summary: "Ingeniero de Software especializado en arquitecturas backend, agentes autónomos de IA e infraestructura crítica.",
     glitchText: "Iñaki Sobera Sotomayor",
   },
   about: {
@@ -242,7 +242,7 @@ export const portfolioDataEs = {
 export const portfolioDataEn = {
   hero: {
     name: "Iñaki Sobera Sotomayor",
-    summary: "Software Engineer focused on high-performance backend architectures, modern AI architectures (RAG, MCP, autonomous agents, and local open-weights models), and advanced network and systems maintenance.",
+    summary: "Software Engineer specialized in backend architectures, autonomous AI agents, and critical infrastructure.",
     glitchText: "Iñaki Sobera Sotomayor",
   },
   about: {
