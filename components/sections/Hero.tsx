@@ -47,7 +47,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-bg pt-20 md:pt-32 pb-10 md:pb-20 px-4"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-bg pt-20 md:pt-24 pb-8 md:pb-12 px-4"
     >
       {/* Background Orbs */}
       <div className="absolute inset-0 z-0">
@@ -71,13 +71,13 @@ export default function Hero() {
           
           <motion.div 
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: "60px md:80px", opacity: 1 }}
+            animate={{ width: "50px", opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="h-1 bg-gradient-to-r from-primary to-accent mb-8 md:mb-12 rounded-full"
+            className="h-1 bg-gradient-to-r from-primary to-accent mb-4 md:mb-6 rounded-full"
           />
 
           {/* Responsive Dynamic Title */}
-          <div className="mb-8 md:mb-12 perspective-[1000px] w-full overflow-hidden md:overflow-visible">
+          <div className="mb-4 md:mb-6 perspective-[1000px] w-full overflow-hidden md:overflow-visible">
             <motion.div
               variants={titleContainer}
               initial="hidden"
@@ -85,7 +85,7 @@ export default function Hero() {
               className="flex flex-col gap-1 md:gap-2"
             >
               {/* Primera Línea */}
-              <motion.h1 className="text-[8.5vw] sm:text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] flex justify-center flex-wrap gap-x-[0.3em]">
+              <motion.h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black tracking-tighter leading-[0.85] flex justify-center flex-wrap gap-x-[0.3em]">
                 {line1Words.map((word, wordIndex) => (
                   <span key={wordIndex} className="inline-flex whitespace-nowrap">
                     {word.split("").map((char, charIndex) => (
@@ -102,7 +102,7 @@ export default function Hero() {
               </motion.h1>
 
               {/* Segunda Línea con Gradiente */}
-              <motion.h1 className="text-[8.5vw] sm:text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] flex justify-center flex-wrap gap-x-[0.3em]">
+              <motion.h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black tracking-tighter leading-[0.85] flex justify-center flex-wrap gap-x-[0.3em]">
                 {line2Words.map((word, wordIndex) => (
                   <span key={wordIndex} className="inline-flex whitespace-nowrap">
                     {word.split("").map((char, charIndex) => (
@@ -124,7 +124,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
-            className="text-base md:text-3xl text-zinc-400 max-w-4xl mb-12 md:mb-16 font-medium leading-snug px-2"
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-400 max-w-2xl mb-8 md:mb-10 font-medium leading-relaxed px-2"
           >
             {t.hero.summary}
           </motion.p>
@@ -133,14 +133,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 mb-16 md:mb-24 w-full justify-center"
+            className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full justify-center"
           >
             <motion.a
               href="#portfolio"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="group relative px-10 md:px-14 py-5 md:py-7 bg-primary text-white rounded-2xl md:rounded-[2rem] font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] overflow-hidden transition-all w-full sm:w-auto"
+              className="group relative px-8 md:px-10 py-3.5 md:py-4 bg-primary text-white rounded-xl md:rounded-2xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] overflow-hidden transition-all w-full sm:w-auto shadow-lg shadow-primary/25"
             >
               <span className="relative z-10 flex items-center justify-center gap-3">
                 {t.ui.hero.projectsBtn} <Rocket className="w-4 h-4" />
@@ -148,16 +148,17 @@ export default function Hero() {
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </motion.a>
 
-            <div className="flex items-center gap-4 md:gap-6">
+            <div className="flex items-center gap-3 md:gap-4">
                <motion.a
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 href={contact.github}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-4 md:p-6 rounded-xl md:rounded-[1.5rem] bg-white/5 border border-white/10 hover:border-primary transition-all"
+                aria-label="GitHub"
+                className="p-3 md:p-3.5 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 hover:border-primary transition-all text-zinc-400 hover:text-white"
                >
-                <Github className="w-5 h-5 md:w-7 md:h-7 group-hover:text-primary transition-colors" />
+                <Github className="w-5 h-5 group-hover:text-primary transition-colors" />
                </motion.a>
                <motion.a
                 whileHover={{ y: -3 }}
@@ -165,9 +166,10 @@ export default function Hero() {
                 href={contact.linkedin}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-4 md:p-6 rounded-xl md:rounded-[1.5rem] bg-white/5 border border-white/10 hover:border-primary transition-all"
+                aria-label="LinkedIn"
+                className="p-3 md:p-3.5 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 hover:border-primary transition-all text-zinc-400 hover:text-white"
                >
-                <Linkedin className="w-5 h-5 md:w-7 md:h-7 group-hover:text-primary transition-colors" />
+                <Linkedin className="w-5 h-5 group-hover:text-primary transition-colors" />
                </motion.a>
             </div>
           </motion.div>
