@@ -23,11 +23,11 @@ export const portfolioDataEs = {
       tags: ["Flask", "Google Gemini", "SQL Server"],
     },
     {
-      title: "YOLO Kinetic Vision",
-      description: "Detección y clasificación de objetos en tiempo real mediante redes neuronales convolucionales. Optimización de procesamiento de video para análisis de alta velocidad.",
-      image: "images/yolo.png",
-      github: "https://github.com/nanisadw3/YOLO-Vision.git",
-      tags: ["OpenCV", "Computer Vision", "Python"],
+      title: "Gordito - Autonomous AI Agent",
+      description: "Agente autónomo de IA local para terminal potenciado por Ollama con razonamiento Chain of Thought. Integra streaming token a token en tiempo real, avatar Tux reactivo con emociones ASCII, soporte nativo de servidores MCP (Banxico oficial y Playwright para automatización web) y DJ de código con Spotify en macOS y Arch Linux.",
+      image: "images/Agente_gordito.png",
+      github: "https://github.com/nanisadw3/agente",
+      tags: ["Ollama & LLMs", "MCP Architecture", "Playwright", "Python & Rich"],
     },
     {
       title: "AI Survival Ecosystem",
@@ -35,6 +35,13 @@ export const portfolioDataEs = {
       image: "images/inteligentes.png",
       github: "https://github.com/nanisadw3/Juego_pygame.git",
       tags: ["Python", "Neural Logic", "Pygame"],
+    },
+    {
+      title: "YOLO Kinetic Vision",
+      description: "Detección y clasificación de objetos en tiempo real mediante redes neuronales convolucionales. Optimización de procesamiento de video para análisis de alta velocidad.",
+      image: "images/yolo.png",
+      github: "https://github.com/nanisadw3/YOLO-Vision.git",
+      tags: ["OpenCV", "Computer Vision", "Python"],
     },
     {
       title: "BattleNet Pokémon",
@@ -73,13 +80,6 @@ export const portfolioDataEs = {
       image: "images/Spotify.png",
       github: "https://github.com/nanisadw3/Mi-Spotify-.git",
       tags: ["Desktop App", "Spotify API", "Multimedia"],
-    },
-    {
-      title: "Java FX MVC Architecture",
-      description: "Ecosistema de aplicaciones modulares que demuestran el dominio de patrones de diseño empresariales para software escalable.",
-      image: "images/FX.jpg",
-      github: "https://github.com/nanisadw3/Practicas_javaFX.git",
-      tags: ["Java", "MVC Pattern", "OOP"],
     },
   ],
   education: [
@@ -264,11 +264,11 @@ export const portfolioDataEn = {
       tags: ["Flask", "Google Gemini", "SQL Server"],
     },
     {
-      title: "YOLO Kinetic Vision",
-      description: "Real-time object detection and classification using convolutional neural networks. Video processing optimization for high-speed analysis.",
-      image: "images/yolo.png",
-      github: "https://github.com/nanisadw3/YOLO-Vision.git",
-      tags: ["OpenCV", "Computer Vision", "Python"],
+      title: "Gordito - Autonomous AI Agent",
+      description: "Local autonomous terminal AI agent powered by Ollama with Chain of Thought reasoning. Features real-time token-by-token Markdown streaming, reactive ASCII Tux mascot with dynamic emotions, multi-server MCP orchestration (official Banxico & Playwright for web automation), and an intelligent Spotify code DJ for macOS and Arch Linux.",
+      image: "images/Agente_gordito.png",
+      github: "https://github.com/nanisadw3/agente",
+      tags: ["Ollama & LLMs", "MCP Architecture", "Playwright", "Python & Rich"],
     },
     {
       title: "AI Survival Ecosystem",
@@ -276,6 +276,13 @@ export const portfolioDataEn = {
       image: "images/inteligentes.png",
       github: "https://github.com/nanisadw3/Juego_pygame.git",
       tags: ["Python", "Neural Logic", "Pygame"],
+    },
+    {
+      title: "YOLO Kinetic Vision",
+      description: "Real-time object detection and classification using convolutional neural networks. Video processing optimization for high-speed analysis.",
+      image: "images/yolo.png",
+      github: "https://github.com/nanisadw3/YOLO-Vision.git",
+      tags: ["OpenCV", "Computer Vision", "Python"],
     },
     {
       title: "BattleNet Pokémon",
@@ -314,13 +321,6 @@ export const portfolioDataEn = {
       image: "images/Spotify.png",
       github: "https://github.com/nanisadw3/Mi-Spotify-.git",
       tags: ["Desktop App", "Spotify API", "Multimedia"],
-    },
-    {
-      title: "Java FX MVC Architecture",
-      description: "Ecosystem of modular applications demonstrating mastery of enterprise design patterns for scalable software.",
-      image: "images/FX.jpg",
-      github: "https://github.com/nanisadw3/Practicas_javaFX.git",
-      tags: ["Java", "MVC Pattern", "OOP"],
     },
   ],
   education: [
