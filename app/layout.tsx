@@ -6,6 +6,7 @@ import ClientWrapper from "@/components/ClientWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://inakisobera.me"),
   title: "Iñaki Sobera Sotomayor | Software Developer Portfolio",
   description: "Portafolio profesional de Iñaki Sobera Sotomayor, Desarrollador de Software especializado en Backend, IA y Ciberseguridad. Graduado en Ingeniería en Sistemas Computacionales.",
   keywords: ["Iñaki Sobera Sotomayor", "Software Developer", "Backend Developer", "Java", "Python", "IA", "Ciberseguridad", "Portafolio"],
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Iñaki Sobera Sotomayor | Software Developer",
     description: "Desarrollador de Software apasionado por la innovación y la resolución de problemas complejos.",
-    url: "https://nanisadw3.github.io",
+    url: "https://inakisobera.me",
     siteName: "Iñaki Sobera Portfolio",
     images: [
       {
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     images: ["/portfolio-2.jpg"],
   },
   alternates: {
-    canonical: "https://nanisadw3.github.io",
+    canonical: "https://inakisobera.me",
   },
 };
 
@@ -42,9 +43,9 @@ const jsonLd = {
   "@type": "Person",
   "name": "Iñaki Sobera Sotomayor",
   "jobTitle": "Software Developer",
-  "url": "https://nanisadw3.github.io",
+  "url": "https://inakisobera.me",
   "sameAs": [
-    "https://www.linkedin.com/in/iñaki-sobera-sotomayor-40a87b300/",
+    "https://www.linkedin.com/in/inakisobera/",
     "https://github.com/nanisadw3",
     "https://x.com/InakiSobera"
   ],
