@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     siteName: "Iñaki Sobera Portfolio",
     images: [
       {
-        url: "/portfolio-2.jpg",
-        width: 800,
-        height: 800,
-        alt: "Iñaki Sobera Sotomayor",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Iñaki Sobera Sotomayor — Ingeniero en Sistemas · IA en producción: RAG, agentes y MCP",
       },
     ],
     locale: "es_MX",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Iñaki Sobera Sotomayor | Software Developer",
     description: "Desarrollador de Software apasionado por la innovación.",
-    images: ["/portfolio-2.jpg"],
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: "https://inakisobera.me",
