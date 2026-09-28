@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Iñaki Sobera Sotomayor" }],
   openGraph: {
     title: "Iñaki Sobera Sotomayor | Software Developer",
-    description: "Ingeniero en Sistemas con IA en producción: un sistema RAG que responde consultas sobre 706 documentos operativos en PEMEX, agentes locales de pesos abiertos y servidores MCP publicados en PyPI.",
+    description: "Ingeniero en Sistemas con IA en producción: sistemas RAG que responden citando la fuente, agentes locales con modelos de pesos abiertos y servidores MCP publicados en PyPI. Python, Qdrant, Docker.",
     url: "https://inakisobera.me",
     siteName: "Iñaki Sobera Portfolio",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Iñaki Sobera Sotomayor | Software Developer",
-    description: "Ingeniero en Sistemas con IA en producción: RAG sobre 706 documentos operativos en PEMEX, agentes locales de pesos abiertos y servidores MCP publicados en PyPI.",
+    description: "Ingeniero en Sistemas con IA en producción: RAG que responde citando la fuente, agentes locales de pesos abiertos y servidores MCP publicados en PyPI.",
     images: ["/og-image.jpg"],
   },
   alternates: {
