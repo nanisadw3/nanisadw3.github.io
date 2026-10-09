@@ -61,8 +61,8 @@ const chips = lang === "es"
   : ["help", "whoami", "neofetch", "skills", "projects", "banxico", "contact"];
 ---
 
-<BaseLayout lang={lang} title={`${t(lang, "terminal.title")} — Iñaki Sobera`} description={t(lang, "meta.terminalDescription")} altHref={localizePath(otherLang(lang), "terminal")} bubble={false}>
-  <div class="mx-auto max-w-5xl px-3 pt-8 pb-10 sm:px-7">
+<BaseLayout lang={lang} title={`${t(lang, "terminal.title")} — Iñaki Sobera`} description={t(lang, "meta.terminalDescription")} altHref={localizePath(otherLang(lang), "terminal")}>
+  <div class="mx-auto max-w-5xl px-3 pt-8 pb-28 sm:px-7">
     <p class="mb-3 px-1 font-mono text-[12.5px] text-dim">{t(lang, "terminal.intro")}</p>
     <div class="overflow-hidden rounded-xl border border-line-strong bg-bg-dark shadow-[0_30px_80px_-30px_#000]">
       <div class="flex items-center gap-1.5 border-b border-line px-3 py-2 font-mono text-[11px] text-dim">
@@ -71,7 +71,7 @@ const chips = lang === "es"
       </div>
       <div
         id="term"
-        class="h-[min(70dvh,640px)] cursor-text overflow-y-auto p-4 font-mono text-[12.5px] leading-relaxed text-fg-2 sm:text-[13px]"
+        class="h-[clamp(300px,calc(100dvh-330px),640px)] cursor-text overflow-y-auto p-4 font-mono text-[12.5px] leading-relaxed text-fg-2 sm:text-[13px]"
         data-terminal
       >
         <div data-out aria-live="polite"></div>

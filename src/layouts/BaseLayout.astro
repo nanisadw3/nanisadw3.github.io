@@ -5,7 +5,7 @@ import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import Bubble from "../components/Bubble.astro";
+import Dock from "../components/Dock.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { otherLang, t } from "../i18n/utils.ts";
 
@@ -18,11 +18,9 @@ interface Props {
   altHref: string | null;
   type?: "website" | "article";
   jsonLd?: Record<string, unknown>;
-  /** Hide the floating "explore" bubble (the terminal page has its own navigation). */
-  bubble?: boolean;
 }
 
-const { lang, title, description, image, altHref, type = "website", jsonLd, bubble = true } = Astro.props;
+const { lang, title, description, image, altHref, type = "website", jsonLd } = Astro.props;
 
 const site = Astro.site!;
 const canonical = new URL(Astro.url.pathname, site).href;
@@ -79,7 +77,7 @@ const esHref = lang === "es" ? Astro.url.pathname : altHref;
       <slot />
     </main>
     <Footer lang={lang} />
-    {bubble && <Bubble lang={lang} />}
+    <Dock lang={lang} />
 
     <script>
       // Reveal sections as they scroll into view. Re-runs after every client-side navigation.

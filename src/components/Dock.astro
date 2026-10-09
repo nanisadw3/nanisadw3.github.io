@@ -1,0 +1,62 @@
+---
+// Floating dock with the site's main pages, always visible at the bottom of the screen.
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, t } from "../i18n/utils.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const path = Astro.url.pathname.replace(/\/?$/, "/");
+
+// Lucide icons (ISC license), stroke-based so they inherit currentColor.
+const icons = {
+  home: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  projects: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+  blog: '<path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>',
+  terminal: '<polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/>',
+};
+
+const items = (["home", "projects", "blog", "terminal"] as const).map((page) => {
+  const href = localizePath(lang, page);
+  const active = page === "home" ? path === href : path.startsWith(href);
+  return { page, href, active, label: t(lang, `nav.${page}`) };
+});
+---
+
+<nav
+  aria-label={lang === "es" ? "Secciones" : "Sections"}
+  class="fixed bottom-4 left-1/2 z-40 -translate-x-1/2"
+  transition:name="dock"
+  transition:animate="none"
+>
+  <ul class="flex items-end gap-1 rounded-2xl border border-line-strong bg-panel/90 p-1.5 shadow-[0_18px_50px_-12px_#000] backdrop-blur-xl">
+    {items.map((i) => (
+      <li>
+        <a
+          href={i.href}
+          aria-current={i.active ? "page" : undefined}
+          class:list={[
+            "dock-item group flex min-w-[64px] flex-col items-center gap-1 rounded-xl px-3 py-2 font-mono text-[11px] transition sm:min-w-[76px]",
+            i.active ? "bg-blue/15 text-blue" : "text-fg-2 hover:bg-line/60 hover:text-fg",
+          ]}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="size-5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:scale-110"
+            aria-hidden="true"
+            set:html={icons[i.page]}
+          />
+          <span>{i.label}</span>
+          <span class:list={["size-1 rounded-full", i.active ? "bg-blue" : "bg-transparent"]} aria-hidden="true"></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

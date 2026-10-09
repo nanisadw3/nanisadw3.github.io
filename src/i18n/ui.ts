@@ -83,11 +83,6 @@ const es = {
   "terminal.intro": "Una forma distinta de conocerme. Escribe help o toca un comando.",
   "terminal.placeholder": "escribe un comando…",
 
-  "bubble.open": "explorar",
-  "bubble.projects": "3 proyectos a fondo",
-  "bubble.github": "actividad completa",
-  "bubble.blog": "notas técnicas",
-  "bubble.terminal": "escribe help",
 
   "footer.made": "hecho con Astro",
 
@@ -182,11 +177,6 @@ const en: Record<UiKey, string> = {
   "terminal.intro": "A different way to meet me. Type help or tap a command.",
   "terminal.placeholder": "type a command…",
 
-  "bubble.open": "explore",
-  "bubble.projects": "3 projects in depth",
-  "bubble.github": "full activity",
-  "bubble.blog": "technical notes",
-  "bubble.terminal": "type help",
 
   "footer.made": "built with Astro",
 
