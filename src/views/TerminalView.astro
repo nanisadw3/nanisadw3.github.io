@@ -62,43 +62,68 @@ const chips = lang === "es"
 ---
 
 <BaseLayout lang={lang} title={`${t(lang, "terminal.title")} — Iñaki Sobera`} description={t(lang, "meta.terminalDescription")} altHref={localizePath(otherLang(lang), "terminal")}>
-  <div class="mx-auto max-w-5xl px-3 pt-8 pb-28 sm:px-7">
-    <p class="mb-3 px-1 font-mono text-[12.5px] text-dim">{t(lang, "terminal.intro")}</p>
-    <div class="overflow-hidden rounded-xl border border-line-strong bg-bg-dark shadow-[0_30px_80px_-30px_#000]">
-      <div class="flex items-center gap-1.5 border-b border-line px-3 py-2 font-mono text-[11px] text-dim">
+  <!-- Fills the viewport between the header (57px) and the floating dock. -->
+  <div class="mx-auto w-full max-w-[1500px] px-2 pt-3 pb-[104px] sm:px-5 sm:pt-4">
+    <div class="flex h-[max(420px,calc(100dvh-57px-120px))] flex-col overflow-hidden rounded-xl border border-line-strong bg-bg-dark shadow-[0_30px_80px_-30px_#000]">
+      <div class="flex items-center gap-1.5 border-b border-line bg-bg px-3 py-2 font-mono text-[11px] text-dim">
         <i class="size-2.5 rounded-full bg-red"></i><i class="size-2.5 rounded-full bg-yellow"></i><i class="size-2.5 rounded-full bg-green"></i>
-        <span class="ml-2">inaki@arch: ~ — zsh</span>
+        <span class="ml-2 text-fg-2">inaki@arch: ~</span>
+        <span class="ml-auto hidden truncate sm:inline">{t(lang, "terminal.intro")}</span>
+        <span class="ml-auto sm:ml-4">zsh · {lang}</span>
       </div>
       <div
         id="term"
-        class="h-[clamp(300px,calc(100dvh-330px),640px)] cursor-text overflow-y-auto p-4 font-mono text-[12.5px] leading-relaxed text-fg-2 sm:text-[13px]"
+        class="flex-1 cursor-text overflow-y-auto px-4 py-3 font-mono text-[12.5px] leading-relaxed text-fg-2 sm:px-6 sm:py-4 sm:text-[13.5px]"
         data-terminal
       >
         <div data-out aria-live="polite"></div>
         <form data-form class="flex items-center gap-2">
           <label for="term-input" class="shrink-0"><span class="text-green">inaki</span><span class="text-dim">@</span><span class="text-blue">arch</span><span class="text-dim">:~$</span></label>
-          <input
-            id="term-input"
-            data-input
-            autocomplete="off"
-            autocapitalize="off"
-            spellcheck="false"
-            enterkeyhint="send"
-            placeholder={t(lang, "terminal.placeholder")}
-            class="min-w-0 flex-1 bg-transparent text-fg caret-blue outline-none placeholder:text-dim/60"
-          />
+          <span class="relative min-w-0 flex-1">
+            <input
+              id="term-input"
+              data-input
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              enterkeyhint="send"
+              aria-label={t(lang, "terminal.placeholder")}
+              class="w-full bg-transparent text-fg caret-transparent outline-none"
+            />
+            <!-- Block cursor drawn after the text left of the caret (the native caret is hidden). -->
+            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center whitespace-pre" aria-hidden="true">
+              <span data-mirror class="invisible"></span><span data-cursor class="term-cursor inline-block h-[1.15em] w-[0.6em] bg-fg/85"></span>
+              <span data-hint class="ml-2 text-dim/60">{t(lang, "terminal.placeholder")}</span>
+            </span>
+          </span>
         </form>
       </div>
-      <div class="flex flex-wrap gap-2 border-t border-line p-3" data-chips>
+      <div class="flex flex-wrap items-center gap-2 border-t border-line bg-bg px-3 py-2.5" data-chips>
         {chips.map((c) => (
           <button type="button" data-cmd={c} class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2 transition-colors hover:border-blue hover:text-fg">{c}</button>
         ))}
-        <a href={localizePath(lang, "home")} class="ml-auto rounded-md border border-line px-2.5 py-1 font-mono text-xs text-dim hover:text-fg">exit</a>
+        <span class="ml-auto hidden font-mono text-[11px] text-dim md:inline">tab · ↑ ↓ · ctrl+l</span>
       </div>
     </div>
   </div>
   <script type="application/json" id="term-data" set:html={JSON.stringify(data)} />
 </BaseLayout>
+
+<style>
+  .term-cursor {
+    animation: term-blink 1.06s steps(1) infinite;
+  }
+  @keyframes term-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .term-cursor {
+      animation: none;
+    }
+  }
+</style>
 
 <script>
   import { navigate } from "astro:transitions/client";
@@ -135,13 +160,15 @@ const chips = lang === "es"
 
     const projectBySlug = (slug: string) => d.projects.find((p: Data) => p.slug === slug.replace(/\/$/, ""));
 
+    const extras = ["ls", "pwd", "date", "uname", "echo", "history"];
+
     const commands: Record<string, { help: [string, string]; run: (args: string[]) => void | Promise<void> }> = {
       help: {
         help: ["help", es ? "esta lista" : "this list"],
         run: () => {
           print(c("text-fg", es ? "Comandos disponibles (toca uno o escríbelo):" : "Available commands (tap one or type it):"));
           for (const [name, cmd] of Object.entries(commands)) {
-            if (aliases[name]) continue;
+            if (aliases[name] || extras.includes(name)) continue;
             const [label, ...rest] = cmd.help[0].split(" ");
             const tail = rest.length ? ` ${esc(rest.join(" "))}` : "";
             const pad = " ".repeat(Math.max(1, 18 - cmd.help[0].length));
@@ -149,6 +176,7 @@ const chips = lang === "es"
             const target = label === "cat" ? (es ? "proyectos" : "projects") : cmd.help[0];
             print(`  ${cmdLink(target, label)}${tail}${pad}${c("text-dim", "— " + cmd.help[1])}`);
           }
+          print(c("text-dim", (es ? "  también: " : "  also: ") + extras.join(" · ") + " · sudo"));
         },
       },
       whoami: {
@@ -280,13 +308,29 @@ const chips = lang === "es"
         run: () => navigate(d.links.otherTerminal),
       },
       clear: { help: ["clear", es ? "limpia la pantalla" : "clears the screen"], run: () => void (out.innerHTML = "") },
+      // Classic shell commands, hidden from the main help list (see `extras` below).
+      pwd: { help: ["pwd", ""], run: () => print("/home/inaki") },
+      date: { help: ["date", ""], run: () => print(new Date().toLocaleString(es ? "es-MX" : "en-US", { dateStyle: "full", timeStyle: "medium" })) },
+      uname: {
+        help: ["uname", ""],
+        run: (args) => print(args.includes("-a") ? "Linux arch 6.x-arch1 #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux · inaki@ai-engineer" : "Linux"),
+      },
+      echo: { help: ["echo", ""], run: (args) => print(esc(args.join(" "))) },
+      history: {
+        help: ["history", ""],
+        run: () => history.forEach((h, i) => print(`${c("text-dim", String(i + 1).padStart(4))}  ${esc(h)}`)),
+      },
+      ls: {
+        help: ["ls", ""],
+        run: () => print([es ? "proyectos/" : "projects/", es ? "especialidades/" : "skills/", "cv.pdf", "github/", "README.md"].map((f) => c(f.endsWith("/") ? "font-bold text-blue" : "text-fg-2", f)).join("  ")),
+      },
       exit: { help: ["exit", es ? "vuelve a la portada" : "back to the home page"], run: () => navigate(d.links.home) },
     };
 
     // Aliases accepted in both languages, hidden from `help`.
     const aliases: Record<string, string> = es
-      ? { skills: "especialidades", projects: "proyectos", experience: "experiencia", educacion: "experiencia", contact: "contacto", ls: "proyectos", inicio: "exit", home: "exit" }
-      : { especialidades: "skills", proyectos: "projects", experiencia: "experience", education: "experience", contacto: "contact", ls: "projects", home: "exit" };
+      ? { skills: "especialidades", projects: "proyectos", experience: "experiencia", educacion: "experiencia", contact: "contacto", inicio: "exit", home: "exit" }
+      : { especialidades: "skills", proyectos: "projects", experiencia: "experience", education: "experience", contacto: "contact", home: "exit" };
     for (const [alias, target] of Object.entries(aliases)) commands[alias] = commands[target];
 
     async function run(raw: string) {
@@ -308,6 +352,7 @@ const chips = lang === "es"
       e.preventDefault();
       const value = input.value;
       input.value = "";
+      syncCursor();
       run(value);
     });
 
@@ -348,7 +393,32 @@ const chips = lang === "es"
       }
     });
 
-    run("neofetch").then(() => run("help"));
+    const mirror = root.querySelector<HTMLElement>("[data-mirror]")!;
+    const hint = root.querySelector<HTMLElement>("[data-hint]")!;
+    const syncCursor = () => {
+      mirror.textContent = input.value.slice(0, input.selectionStart ?? input.value.length);
+      hint.hidden = input.value.length > 0;
+    };
+    for (const ev of ["input", "keyup", "click", "select", "focus"]) input.addEventListener(ev, syncCursor);
+    syncCursor();
+
+    // Type a command into the prompt letter by letter, then run it (instant with reduced motion).
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    async function typeAndRun(cmd: string) {
+      if (!reduce) {
+        for (let i = 1; i <= cmd.length; i++) {
+          input.value = cmd.slice(0, i);
+          syncCursor();
+          await new Promise((r) => setTimeout(r, 45 + Math.random() * 40));
+        }
+        await new Promise((r) => setTimeout(r, 180));
+      }
+      input.value = "";
+      syncCursor();
+      await run(cmd);
+    }
+
+    typeAndRun("neofetch").then(() => typeAndRun("help"));
     if (window.matchMedia("(pointer: fine)").matches) input.focus({ preventScroll: true });
   }
 
