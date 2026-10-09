@@ -8,10 +8,11 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "fetch": "node scripts/fetch-live.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node --test src/i18n/utils.test.ts && node scripts/check-links.mjs"
+    "test": "node --test src/i18n/utils.test.ts scripts/live-lib.test.mjs && node scripts/check-links.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
