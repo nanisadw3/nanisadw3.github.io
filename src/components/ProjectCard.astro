@@ -26,14 +26,12 @@ const href = localizePath(lang, "project", slugOf(project));
     />
   </div>
   <div class="flex flex-1 flex-col p-5">
-    <div class="mb-2 flex items-center justify-between gap-3">
-      <h3 class="text-lg font-semibold tracking-tight">
-        <a href={href} class="after:absolute after:inset-0 focus:outline-none">{title}</a>
-      </h3>
-      {metric && (
-        <span class="shrink-0 rounded-full border border-accent/30 px-2 py-0.5 font-mono text-[11px] text-accent">{metric}</span>
-      )}
-    </div>
+    {metric && (
+      <p class="mb-2 font-mono text-[11px] uppercase tracking-wider text-accent">{metric}</p>
+    )}
+    <h3 class="mb-2 text-lg font-semibold tracking-tight">
+      <a href={href} class="after:absolute after:inset-0 focus:outline-none">{title}</a>
+    </h3>
     <p class="mb-4 flex-1 text-sm leading-relaxed text-muted">{summary}</p>
     <div class="flex items-center justify-between gap-3">
       <p class="font-mono text-[11px] text-faint">{tags.join(" · ")}</p>
