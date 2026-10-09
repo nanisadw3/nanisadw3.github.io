@@ -51,14 +51,12 @@ const altHref = (await hasTranslation("projects", otherLang(lang), slug))
       )}
       {liveSite && <LiveSiteBadge lang={lang} url={liveSite.url} label={liveSite.label} />}
       {liveSite && (
-        <figcaption>
-          <a href={liveSite.url} target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 border-t border-line bg-panel px-5 py-4 transition-colors hover:bg-panel/70">
-            <span>
-              <span class="block font-mono text-[12px] text-green">● {t(lang, "projects.liveSite")} · {liveSite.label}</span>
-              <span class="mt-1 block text-sm leading-snug text-fg-2">{liveSite.text}</span>
-            </span>
-            <span class="shrink-0 rounded-md border border-green/40 px-3 py-1.5 font-mono text-[12.5px] text-green transition-colors group-hover:border-green">{t(lang, "projects.open")} ↗</span>
-          </a>
+        <figcaption class="flex flex-col gap-3 border-t border-green/30 bg-green/[0.06] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            <span class="block font-mono text-[12px] text-green">● {t(lang, "projects.liveSite")} · {liveSite.label}</span>
+            <span class="mt-1 block text-sm leading-snug text-fg-2">{liveSite.text}</span>
+          </p>
+          <LiveSiteBadge lang={lang} url={liveSite.url} label={liveSite.label} inline />
         </figcaption>
       )}
     </figure>

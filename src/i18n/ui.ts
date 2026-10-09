@@ -71,6 +71,7 @@ const es = {
   "projects.live": "en vivo",
   "projects.liveSite": "página en vivo",
   "projects.open": "abrir",
+  "projects.seeLive": "ver en vivo",
 
   "blog.title": "Blog",
   "blog.intro": "Notas sobre lo que aprendo construyendo con IA, MCP y RAG.",
@@ -169,6 +170,7 @@ const en: Record<UiKey, string> = {
   "projects.live": "live",
   "projects.liveSite": "live page",
   "projects.open": "open",
+  "projects.seeLive": "see it live",
 
   "blog.title": "Blog",
   "blog.intro": "Notes on what I learn building with AI, MCP and RAG.",

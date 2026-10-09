@@ -37,7 +37,7 @@ const rest = projects.filter((p) => !p.data.featured);
           <article class="group reveal relative grid overflow-hidden rounded-xl border border-line bg-panel transition-colors hover:border-blue/70 md:grid-cols-[1.05fr_1fr]">
             <div class:list={["relative overflow-hidden border-line bg-bg-dark max-md:border-b md:border-r", i % 2 === 1 && "md:order-2 md:border-r-0 md:border-l"]}>
               {p.data.liveSite && <LiveSiteBadge lang={lang} url={p.data.liveSite.url} label={p.data.liveSite.label} />}
-              <Image src={p.data.image} alt={p.data.imageAlt} widths={[560, 900]} sizes="(min-width: 768px) 560px, 100vw" class="aspect-[16/10] size-full object-cover object-top transition duration-500 group-hover:scale-[1.02]" />
+              <Image src={p.data.image} alt={p.data.imageAlt} widths={[560, 900]} sizes="(min-width: 768px) 560px, 100vw" class="aspect-[16/10] size-full object-cover object-left-top transition duration-500 group-hover:scale-[1.02]" />
             </div>
             <div class="flex flex-col p-6">
               <p class="font-mono text-[11.5px] text-orange">{p.data.live ? evidenceText(lang, p.data.live) : p.data.metric}</p>
@@ -45,17 +45,14 @@ const rest = projects.filter((p) => !p.data.featured);
               <h2 class="mt-1 font-mono text-2xl font-bold text-fg"><a href={href} class="after:absolute after:inset-0 group-hover:text-cyan">{p.data.title}</a></h2>
               <p class="mt-2 flex-1 leading-relaxed">{p.data.summary}</p>
               {p.data.liveSite && (
-                <a
-                  href={p.data.liveSite.url}
-                  target="_blank"
-                  rel="noopener"
-                  class="relative z-10 mt-4 block rounded-lg border border-green/30 bg-green/5 p-3 transition-colors hover:border-green/70"
-                >
-                  <span class="flex items-center justify-between gap-3 font-mono text-[12px] text-green">
-                    <span>● {t(lang, "projects.liveSite")} · {p.data.liveSite.label}</span><span aria-hidden="true">↗</span>
-                  </span>
-                  <span class="mt-1 block text-[13px] leading-snug text-fg-2">{p.data.liveSite.text}</span>
-                </a>
+                <div class="relative z-10 mt-4 flex flex-col gap-3 rounded-lg border border-green/40 bg-green/[0.07] p-3.5 sm:flex-row sm:items-center sm:justify-between">
+                  <p>
+                    <span class="block font-mono text-[12px] text-green">● {t(lang, "projects.liveSite")}</span>
+                    <span class="block font-mono text-[12px] whitespace-nowrap text-green/80">{p.data.liveSite.label}</span>
+                    <span class="mt-1 block text-[13px] leading-snug text-fg-2">{p.data.liveSite.text}</span>
+                  </p>
+                  <LiveSiteBadge lang={lang} url={p.data.liveSite.url} label={p.data.liveSite.label} inline />
+                </div>
               )}
               <div class="relative z-10 mt-4 grid gap-3">
                 <RepoMeta lang={lang} repo={p.data.repo} />
