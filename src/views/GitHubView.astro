@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ContribGraph from "../components/ContribGraph.astro";
+import LangBar from "../components/LangBar.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { formatDate, localizePath, otherLang, t } from "../i18n/utils.ts";
+import { contact } from "../data/profile.ts";
+import { formatNumber, github, relativeDays } from "../data/live.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const es = lang === "es";
+const colors = ["#24283b", "#2f4b2a", "#4f7a3a", "#79a64e", "#9ece6a"];
+const repos = Object.entries(github.repoStats)
+  .map(([name, r]) => ({ name, ...r }))
+  .sort((a, b) => b.stars - a.stars || b.pushedAt.localeCompare(a.pushedAt))
+  .slice(0, 12);
+const stats = [
+  [formatNumber(lang, github.contributions), t(lang, "gh.contributions")],
+  [String(github.externalPrs.length), t(lang, "gh.prs")],
+  [`${github.repos} · ★ ${github.stars}`, `${t(lang, "gh.repos")} · ${t(lang, "gh.stars")}`],
+  [String(github.followers), t(lang, "gh.followers")],
+];
+const fetched = formatDate(lang, new Date(github.fetchedAt));
+---
+
+<BaseLayout lang={lang} title={`GitHub — Iñaki Sobera`} description={t(lang, "meta.githubDescription")} altHref={localizePath(otherLang(lang), "github")}>
+  <div class="mx-auto max-w-6xl px-5 pt-14 pb-16 sm:px-7">
+    <SectionHead as="h1" title={t(lang, "gh.title")} href={contact.github} hrefLabel={`@${contact.githubUser}`} />
+    <p class="-mt-2 max-w-2xl">{t(lang, "gh.intro")}</p>
+    <p class="mt-1 font-mono text-[11.5px] text-dim">{t(lang, "gh.since")} {new Date(github.since).getFullYear()} · {es ? "datos del" : "data from"} {fetched}</p>
+
+    <dl class="mt-8 grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-bg-dark font-mono lg:grid-cols-4">
+      {stats.map(([v, l], i) => (
+        <div class:list={["border-line px-5 py-4", i % 2 === 0 && "border-r", i < 2 && "border-b lg:border-b-0", i === 1 && "lg:border-r", i === 2 && "lg:border-r"]}>
+          <dd class="text-2xl font-bold text-fg">{v}</dd>
+          <dt class="text-[11px] tracking-wide text-dim uppercase">{l}</dt>
+        </div>
+      ))}
+    </dl>
+
+    <section class="reveal mt-12">
+      <SectionHead title={t(lang, "gh.activity")} />
+      <div class="overflow-x-auto rounded-xl border border-line bg-bg-dark p-5">
+        <ContribGraph lang={lang} days={github.calendar as [string, number][]} />
+        <p class="mt-3 flex items-center justify-end gap-1 font-mono text-[11px] text-dim">
+          {t(lang, "gh.less")} {colors.map((c) => <i class="inline-block size-[11px] rounded-[2px]" style={`background:${c}`}></i>)} {t(lang, "gh.more")}
+        </p>
+      </div>
+    </section>
+
+    <section class="reveal mt-12">
+      <SectionHead title={t(lang, "gh.languages")} />
+      <LangBar show={6} otherLabel={es ? "otros" : "other"} />
+    </section>
+
+    <section class="reveal mt-12">
+      <SectionHead title={t(lang, "gh.external")} />
+      <ul class="grid gap-3 md:grid-cols-2">
+        {github.externalPrs.map((pr) => (
+          <li>
+            <a href={pr.url} class="block h-full rounded-xl border border-line bg-panel p-4 transition-colors hover:border-blue/60">
+              <p class="font-mono text-[12.5px] text-fg">
+                {pr.repo} <span class="text-dim">#{pr.number}</span>
+                <span class="ml-2 rounded-full border border-mag/40 px-2 py-0.5 text-[11px] text-mag">● {t(lang, "gh.merged")}</span>
+              </p>
+              <p class="mt-1.5 text-sm">{pr.title}</p>
+              <p class="mt-2 font-mono text-[11px] text-dim">
+                <span class="text-green">+{pr.additions}</span> <span class="text-red">−{pr.deletions}</span> · {formatDate(lang, new Date(pr.mergedAt))}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="reveal mt-12">
+      <SectionHead title={t(lang, "gh.top")} href={`${contact.github}?tab=repositories`} hrefLabel={`${github.repos} repos`} />
+      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {repos.map((r) => (
+          <li>
+            <a href={r.url} class="flex h-full flex-col rounded-xl border border-line bg-panel p-4 transition-colors hover:border-blue/60">
+              <p class="font-mono text-[13px] font-bold text-cyan">{r.name}</p>
+              <p class="mt-1 line-clamp-2 flex-1 text-[13px] leading-snug">{r.description ?? "—"}</p>
+              <p class="mt-3 flex gap-4 font-mono text-[11px] text-dim">
+                {r.language && <span><i class="mr-1.5 inline-block size-2 rounded-full" style={`background:${r.language.color}`}></i>{r.language.name}</span>}
+                <span>★ {r.stars}</span>
+                <span>{relativeDays(lang, r.pushedAt)}</span>
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

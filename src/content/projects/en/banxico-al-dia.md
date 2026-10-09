@@ -1,8 +1,8 @@
 ---
 title: Banxico Daily
 summary: 22 official Bank of Mexico indicators refreshed every business day by a GitHub Action, with CSV history and a daily summary written automatically from the data.
-order: 3
-featured: true
+order: 4
+featured: false
 caseStudy: true
 image: ../../../assets/projects/banxico-al-dia.jpg
 imageAlt: USD/MXN FIX exchange rate chart on the Banxico Daily page
@@ -11,6 +11,7 @@ metric: 22 daily series
 links:
   github: https://github.com/nanisadw3/banxico-datos
   demo: https://banxico-mcp.duckdns.org/
+repo: banxico-datos
 ---
 
 ## Problem

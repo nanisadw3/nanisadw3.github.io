@@ -10,4 +10,5 @@ tags: ["Flask", "PostgreSQL", "Docker"]
 links:
   github: https://github.com/nanisadw3/Administracion_Rentas
   demo: https://inaki-vpn.asuscomm.com:5000/login
+repo: Administracion_Rentas
 ---

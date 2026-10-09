@@ -1,14 +1,15 @@
 ---
 title: Gordito — agente local
 summary: Agente de IA que corre en tu terminal con modelos locales de Ollama. Usa herramientas del sistema, busca en internet, controla un navegador real vía MCP y hasta pone música.
-order: 4
-featured: false
+order: 3
+featured: true
 caseStudy: true
 image: ../../../assets/projects/gordito.png
 imageAlt: Interfaz de terminal del agente Gordito
 tags: [Ollama, MCP, Playwright, Python]
 links:
   github: https://github.com/nanisadw3/Gordito_AI
+repo: Gordito_AI
 ---
 
 ## Problema

@@ -1,0 +1,61 @@
+---
+// Live numbers shown at the top of a case study: Xerebro coverage (compiled daily from its MCP)
+// or mcp-banxico downloads plus the exchange rate fetched live from its MCP in the browser.
+import type { Lang } from "../i18n/ui.ts";
+import { formatDate } from "../i18n/utils.ts";
+import { banxico, compact, formatNumber, pypi, xerebro } from "../data/live.ts";
+
+interface Props {
+  lang: Lang;
+  kind: "pypi" | "xerebro";
+}
+
+const { lang, kind } = Astro.props;
+const es = lang === "es";
+const date = (iso: string) => formatDate(lang, new Date(`${iso.slice(0, 10)}T12:00:00Z`));
+const cell = "rounded-lg border border-line bg-bg-dark px-4 py-3";
+---
+
+<div class="grid gap-2.5 font-mono sm:grid-cols-3" data-livebox={kind}>
+  {kind === "xerebro" ? (
+    <>
+      <div class={cell}><p class="text-xl font-bold text-fg">{formatNumber(lang, xerebro.daysWithReport)}</p><p class="text-[11px] text-dim">{es ? "días con reporte indexado" : "days with indexed report"}</p></div>
+      <div class={cell}><p class="text-xl font-bold text-fg">{formatNumber(lang, xerebro.fragments)}</p><p class="text-[11px] text-dim">{es ? "fragmentos en Qdrant" : "chunks in Qdrant"}</p></div>
+      <div class={cell}><p class="text-xl font-bold text-fg">{xerebro.refineries.length}</p><p class="text-[11px] text-dim">{es ? "refinerías" : "refineries"}</p></div>
+      <p class="text-[11px] text-dim sm:col-span-3">
+        <span class="text-green">●</span> {es ? "vía el servidor MCP de Xerebro · último reporte" : "via Xerebro's MCP server · latest report"} {date(xerebro.lastDate)} · {es ? "se actualiza a diario" : "refreshed daily"}
+      </p>
+    </>
+  ) : (
+    <>
+      <div class={cell}><p class="text-xl font-bold text-fg">{compact(pypi.lastMonth)}</p><p class="text-[11px] text-dim">{es ? "descargas el último mes · PyPI" : "downloads last month · PyPI"}</p></div>
+      <div class={`${cell} sm:col-span-2`}>
+        <p class="text-xl font-bold text-fg">$<span data-fix-value>{banxico.value.toFixed(4)}</span> <span class="text-xs font-normal text-dim">MXN/USD · FIX</span></p>
+        <p class="text-[11px] text-dim">
+          <span data-fix-status class="text-yellow">●</span>
+          <span data-fix-label>{es ? "último valor compilado" : "last compiled value"}</span> · <span data-fix-date>{banxico.date}</span> · {banxico.series}
+        </p>
+      </div>
+      <p class="text-[11px] text-dim sm:col-span-3">{es ? "El tipo de cambio lo pide esta página a mcp-banxico en tiempo real." : "This page asks mcp-banxico for the exchange rate in real time."}</p>
+    </>
+  )}
+</div>
+
+<script>
+  import { fetchFix } from "../scripts/banxico.ts";
+
+  document.addEventListener("astro:page-load", async () => {
+    const box = document.querySelector('[data-livebox="pypi"]');
+    if (!box) return;
+    const es = document.documentElement.lang === "es";
+    try {
+      const fix = await fetchFix();
+      box.querySelector("[data-fix-value]")!.textContent = fix.value.toFixed(4);
+      box.querySelector("[data-fix-date]")!.textContent = fix.date;
+      box.querySelector("[data-fix-label]")!.textContent = es ? "en vivo vía mcp-banxico" : "live via mcp-banxico";
+      box.querySelector("[data-fix-status]")!.className = "text-green";
+    } catch {
+      // Keep the compiled value; the label already says so.
+    }
+  });
+</script>

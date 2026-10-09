@@ -4,14 +4,15 @@ import { t } from "../i18n/utils.ts";
 ---
 
 <BaseLayout lang="es" title={`404 — ${t("es", "notFound.title")}`} description={t("es", "notFound.text")} altHref={null}>
-  <section class="mx-auto max-w-5xl px-4 py-24 sm:px-6 sm:py-32">
-    <p class="font-mono text-sm text-accent">404</p>
-    <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{t("es", "notFound.title")}</h1>
-    <p class="mt-4 text-lg text-muted">{t("es", "notFound.text")}</p>
-    <p class="mt-1 text-muted" lang="en">{t("en", "notFound.title")}. {t("en", "notFound.text")}</p>
-    <div class="mt-8 flex gap-3">
-      <a href="/" class="rounded-lg bg-fg px-4 py-2.5 text-sm font-semibold text-bg">{t("es", "notFound.home")}</a>
-      <a href="/en/" lang="en" class="rounded-lg border border-line px-4 py-2.5 text-sm">{t("en", "notFound.home")}</a>
+  <section class="mx-auto max-w-5xl px-5 py-24 font-mono sm:px-7 sm:py-32">
+    <p class="text-sm"><span class="text-green">inaki</span><span class="text-dim">@</span><span class="text-blue">arch</span><span class="text-dim">:~$</span> cd {Astro.url.pathname}</p>
+    <p class="mt-1 text-sm text-red">cd: no such file or directory</p>
+    <h1 class="mt-8 text-3xl font-extrabold text-fg sm:text-4xl">{t("es", "notFound.title")}</h1>
+    <p class="mt-3 font-sans text-lg">{t("es", "notFound.text")}</p>
+    <p class="mt-1 font-sans text-dim" lang="en">{t("en", "notFound.title")}. {t("en", "notFound.text")}</p>
+    <div class="mt-8 flex gap-3 text-[13px]">
+      <a href="/" class="rounded-md border border-blue bg-blue px-4 py-2 font-bold text-bg-dark">{t("es", "notFound.home")}</a>
+      <a href="/en/" lang="en" class="rounded-md border border-line px-4 py-2 text-fg hover:border-blue">{t("en", "notFound.home")}</a>
     </div>
   </section>
 </BaseLayout>

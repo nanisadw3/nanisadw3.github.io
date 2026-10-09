@@ -1,11 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Section from "../components/Section.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import ProjectRow from "../components/ProjectRow.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ProjectLinks from "../components/ProjectLinks.astro";
+import RepoMeta from "../components/RepoMeta.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
-import { getProjects } from "../content/queries.ts";
+import { evidenceText } from "../data/live.ts";
+import { getProjects, slugOf } from "../content/queries.ts";
 
 interface Props {
   lang: Lang;
@@ -23,18 +25,61 @@ const rest = projects.filter((p) => !p.data.featured);
   description={t(lang, "meta.projectsDescription")}
   altHref={localizePath(otherLang(lang), "projects")}
 >
-  <header class="mx-auto max-w-5xl px-4 pt-16 sm:px-6 sm:pt-20">
-    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{t(lang, "projects.title")}</h1>
-    <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{t(lang, "projects.intro")}</p>
-  </header>
+  <div class="mx-auto max-w-6xl px-5 pt-14 pb-16 sm:px-7">
+    <SectionHead as="h1" title={t(lang, "projects.title")} />
+    <p class="-mt-2 max-w-2xl">{t(lang, "projects.intro")}</p>
 
-  <Section title={t(lang, "projects.featured")}>
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {featured.map((project) => <ProjectCard lang={lang} project={project} />)}
+    <div class="mt-10 grid gap-6">
+      {featured.map((p, i) => {
+        const href = localizePath(lang, "project", slugOf(p));
+        return (
+          <article class="reveal grid overflow-hidden rounded-xl border border-line bg-panel md:grid-cols-[1.05fr_1fr]">
+            <a href={href} class:list={["block overflow-hidden border-line bg-bg-dark max-md:border-b md:border-r", i % 2 === 1 && "md:order-2 md:border-r-0 md:border-l"]}>
+              <Image src={p.data.image} alt={p.data.imageAlt} widths={[560, 900]} sizes="(min-width: 768px) 560px, 100vw" class="aspect-[16/10] size-full object-cover object-top transition duration-500 hover:scale-[1.02]" />
+            </a>
+            <div class="flex flex-col p-6">
+              <p class="font-mono text-[11.5px] text-orange">{p.data.live ? evidenceText(lang, p.data.live) : p.data.metric}</p>
+              <h2 class="mt-1 font-mono text-2xl font-bold text-fg"><a href={href} class="hover:text-cyan">{p.data.title}</a></h2>
+              <p class="mt-2 flex-1 leading-relaxed">{p.data.summary}</p>
+              <div class="mt-4 grid gap-3">
+                <RepoMeta lang={lang} repo={p.data.repo} />
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <ProjectLinks lang={lang} links={p.data.links} />
+                  <a href={href} class="font-mono text-[13px] font-bold text-blue hover:underline">{t(lang, "projects.caseStudy")} →</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        );
+      })}
     </div>
-  </Section>
 
-  <Section title={t(lang, "projects.more")}>
-    {rest.map((project) => <ProjectRow lang={lang} project={project} />)}
-  </Section>
+    <details class="group mt-10 border-t border-line pt-2">
+      <summary class="cursor-pointer list-none py-4 font-mono text-[13px] text-blue [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">+ {t(lang, "projects.more")} ({rest.length})</span>
+        <span class="hidden group-open:inline">− {t(lang, "projects.less")}</span>
+      </summary>
+      <ul>
+        {rest.map((p) => (
+          <li class="flex flex-col gap-3 border-b border-line py-4 last:border-b-0 sm:flex-row sm:items-start sm:justify-between">
+            <div class="min-w-0">
+              <p class="font-mono font-bold text-cyan">
+                {p.data.caseStudy ? <a href={localizePath(lang, "project", slugOf(p))} class="hover:underline">{p.data.title}</a> : p.data.title}
+                {p.data.role && <span class="ml-2 rounded-full border border-mag/40 px-2 py-0.5 text-[11px] font-normal text-mag">{p.data.role}</span>}
+              </p>
+              <p class="mt-1 text-sm leading-relaxed">{p.data.summary}</p>
+              <div class="mt-2"><RepoMeta lang={lang} repo={p.data.repo} /></div>
+            </div>
+            <div class="shrink-0">
+              {p.data.caseStudy ? (
+                <a href={localizePath(lang, "project", slugOf(p))} class="font-mono text-xs text-blue hover:underline">{t(lang, "projects.caseStudy")} →</a>
+              ) : (
+                <ProjectLinks lang={lang} links={p.data.links} />
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </details>
+  </div>
 </BaseLayout>

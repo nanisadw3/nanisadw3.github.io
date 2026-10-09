@@ -1,0 +1,32 @@
+---
+import type { Lang } from "../i18n/ui.ts";
+import { formatDate } from "../i18n/utils.ts";
+
+interface Props {
+  lang: Lang;
+  /** [date, count] per day, starting on a Sunday. */
+  days: [string, number][];
+  cell?: number;
+}
+
+const { lang, days, cell = 11 } = Astro.props;
+const level = (c: number) => (c === 0 ? 0 : c < 3 ? 1 : c < 7 ? 2 : c < 15 ? 3 : 4);
+const colors = ["#24283b", "#2f4b2a", "#4f7a3a", "#79a64e", "#9ece6a"];
+const total = days.reduce((a, [, c]) => a + c, 0);
+const label = lang === "es" ? `${total} contribuciones` : `${total} contributions`;
+---
+
+<div
+  class="grid w-max grid-flow-col gap-[3px]"
+  style={`grid-template-rows: repeat(7, ${cell}px)`}
+  role="img"
+  aria-label={label}
+>
+  {days.map(([date, count]) => (
+    <i
+      class="block rounded-[2px]"
+      style={`width:${cell}px;height:${cell}px;background:${colors[level(count)]}`}
+      title={`${count} · ${formatDate(lang, new Date(`${date}T12:00:00Z`))}`}
+    ></i>
+  ))}
+</div>

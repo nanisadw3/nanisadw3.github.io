@@ -9,4 +9,5 @@ imageAlt: "Object detection with YOLO bounding boxes"
 tags: ["Python", "OpenCV", "YOLO"]
 links:
   github: https://github.com/nanisadw3/YOLO-Vision
+repo: YOLO-Vision
 ---

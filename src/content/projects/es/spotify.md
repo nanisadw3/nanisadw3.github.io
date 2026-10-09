@@ -9,4 +9,5 @@ imageAlt: "Interfaz del cliente de Spotify"
 tags: ["Python", "Spotify API", "Desktop"]
 links:
   github: https://github.com/nanisadw3/Mi-Spotify-
+repo: Mi-Spotify-
 ---

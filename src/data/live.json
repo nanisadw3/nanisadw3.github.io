@@ -1523,6 +1523,7 @@
     "repoStats": {
       "Lector": {
         "url": "https://github.com/nanisadw3/Lector",
+        "description": "Practica de comparacion de textos",
         "stars": 2,
         "pushedAt": "2024-03-14T21:26:04Z",
         "language": {
@@ -1532,6 +1533,7 @@
       },
       "Maquina-de-cafe": {
         "url": "https://github.com/nanisadw3/Maquina-de-cafe",
+        "description": null,
         "stars": 2,
         "pushedAt": "2024-03-14T21:34:31Z",
         "language": {
@@ -1541,6 +1543,7 @@
       },
       "Lector.pdf": {
         "url": "https://github.com/nanisadw3/Lector.pdf",
+        "description": "Practica de comparacion de documentos formato PDF",
         "stars": 2,
         "pushedAt": "2024-04-17T02:14:25Z",
         "language": {
@@ -1550,6 +1553,7 @@
       },
       "Proyectos-Basicos": {
         "url": "https://github.com/nanisadw3/Proyectos-Basicos",
+        "description": null,
         "stars": 2,
         "pushedAt": "2024-08-24T01:07:52Z",
         "language": {
@@ -1559,6 +1563,7 @@
       },
       "Calabozo": {
         "url": "https://github.com/nanisadw3/Calabozo",
+        "description": null,
         "stars": 2,
         "pushedAt": "2025-07-26T06:32:32Z",
         "language": {
@@ -1568,6 +1573,7 @@
       },
       "Proyectos_Avanzados": {
         "url": "https://github.com/nanisadw3/Proyectos_Avanzados",
+        "description": "Repositorio para proyectos avanzados de java",
         "stars": 3,
         "pushedAt": "2025-02-28T07:12:58Z",
         "language": {
@@ -1577,6 +1583,7 @@
       },
       "nanisadw3": {
         "url": "https://github.com/nanisadw3/nanisadw3",
+        "description": "Mi perfil de GitHub — Ingeniero en Sistemas · IA generativa, RAG, MCP y agentes autónomos",
         "stars": 8,
         "pushedAt": "2026-10-09T14:16:42Z",
         "language": {
@@ -1586,6 +1593,7 @@
       },
       "Practicas_escolares_Csharp": {
         "url": "https://github.com/nanisadw3/Practicas_escolares_Csharp",
+        "description": "Repositorio para mis prácticas de C#",
         "stars": 3,
         "pushedAt": "2025-05-19T23:09:06Z",
         "language": {
@@ -1595,6 +1603,7 @@
       },
       "Practicas_java": {
         "url": "https://github.com/nanisadw3/Practicas_java",
+        "description": "Esta sera una vercion de las practicas escolares en C# pero para java ",
         "stars": 3,
         "pushedAt": "2025-03-27T06:59:25Z",
         "language": {
@@ -1604,6 +1613,7 @@
       },
       "PimerosPasosJavaFX": {
         "url": "https://github.com/nanisadw3/PimerosPasosJavaFX",
+        "description": "Estos son mis primeros programas con java fx",
         "stars": 2,
         "pushedAt": "2025-03-21T21:52:59Z",
         "language": {
@@ -1613,6 +1623,7 @@
       },
       "Practicas_javaFX": {
         "url": "https://github.com/nanisadw3/Practicas_javaFX",
+        "description": "Esta sera una vercion de las practicas escolares en C# pero para javaFX",
         "stars": 4,
         "pushedAt": "2025-07-21T22:43:31Z",
         "language": {
@@ -1622,6 +1633,7 @@
       },
       "Laberinto": {
         "url": "https://github.com/nanisadw3/Laberinto",
+        "description": "Practica de un laberinto en C#",
         "stars": 1,
         "pushedAt": "2025-04-08T04:40:12Z",
         "language": {
@@ -1631,6 +1643,7 @@
       },
       "Pagina_con_RubyonRails": {
         "url": "https://github.com/nanisadw3/Pagina_con_RubyonRails",
+        "description": null,
         "stars": 1,
         "pushedAt": "2025-03-27T06:14:22Z",
         "language": {
@@ -1640,6 +1653,7 @@
       },
       "java_Avanzado": {
         "url": "https://github.com/nanisadw3/java_Avanzado",
+        "description": "En este repositorio recopilaré proyectos avanzados que requieren un conocimiento profundo de este lenguaje, junto con prácticas personalizadas diseñadas para reforzar cada concepto clave.",
         "stars": 1,
         "pushedAt": "2025-05-23T20:47:49Z",
         "language": {
@@ -1649,6 +1663,7 @@
       },
       "ChatVirtual": {
         "url": "https://github.com/nanisadw3/ChatVirtual",
+        "description": null,
         "stars": 1,
         "pushedAt": "2025-04-10T21:25:23Z",
         "language": {
@@ -1658,6 +1673,7 @@
       },
       "To_do_app": {
         "url": "https://github.com/nanisadw3/To_do_app",
+        "description": "Web-site",
         "stars": 2,
         "pushedAt": "2025-10-16T23:09:52Z",
         "language": {
@@ -1667,6 +1683,7 @@
       },
       "Sistema-de-Inventario": {
         "url": "https://github.com/nanisadw3/Sistema-de-Inventario",
+        "description": null,
         "stars": 1,
         "pushedAt": "2025-10-11T06:42:41Z",
         "language": {
@@ -1676,6 +1693,7 @@
       },
       "Bash": {
         "url": "https://github.com/nanisadw3/Bash",
+        "description": "Mis proyectos con bash",
         "stars": 1,
         "pushedAt": "2025-07-26T04:57:23Z",
         "language": {
@@ -1685,6 +1703,7 @@
       },
       "Rick-y-Morty": {
         "url": "https://github.com/nanisadw3/Rick-y-Morty",
+        "description": "Juego poo basico",
         "stars": 1,
         "pushedAt": "2025-08-06T18:20:44Z",
         "language": {
@@ -1694,6 +1713,7 @@
       },
       "Administracion_Rentas": {
         "url": "https://github.com/nanisadw3/Administracion_Rentas",
+        "description": "Web-site",
         "stars": 1,
         "pushedAt": "2026-08-13T19:17:55Z",
         "language": {
@@ -1703,6 +1723,7 @@
       },
       "Nasa": {
         "url": "https://github.com/nanisadw3/Nasa",
+        "description": "Web-site",
         "stars": 1,
         "pushedAt": "2026-07-31T19:55:38Z",
         "language": {
@@ -1712,6 +1733,7 @@
       },
       "nanisadw3.github.io": {
         "url": "https://github.com/nanisadw3/nanisadw3.github.io",
+        "description": "Web-site",
         "stars": 2,
         "pushedAt": "2026-10-09T16:29:16Z",
         "language": {
@@ -1721,6 +1743,7 @@
       },
       "Practica_git": {
         "url": "https://github.com/nanisadw3/Practica_git",
+        "description": null,
         "stars": 1,
         "pushedAt": "2025-11-05T07:47:59Z",
         "language": {
@@ -1730,6 +1753,7 @@
       },
       "YOLO-Vision": {
         "url": "https://github.com/nanisadw3/YOLO-Vision",
+        "description": "Un proyecto basado en Python que aprovecha YOLO y OpenCV para la detección y reconocimiento de objetos en tiempo real, diseñado para aplicaciones de visión por computadora eficientes y precisas.",
         "stars": 2,
         "pushedAt": "2025-10-27T04:30:30Z",
         "language": {
@@ -1739,6 +1763,7 @@
       },
       "Chat": {
         "url": "https://github.com/nanisadw3/Chat",
+        "description": null,
         "stars": 0,
         "pushedAt": "2025-11-04T02:04:14Z",
         "language": {
@@ -1748,12 +1773,14 @@
       },
       "skills-introduction-to-github": {
         "url": "https://github.com/nanisadw3/skills-introduction-to-github",
+        "description": "My clone repository",
         "stars": 0,
         "pushedAt": "2025-12-02T01:05:47Z",
         "language": null
       },
       "Mi-Spotify-": {
         "url": "https://github.com/nanisadw3/Mi-Spotify-",
+        "description": null,
         "stars": 0,
         "pushedAt": "2026-03-18T01:19:01Z",
         "language": {
@@ -1763,6 +1790,7 @@
       },
       "Proyecto-final-de-aplicaciones-Movibles": {
         "url": "https://github.com/nanisadw3/Proyecto-final-de-aplicaciones-Movibles",
+        "description": null,
         "stars": 0,
         "pushedAt": "2025-11-20T01:07:25Z",
         "language": {
@@ -1772,6 +1800,7 @@
       },
       "Hacking": {
         "url": "https://github.com/nanisadw3/Hacking",
+        "description": null,
         "stars": 0,
         "pushedAt": "2025-12-02T22:14:16Z",
         "language": {
@@ -1781,6 +1810,7 @@
       },
       "Clima_api": {
         "url": "https://github.com/nanisadw3/Clima_api",
+        "description": null,
         "stars": 1,
         "pushedAt": "2026-01-27T19:33:31Z",
         "language": {
@@ -1790,6 +1820,7 @@
       },
       "AI_API": {
         "url": "https://github.com/nanisadw3/AI_API",
+        "description": "Chatbot de terminal en Python sobre la API de Groq, con carga segura de la clave por variables de entorno",
         "stars": 1,
         "pushedAt": "2026-01-27T19:42:47Z",
         "language": {
@@ -1799,6 +1830,7 @@
       },
       "Juego_pygame": {
         "url": "https://github.com/nanisadw3/Juego_pygame",
+        "description": null,
         "stars": 1,
         "pushedAt": "2026-03-14T19:12:49Z",
         "language": {
@@ -1808,6 +1840,7 @@
       },
       "Pokemon-Game": {
         "url": "https://github.com/nanisadw3/Pokemon-Game",
+        "description": null,
         "stars": 1,
         "pushedAt": "2026-03-23T20:53:10Z",
         "language": {
@@ -1817,6 +1850,7 @@
       },
       "Presentacion": {
         "url": "https://github.com/nanisadw3/Presentacion",
+        "description": null,
         "stars": 0,
         "pushedAt": "2026-10-07T17:11:42Z",
         "language": {
@@ -1826,6 +1860,7 @@
       },
       "Que-son-los-Embeddings-": {
         "url": "https://github.com/nanisadw3/Que-son-los-Embeddings-",
+        "description": "Explorador didáctico de embeddings y bases vectoriales: Flask + Qdrant con visualizaciones 2D y 3D en Plotly.js",
         "stars": 0,
         "pushedAt": "2026-07-28T19:34:38Z",
         "language": {
@@ -1835,6 +1870,7 @@
       },
       "MCP-Relational-AI-Gateway": {
         "url": "https://github.com/nanisadw3/MCP-Relational-AI-Gateway",
+        "description": "MCP Relational AI Gateway 🚀 An elegant, multi-LLM database assistant & dashboard powered by Model Context Protocol (MCP). Interact with MS SQL Server and PostgreSQL databases using natural language, visualize data with drag-to-zoom interactive charts, and switch seamlessly between Google Gemini, Anthropic Claude",
         "stars": 1,
         "pushedAt": "2026-09-17T18:56:45Z",
         "language": {
@@ -1844,6 +1880,7 @@
       },
       "pagila-rag-tutorial": {
         "url": "https://github.com/nanisadw3/pagila-rag-tutorial",
+        "description": "Tutorial de RAG de punta a punta: búsqueda semántica sobre la base de datos Pagila con embeddings y PostgreSQL",
         "stars": 0,
         "pushedAt": "2026-08-06T06:56:54Z",
         "language": {
@@ -1853,6 +1890,7 @@
       },
       "KanbanFlow": {
         "url": "https://github.com/nanisadw3/KanbanFlow",
+        "description": "Tablero Kanban multiusuario en tiempo real: React + TypeScript + Node.js con WebSockets, SQLite y panel de administración",
         "stars": 0,
         "pushedAt": "2026-09-01T17:04:41Z",
         "language": {
@@ -1862,6 +1900,7 @@
       },
       "mcp-banxico": {
         "url": "https://github.com/nanisadw3/mcp-banxico",
+        "description": "Servidor MCP para consultar el tipo de cambio oficial (USD/MXN), inflación (INPC), UDIS y tasas de Banxico (Banco de México)",
         "stars": 5,
         "pushedAt": "2026-10-08T17:31:53Z",
         "language": {
@@ -1871,6 +1910,7 @@
       },
       "Gordito_AI": {
         "url": "https://github.com/nanisadw3/Gordito_AI",
+        "description": "Agente de IA local sobre Ollama con acceso a herramientas del sistema, búsqueda en vivo, control de Spotify y soporte para servidores MCP (macOS y Arch Linux)",
         "stars": 5,
         "pushedAt": "2026-10-02T16:18:36Z",
         "language": {
@@ -1880,6 +1920,7 @@
       },
       "banxico-datos": {
         "url": "https://github.com/nanisadw3/banxico-datos",
+        "description": "22 indicadores oficiales del Banco de México (tipo de cambio, tasas, CETES, inflación, UDIS, reservas) actualizados cada día hábil, con página y CSV",
         "stars": 0,
         "pushedAt": "2026-10-09T02:59:44Z",
         "language": {
@@ -1917,13 +1958,13 @@
         "deletions": 8
       }
     ],
-    "fetchedAt": "2026-10-09T18:08:50.859Z"
+    "fetchedAt": "2026-10-09T18:13:47.820Z"
   },
   "pypi": {
     "package": "mcp-banxico",
     "lastMonth": 1726,
     "lastWeek": 72,
-    "fetchedAt": "2026-10-09T18:08:50.859Z"
+    "fetchedAt": "2026-10-09T18:13:47.820Z"
   },
   "xerebro": {
     "daysWithReport": 282,
@@ -1947,6 +1988,6 @@
     "name": "Tipo de cambio FIX (Pesos por Dólar)",
     "date": "09/10/2026",
     "value": 18.4163,
-    "fetchedAt": "2026-10-09T18:08:50.859Z"
+    "fetchedAt": "2026-10-09T18:13:47.820Z"
   }
 }

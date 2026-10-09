@@ -1,0 +1,25 @@
+---
+import { github } from "../data/live.ts";
+
+interface Props {
+  /** How many languages to name individually; the rest are grouped as "otros"/"other". */
+  show?: number;
+  otherLabel: string;
+}
+
+const { show = 4, otherLabel } = Astro.props;
+const named = github.languages.slice(0, show);
+const rest = Math.max(0, Math.round((100 - named.reduce((a, l) => a + l.percent, 0)) * 10) / 10);
+const parts = [...named, ...(rest > 0 ? [{ name: otherLabel, color: "#565f89", percent: rest }] : [])];
+---
+
+<div>
+  <div class="flex h-1.5 overflow-hidden rounded-full" aria-hidden="true">
+    {parts.map((l) => <i style={`width:${l.percent}%;background:${l.color}`}></i>)}
+  </div>
+  <ul class="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11.5px] text-dim">
+    {parts.map((l) => (
+      <li><i class="mr-1.5 inline-block size-2 rounded-full align-[0.05em]" style={`background:${l.color}`}></i>{l.name} {l.percent}%</li>
+    ))}
+  </ul>
+</div>

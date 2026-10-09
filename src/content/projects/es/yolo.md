@@ -9,4 +9,5 @@ imageAlt: "Detección de objetos con cajas delimitadoras de YOLO"
 tags: ["Python", "OpenCV", "YOLO"]
 links:
   github: https://github.com/nanisadw3/YOLO-Vision
+repo: YOLO-Vision
 ---

@@ -9,4 +9,5 @@ imageAlt: "Multi-user chat window"
 tags: ["Python", "Sockets", "TLS"]
 links:
   github: https://github.com/nanisadw3/Chat
+repo: Chat
 ---

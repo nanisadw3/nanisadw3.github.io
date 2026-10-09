@@ -1,15 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
-import Section from "../components/Section.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import ExperienceItem from "../components/ExperienceItem.astro";
+import Neofetch from "../components/Neofetch.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ContribGraph from "../components/ContribGraph.astro";
+import LangBar from "../components/LangBar.astro";
 import PostItem from "../components/PostItem.astro";
-import ContactLinks from "../components/ContactLinks.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 import { contact, profile } from "../data/profile.ts";
-import { getPosts, getProjects } from "../content/queries.ts";
+import { compact, evidenceText, formatNumber, github, lastWeeks, weeklyTotals } from "../data/live.ts";
+import { getPosts } from "../content/queries.ts";
 
 interface Props {
   lang: Lang;
@@ -17,20 +17,26 @@ interface Props {
 
 const { lang } = Astro.props;
 const p = profile[lang];
-const featured = (await getProjects(lang)).filter((x) => x.data.featured).slice(0, 3);
-const posts = (await getPosts(lang)).slice(0, 3);
+const posts = (await getPosts(lang)).slice(0, 1);
+const spark = weeklyTotals(github.calendar as [string, number][]).slice(-26);
+const sparkMax = Math.max(...spark, 1);
+const topLang = github.languages[0];
+const other = lang === "es" ? "otros" : "other";
+
+const btn = "inline-flex items-center gap-2 rounded-md border border-line px-4 py-2 font-mono text-[13px] text-fg transition-colors hover:border-blue";
+const btnPrimary = "inline-flex items-center gap-2 rounded-md border border-blue bg-blue px-4 py-2 font-mono text-[13px] font-bold text-bg-dark transition-opacity hover:opacity-90";
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: p.name,
+  name: `${p.name.first} ${p.name.last}`,
   jobTitle: p.role,
   url: new URL(localizePath(lang, "home"), Astro.site).href,
   email: `mailto:${contact.email}`,
   worksFor: { "@type": "Organization", name: "PEMEX" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "UNITEC" },
   sameAs: [contact.github, contact.linkedin, contact.x],
-  knowsAbout: ["Retrieval-Augmented Generation", "Model Context Protocol", "Python", "Linux", "AI agents"],
+  knowsAbout: ["Retrieval-Augmented Generation", "Model Context Protocol", "AI agents", "Python", "Linux"],
 };
 ---
 
@@ -41,27 +47,165 @@ const jsonLd = {
   altHref={localizePath(otherLang(lang), "home")}
   jsonLd={jsonLd}
 >
-  <Hero lang={lang} />
+  <!-- Hero -->
+  <section class="relative flex min-h-[calc(100dvh-57px)] items-center py-14">
+    <div class="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-7 lg:grid-cols-[0.95fr_1.05fr]">
+      <div>
+        <h1 class="font-mono text-4xl leading-[1.05] font-extrabold tracking-tight text-fg sm:text-[46px]">
+          {p.name.first}<br /><span class="grad-text">{p.name.last}</span>
+        </h1>
+        <p class="mt-4 text-lg font-medium text-fg">{p.role}</p>
+        <p class="mt-2.5 max-w-[470px] text-[15.5px] leading-relaxed">{p.summary}</p>
+        <p class="mt-5 inline-flex items-center gap-2.5 font-mono text-[12.5px] text-green">
+          <span class="size-[7px] rounded-full bg-green shadow-[0_0_8px_var(--color-green)]"></span>{t(lang, "hero.open")}
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2.5">
+          <a href={contact.cv} class={btnPrimary}>{t(lang, "hero.cv")}</a>
+          <a href={`mailto:${contact.email}`} class={btn}>{contact.email}</a>
+          <a href={contact.linkedin} class={btn}>LinkedIn</a>
+        </div>
 
-  <Section title={t(lang, "home.featured")} href={localizePath(lang, "projects")} hrefLabel={t(lang, "home.allProjects")}>
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {featured.map((project) => <ProjectCard lang={lang} project={project} />)}
+        <!-- Subtle GitHub line -->
+        <a
+          href={localizePath(lang, "github")}
+          class="group mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-5 font-mono text-[12.5px] text-dim"
+        >
+          <span class="inline-flex items-center gap-2 text-fg-2 group-hover:text-fg">
+            <svg viewBox="0 0 16 16" class="size-3.5 fill-current" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            {contact.githubUser}
+          </span>
+          {topLang && <span><i class="mr-1.5 inline-block size-2 rounded-full align-[0.05em]" style={`background:${topLang.color}`}></i>{topLang.name} {Math.round(topLang.percent)}%</span>}
+          <span>★ {github.stars}</span>
+          <span>{github.followers} {t(lang, "hero.followers")}</span>
+          <span>{github.repos} repos</span>
+          <span class="inline-flex items-end gap-2">
+            <span class="flex h-[18px] items-end gap-[2px]" aria-hidden="true">
+              {spark.map((v) => <i class="block w-[3px] rounded-[1px] bg-green/60" style={`height:${Math.max(2, Math.round((v / sparkMax) * 18))}px`}></i>)}
+            </span>
+            {formatNumber(lang, github.contributions)} {t(lang, "hero.contrib")}
+          </span>
+        </a>
+      </div>
+
+      <Neofetch lang={lang} />
     </div>
-  </Section>
+    <p class="pointer-events-none absolute bottom-24 left-1/2 hidden -translate-x-1/2 animate-bounce font-mono text-[11.5px] text-dim sm:block" aria-hidden="true">
+      ↓ {t(lang, "hero.scroll")}
+    </p>
+  </section>
 
-  <Section title={t(lang, "home.experience")} href={localizePath(lang, "about")} hrefLabel={t(lang, "nav.about")}>
-    <div class="space-y-12">
-      {p.experience.map((item) => <ExperienceItem item={item} />)}
+  <!-- What I do in AI -->
+  <section class="border-t border-line py-16">
+    <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
+      <SectionHead n="01" title={t(lang, "home.ai")} />
+      <div class="grid gap-3 md:grid-cols-3">
+        {p.specialties.map((s) => (
+          <article class="flex flex-col rounded-xl border border-line bg-panel p-5">
+            <p class="font-mono text-xs text-blue">{s.path}</p>
+            <h3 class="mt-1 text-base font-semibold text-fg">{s.title}</h3>
+            <p class="mt-1.5 flex-1 text-[13.5px] leading-relaxed">{s.text}</p>
+            <a
+              href={localizePath(lang, "project", s.project.slug)}
+              class="group mt-4 block border-t border-dashed border-line pt-3 font-mono text-[12.5px]"
+            >
+              <span class="text-green">→</span> <span class="font-bold text-cyan group-hover:underline">{s.project.name}</span>
+              <span class="mt-0.5 block text-[11.5px] text-orange">{evidenceText(lang, s.evidence)}</span>
+            </a>
+          </article>
+        ))}
+      </div>
+      <p class="mt-4 font-mono text-[12px] text-dim"><span class="text-blue">{t(lang, "home.also")}</span> · {p.also}</p>
     </div>
-  </Section>
+  </section>
 
+  <!-- Experience + Education -->
+  <section class="border-t border-line py-16">
+    <div class="reveal mx-auto grid max-w-6xl gap-12 px-5 sm:px-7 md:grid-cols-2">
+      <div>
+        <SectionHead n="02" title={t(lang, "home.experience")} />
+        <ul class="grid gap-5">
+          {p.experience.map((e) => (
+            <li class="grid gap-1 sm:grid-cols-[120px_1fr] sm:gap-4">
+              <p class="pt-0.5 font-mono text-xs text-dim">{e.period}</p>
+              <div>
+                <p class="font-semibold text-fg">{e.role}</p>
+                <p class="font-mono text-[11px] text-green">{e.company}</p>
+                <p class="mt-1 text-[13.5px] leading-relaxed">{e.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <SectionHead n="03" title={t(lang, "home.education")} />
+        <ul class="grid gap-4">
+          {p.education.map((e) => (
+            <li class="grid gap-1 sm:grid-cols-[120px_1fr] sm:gap-4">
+              <p class="pt-0.5 font-mono text-xs text-dim">{e.period}</p>
+              <div><p class="font-semibold text-fg">{e.title}</p><p class="text-[13.5px]">{e.place}</p></div>
+            </li>
+          ))}
+          <li class="grid gap-2 sm:grid-cols-[120px_1fr] sm:gap-4">
+            <p class="pt-1 font-mono text-xs text-dim">{t(lang, "home.certs")}</p>
+            <div class="flex flex-wrap gap-2">
+              {p.certifications.map((c) => {
+                const href = c.verifyUrl ?? c.file;
+                const label = <>{c.title}{c.issuer && <span class="text-dim"> · {c.issuer}</span>}</>;
+                return href ? (
+                  <a href={href} class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2 transition-colors hover:border-blue">{label} ↗</a>
+                ) : (
+                  <span class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2">{label}</span>
+                );
+              })}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub summary -->
+  <section class="border-t border-line py-16">
+    <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
+      <SectionHead n="04" title={t(lang, "home.github")} href={localizePath(lang, "github")} hrefLabel={t(lang, "home.githubMore")} />
+      <div class="grid items-center gap-7 rounded-xl border border-line bg-bg-dark p-5 lg:grid-cols-[auto_1fr]">
+        <div class="overflow-x-auto"><ContribGraph lang={lang} days={lastWeeks(github.calendar as [string, number][], 26)} cell={9} /></div>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-3 font-mono">
+          <div><p class="text-base font-bold text-fg">{formatNumber(lang, github.contributions)}</p><p class="text-[11px] text-dim">{t(lang, "gh.contributions")}</p></div>
+          <div><p class="text-base font-bold text-fg">{github.externalPrs.length}</p><p class="text-[11px] text-dim">{t(lang, "gh.prs")}</p></div>
+          <div><p class="text-base font-bold text-fg">{github.repos} · ★ {github.stars}</p><p class="text-[11px] text-dim">{t(lang, "gh.repos")} · {t(lang, "gh.stars")}</p></div>
+          <div><p class="text-base font-bold text-fg">{compact(github.followers)}</p><p class="text-[11px] text-dim">{t(lang, "gh.followers")}</p></div>
+          <div class="col-span-2 mt-1"><LangBar otherLabel={other} /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
   {posts.length > 0 && (
-    <Section title={t(lang, "home.writing")} href={localizePath(lang, "blog")} hrefLabel={t(lang, "home.allPosts")}>
-      {posts.map((post) => <PostItem lang={lang} post={post} />)}
-    </Section>
+    <section class="border-t border-line py-16">
+      <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
+        <SectionHead n="05" title={t(lang, "home.blog")} href={localizePath(lang, "blog")} hrefLabel={t(lang, "home.blogMore")} />
+        {posts.map((post) => <PostItem lang={lang} post={post} />)}
+      </div>
+    </section>
   )}
 
-  <Section id="contacto" title={t(lang, "home.contact")}>
-    <ContactLinks lang={lang} />
-  </Section>
+  <!-- Contact -->
+  <section class="border-t border-line py-16">
+    <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
+      <div class="flex flex-col gap-5 rounded-xl border border-line bg-panel p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="font-mono text-[22px] font-bold text-fg">{t(lang, "home.contactTitle")}</h2>
+          <p class="mt-1 max-w-lg">{t(lang, "home.contactText")}</p>
+        </div>
+        <div class="flex flex-wrap gap-2.5">
+          <a href={`mailto:${contact.email}`} class={btnPrimary}>{contact.email}</a>
+          <a href={contact.linkedin} class={btn}>LinkedIn</a>
+          <a href={contact.github} class={btn}>GitHub</a>
+          <a href={contact.cv} class={btn}>CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

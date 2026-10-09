@@ -1,8 +1,8 @@
 ---
 title: Banxico al Día
 summary: 22 indicadores oficiales del Banco de México actualizados cada día hábil por una GitHub Action, con histórico en CSV y una lectura del día que se redacta sola a partir de los datos.
-order: 3
-featured: true
+order: 4
+featured: false
 caseStudy: true
 image: ../../../assets/projects/banxico-al-dia.jpg
 imageAlt: Gráfica del tipo de cambio FIX en la página Banxico al Día
@@ -11,6 +11,7 @@ metric: 22 series diarias
 links:
   github: https://github.com/nanisadw3/banxico-datos
   demo: https://banxico-mcp.duckdns.org/
+repo: banxico-datos
 ---
 
 ## Problema

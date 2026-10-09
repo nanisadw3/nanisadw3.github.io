@@ -1,0 +1,96 @@
+---
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, t } from "../i18n/utils.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const items = [
+  { page: "projects", icon: "▤", hint: t(lang, "bubble.projects") },
+  { page: "github", icon: "⎇", hint: t(lang, "bubble.github") },
+  { page: "blog", icon: "✎", hint: t(lang, "bubble.blog") },
+  { page: "terminal", icon: ">_", hint: t(lang, "bubble.terminal") },
+] as const;
+---
+
+<div
+  class="bubble fixed bottom-5 left-1/2 z-40 flex -translate-x-1/2 flex-col items-center"
+  data-bubble
+  transition:persist={`bubble-${lang}`}
+>
+  <nav
+    id={`bubble-panel-${lang}`}
+    data-bubble-panel
+    aria-label={t(lang, "bubble.open")}
+    class="bubble-panel mb-3 grid w-[min(640px,calc(100vw-24px))] grid-cols-2 gap-2.5 rounded-2xl border border-line-strong bg-panel/95 p-3 shadow-2xl backdrop-blur-xl sm:grid-cols-4"
+  >
+    {items.map((i) => (
+      <a
+        href={localizePath(lang, i.page)}
+        class="group rounded-xl border border-line bg-bg-dark p-3.5 transition hover:-translate-y-0.5 hover:border-blue"
+      >
+        <span class="font-mono text-lg text-fg" aria-hidden="true">{i.icon}</span>
+        <span class="mt-2 block font-mono text-[13px] font-bold text-fg">/{t(lang, `nav.${i.page}`)}</span>
+        <span class="block text-[11.5px] leading-snug text-dim">{i.hint}</span>
+      </a>
+    ))}
+  </nav>
+  <button
+    type="button"
+    data-bubble-toggle
+    aria-expanded="false"
+    aria-controls={`bubble-panel-${lang}`}
+    class="flex items-center gap-2.5 rounded-full border border-line-strong bg-panel/95 py-2 pr-4 pl-2 font-mono text-[12.5px] text-fg shadow-xl backdrop-blur-xl transition-colors hover:border-blue"
+  >
+    <span class="bubble-icon grid size-[26px] place-items-center rounded-full bg-gradient-to-br from-mag to-blue text-[15px] font-extrabold text-bg-dark" aria-hidden="true">+</span>
+    {t(lang, "bubble.open")}
+  </button>
+</div>
+
+<style>
+  .bubble-panel {
+    transform-origin: bottom center;
+    transform: scale(0.7) translateY(24px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.15),
+      opacity 0.2s,
+      visibility 0.3s;
+  }
+  .bubble.open .bubble-panel {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .bubble-icon {
+    transition: transform 0.3s;
+  }
+  .bubble.open .bubble-icon {
+    transform: rotate(45deg);
+  }
+</style>
+
+<script>
+  // Delegated listeners so they keep working after client-side navigations swap the page.
+  function setOpen(bubble: Element, open: boolean) {
+    bubble.classList.toggle("open", open);
+    bubble.querySelector("[data-bubble-toggle]")?.setAttribute("aria-expanded", String(open));
+  }
+  const closeAll = () => document.querySelectorAll("[data-bubble]").forEach((b) => setOpen(b, false));
+
+  document.addEventListener("click", (e) => {
+    const target = e.target as Element;
+    const toggle = target.closest("[data-bubble-toggle]");
+    if (toggle) {
+      const bubble = toggle.closest("[data-bubble]")!;
+      setOpen(bubble, !bubble.classList.contains("open"));
+    } else if (!target.closest("[data-bubble-panel]")) {
+      closeAll();
+    }
+  });
+  document.addEventListener("keydown", (e) => e.key === "Escape" && closeAll());
+  document.addEventListener("astro:before-swap", closeAll);
+</script>

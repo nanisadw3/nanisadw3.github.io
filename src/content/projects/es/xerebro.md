@@ -7,9 +7,10 @@ caseStudy: true
 image: ../../../assets/projects/xerebro.jpg
 imageAlt: Pantalla de acceso de Xerebro Operativo, RAG inteligente de PEMEX
 tags: [RAG, Qdrant, Flask, LLMs]
-metric: 706 reportes indexados
 links:
   github: https://github.com/nanisadw3/RAG_pemex
+live: xerebro
+repo: RAG_pemex
 ---
 
 ## Problema
@@ -24,7 +25,7 @@ comprobarla.
 
 Xerebro es una plataforma RAG que responde preguntas técnicas y operativas en lenguaje natural,
 **citando el reporte, la refinería, la fecha y el turno** de donde sale cada dato. La diseñé,
-construí y la opero en producción desde marzo de 2026, con **706 reportes vectorizados**.
+construí y la opero en producción: cada día se indexa el reporte de las siete refinerías, y las cifras de arriba vienen directo de su servidor MCP.
 
 Antes de buscar, el sistema clasifica la intención de la pregunta para no gastar llamadas de más:
 
@@ -50,7 +51,7 @@ Antes de buscar, el sistema clasifica la intención de la pregunta para no gasta
 
 ## Resultados
 
-- En producción desde marzo de 2026, con 706 reportes indexados.
+- En producción, con un reporte nuevo indexado cada día (cifras actualizadas arriba).
 - **85 tests automatizados** que corren sin red.
 - Menos errores por cuota de los proveedores y menos consultas innecesarias a la base vectorial
   gracias al enrutamiento por intención.

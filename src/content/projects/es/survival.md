@@ -9,4 +9,5 @@ imageAlt: "Mapa del videojuego con agentes"
 tags: ["Python", "Pygame", "IA"]
 links:
   github: https://github.com/nanisadw3/Juego_pygame
+repo: Juego_pygame
 ---

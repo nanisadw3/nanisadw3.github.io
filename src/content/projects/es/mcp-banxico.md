@@ -7,12 +7,13 @@ caseStudy: true
 image: ../../../assets/projects/mcp-banxico.jpg
 imageAlt: Página de mcp-banxico con el endpoint remoto público
 tags: [MCP, Python, PyPI, Open Source]
-metric: 1.7k descargas/mes
 links:
   github: https://github.com/nanisadw3/mcp-banxico
   pypi: https://pypi.org/project/mcp-banxico/
   demo: https://inakisobera.me/mcp-banxico/
   video: https://www.youtube.com/watch?v=saaD665cn9g
+live: pypi
+repo: mcp-banxico
 ---
 
 ## Problema
@@ -63,7 +64,7 @@ Hay dos formas de usarlo:
 
 ## Resultados
 
-- **Más de 1,700 descargas al mes** en PyPI (octubre de 2026).
+- Descargas mensuales en PyPI en constante crecimiento (cifra en vivo arriba).
 - Incluido en la lista [TensorBlock/awesome-mcp-servers](https://github.com/TensorBlock/awesome-mcp-servers).
 - Base de otros proyectos: [Banxico al Día](/proyectos/banxico-al-dia/) usa sus series, y el
   agente [Gordito](/proyectos/gordito/) lo integra como herramienta.

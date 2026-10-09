@@ -9,4 +9,5 @@ imageAlt: "Panel del MCP Relational AI Gateway con una consulta y su gráfica"
 tags: ["MCP", "Multi-LLM", "SQL Server", "PostgreSQL"]
 links:
   github: https://github.com/nanisadw3/MCP-Relational-AI-Gateway
+repo: MCP-Relational-AI-Gateway
 ---

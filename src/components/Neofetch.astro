@@ -1,0 +1,38 @@
+---
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+import { profile } from "../data/profile.ts";
+import { github } from "../data/live.ts";
+// The classic neofetch Arch Linux logo.
+import logo from "../data/arch-logo.txt?raw";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const rows = profile[lang].neofetch.map(([k, v]) => [k, v.replace("{repos}", String(github.repos))]);
+
+const palette = ["#15161e", "#f7768e", "#9ece6a", "#e0af68", "#7aa2f7", "#bb9af7", "#7dcfff", "#c0caf5"];
+---
+
+<figure class="overflow-hidden rounded-xl border border-line bg-bg-dark font-mono text-[11.5px] shadow-[0_24px_60px_-24px_#000] sm:text-[12px]" aria-label="neofetch">
+  <div class="flex items-center gap-1.5 border-b border-line px-3 py-2 text-[11px] text-dim">
+    <i class="size-2.5 rounded-full bg-red"></i><i class="size-2.5 rounded-full bg-yellow"></i><i class="size-2.5 rounded-full bg-green"></i>
+    <span class="ml-2">inaki@arch: ~</span>
+  </div>
+  <div class="flex items-start gap-5 overflow-x-auto p-4 sm:p-5">
+    <pre class="hidden shrink-0 text-[10px] leading-[1.18] font-bold text-arch md:block" aria-hidden="true">{logo.trimEnd()}</pre>
+    <div class="min-w-0 leading-[1.62] whitespace-nowrap">
+      <p><span class="font-bold text-arch">inaki</span><span class="text-dim">@</span><span class="font-bold text-arch">arch</span></p>
+      <p class="text-dim">-----------------------</p>
+      {rows.map(([k, v]) => (
+        <p><span class="font-bold text-arch">{k}</span>: <span class="text-fg-2">{v}</span></p>
+      ))}
+      <p><span class="font-bold text-arch">Status</span>: <span class="text-green">● {t(lang, "hero.open").split(" · ")[0]}</span></p>
+      <p class="mt-2.5 flex" aria-hidden="true">
+        {palette.map((c) => <i class="inline-block h-3 w-5" style={`background:${c}`}></i>)}
+      </p>
+    </div>
+  </div>
+</figure>

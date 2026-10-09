@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectLinks from "../components/ProjectLinks.astro";
+import RepoMeta from "../components/RepoMeta.astro";
+import LiveBox from "../components/LiveBox.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 import { hasTranslation, slugOf } from "../content/queries.ts";
@@ -13,7 +15,7 @@ interface Props {
 }
 
 const { lang, project } = Astro.props;
-const { title, summary, image, imageAlt, tags, metric, links } = project.data;
+const { title, summary, image, imageAlt, tags, metric, links, live, repo } = project.data;
 const slug = slugOf(project);
 const { Content } = await render(project);
 const altHref = (await hasTranslation("projects", otherLang(lang), slug))
@@ -22,20 +24,23 @@ const altHref = (await hasTranslation("projects", otherLang(lang), slug))
 ---
 
 <BaseLayout lang={lang} title={`${title} — Iñaki Sobera`} description={summary} image={image} altHref={altHref} type="article">
-  <article class="mx-auto max-w-5xl px-4 pt-12 pb-20 sm:px-6 sm:pt-16">
-    <a href={localizePath(lang, "projects")} class="text-sm text-muted transition-colors hover:text-fg">← {t(lang, "project.back")}</a>
+  <article class="mx-auto max-w-5xl px-5 pt-12 pb-20 sm:px-7">
+    <a href={localizePath(lang, "projects")} class="font-mono text-[13px] text-dim transition-colors hover:text-fg">← {t(lang, "projects.back")}</a>
 
     <header class="mt-8 max-w-3xl">
-      <p class="font-mono text-xs uppercase tracking-[0.15em] text-faint">{tags.join(" · ")}</p>
-      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{title}</h1>
-      <p class="mt-5 text-lg leading-relaxed text-muted text-pretty">{summary}</p>
-      <div class="mt-6 flex flex-wrap items-center gap-4">
-        {metric && <span class="rounded-full border border-accent/30 px-3 py-1 font-mono text-xs text-accent">{metric}</span>}
-        <ProjectLinks lang={lang} links={links} size="md" />
+      <p class="font-mono text-xs text-blue">{tags.join(" · ")}</p>
+      <h1 class="mt-2 font-mono text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">{title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-pretty">{summary}</p>
+      <div class="mt-5 grid gap-3">
+        <RepoMeta lang={lang} repo={repo} />
+        <ProjectLinks lang={lang} links={links} />
+        {!live && metric && <p class="font-mono text-xs text-orange">{metric}</p>}
       </div>
     </header>
 
-    <div class="mt-10 overflow-hidden rounded-xl border border-line bg-surface">
+    {live && <div class="mt-8"><LiveBox lang={lang} kind={live} /></div>}
+
+    <div class="mt-8 overflow-hidden rounded-xl border border-line bg-bg-dark">
       <Image src={image} alt={imageAlt} widths={[640, 1024, 1280]} sizes="(min-width: 1024px) 1024px, 100vw" class="w-full" loading="eager" />
     </div>
 

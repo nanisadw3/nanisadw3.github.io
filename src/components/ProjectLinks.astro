@@ -6,30 +6,20 @@ import { t } from "../i18n/utils.ts";
 interface Props {
   lang: Lang;
   links: CollectionEntry<"projects">["data"]["links"];
-  size?: "sm" | "md";
 }
 
-const { lang, links, size = "sm" } = Astro.props;
-
+const { lang, links } = Astro.props;
 const order = ["demo", "github", "pypi", "pr", "video"] as const;
-const items = order
-  .filter((k) => links[k])
-  .map((k) => ({ href: links[k]!, label: t(lang, `project.${k}`) }));
+const labels = { demo: "projects.demo", github: "projects.code", pypi: "projects.pypi", pr: "projects.pr", video: "projects.video" } as const;
+const items = order.filter((k) => links[k]).map((k) => ({ href: links[k]!, label: t(lang, labels[k]) }));
 ---
 
 {items.length > 0 && (
-  <ul class:list={["flex flex-wrap gap-2", size === "md" && "gap-3"]}>
+  <ul class="flex flex-wrap gap-2 font-mono text-xs">
     {items.map((l) => (
       <li>
-        <a
-          href={l.href}
-          class:list={[
-            "inline-flex items-center gap-1 rounded-md border border-line text-muted transition-colors hover:border-faint hover:text-fg",
-            size === "sm" ? "px-2.5 py-1 text-xs" : "px-3.5 py-2 text-sm",
-          ]}
-        >
-          {l.label}
-          <span aria-hidden="true">↗</span>
+        <a href={l.href} class="inline-flex items-center gap-1 rounded-md border border-line px-2.5 py-1 text-fg-2 transition-colors hover:border-blue hover:text-fg">
+          {l.label} <span aria-hidden="true">↗</span>
         </a>
       </li>
     ))}

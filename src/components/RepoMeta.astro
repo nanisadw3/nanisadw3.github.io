@@ -1,0 +1,23 @@
+---
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+import { github, relativeDays } from "../data/live.ts";
+
+interface Props {
+  lang: Lang;
+  repo?: string;
+}
+
+const { lang, repo } = Astro.props;
+const stat = repo ? github.repoStats[repo] : undefined;
+---
+
+{stat && (
+  <p class="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11.5px] text-dim">
+    {stat.language && (
+      <span><i class="mr-1.5 inline-block size-2 rounded-full align-[0.05em]" style={`background:${stat.language.color}`}></i>{stat.language.name}</span>
+    )}
+    <span>★ {stat.stars}</span>
+    <span>{t(lang, "gh.updated")} {relativeDays(lang, stat.pushedAt)}</span>
+  </p>
+)}

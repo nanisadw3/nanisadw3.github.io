@@ -1,0 +1,359 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { contact, profile } from "../data/profile.ts";
+import { banxico, evidenceText, formatNumber, github, pypi, xerebro } from "../data/live.ts";
+import { getProjects, slugOf } from "../content/queries.ts";
+import logo from "../data/arch-logo.txt?raw";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const p = profile[lang];
+const projects = (await getProjects(lang)).map((e) => ({
+  slug: slugOf(e),
+  title: e.data.title,
+  summary: e.data.summary,
+  featured: e.data.featured,
+  evidence: e.data.live ? evidenceText(lang, e.data.live) : (e.data.metric ?? ""),
+  href: e.data.caseStudy ? localizePath(lang, "project", slugOf(e)) : (e.data.links.github ?? e.data.links.demo ?? null),
+}));
+
+// Everything the terminal prints, serialized once at build time.
+const data = {
+  lang,
+  logo: logo.trimEnd(),
+  neofetch: p.neofetch.map(([k, v]) => [k, v.replace("{repos}", String(github.repos))]),
+  status: t(lang, "hero.open"),
+  name: `${p.name.first} ${p.name.last}`,
+  role: p.role,
+  summary: p.summary,
+  specialties: p.specialties.map((s) => ({ path: s.path, title: s.title, text: s.text, project: s.project.slug, evidence: evidenceText(lang, s.evidence) })),
+  also: p.also,
+  experience: p.experience,
+  education: p.education,
+  certifications: p.certifications.map((c) => (c.issuer ? `${c.title} · ${c.issuer}` : c.title)),
+  projects,
+  github: {
+    user: contact.githubUser,
+    contributions: formatNumber(lang, github.contributions),
+    repos: github.repos,
+    stars: github.stars,
+    followers: github.followers,
+    languages: github.languages.slice(0, 4).map((l) => `${l.name} ${l.percent}%`),
+    prs: github.externalPrs.map((pr) => `${pr.repo}#${pr.number} — ${pr.title}`),
+  },
+  xerebro,
+  pypi: pypi.lastMonth,
+  banxico,
+  contact,
+  links: {
+    home: localizePath(lang, "home"),
+    github: localizePath(lang, "github"),
+    otherTerminal: localizePath(otherLang(lang), "terminal"),
+  },
+};
+const chips = lang === "es"
+  ? ["help", "whoami", "neofetch", "especialidades", "proyectos", "banxico", "contacto"]
+  : ["help", "whoami", "neofetch", "skills", "projects", "banxico", "contact"];
+---
+
+<BaseLayout lang={lang} title={`${t(lang, "terminal.title")} — Iñaki Sobera`} description={t(lang, "meta.terminalDescription")} altHref={localizePath(otherLang(lang), "terminal")} bubble={false}>
+  <div class="mx-auto max-w-5xl px-3 pt-8 pb-10 sm:px-7">
+    <p class="mb-3 px-1 font-mono text-[12.5px] text-dim">{t(lang, "terminal.intro")}</p>
+    <div class="overflow-hidden rounded-xl border border-line-strong bg-bg-dark shadow-[0_30px_80px_-30px_#000]">
+      <div class="flex items-center gap-1.5 border-b border-line px-3 py-2 font-mono text-[11px] text-dim">
+        <i class="size-2.5 rounded-full bg-red"></i><i class="size-2.5 rounded-full bg-yellow"></i><i class="size-2.5 rounded-full bg-green"></i>
+        <span class="ml-2">inaki@arch: ~ — zsh</span>
+      </div>
+      <div
+        id="term"
+        class="h-[min(70dvh,640px)] cursor-text overflow-y-auto p-4 font-mono text-[12.5px] leading-relaxed text-fg-2 sm:text-[13px]"
+        data-terminal
+      >
+        <div data-out aria-live="polite"></div>
+        <form data-form class="flex items-center gap-2">
+          <label for="term-input" class="shrink-0"><span class="text-green">inaki</span><span class="text-dim">@</span><span class="text-blue">arch</span><span class="text-dim">:~$</span></label>
+          <input
+            id="term-input"
+            data-input
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            enterkeyhint="send"
+            placeholder={t(lang, "terminal.placeholder")}
+            class="min-w-0 flex-1 bg-transparent text-fg caret-blue outline-none placeholder:text-dim/60"
+          />
+        </form>
+      </div>
+      <div class="flex flex-wrap gap-2 border-t border-line p-3" data-chips>
+        {chips.map((c) => (
+          <button type="button" data-cmd={c} class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2 transition-colors hover:border-blue hover:text-fg">{c}</button>
+        ))}
+        <a href={localizePath(lang, "home")} class="ml-auto rounded-md border border-line px-2.5 py-1 font-mono text-xs text-dim hover:text-fg">exit</a>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="term-data" set:html={JSON.stringify(data)} />
+</BaseLayout>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import { fetchFix } from "../scripts/banxico.ts";
+
+  type Data = Record<string, any>;
+
+  const esc = (s: unknown) =>
+    String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+  const c = (cls: string, s: unknown) => `<span class="${cls}">${esc(s)}</span>`;
+  const cmdLink = (cmd: string, text = cmd) => `<button type="button" data-cmd="${esc(cmd)}" class="text-cyan underline decoration-dotted underline-offset-2 hover:text-fg">${esc(text)}</button>`;
+
+  function setup(root: HTMLElement) {
+    if (root.dataset.ready) return;
+    root.dataset.ready = "1";
+
+    const d: Data = JSON.parse(document.getElementById("term-data")!.textContent!);
+    const es = d.lang === "es";
+    const out = root.querySelector<HTMLElement>("[data-out]")!;
+    const form = root.querySelector<HTMLFormElement>("[data-form]")!;
+    const input = root.querySelector<HTMLInputElement>("[data-input]")!;
+    const history: string[] = [];
+    let hIndex = 0;
+
+    const print = (html = "") => {
+      const line = document.createElement("div");
+      line.className = "whitespace-pre-wrap break-words";
+      line.innerHTML = html || "&nbsp;";
+      out.appendChild(line);
+      root.scrollTop = root.scrollHeight;
+    };
+    const echo = (cmd: string) =>
+      print(`${c("text-green", "inaki")}${c("text-dim", "@")}${c("text-blue", "arch")}${c("text-dim", ":~$")} ${c("text-fg", cmd)}`);
+
+    const projectBySlug = (slug: string) => d.projects.find((p: Data) => p.slug === slug.replace(/\/$/, ""));
+
+    const commands: Record<string, { help: [string, string]; run: (args: string[]) => void | Promise<void> }> = {
+      help: {
+        help: ["help", es ? "esta lista" : "this list"],
+        run: () => {
+          print(c("text-fg", es ? "Comandos disponibles (toca uno o escríbelo):" : "Available commands (tap one or type it):"));
+          for (const [name, cmd] of Object.entries(commands)) {
+            if (aliases[name]) continue;
+            const [label, ...rest] = cmd.help[0].split(" ");
+            const tail = rest.length ? ` ${esc(rest.join(" "))}` : "";
+            const pad = " ".repeat(Math.max(1, 18 - cmd.help[0].length));
+            // `cat` needs an argument, so its link lists the projects instead.
+            const target = label === "cat" ? (es ? "proyectos" : "projects") : cmd.help[0];
+            print(`  ${cmdLink(target, label)}${tail}${pad}${c("text-dim", "— " + cmd.help[1])}`);
+          }
+        },
+      },
+      whoami: {
+        help: ["whoami", es ? "quién soy" : "who I am"],
+        run: () => {
+          print(c("font-bold text-fg", d.name));
+          print(c("text-blue", d.role));
+          print(d.summary);
+          print(c("text-green", "● " + d.status));
+        },
+      },
+      neofetch: {
+        help: ["neofetch", es ? "mi ficha, estilo Arch" : "my profile, Arch style"],
+        run: () => {
+          const logo = d.logo.split("\n");
+          const info = [
+            `${c("font-bold text-arch", "inaki")}${c("text-dim", "@")}${c("font-bold text-arch", "arch")}`,
+            c("text-dim", "-----------------------"),
+            ...d.neofetch.map(([k, v]: [string, string]) => `${c("font-bold text-arch", k)}: ${esc(v)}`),
+            `${c("font-bold text-arch", "Status")}: ${c("text-green", "● " + d.status.split(" · ")[0])}`,
+          ];
+          const narrow = root.clientWidth < 640;
+          const rows = Math.max(narrow ? 0 : logo.length, info.length);
+          for (let i = 0; i < rows; i++) {
+            const left = narrow ? "" : c("font-bold text-arch", (logo[i] ?? "").padEnd(40));
+            print(left + (info[i] ?? ""));
+          }
+        },
+      },
+      [es ? "especialidades" : "skills"]: {
+        help: [es ? "especialidades" : "skills", es ? "lo que hago en IA" : "what I do in AI"],
+        run: () => {
+          for (const s of d.specialties) {
+            print(`${c("text-blue", s.path)} ${c("font-bold text-fg", s.title)}`);
+            print(`  ${esc(s.text)}`);
+            print(`  ${c("text-green", "→")} ${cmdLink("cat " + s.project)} ${c("text-orange", s.evidence)}`);
+          }
+          print(c("text-dim", (es ? "también · " : "also · ") + d.also));
+        },
+      },
+      [es ? "proyectos" : "projects"]: {
+        help: [es ? "proyectos" : "projects", es ? "lista de proyectos" : "project list"],
+        run: () => {
+          print(c("text-dim", "drwxr-xr-x  inaki  ~/" + (es ? "proyectos" : "projects")));
+          for (const p of d.projects) {
+            const star = p.featured ? c("text-yellow", "★ ") : "  ";
+            print(`${star}${cmdLink("cat " + p.slug)}${" ".repeat(Math.max(1, 16 - p.slug.length))}${c("text-orange", p.evidence)}`);
+          }
+          print(c("text-dim", es ? "usa cat <proyecto> para abrirlo" : "use cat <project> to open it"));
+        },
+      },
+      cat: {
+        help: ["cat <proyecto>", es ? "abre un proyecto" : "opens a project"],
+        run: (args) => {
+          const p = args[0] && projectBySlug(args[0]);
+          if (!p) {
+            print(c("text-red", `cat: ${args[0] ?? ""}: ${es ? "no existe el archivo" : "no such file"}`));
+            return;
+          }
+          print(c("font-bold text-cyan", p.title));
+          print(p.summary);
+          if (p.href) {
+            print(c("text-dim", es ? "abriendo…" : "opening…"));
+            setTimeout(() => (p.href.startsWith("/") ? navigate(p.href) : window.open(p.href, "_blank", "noopener")), 600);
+          }
+        },
+      },
+      [es ? "experiencia" : "experience"]: {
+        help: [es ? "experiencia" : "experience", es ? "trabajo y educación" : "work and education"],
+        run: () => {
+          for (const e of d.experience) print(`${c("text-green", "[WORK]")} ${c("text-dim", e.period)}  ${c("font-bold text-fg", e.role)} · ${esc(e.company)}`);
+          for (const e of d.education) print(`${c("text-blue", "[EDU] ")} ${c("text-dim", e.period)}  ${c("font-bold text-fg", e.title)} · ${esc(e.place)}`);
+          print(`${c("text-yellow", "[CERT]")} ${esc(d.certifications.join(" · "))}`);
+        },
+      },
+      github: {
+        help: ["github", es ? "mi actividad en GitHub" : "my GitHub activity"],
+        run: () => {
+          const g = d.github;
+          print(`${c("font-bold text-fg", "@" + g.user)}  ${g.contributions} ${es ? "contribuciones este año" : "contributions this year"}`);
+          print(`${g.repos} repos · ★ ${g.stars} · ${g.followers} ${es ? "seguidores" : "followers"}`);
+          print(c("text-dim", g.languages.join(" · ")));
+          for (const pr of g.prs) print(`${c("text-mag", "merged")} ${esc(pr)}`);
+          print(`${c("text-green", "→")} ${cmdLink(es ? "abrir github" : "open github")}`);
+        },
+      },
+      xerebro: {
+        help: ["xerebro", es ? "estado del RAG (vía su MCP)" : "RAG status (via its MCP)"],
+        run: () => {
+          const x = d.xerebro;
+          print(`${c("text-dim", "→ tools/call")} ${c("text-mag", "cobertura_del_corpus")}`);
+          print(`{ ${c("text-mag", '"dias_con_reporte"')}: ${c("text-orange", x.daysWithReport)}, ${c("text-mag", '"total_fragmentos"')}: ${c("text-orange", x.fragments)},`);
+          print(`  ${c("text-mag", '"refinerias"')}: ${c("text-orange", x.refineries.length)}, ${c("text-mag", '"ultima_fecha"')}: ${c("text-cyan", '"' + x.lastDate + '"')} }`);
+          print(c("text-dim", es ? "(compilado a diario; el token del MCP no sale del servidor de build)" : "(compiled daily; the MCP token never leaves the build server)"));
+        },
+      },
+      banxico: {
+        help: ["banxico", es ? "tipo de cambio en vivo vía mcp-banxico" : "live exchange rate via mcp-banxico"],
+        run: async () => {
+          print(`${c("text-dim", "→ tools/call")} ${c("text-mag", "tipo_cambio_usd")} ${c("text-dim", "@ banxico-mcp.duckdns.org/mcp")}`);
+          try {
+            const fix = await fetchFix();
+            print(`{ ${c("text-mag", '"id_serie"')}: ${c("text-cyan", '"' + fix.series + '"')}, ${c("text-mag", '"fecha"')}: ${c("text-cyan", '"' + fix.date + '"')}, ${c("text-mag", '"valor"')}: ${c("text-orange", fix.value)} }`);
+            print(`${c("text-green", "✓")} ${es ? "FIX hoy" : "FIX today"}: ${c("font-bold text-fg", "$" + fix.value.toFixed(4))} MXN/USD ${c("text-green", es ? "(en vivo)" : "(live)")}`);
+          } catch {
+            const b = d.banxico;
+            print(`${c("text-yellow", "!")} ${es ? "sin conexión al MCP; último valor compilado" : "MCP unreachable; last compiled value"}:`);
+            print(`  ${c("font-bold text-fg", "$" + Number(b.value).toFixed(4))} MXN/USD · ${esc(b.date)} · ${esc(b.series)}`);
+          }
+        },
+      },
+      cv: {
+        help: ["cv", es ? "descarga mi CV (PDF)" : "download my CV (PDF)"],
+        run: () => {
+          print(c("text-dim", es ? "descargando cv_inaki_sobera.pdf…" : "downloading cv_inaki_sobera.pdf…"));
+          window.open(d.contact.cv, "_blank", "noopener");
+        },
+      },
+      [es ? "contacto" : "contact"]: {
+        help: [es ? "contacto" : "contact", es ? "cómo encontrarme" : "how to reach me"],
+        run: () => {
+          print(`${c("text-blue", "email   ")} <a class="text-cyan underline" href="mailto:${esc(d.contact.email)}">${esc(d.contact.email)}</a>`);
+          print(`${c("text-blue", "linkedin")} <a class="text-cyan underline" href="${esc(d.contact.linkedin)}">${esc(d.contact.linkedin)}</a>`);
+          print(`${c("text-blue", "github  ")} <a class="text-cyan underline" href="${esc(d.contact.github)}">${esc(d.contact.github)}</a>`);
+        },
+      },
+      lang: {
+        help: [es ? "lang en" : "lang es", es ? "switch to English" : "cambiar a español"],
+        run: () => navigate(d.links.otherTerminal),
+      },
+      clear: { help: ["clear", es ? "limpia la pantalla" : "clears the screen"], run: () => void (out.innerHTML = "") },
+      exit: { help: ["exit", es ? "vuelve a la portada" : "back to the home page"], run: () => navigate(d.links.home) },
+    };
+
+    // Aliases accepted in both languages, hidden from `help`.
+    const aliases: Record<string, string> = es
+      ? { skills: "especialidades", projects: "proyectos", experience: "experiencia", educacion: "experiencia", contact: "contacto", ls: "proyectos", inicio: "exit", home: "exit" }
+      : { especialidades: "skills", proyectos: "projects", experiencia: "experience", education: "experience", contacto: "contact", ls: "projects", home: "exit" };
+    for (const [alias, target] of Object.entries(aliases)) commands[alias] = commands[target];
+
+    async function run(raw: string) {
+      const line = raw.trim();
+      echo(line);
+      if (!line) return;
+      history.push(line);
+      hIndex = history.length;
+      const [name, ...args] = line.split(/\s+/);
+      const lower = name.toLowerCase();
+      if (lower === "sudo") return print(c("text-red", es ? "inaki no está en el archivo sudoers. Este incidente será reportado. 😉" : "inaki is not in the sudoers file. This incident will be reported. 😉"));
+      if ((lower === "abrir" || lower === "open") && args[0] === "github") return navigate(d.links.github);
+      const cmd = commands[lower];
+      if (!cmd) return print(`${c("text-red", `zsh: command not found: ${name}`)} ${c("text-dim", es ? "— prueba" : "— try")} ${cmdLink("help")}`);
+      await cmd.run(args);
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const value = input.value;
+      input.value = "";
+      run(value);
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp" && hIndex > 0) {
+        input.value = history[--hIndex];
+        e.preventDefault();
+      } else if (e.key === "ArrowDown") {
+        hIndex = Math.min(history.length, hIndex + 1);
+        input.value = history[hIndex] ?? "";
+        e.preventDefault();
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        const [first, second] = input.value.split(/\s+/);
+        if (second !== undefined && first === "cat") {
+          const match = d.projects.filter((p: Data) => p.slug.startsWith(second)).map((p: Data) => p.slug);
+          if (match.length === 1) input.value = `cat ${match[0]}`;
+          else if (match.length > 1) print(c("text-dim", match.join("  ")));
+        } else {
+          const match = Object.keys(commands).filter((n) => !aliases[n] && n.startsWith(first));
+          if (match.length === 1) input.value = match[0] + (match[0] === "cat" ? " " : "");
+          else if (match.length > 1) print(c("text-dim", match.join("  ")));
+        }
+      } else if (e.key === "l" && e.ctrlKey) {
+        e.preventDefault();
+        out.innerHTML = "";
+      }
+    });
+
+    // Clicking a suggested command (in the output or the chip bar) runs it.
+    root.closest("main")!.addEventListener("click", (e) => {
+      const btn = (e.target as Element).closest<HTMLElement>("[data-cmd]");
+      if (btn) {
+        run(btn.dataset.cmd!);
+        input.focus({ preventScroll: true });
+      } else if ((e.target as Element).closest("[data-terminal]") && !window.getSelection()?.toString()) {
+        input.focus({ preventScroll: true });
+      }
+    });
+
+    run("neofetch").then(() => run("help"));
+    if (window.matchMedia("(pointer: fine)").matches) input.focus({ preventScroll: true });
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    const root = document.querySelector<HTMLElement>("[data-terminal]");
+    if (root) setup(root);
+  });
+</script>

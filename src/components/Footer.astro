@@ -11,14 +11,12 @@ const { lang } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line">
-  <div class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-8 text-sm text-faint sm:flex-row sm:items-center sm:justify-between sm:px-6">
-    <p>© {year} {t(lang, "footer.rights")}</p>
-    <ul class="flex flex-wrap gap-x-5 gap-y-2">
-      <li><a href={`mailto:${contact.email}`} class="hover:text-fg transition-colors">{contact.email}</a></li>
-      <li><a href={contact.github} class="hover:text-fg transition-colors">GitHub</a></li>
-      <li><a href={contact.linkedin} class="hover:text-fg transition-colors">LinkedIn</a></li>
-      <li><a href={contact.siteSource} class="hover:text-fg transition-colors">{t(lang, "footer.source")}</a></li>
-    </ul>
+<footer class="border-t border-line pb-24">
+  <div class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-6 font-mono text-xs text-dim sm:flex-row sm:items-center sm:justify-between sm:px-7">
+    <p>© {year} Iñaki Sobera</p>
+    <p class="flex flex-wrap gap-x-4 gap-y-1">
+      <a href={`mailto:${contact.email}`} class="hover:text-fg">{contact.email}</a>
+      <a href={contact.siteSource} class="hover:text-fg">{t(lang, "footer.made")}</a>
+    </p>
   </div>
 </footer>

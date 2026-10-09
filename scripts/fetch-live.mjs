@@ -28,7 +28,7 @@ async function github() {
       contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } }
       repositories(first: 100, ownerAffiliations: OWNER, isFork: false, privacy: PUBLIC) {
         totalCount
-        nodes { name url stargazerCount pushedAt primaryLanguage { name color }
+        nodes { name description url stargazerCount pushedAt primaryLanguage { name color }
           languages(first: 10, orderBy: { field: SIZE, direction: DESC }) { edges { size node { name color } } } }
       }
     }
@@ -58,7 +58,7 @@ async function github() {
     repoStats: Object.fromEntries(
       repos.map((r) => [
         r.name,
-        { url: r.url, stars: r.stargazerCount, pushedAt: r.pushedAt, language: r.primaryLanguage },
+        { url: r.url, description: r.description, stars: r.stargazerCount, pushedAt: r.pushedAt, language: r.primaryLanguage },
       ]),
     ),
     externalPrs: data.search.nodes.map((p) => ({

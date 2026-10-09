@@ -4,14 +4,24 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
 
+/* Tokyo Night */
 @theme {
-  --color-bg: #09090b;
-  --color-surface: #18181b;
-  --color-line: #27272a;
-  --color-fg: #fafafa;
-  --color-muted: #a1a1aa;
-  --color-faint: #71717a;
-  --color-accent: #34d399;
+  --color-bg: #1a1b26;
+  --color-bg-dark: #16161e;
+  --color-panel: #1f2335;
+  --color-line: #292e42;
+  --color-line-strong: #414868;
+  --color-fg: #c0caf5;
+  --color-fg-2: #a9b1d6;
+  --color-dim: #565f89;
+  --color-blue: #7aa2f7;
+  --color-cyan: #7dcfff;
+  --color-mag: #bb9af7;
+  --color-green: #9ece6a;
+  --color-orange: #ff9e64;
+  --color-yellow: #e0af68;
+  --color-red: #f7768e;
+  --color-arch: #1793d1;
 
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
@@ -24,29 +34,56 @@
   }
 
   body {
-    @apply bg-bg text-fg font-sans antialiased;
+    @apply bg-bg text-fg-2 font-sans antialiased;
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--color-blue) 35%, transparent);
+    color: var(--color-fg);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-blue);
     outline-offset: 3px;
     border-radius: 4px;
   }
 }
 
+@utility grad-text {
+  background: linear-gradient(90deg, var(--color-mag), var(--color-blue) 55%, var(--color-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Scroll reveal: content is visible by default and only hidden once JS opts in, so nothing
+   depends on JavaScript to be readable. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.js .reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
 /* Prose for case studies and posts */
 .prose-site {
-  @apply prose prose-invert max-w-[68ch] prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-code:font-mono prose-code:before:content-none prose-code:after:content-none prose-pre:border prose-pre:border-line prose-pre:bg-surface;
-  --tw-prose-body: var(--color-muted);
+  @apply prose prose-invert max-w-[70ch] prose-headings:font-mono prose-headings:font-bold prose-headings:tracking-tight prose-a:text-cyan prose-a:no-underline hover:prose-a:underline prose-code:font-mono prose-code:text-mag prose-code:before:content-none prose-code:after:content-none prose-pre:border prose-pre:border-line prose-pre:bg-bg-dark;
+  --tw-prose-body: var(--color-fg-2);
   --tw-prose-headings: var(--color-fg);
   --tw-prose-bold: var(--color-fg);
-  --tw-prose-bullets: var(--color-faint);
+  --tw-prose-bullets: var(--color-dim);
+  --tw-prose-counters: var(--color-dim);
   --tw-prose-hr: var(--color-line);
-  --tw-prose-th-borders: var(--color-line);
+  --tw-prose-quotes: var(--color-fg-2);
+  --tw-prose-quote-borders: var(--color-line-strong);
+  --tw-prose-th-borders: var(--color-line-strong);
   --tw-prose-td-borders: var(--color-line);
 }
 
@@ -60,5 +97,10 @@
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

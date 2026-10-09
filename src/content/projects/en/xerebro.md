@@ -7,9 +7,10 @@ caseStudy: true
 image: ../../../assets/projects/xerebro.jpg
 imageAlt: Xerebro Operativo sign-in screen, PEMEX's RAG assistant
 tags: [RAG, Qdrant, Flask, LLMs]
-metric: 706 reports indexed
 links:
   github: https://github.com/nanisadw3/RAG_pemex
+live: xerebro
+repo: RAG_pemex
 ---
 
 ## Problem
@@ -23,7 +24,7 @@ one. And an AI answer with no source is useless in an operational setting: it ha
 
 Xerebro is a RAG platform that answers technical and operational questions in natural language,
 **citing the report, refinery, date and shift** each fact comes from. I designed and built it, and
-have run it in production since March 2026, with **706 reports vectorized**.
+run it in production: every day the report from all seven refineries is indexed, and the numbers above come straight from its MCP server.
 
 Before searching, the system classifies the question's intent to avoid wasted calls:
 
@@ -48,7 +49,7 @@ Before searching, the system classifies the question's intent to avoid wasted ca
 
 ## Results
 
-- In production since March 2026, with 706 reports indexed.
+- In production, with a new report indexed every day (live numbers above).
 - **85 automated tests** that run offline.
 - Fewer provider quota errors and fewer unnecessary vector-store queries thanks to intent routing.
 
