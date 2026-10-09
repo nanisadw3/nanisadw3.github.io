@@ -16,11 +16,27 @@ export const portfolioDataEs = {
   },
   projects: [
     {
-      title: "MCP Relational AI Gateway",
-      description: "Portal de análisis y administración de bases de datos relacionales potenciado por Google Gemini bajo el estándar Model Context Protocol (MCP). Consulta tus bases de datos con lenguaje natural, gráficos dinámicos con zoom interactivo y tema Material Design 3.",
-      image: "images/MCP.png",
-      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
-      tags: ["Flask", "Google Gemini", "SQL Server"],
+      title: "mcp-banxico",
+      description: "Servidor MCP en PyPI con más de 1,700 descargas al mes. Conecta a Claude, Cursor y cualquier agente de IA con la API oficial del Banco de México (tipo de cambio, inflación, UDIS y tasas), y cada respuesta trae la fecha de corte y el ID de serie oficial para poder auditarla. Tiene un endpoint remoto público sin registro.",
+      image: "images/mcp-banxico.jpg",
+      github: "https://github.com/nanisadw3/mcp-banxico",
+      demo: "https://inakisobera.me/mcp-banxico/",
+      tags: ["MCP", "PyPI", "Python", "Open Source"],
+    },
+    {
+      title: "Xerebro - RAG Operativo",
+      description: "Asistente RAG sobre los reportes operativos diarios del Sistema Nacional de Refinación. Búsqueda vectorial en Qdrant con filtros por refinería y equipo, respuestas que citan la fuente, cascada de LLMs con failover automático (Gemini, Groq), rate limiting, bloqueo de IPs y 85 tests automatizados.",
+      image: "images/rag-xerebro.jpg",
+      github: "https://github.com/nanisadw3/RAG_pemex",
+      tags: ["RAG", "Qdrant", "Flask", "LLM Failover"],
+    },
+    {
+      title: "Banxico al Día",
+      description: "22 indicadores oficiales del Banco de México actualizados cada día hábil por una GitHub Action, con histórico en CSV y una lectura del día que se redacta sola a partir de los datos. El historial de commits es también el historial de publicaciones de Banxico.",
+      image: "images/banxico-datos.jpg",
+      github: "https://github.com/nanisadw3/banxico-datos",
+      demo: "https://banxico-mcp.duckdns.org/",
+      tags: ["Open Data", "GitHub Actions", "Git Scraping"],
     },
     {
       title: "Gordito - Autonomous AI Agent",
@@ -30,18 +46,19 @@ export const portfolioDataEs = {
       tags: ["Ollama & LLMs", "MCP Architecture", "Playwright", "Python & Rich"],
     },
     {
-      title: "AI Survival Ecosystem",
-      description: "Motor de juego avanzado con agentes autónomos. Implementación de algoritmos de navegación dinámica, gestión de estados complejos y recolección inteligente de recursos en tiempo real.",
-      image: "images/inteligentes.png",
-      github: "https://github.com/nanisadw3/Juego_pygame.git",
-      tags: ["Python", "Neural Logic", "Pygame"],
+      title: "MCP Relational AI Gateway",
+      description: "Asistente de bases de datos multi-LLM sobre Model Context Protocol (MCP). Consulta SQL Server y PostgreSQL en lenguaje natural, visualiza los resultados en gráficos con zoom interactivo y cambia entre Google Gemini y Anthropic Claude sin tocar código.",
+      image: "images/MCP.png",
+      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
+      tags: ["MCP", "Multi-LLM", "SQL Server", "PostgreSQL"],
     },
     {
-      title: "YOLO Kinetic Vision",
-      description: "Detección y clasificación de objetos en tiempo real mediante redes neuronales convolucionales. Optimización de procesamiento de video para análisis de alta velocidad.",
-      image: "images/yolo.png",
-      github: "https://github.com/nanisadw3/YOLO-Vision.git",
-      tags: ["OpenCV", "Computer Vision", "Python"],
+      title: "Open Source: MCP Guard",
+      description: "Contribución aceptada al escáner de seguridad para servidores MCP de yunaremaia. Implementé las reglas de bloqueo (PR #35, +525 líneas): motor de políticas con coincidencias exactas, comodines y herramientas por servidor, configuración YAML, flags de CLI y reportes DENY001/DENY002 que rompen el CI. Con pruebas incluidas.",
+      image: "images/mcp-guard.jpg",
+      github: "https://github.com/yunaremaia/mcp-guard",
+      demo: "https://github.com/yunaremaia/mcp-guard/pull/35",
+      tags: ["Open Source", "Security", "MCP", "Python"],
     },
     {
       title: "BattleNet Pokémon",
@@ -56,15 +73,15 @@ export const portfolioDataEs = {
       description: "Software empresarial para administración de activos inmobiliarios. Automatización de flujos financieros y gestión de contratos integrados con PostgreSQL.",
       image: "images/Rentas.png",
       github: "https://github.com/nanisadw3/Administracion_Rentas",
-      demo: "http://inaki-vpn.asuscomm.com:5000/login",
-      tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
+      demo: "https://inaki-vpn.asuscomm.com:5000/login",
+      tags: ["Full Stack", "PostgreSQL", "Business Logic"],
     },
     {
-      title: "Cipher-Stream Chat",
-      description: "Sistema de comunicación segura con cifrado extremo a extremo. Implementación de capas de transporte SSL/TLS para garantizar la confidencialidad total de los datos.",
-      image: "images/chat.png",
-      github: "https://github.com/nanisadw3/Chat.git",
-      tags: ["Cybersecurity", "Networking", "Python"],
+      title: "YOLO Kinetic Vision",
+      description: "Detección y clasificación de objetos en tiempo real mediante redes neuronales convolucionales. Optimización de procesamiento de video para análisis de alta velocidad.",
+      image: "images/yolo.png",
+      github: "https://github.com/nanisadw3/YOLO-Vision.git",
+      tags: ["OpenCV", "Computer Vision", "Python"],
     },
     {
       title: "Cosmos Telemetry",
@@ -73,6 +90,20 @@ export const portfolioDataEs = {
       github: "https://github.com/nanisadw3/Nasa",
       demo: "https://inaki-vpn.asuscomm.com:8070/",
       tags: ["Flask", "Astronomy Data", "Cloud Deploy"],
+    },
+    {
+      title: "AI Survival Ecosystem",
+      description: "Motor de juego avanzado con agentes autónomos. Implementación de algoritmos de navegación dinámica, gestión de estados complejos y recolección inteligente de recursos en tiempo real.",
+      image: "images/inteligentes.png",
+      github: "https://github.com/nanisadw3/Juego_pygame.git",
+      tags: ["Python", "Neural Logic", "Pygame"],
+    },
+    {
+      title: "Cipher-Stream Chat",
+      description: "Sistema de comunicación segura con cifrado extremo a extremo. Implementación de capas de transporte SSL/TLS para garantizar la confidencialidad total de los datos.",
+      image: "images/chat.png",
+      github: "https://github.com/nanisadw3/Chat.git",
+      tags: ["Cybersecurity", "Networking", "Python"],
     },
     {
       title: "Sync Spotify Client",
@@ -132,15 +163,16 @@ export const portfolioDataEs = {
     {
       role: "Analista en Tecnologías de Operación",
       company: "PEMEX",
-      encrypted: true,
-      period: "Mayo 2026 - Presente",
-      description: "Liderazgo técnico en la automatización de procesos operativos y analítica avanzada para tecnologías de operación.",
+      encrypted: false,
+            period: "Mayo 2026 - Presente",
+      description: "Automatización de procesos operativos, analítica de datos e inteligencia artificial aplicada para el área de tecnologías de operación.",
       highlights: [
+        "Asistente RAG en producción: Desarrollé un sistema de búsqueda sobre reportes operativos de refinación que responde citando la fuente, con búsqueda vectorial en Qdrant y modelos de lenguaje con respaldo automático.",
         "Inteligencia Artificial y Automatización: Establecí flujos de notificación autónomos integrando modelos de IA locales con servidores de correo, implementando pipelines de orquestación en n8n.",
         "Análisis de Datos (BI): Optimicé la visibilidad de métricas operativas al consolidar múltiples fuentes de datos en tiempo real mediante la construcción de dashboards interactivos en Power BI.",
         "Desarrollo Backend: Reduje significativamente la captura manual de información departamental desarrollando y desplegando scripts personalizados en Python."
       ],
-      tags: ["AI Integration", "n8n Pipelines", "Power BI", "Python Scripting"]
+      tags: ["RAG", "AI Integration", "n8n Pipelines", "Power BI", "Python"]
     }
   ],
   skills: {
@@ -154,7 +186,7 @@ export const portfolioDataEs = {
     ],
   },
   contact: {
-    email: "inakisobera8@gmail.com",
+    email: "yo@inakisobera.me",
     whatsapp: "+52 5510310275",
     phone: "+52 5510310275",
     github: "https://github.com/nanisadw3",
@@ -257,11 +289,27 @@ export const portfolioDataEn = {
   },
   projects: [
     {
-      title: "MCP Relational AI Gateway",
-      description: "Relational database analysis and administration portal powered by Google Gemini under the Model Context Protocol (MCP) standard. Query your databases in natural language, with dynamic interactive-zoom charts and a Material Design 3 theme.",
-      image: "images/MCP.png",
-      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
-      tags: ["Flask", "Google Gemini", "SQL Server"],
+      title: "mcp-banxico",
+      description: "MCP server on PyPI with 1,700+ monthly downloads. Connects Claude, Cursor and any AI agent to the official Bank of Mexico API (exchange rates, inflation, UDIS and interest rates), and every answer carries its cut-off date and official series ID so it can be audited. Public remote endpoint, no signup.",
+      image: "images/mcp-banxico.jpg",
+      github: "https://github.com/nanisadw3/mcp-banxico",
+      demo: "https://inakisobera.me/mcp-banxico/",
+      tags: ["MCP", "PyPI", "Python", "Open Source"],
+    },
+    {
+      title: "Xerebro - Operational RAG",
+      description: "RAG assistant over the daily operational reports of Mexico's National Refining System. Vector search in Qdrant with refinery and equipment filters, answers that cite their source, an LLM cascade with automatic failover (Gemini, Groq), rate limiting, IP banning and 85 automated tests.",
+      image: "images/rag-xerebro.jpg",
+      github: "https://github.com/nanisadw3/RAG_pemex",
+      tags: ["RAG", "Qdrant", "Flask", "LLM Failover"],
+    },
+    {
+      title: "Banxico Daily",
+      description: "22 official Bank of Mexico indicators refreshed every business day by a GitHub Action, with CSV history and a daily summary written automatically from the data. The commit history doubles as the history of Banxico's publications.",
+      image: "images/banxico-datos.jpg",
+      github: "https://github.com/nanisadw3/banxico-datos",
+      demo: "https://banxico-mcp.duckdns.org/",
+      tags: ["Open Data", "GitHub Actions", "Git Scraping"],
     },
     {
       title: "Gordito - Autonomous AI Agent",
@@ -271,18 +319,19 @@ export const portfolioDataEn = {
       tags: ["Ollama & LLMs", "MCP Architecture", "Playwright", "Python & Rich"],
     },
     {
-      title: "AI Survival Ecosystem",
-      description: "Advanced game engine with autonomous agents. Implementation of dynamic navigation algorithms, complex state management, and real-time intelligent resource gathering.",
-      image: "images/inteligentes.png",
-      github: "https://github.com/nanisadw3/Juego_pygame.git",
-      tags: ["Python", "Neural Logic", "Pygame"],
+      title: "MCP Relational AI Gateway",
+      description: "Multi-LLM database assistant built on the Model Context Protocol (MCP). Query SQL Server and PostgreSQL in natural language, visualize results in interactive zoomable charts, and switch between Google Gemini and Anthropic Claude without code changes.",
+      image: "images/MCP.png",
+      github: "https://github.com/nanisadw3/MCP-Relational-AI-Gateway.git",
+      tags: ["MCP", "Multi-LLM", "SQL Server", "PostgreSQL"],
     },
     {
-      title: "YOLO Kinetic Vision",
-      description: "Real-time object detection and classification using convolutional neural networks. Video processing optimization for high-speed analysis.",
-      image: "images/yolo.png",
-      github: "https://github.com/nanisadw3/YOLO-Vision.git",
-      tags: ["OpenCV", "Computer Vision", "Python"],
+      title: "Open Source: MCP Guard",
+      description: "Merged contribution to yunaremaia's security scanner for MCP servers. I built the deny rules (PR #35, +525 lines): a policy engine with exact, wildcard and server-scoped tool matching, YAML config, CLI flags and DENY001/DENY002 findings that fail CI. Tests included.",
+      image: "images/mcp-guard.jpg",
+      github: "https://github.com/yunaremaia/mcp-guard",
+      demo: "https://github.com/yunaremaia/mcp-guard/pull/35",
+      tags: ["Open Source", "Security", "MCP", "Python"],
     },
     {
       title: "BattleNet Pokémon",
@@ -297,15 +346,15 @@ export const portfolioDataEn = {
       description: "Enterprise software for real estate asset management. Automation of financial flows and contract management integrated with PostgreSQL.",
       image: "images/Rentas.png",
       github: "https://github.com/nanisadw3/Administracion_Rentas",
-      demo: "http://inaki-vpn.asuscomm.com:5000/login",
-      tags: ["Full Stack", "PostgreSQL", "Bussiness Logic"],
+      demo: "https://inaki-vpn.asuscomm.com:5000/login",
+      tags: ["Full Stack", "PostgreSQL", "Business Logic"],
     },
     {
-      title: "Cipher-Stream Chat",
-      description: "Secure communication system with end-to-end encryption. Implementation of SSL/TLS transport layers to guarantee total data confidentiality.",
-      image: "images/chat.png",
-      github: "https://github.com/nanisadw3/Chat.git",
-      tags: ["Cybersecurity", "Networking", "Python"],
+      title: "YOLO Kinetic Vision",
+      description: "Real-time object detection and classification using convolutional neural networks. Video processing optimization for high-speed analysis.",
+      image: "images/yolo.png",
+      github: "https://github.com/nanisadw3/YOLO-Vision.git",
+      tags: ["OpenCV", "Computer Vision", "Python"],
     },
     {
       title: "Cosmos Telemetry",
@@ -314,6 +363,20 @@ export const portfolioDataEn = {
       github: "https://github.com/nanisadw3/Nasa",
       demo: "https://inaki-vpn.asuscomm.com:8070/",
       tags: ["Flask", "Astronomy Data", "Cloud Deploy"],
+    },
+    {
+      title: "AI Survival Ecosystem",
+      description: "Advanced game engine with autonomous agents. Implementation of dynamic navigation algorithms, complex state management, and real-time intelligent resource gathering.",
+      image: "images/inteligentes.png",
+      github: "https://github.com/nanisadw3/Juego_pygame.git",
+      tags: ["Python", "Neural Logic", "Pygame"],
+    },
+    {
+      title: "Cipher-Stream Chat",
+      description: "Secure communication system with end-to-end encryption. Implementation of SSL/TLS transport layers to guarantee total data confidentiality.",
+      image: "images/chat.png",
+      github: "https://github.com/nanisadw3/Chat.git",
+      tags: ["Cybersecurity", "Networking", "Python"],
     },
     {
       title: "Sync Spotify Client",
@@ -373,15 +436,16 @@ export const portfolioDataEn = {
     {
       role: "Operations Technology Analyst",
       company: "PEMEX",
-      encrypted: true,
-      period: "May 2026 - Present",
-      description: "Technical leadership in operational process automation and advanced analytics for operations technology.",
+      encrypted: false,
+            period: "May 2026 - Present",
+      description: "Operational process automation, data analytics and applied artificial intelligence for the operations technology area.",
       highlights: [
+        "Production RAG assistant: Built a search system over refinery operational reports that answers citing its source, using vector search in Qdrant and language models with automatic fallback.",
         "Artificial Intelligence and Automation: Established autonomous notification flows integrating local AI models with mail servers, implementing orchestration pipelines in n8n.",
         "Data Analysis (BI): Optimized visibility of operational metrics by consolidating multiple real-time data sources through interactive dashboards in Power BI.",
         "Backend Development: Significantly reduced manual departmental data capture by developing and deploying custom Python scripts."
       ],
-      tags: ["AI Integration", "n8n Pipelines", "Power BI", "Python Scripting"]
+      tags: ["RAG", "AI Integration", "n8n Pipelines", "Power BI", "Python"]
     }
   ],
   skills: {
@@ -395,7 +459,7 @@ export const portfolioDataEn = {
     ],
   },
   contact: {
-    email: "inakisobera8@gmail.com",
+    email: "yo@inakisobera.me",
     whatsapp: "+52 5510310275",
     phone: "+52 5510310275",
     github: "https://github.com/nanisadw3",
