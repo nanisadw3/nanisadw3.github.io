@@ -27,9 +27,16 @@ export interface Profile {
   summary: string;
   specialties: Specialty[];
   also: string;
-  experience: { period: string; role: string; company: string; text: string }[];
-  education: { period: string; title: string; place: string }[];
-  certifications: { title: string; issuer?: string; file?: string; verifyUrl?: string }[];
+  experience: {
+    period: string;
+    role: string;
+    company: string;
+    text: string;
+    highlights: { title: string; text: string }[];
+    tags: string[];
+  }[];
+  education: { period: string; title: string; place: string; note?: string }[];
+  certifications: { title: string; issuer?: string; date: string; file?: string; verifyUrl?: string }[];
   /** neofetch rows; values may contain {repos} which is replaced with the live repo count. */
   neofetch: [string, string][];
 }
@@ -74,17 +81,32 @@ export const profile: Record<Lang, Profile> = {
         role: "Analista en Tecnologías de Operación",
         company: "PEMEX",
         text: "Diseñé y opero la plataforma RAG del Sistema Nacional de Refinación, con cascada de LLMs y failover; automatizo procesos con n8n, Python y Docker.",
+        highlights: [
+          {
+            title: "Plataforma RAG del SNR, de punta a punta",
+            text: "Responde en lenguaje natural sobre los reportes operativos de las siete refinerías, citando el reporte, la fecha y el turno de cada dato.",
+          },
+          {
+            title: "Cascada de LLMs con failover",
+            text: "Enrutamiento por intención (conceptual, operativa o híbrida) y cambio automático de proveedor ante errores de cuota.",
+          },
+          {
+            title: "Automatización con IA",
+            text: "Flujos en n8n y Python orquestados en Docker que reducen captura manual, y dashboards de Power BI con métricas operativas.",
+          },
+        ],
+        tags: ["RAG", "Qdrant", "Gemini/Groq", "n8n", "Python", "Docker", "Power BI"],
       },
     ],
     education: [
-      { period: "2026 — 2027", title: "Maestría en Dirección de Proyectos", place: "UNITEC · en curso" },
-      { period: "2023 — 2026", title: "Ingeniería en Sistemas Computacionales", place: "UNITEC Atizapán" },
+      { period: "2026 — 2027", title: "Maestría en Dirección de Proyectos", place: "UNITEC", note: "En curso · graduación esperada en 2027. Gestión ágil, alcance, presupuesto y equipos multidisciplinarios." },
+      { period: "2023 — 2026", title: "Ingeniería en Sistemas Computacionales", place: "UNITEC Campus Atizapán", note: "Egresado, en proceso de titulación. Proyecto destacado: videojuego con agentes controlados por IA." },
     ],
     certifications: [
-      { title: "Oracle AI Foundations", file: "/cr/eCertificate.pdf", verifyUrl: oracleVerify },
-      { title: "Linux avanzado", issuer: "Hack4u", file: "/cr/inaki_sobera_cr_linux.pdf", verifyUrl: hack4uVerify },
-      { title: "Python ofensivo", issuer: "Hack4u", file: "/cr/inaki_sobera_cr_python.pdf", verifyUrl: hack4uVerify },
-      { title: "GitHub Foundations" },
+      { title: "Oracle AI Foundations", issuer: "Oracle", date: "oct 2025", file: "/cr/eCertificate.pdf", verifyUrl: oracleVerify },
+      { title: "Linux avanzado", issuer: "Hack4u", date: "jul 2025", file: "/cr/inaki_sobera_cr_linux.pdf", verifyUrl: hack4uVerify },
+      { title: "Python ofensivo", issuer: "Hack4u", date: "2024", file: "/cr/inaki_sobera_cr_python.pdf", verifyUrl: hack4uVerify },
+      { title: "GitHub Foundations", issuer: "GitHub", date: "2026" },
     ],
     neofetch: [
       ["OS", "Ingeniero de IA x86_64"],
@@ -136,17 +158,32 @@ export const profile: Record<Lang, Profile> = {
         role: "Operations Technology Analyst",
         company: "PEMEX",
         text: "Designed and run the RAG platform of Mexico's National Refining System, with an LLM cascade and failover; I automate processes with n8n, Python and Docker.",
+        highlights: [
+          {
+            title: "Refining System RAG platform, end to end",
+            text: "Answers natural-language questions about the operational reports of all seven refineries, citing the report, date and shift behind each fact.",
+          },
+          {
+            title: "LLM cascade with failover",
+            text: "Intent-based routing (conceptual, operational or hybrid) and automatic provider switching on quota errors.",
+          },
+          {
+            title: "AI automation",
+            text: "n8n and Python workflows orchestrated with Docker that cut manual data entry, plus Power BI dashboards for operational metrics.",
+          },
+        ],
+        tags: ["RAG", "Qdrant", "Gemini/Groq", "n8n", "Python", "Docker", "Power BI"],
       },
     ],
     education: [
-      { period: "2026 — 2027", title: "Master's in Project Management", place: "UNITEC · in progress" },
-      { period: "2023 — 2026", title: "B.Eng. Computer Systems Engineering", place: "UNITEC Atizapán" },
+      { period: "2026 — 2027", title: "Master's in Project Management", place: "UNITEC", note: "In progress · expected 2027. Agile management, scope, budget and cross-functional teams." },
+      { period: "2023 — 2026", title: "B.Eng. Computer Systems Engineering", place: "UNITEC Campus Atizapán", note: "Coursework completed, degree in process. Highlight project: a game with AI-controlled agents." },
     ],
     certifications: [
-      { title: "Oracle AI Foundations", file: "/cr/eCertificate.pdf", verifyUrl: oracleVerify },
-      { title: "Advanced Linux", issuer: "Hack4u", file: "/cr/inaki_sobera_cr_linux.pdf", verifyUrl: hack4uVerify },
-      { title: "Offensive Python", issuer: "Hack4u", file: "/cr/inaki_sobera_cr_python.pdf", verifyUrl: hack4uVerify },
-      { title: "GitHub Foundations" },
+      { title: "Oracle AI Foundations", issuer: "Oracle", date: "Oct 2025", file: "/cr/eCertificate.pdf", verifyUrl: oracleVerify },
+      { title: "Advanced Linux", issuer: "Hack4u", date: "Jul 2025", file: "/cr/inaki_sobera_cr_linux.pdf", verifyUrl: hack4uVerify },
+      { title: "Offensive Python", issuer: "Hack4u", date: "2024", file: "/cr/inaki_sobera_cr_python.pdf", verifyUrl: hack4uVerify },
+      { title: "GitHub Foundations", issuer: "GitHub", date: "2026" },
     ],
     neofetch: [
       ["OS", "AI Engineer x86_64"],

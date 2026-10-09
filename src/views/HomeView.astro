@@ -121,48 +121,68 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Experience + Education -->
-  <section class="border-t border-line py-16">
-    <div class="reveal mx-auto grid max-w-6xl gap-12 px-5 sm:px-7 md:grid-cols-2">
-      <div>
-        <SectionHead n="02" title={t(lang, "home.experience")} />
-        <ul class="grid gap-5">
-          {p.experience.map((e) => (
-            <li class="grid gap-1 sm:grid-cols-[120px_1fr] sm:gap-4">
-              <p class="pt-0.5 font-mono text-xs text-dim">{e.period}</p>
-              <div>
-                <p class="font-semibold text-fg">{e.role}</p>
-                <p class="font-mono text-[11px] text-green">{e.company}</p>
-                <p class="mt-1 text-[13.5px] leading-relaxed">{e.text}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <SectionHead n="03" title={t(lang, "home.education")} />
-        <ul class="grid gap-4">
-          {p.education.map((e) => (
-            <li class="grid gap-1 sm:grid-cols-[120px_1fr] sm:gap-4">
-              <p class="pt-0.5 font-mono text-xs text-dim">{e.period}</p>
-              <div><p class="font-semibold text-fg">{e.title}</p><p class="text-[13.5px]">{e.place}</p></div>
-            </li>
-          ))}
-          <li class="grid gap-2 sm:grid-cols-[120px_1fr] sm:gap-4">
-            <p class="pt-1 font-mono text-xs text-dim">{t(lang, "home.certs")}</p>
-            <div class="flex flex-wrap gap-2">
-              {p.certifications.map((c) => {
-                const href = c.verifyUrl ?? c.file;
-                const label = <>{c.title}{c.issuer && <span class="text-dim"> · {c.issuer}</span>}</>;
-                return href ? (
-                  <a href={href} class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2 transition-colors hover:border-blue">{label} ↗</a>
-                ) : (
-                  <span class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2">{label}</span>
-                );
-              })}
+  <!-- Experience -->
+  <section class="border-t border-line py-20">
+    <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
+      <SectionHead n="02" title={t(lang, "home.experience")} />
+      {p.experience.map((e) => (
+        <article class="grid gap-6 rounded-2xl border border-line bg-panel p-6 sm:p-8 lg:grid-cols-[260px_1fr] lg:gap-10">
+          <div>
+            <p class="inline-flex items-center gap-2 rounded-full border border-green/40 bg-green/10 px-2.5 py-0.5 font-mono text-[11px] text-green">
+              <span class="size-1.5 rounded-full bg-green"></span>{t(lang, "home.current")}
+            </p>
+            <p class="mt-4 font-mono text-2xl font-extrabold text-fg">{e.company}</p>
+            <p class="mt-1 font-mono text-sm text-dim">{e.period}</p>
+            <div class="mt-5 flex flex-wrap gap-1.5">
+              {e.tags.map((tag) => <span class="rounded-md border border-line px-2 py-0.5 font-mono text-[11px] text-fg-2">{tag}</span>)}
             </div>
-          </li>
-        </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-fg sm:text-2xl">{e.role}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed">{e.text}</p>
+            <ul class="mt-6 grid gap-4">
+              {e.highlights.map((h) => (
+                <li class="border-l-2 border-blue/50 pl-4">
+                  <p class="font-semibold text-fg">{h.title}</p>
+                  <p class="mt-1 text-[14.5px] leading-relaxed">{h.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Education + certifications -->
+  <section class="border-t border-line py-20">
+    <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
+      <SectionHead n="03" title={t(lang, "home.education")} />
+      <div class="grid gap-4 md:grid-cols-2">
+        {p.education.map((e) => (
+          <article class="rounded-2xl border border-line bg-panel p-6">
+            <p class="font-mono text-sm text-blue">{e.period}</p>
+            <h3 class="mt-2 text-lg font-semibold text-fg sm:text-xl">{e.title}</h3>
+            <p class="mt-0.5 font-mono text-[13px] text-fg-2">{e.place}</p>
+            {e.note && <p class="mt-3 text-[14.5px] leading-relaxed">{e.note}</p>}
+          </article>
+        ))}
+      </div>
+
+      <h3 class="mt-10 mb-4 font-mono text-base font-bold text-fg">{t(lang, "home.certs")}</h3>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {p.certifications.map((c) => (
+          <article class="flex flex-col rounded-xl border border-line bg-bg-dark p-4">
+            <p class="font-semibold text-fg">{c.title}</p>
+            <p class="mt-0.5 flex-1 font-mono text-[12px] text-dim">{c.issuer} · {c.date}</p>
+            {(c.verifyUrl || c.file) && (
+              <p class="mt-3 flex flex-wrap gap-2 font-mono text-[11.5px]">
+                {c.verifyUrl && <a href={c.verifyUrl} class="rounded-md border border-line px-2 py-0.5 text-fg-2 transition-colors hover:border-blue hover:text-fg">{t(lang, "home.verify")} ↗</a>}
+                {c.file && <a href={c.file} class="rounded-md border border-line px-2 py-0.5 text-fg-2 transition-colors hover:border-blue hover:text-fg">{t(lang, "home.pdf")} ↗</a>}
+              </p>
+            )}
+          </article>
+        ))}
       </div>
     </div>
   </section>
