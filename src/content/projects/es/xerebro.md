@@ -5,7 +5,7 @@ order: 2
 featured: true
 caseStudy: true
 image: ../../../assets/projects/xerebro.jpg
-imageAlt: Pantalla de acceso de Xerebro Operativo, RAG inteligente de PEMEX
+imageAlt: Xerebro respondiendo cómo operó la refinería de Tula, con el resumen por planta y sus fallas
 tags: [RAG, Qdrant, Flask, LLMs]
 live: xerebro
 ---

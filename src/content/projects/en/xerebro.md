@@ -5,7 +5,7 @@ order: 2
 featured: true
 caseStudy: true
 image: ../../../assets/projects/xerebro.jpg
-imageAlt: Xerebro Operativo sign-in screen, PEMEX's RAG assistant
+imageAlt: Xerebro answering how the Tula refinery operated, with a per-unit summary and its failures
 tags: [RAG, Qdrant, Flask, LLMs]
 live: xerebro
 ---
