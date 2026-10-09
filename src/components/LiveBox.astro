@@ -44,9 +44,12 @@ const cell = "rounded-lg border border-line bg-bg-dark px-4 py-3";
 <script>
   import { fetchFix } from "../scripts/banxico.ts";
 
-  document.addEventListener("astro:page-load", async () => {
-    const box = document.querySelector('[data-livebox="pypi"]');
-    if (!box) return;
+  // This module can load after Astro already fired astro:page-load for the first page, so run
+  // now as well as on every navigation; the data-done guard keeps it to one request per page.
+  async function liveFix() {
+    const box = document.querySelector<HTMLElement>('[data-livebox="pypi"]');
+    if (!box || box.dataset.done) return;
+    box.dataset.done = "1";
     const es = document.documentElement.lang === "es";
     try {
       const fix = await fetchFix();
@@ -57,5 +60,7 @@ const cell = "rounded-lg border border-line bg-bg-dark px-4 py-3";
     } catch {
       // Keep the compiled value; the label already says so.
     }
-  });
+  }
+  document.addEventListener("astro:page-load", liveFix);
+  liveFix();
 </script>

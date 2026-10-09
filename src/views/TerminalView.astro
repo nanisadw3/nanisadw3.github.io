@@ -352,8 +352,12 @@ const chips = lang === "es"
     if (window.matchMedia("(pointer: fine)").matches) input.focus({ preventScroll: true });
   }
 
-  document.addEventListener("astro:page-load", () => {
+  // Run now (this module may load after the first astro:page-load) and on every navigation;
+  // setup() is idempotent per terminal element.
+  const init = () => {
     const root = document.querySelector<HTMLElement>("[data-terminal]");
     if (root) setup(root);
-  });
+  };
+  document.addEventListener("astro:page-load", init);
+  init();
 </script>
