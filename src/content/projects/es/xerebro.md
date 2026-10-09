@@ -8,6 +8,10 @@ image: ../../../assets/projects/xerebro.jpg
 imageAlt: Xerebro respondiendo cómo operó la refinería de Tula, con el resumen por planta y sus fallas
 tags: [RAG, Qdrant, Flask, LLMs]
 live: xerebro
+liveSite:
+  url: https://inaki-vpn.asuscomm.com/
+  label: inaki-vpn.asuscomm.com
+  text: "Xerebro en producción. El acceso requiere cuenta porque es un sistema interno; la captura muestra una consulta real."
 ---
 
 ## Problema

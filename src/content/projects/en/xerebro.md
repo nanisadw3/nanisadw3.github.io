@@ -8,6 +8,10 @@ image: ../../../assets/projects/xerebro.jpg
 imageAlt: Xerebro answering how the Tula refinery operated, with a per-unit summary and its failures
 tags: [RAG, Qdrant, Flask, LLMs]
 live: xerebro
+liveSite:
+  url: https://inaki-vpn.asuscomm.com/
+  label: inaki-vpn.asuscomm.com
+  text: "Xerebro in production. Access requires an account because it's an internal system; the screenshot shows a real query."
 ---
 
 ## Problem
