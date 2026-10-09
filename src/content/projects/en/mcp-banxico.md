@@ -4,8 +4,8 @@ summary: MCP server on PyPI that connects Claude, Cursor and any AI agent to the
 order: 1
 featured: true
 caseStudy: true
-image: ../../../assets/projects/mcp-banxico.jpg
-imageAlt: mcp-banxico page showing the public remote endpoint
+image: ../../../assets/projects/banxico-live.jpg
+imageAlt: Banxico Daily page showing the FIX exchange rate, the daily reading and a one-year chart
 tags: [MCP, Python, PyPI, Open Source]
 links:
   github: https://github.com/nanisadw3/mcp-banxico
@@ -14,6 +14,10 @@ links:
   video: https://www.youtube.com/watch?v=saaD665cn9g
 live: pypi
 repo: mcp-banxico
+liveSite:
+  url: https://banxico-mcp.duckdns.org/
+  label: banxico-mcp.duckdns.org
+  text: "Banxico Daily: 22 official indicators with charts and a daily reading that writes itself, built on mcp-banxico's series."
 ---
 
 ## Problem
@@ -61,6 +65,18 @@ There are two ways to use it:
   }
 }
 ```
+
+## The live page: Banxico Daily
+
+So anyone can see the data without installing anything, I built
+[Banxico Daily](https://banxico-mcp.duckdns.org/) (in Spanish) on the same series the MCP server
+reads. It's a public page with **22 official indicators** (exchange rates for five currencies,
+target rate, TIIE, CETES, inflation, UDIS and reserves), each with its chart, downloadable CSV
+history and a **daily reading** written automatically from the data: how much it moved against the
+previous business day and over the last month, in plain language.
+
+The data refreshes on its own every business day through a GitHub Action, right after Banxico
+publishes the FIX. The technical details are in its [case study](/en/projects/banxico-al-dia/).
 
 ## Results
 

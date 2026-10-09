@@ -4,8 +4,8 @@ summary: Servidor MCP en PyPI que conecta a Claude, Cursor y cualquier agente de
 order: 1
 featured: true
 caseStudy: true
-image: ../../../assets/projects/mcp-banxico.jpg
-imageAlt: Página de mcp-banxico con el endpoint remoto público
+image: ../../../assets/projects/banxico-live.jpg
+imageAlt: Página Banxico al Día con el tipo de cambio FIX, la lectura del día y la gráfica de un año
 tags: [MCP, Python, PyPI, Open Source]
 links:
   github: https://github.com/nanisadw3/mcp-banxico
@@ -14,6 +14,10 @@ links:
   video: https://www.youtube.com/watch?v=saaD665cn9g
 live: pypi
 repo: mcp-banxico
+liveSite:
+  url: https://banxico-mcp.duckdns.org/
+  label: banxico-mcp.duckdns.org
+  text: "Banxico al Día: 22 indicadores oficiales con gráficas y una lectura del día que se escribe sola, construida con las series de mcp-banxico."
 ---
 
 ## Problema
@@ -61,6 +65,18 @@ Hay dos formas de usarlo:
   }
 }
 ```
+
+## La página en vivo: Banxico al Día
+
+Para que cualquiera vea los datos sin instalar nada, construí
+[Banxico al Día](https://banxico-mcp.duckdns.org/) sobre las mismas series que consulta el
+servidor MCP. Es una página pública con **22 indicadores oficiales** (tipo de cambio de cinco
+monedas, tasa objetivo, TIIE, CETES, inflación, UDIS y reservas), cada uno con su gráfica, su
+histórico descargable en CSV y una **lectura del día** que se redacta sola a partir de los datos:
+cuánto cambió frente al día hábil anterior y en el último mes, en lenguaje sencillo.
+
+Los datos se actualizan solos cada día hábil con una GitHub Action, después de que Banxico publica
+el FIX. El detalle técnico está en su [caso de estudio](/proyectos/banxico-al-dia/).
 
 ## Resultados
 

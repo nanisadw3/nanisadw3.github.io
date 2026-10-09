@@ -69,6 +69,8 @@ const es = {
   "projects.back": "Todos los proyectos",
   "projects.caseStudy": "Leer caso de estudio",
   "projects.live": "en vivo",
+  "projects.liveSite": "página en vivo",
+  "projects.open": "abrir",
 
   "blog.title": "Blog",
   "blog.intro": "Notas sobre lo que aprendo construyendo con IA, MCP y RAG.",
@@ -165,6 +167,8 @@ const en: Record<UiKey, string> = {
   "projects.back": "All projects",
   "projects.caseStudy": "Read case study",
   "projects.live": "live",
+  "projects.liveSite": "live page",
+  "projects.open": "open",
 
   "blog.title": "Blog",
   "blog.intro": "Notes on what I learn building with AI, MCP and RAG.",

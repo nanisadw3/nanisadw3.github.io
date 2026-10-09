@@ -1,0 +1,27 @@
+---
+// "● live ↗" pill that sits on top of a project's screenshot and opens its public page.
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+
+interface Props {
+  lang: Lang;
+  url: string;
+  label: string;
+}
+
+const { lang, url, label } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener"
+  title={label}
+  class="absolute top-3 right-3 z-20 inline-flex items-center gap-2 rounded-full border border-green/50 bg-bg-dark/90 px-3 py-1.5 font-mono text-[12px] text-green shadow-lg backdrop-blur transition hover:border-green hover:bg-bg-dark"
+>
+  <span class="relative flex size-2">
+    <span class="absolute inline-flex size-full animate-ping rounded-full bg-green opacity-60 motion-reduce:hidden"></span>
+    <span class="relative inline-flex size-2 rounded-full bg-green"></span>
+  </span>
+  {t(lang, "projects.live")} <span aria-hidden="true">↗</span>
+</a>

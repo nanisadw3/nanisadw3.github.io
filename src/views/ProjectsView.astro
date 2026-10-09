@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHead from "../components/SectionHead.astro";
 import ProjectLinks from "../components/ProjectLinks.astro";
 import RepoMeta from "../components/RepoMeta.astro";
+import LiveSiteBadge from "../components/LiveSiteBadge.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 import { evidenceText } from "../data/live.ts";
@@ -34,7 +35,8 @@ const rest = projects.filter((p) => !p.data.featured);
         const href = localizePath(lang, "project", slugOf(p));
         return (
           <article class="group reveal relative grid overflow-hidden rounded-xl border border-line bg-panel transition-colors hover:border-blue/70 md:grid-cols-[1.05fr_1fr]">
-            <div class:list={["overflow-hidden border-line bg-bg-dark max-md:border-b md:border-r", i % 2 === 1 && "md:order-2 md:border-r-0 md:border-l"]}>
+            <div class:list={["relative overflow-hidden border-line bg-bg-dark max-md:border-b md:border-r", i % 2 === 1 && "md:order-2 md:border-r-0 md:border-l"]}>
+              {p.data.liveSite && <LiveSiteBadge lang={lang} url={p.data.liveSite.url} label={p.data.liveSite.label} />}
               <Image src={p.data.image} alt={p.data.imageAlt} widths={[560, 900]} sizes="(min-width: 768px) 560px, 100vw" class="aspect-[16/10] size-full object-cover object-top transition duration-500 group-hover:scale-[1.02]" />
             </div>
             <div class="flex flex-col p-6">
@@ -42,6 +44,19 @@ const rest = projects.filter((p) => !p.data.featured);
               <!-- The title link stretches over the whole card; the buttons below sit above it (z-10). -->
               <h2 class="mt-1 font-mono text-2xl font-bold text-fg"><a href={href} class="after:absolute after:inset-0 group-hover:text-cyan">{p.data.title}</a></h2>
               <p class="mt-2 flex-1 leading-relaxed">{p.data.summary}</p>
+              {p.data.liveSite && (
+                <a
+                  href={p.data.liveSite.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="relative z-10 mt-4 block rounded-lg border border-green/30 bg-green/5 p-3 transition-colors hover:border-green/70"
+                >
+                  <span class="flex items-center justify-between gap-3 font-mono text-[12px] text-green">
+                    <span>● {t(lang, "projects.liveSite")} · {p.data.liveSite.label}</span><span aria-hidden="true">↗</span>
+                  </span>
+                  <span class="mt-1 block text-[13px] leading-snug text-fg-2">{p.data.liveSite.text}</span>
+                </a>
+              )}
               <div class="relative z-10 mt-4 grid gap-3">
                 <RepoMeta lang={lang} repo={p.data.repo} />
                 <div class="flex flex-wrap items-center justify-between gap-3">

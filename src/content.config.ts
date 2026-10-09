@@ -20,6 +20,8 @@ const projects = defineCollection({
       live: z.enum(["pypi", "xerebro"]).optional(),
       /** Repository name under github.com/nanisadw3, for stars, language and last update. */
       repo: z.string().optional(),
+      /** A public page built on the project that visitors can open right now. */
+      liveSite: z.object({ url: z.url(), label: z.string(), text: z.string() }).optional(),
       links: z
         .object({
           github: z.url(),
