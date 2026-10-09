@@ -100,18 +100,21 @@ const jsonLd = {
       <SectionHead n="01" title={t(lang, "home.ai")} />
       <div class="grid gap-3 md:grid-cols-3">
         {p.specialties.map((s) => (
-          <article class="flex flex-col rounded-xl border border-line bg-panel p-5">
+          <a
+            href={localizePath(lang, "project", s.project.slug)}
+            class="group flex flex-col rounded-xl border border-line bg-panel p-5 transition hover:-translate-y-0.5 hover:border-blue/70 hover:bg-panel/80"
+          >
             <p class="font-mono text-xs text-blue">{s.path}</p>
             <h3 class="mt-1 text-base font-semibold text-fg">{s.title}</h3>
             <p class="mt-1.5 flex-1 text-[13.5px] leading-relaxed">{s.text}</p>
-            <a
-              href={localizePath(lang, "project", s.project.slug)}
-              class="group mt-4 block border-t border-dashed border-line pt-3 font-mono text-[12.5px]"
-            >
-              <span class="text-green">→</span> <span class="font-bold text-cyan group-hover:underline">{s.project.name}</span>
-              <span class="mt-0.5 block text-[11.5px] text-orange">{evidenceText(lang, s.evidence)}</span>
-            </a>
-          </article>
+            <p class="mt-4 flex items-end justify-between gap-3 border-t border-dashed border-line pt-3 font-mono text-[12.5px]">
+              <span>
+                <span class="text-green">→</span> <span class="font-bold text-cyan group-hover:underline">{s.project.name}</span>
+                <span class="mt-0.5 block text-[11.5px] text-orange">{evidenceText(lang, s.evidence)}</span>
+              </span>
+              <span class="text-[11.5px] text-dim transition-colors group-hover:text-blue">{t(lang, "home.caseStudy")} →</span>
+            </p>
+          </a>
         ))}
       </div>
       <p class="mt-4 font-mono text-[12px] text-dim"><span class="text-blue">{t(lang, "home.also")}</span> · {p.also}</p>
