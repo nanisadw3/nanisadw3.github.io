@@ -6,18 +6,20 @@ import { t } from "../i18n/utils.ts";
 interface Props {
   lang: Lang;
   links: CollectionEntry<"projects">["data"]["links"];
+  /** Link kinds not to show, e.g. "demo" when the card already has a "see it live" button. */
+  hide?: string[];
 }
 
-const { lang, links } = Astro.props;
+const { lang, links, hide = [] } = Astro.props;
 const order = ["demo", "github", "pypi", "pr", "video"] as const;
 const labels = { demo: "projects.demo", github: "projects.code", pypi: "projects.pypi", pr: "projects.pr", video: "projects.video" } as const;
-const items = order.filter((k) => links[k]).map((k) => ({ href: links[k]!, label: t(lang, labels[k]) }));
+const items = order.filter((k) => links[k] && !hide.includes(k)).map((k) => ({ href: links[k]!, label: t(lang, labels[k]) }));
 ---
 
 {items.length > 0 && (
   <ul class="flex flex-wrap gap-2 font-mono text-xs">
     {items.map((l) => (
-      <li>
+      <li class="relative z-10">
         <a href={l.href} class="inline-flex items-center gap-1 rounded-md border border-line px-2.5 py-1 text-fg-2 transition-colors hover:border-blue hover:text-fg">
           {l.label} <span aria-hidden="true">↗</span>
         </a>

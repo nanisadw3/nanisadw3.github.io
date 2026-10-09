@@ -5,7 +5,7 @@ order: 4
 featured: false
 caseStudy: true
 image: ../../../assets/projects/banxico-al-dia.jpg
-imageAlt: USD/MXN FIX exchange rate chart on the Banxico Daily page
+imageAlt: Charts of inflation by component and target rate versus inflation on Banxico Daily
 tags: [Open data, GitHub Actions, Python]
 metric: 22 daily series
 links:

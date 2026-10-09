@@ -10,9 +10,11 @@ interface Props {
   label: string;
   /** Inline (in a caption or panel) instead of floating over the image. */
   inline?: boolean;
+  /** Compact variant for small cards. */
+  size?: "sm" | "md";
 }
 
-const { lang, url, label, inline = false } = Astro.props;
+const { lang, url, label, inline = false, size = "md" } = Astro.props;
 ---
 
 <a
@@ -21,8 +23,9 @@ const { lang, url, label, inline = false } = Astro.props;
   rel="noopener"
   title={label}
   class:list={[
-    "live-btn inline-flex shrink-0 items-center gap-2.5 rounded-full bg-green px-4 py-2 font-mono text-[13px] font-bold text-bg-dark transition hover:scale-[1.04] hover:brightness-110",
-    !inline && "absolute top-3 right-3 z-20 sm:top-4 sm:right-4",
+    "live-btn inline-flex shrink-0 items-center rounded-full bg-green font-mono font-bold text-bg-dark transition hover:scale-[1.04] hover:brightness-110",
+    size === "md" ? "gap-2.5 px-4 py-2 text-[13px]" : "gap-2 px-3 py-1.5 text-[11.5px]",
+    !inline && (size === "md" ? "absolute top-3 right-3 z-20 sm:top-4 sm:right-4" : "absolute top-2.5 right-2.5 z-20"),
   ]}
 >
   <span class="relative flex size-2.5">

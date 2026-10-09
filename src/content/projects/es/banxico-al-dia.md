@@ -5,7 +5,7 @@ order: 4
 featured: false
 caseStudy: true
 image: ../../../assets/projects/banxico-al-dia.jpg
-imageAlt: Gráfica del tipo de cambio FIX en la página Banxico al Día
+imageAlt: Gráficas de inflación por componente y tasa objetivo contra inflación en Banxico al Día
 tags: [Datos abiertos, GitHub Actions, Python]
 metric: 22 series diarias
 links:

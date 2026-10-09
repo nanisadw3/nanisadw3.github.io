@@ -72,27 +72,37 @@ const rest = projects.filter((p) => !p.data.featured);
         <span class="group-open:hidden">+ {t(lang, "projects.more")} ({rest.length})</span>
         <span class="hidden group-open:inline">− {t(lang, "projects.less")}</span>
       </summary>
-      <ul>
-        {rest.map((p) => (
-          <li class="flex flex-col gap-3 border-b border-line py-4 last:border-b-0 sm:flex-row sm:items-start sm:justify-between">
-            <div class="min-w-0">
-              <p class="font-mono font-bold text-cyan">
-                {p.data.caseStudy ? <a href={localizePath(lang, "project", slugOf(p))} class="hover:underline">{p.data.title}</a> : p.data.title}
-                {p.data.role && <span class="ml-2 rounded-full border border-mag/40 px-2 py-0.5 text-[11px] font-normal text-mag">{p.data.role}</span>}
-              </p>
-              <p class="mt-1 text-sm leading-relaxed">{p.data.summary}</p>
-              <div class="mt-2"><RepoMeta lang={lang} repo={p.data.repo} /></div>
-            </div>
-            <div class="shrink-0">
-              {p.data.caseStudy ? (
-                <a href={localizePath(lang, "project", slugOf(p))} class="font-mono text-xs text-blue hover:underline">{t(lang, "projects.caseStudy")} →</a>
-              ) : (
-                <ProjectLinks lang={lang} links={p.data.links} />
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div class="grid gap-4 pt-2 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((p) => {
+          // Primary destination of the card: its case study, or else its code.
+          const href = p.data.caseStudy ? localizePath(lang, "project", slugOf(p)) : (p.data.links.github ?? p.data.links.pr);
+          const external = !p.data.caseStudy;
+          const liveUrl = p.data.liveSite?.url ?? p.data.links.demo;
+          return (
+            <article class="group relative flex flex-col overflow-hidden rounded-xl border border-line bg-panel transition-colors hover:border-blue/60">
+              <div class="relative overflow-hidden border-b border-line bg-bg-dark">
+                <Image src={p.data.image} alt={p.data.imageAlt} widths={[400, 640]} sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" class="aspect-[16/10] w-full object-cover object-left-top transition duration-500 group-hover:scale-[1.03]" />
+                {liveUrl && <LiveSiteBadge lang={lang} url={liveUrl} label={new URL(liveUrl).host} size="sm" />}
+              </div>
+              <div class="flex flex-1 flex-col p-4">
+                <h3 class="font-mono font-bold text-cyan">
+                  <a href={href} {...(external ? { target: "_blank", rel: "noopener" } : {})} class="after:absolute after:inset-0 group-hover:underline">{p.data.title}</a>
+                </h3>
+                {p.data.role && <p class="mt-1"><span class="rounded-full border border-mag/40 px-2 py-0.5 font-mono text-[11px] text-mag">{p.data.role}</span></p>}
+                <p class="mt-1.5 flex-1 text-[13.5px] leading-relaxed">{p.data.summary}</p>
+                <div class="mt-3 grid gap-2.5">
+                  <RepoMeta lang={lang} repo={p.data.repo} />
+                  {p.data.caseStudy ? (
+                    <p class="font-mono text-xs text-blue">{t(lang, "projects.caseStudy")} →</p>
+                  ) : (
+                    <ProjectLinks lang={lang} links={p.data.links} hide={["demo"]} />
+                  )}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
     </details>
   </div>
 </BaseLayout>

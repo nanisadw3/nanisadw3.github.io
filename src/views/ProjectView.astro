@@ -16,7 +16,9 @@ interface Props {
 }
 
 const { lang, project } = Astro.props;
-const { title, summary, image, imageAlt, tags, metric, links, live, repo, liveSite } = project.data;
+const { title, summary, image, imageAlt, tags, metric, links, live, repo } = project.data;
+// A project's demo counts as its live page when it has no dedicated `liveSite` entry.
+const liveSite = project.data.liveSite ?? (links.demo ? { url: links.demo, label: new URL(links.demo).host, text: "" } : undefined);
 const slug = slugOf(project);
 const { Content } = await render(project);
 const altHref = (await hasTranslation("projects", otherLang(lang), slug))
@@ -34,7 +36,7 @@ const altHref = (await hasTranslation("projects", otherLang(lang), slug))
       <p class="mt-4 text-lg leading-relaxed text-pretty">{summary}</p>
       <div class="mt-5 grid gap-3">
         <RepoMeta lang={lang} repo={repo} />
-        <ProjectLinks lang={lang} links={links} />
+        <ProjectLinks lang={lang} links={links} hide={liveSite && !project.data.liveSite ? ["demo"] : []} />
         {!live && metric && <p class="font-mono text-xs text-orange">{metric}</p>}
       </div>
     </header>
@@ -50,7 +52,7 @@ const altHref = (await hasTranslation("projects", otherLang(lang), slug))
         <Image src={image} alt={imageAlt} widths={[640, 1024, 1280]} sizes="(min-width: 1024px) 1024px, 100vw" class="w-full" loading="eager" />
       )}
       {liveSite && <LiveSiteBadge lang={lang} url={liveSite.url} label={liveSite.label} />}
-      {liveSite && (
+      {liveSite?.text && (
         <figcaption class="flex flex-col gap-3 border-t border-green/30 bg-green/[0.06] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
           <p>
             <span class="block font-mono text-[12px] text-green">● {t(lang, "projects.liveSite")} · {liveSite.label}</span>
