@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  # Rebuild every day so GitHub stats, PyPI downloads and Xerebro coverage stay current.
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -24,10 +28,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Fetch live data
+        # Each source falls back to the committed src/data/live.json if it fails.
+        run: npm run fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          XEREBRO_TOKEN: ${{ secrets.XEREBRO_TOKEN }}
+
       - name: Build with Astro
         run: npm run build
 
-      - name: Check links
+      - name: Test
         run: npm test
 
       - name: Deploy to GitHub Pages

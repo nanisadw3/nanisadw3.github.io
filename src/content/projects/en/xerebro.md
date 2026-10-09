@@ -7,10 +7,7 @@ caseStudy: true
 image: ../../../assets/projects/xerebro.jpg
 imageAlt: Xerebro Operativo sign-in screen, PEMEX's RAG assistant
 tags: [RAG, Qdrant, Flask, LLMs]
-links:
-  github: https://github.com/nanisadw3/RAG_pemex
 live: xerebro
-repo: RAG_pemex
 ---
 
 ## Problem
@@ -57,3 +54,5 @@ Before searching, the system classifies the question's intent to avoid wasted ca
 
 Python, Flask, Qdrant, Gemini, Groq, OpenRouter, SQLite (WAL), AWS S3, Docker, Gunicorn, Nginx,
 Linux.
+
+The code is private because it's an internal system; happy to walk through it in an interview.

@@ -15,10 +15,13 @@ interface Props {
 const { lang } = Astro.props;
 const es = lang === "es";
 const colors = ["#24283b", "#2f4b2a", "#4f7a3a", "#79a64e", "#9ece6a"];
+// Most recently active repos first: that's where current work lives. The profile README repo
+// (named like the user) isn't a project, so it's left out.
 const repos = Object.entries(github.repoStats)
   .map(([name, r]) => ({ name, ...r }))
-  .sort((a, b) => b.stars - a.stars || b.pushedAt.localeCompare(a.pushedAt))
-  .slice(0, 12);
+  .filter((r) => r.name !== contact.githubUser)
+  .sort((a, b) => b.pushedAt.localeCompare(a.pushedAt))
+  .slice(0, 9);
 const stats = [
   [formatNumber(lang, github.contributions), t(lang, "gh.contributions")],
   [String(github.externalPrs.length), t(lang, "gh.prs")],

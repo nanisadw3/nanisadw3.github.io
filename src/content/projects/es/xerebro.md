@@ -7,10 +7,7 @@ caseStudy: true
 image: ../../../assets/projects/xerebro.jpg
 imageAlt: Pantalla de acceso de Xerebro Operativo, RAG inteligente de PEMEX
 tags: [RAG, Qdrant, Flask, LLMs]
-links:
-  github: https://github.com/nanisadw3/RAG_pemex
 live: xerebro
-repo: RAG_pemex
 ---
 
 ## Problema
@@ -60,3 +57,5 @@ Antes de buscar, el sistema clasifica la intención de la pregunta para no gasta
 
 Python, Flask, Qdrant, Gemini, Groq, OpenRouter, SQLite (WAL), AWS S3, Docker, Gunicorn, Nginx,
 Linux.
+
+El código es privado por tratarse de un sistema interno; con gusto lo explico en una entrevista.
