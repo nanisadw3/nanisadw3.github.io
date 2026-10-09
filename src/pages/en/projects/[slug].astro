@@ -1,0 +1,13 @@
+---
+import ProjectView from "../../../views/ProjectView.astro";
+import { getProjects, slugOf } from "../../../content/queries.ts";
+
+export async function getStaticPaths() {
+  const items = (await getProjects("en")).filter((p) => p.data.caseStudy);
+  return items.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+---
+
+<ProjectView lang="en" project={entry} />

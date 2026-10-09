@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import PostItem from "../components/PostItem.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { getPosts } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const posts = await getPosts(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t(lang, "blog.title")} — Iñaki Sobera`}
+  description={t(lang, "meta.blogDescription")}
+  altHref={localizePath(otherLang(lang), "blog")}
+>
+  <header class="mx-auto max-w-5xl px-4 pt-16 sm:px-6 sm:pt-20">
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{t(lang, "blog.title")}</h1>
+    <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{t(lang, "blog.intro")}</p>
+  </header>
+
+  <Section title={lang === "es" ? "Artículos" : "Posts"}>
+    {posts.length > 0 ? (
+      posts.map((post) => <PostItem lang={lang} post={post} />)
+    ) : (
+      <p class="text-muted">{t(lang, "blog.empty")}</p>
+    )}
+  </Section>
+</BaseLayout>

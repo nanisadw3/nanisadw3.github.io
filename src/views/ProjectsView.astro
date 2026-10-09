@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { getProjects } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const projects = await getProjects(lang);
+const featured = projects.filter((p) => p.data.featured);
+const rest = projects.filter((p) => !p.data.featured);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t(lang, "projects.title")} — Iñaki Sobera`}
+  description={t(lang, "meta.projectsDescription")}
+  altHref={localizePath(otherLang(lang), "projects")}
+>
+  <header class="mx-auto max-w-5xl px-4 pt-16 sm:px-6 sm:pt-20">
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{t(lang, "projects.title")}</h1>
+    <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{t(lang, "projects.intro")}</p>
+  </header>
+
+  <Section title={t(lang, "projects.featured")}>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {featured.map((project) => <ProjectCard lang={lang} project={project} />)}
+    </div>
+  </Section>
+
+  <Section title={t(lang, "projects.more")}>
+    {rest.map((project) => <ProjectRow lang={lang} project={project} />)}
+  </Section>
+</BaseLayout>

@@ -1,0 +1,77 @@
+---
+import "../styles/global.css";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { getPosts } from "../content/queries.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { otherLang } from "../i18n/utils.ts";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  /** Path of the same page in the other language, or null when there is none. */
+  altHref: string | null;
+  type?: "website" | "article";
+  jsonLd?: Record<string, unknown>;
+}
+
+const { lang, title, description, image, altHref, type = "website", jsonLd } = Astro.props;
+
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = image
+  ? new URL((await getImage({ src: image, width: 1200, format: "jpg" })).src, site).href
+  : new URL("/og-image.jpg", site).href;
+const alt = otherLang(lang);
+const hreflang = { es: "es-MX", en: "en-US" } as const;
+const esHref = lang === "es" ? Astro.url.pathname : altHref;
+const showBlog = (await getPosts(lang)).length > 0;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09090b" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.png" type="image/png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href={lang === "es" ? "/rss.xml" : "/en/rss.xml"} />
+
+    {altHref && <link rel="alternate" hreflang={hreflang[lang]} href={canonical} />}
+    {altHref && <link rel="alternate" hreflang={hreflang[alt]} href={new URL(altHref, site).href} />}
+    {altHref && esHref && <link rel="alternate" hreflang="x-default" href={new URL(esHref, site).href} />}
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Iñaki Sobera" />
+    <meta property="og:locale" content={lang === "es" ? "es_MX" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-fg focus:px-3 focus:py-2 focus:text-bg">
+      {lang === "es" ? "Saltar al contenido" : "Skip to content"}
+    </a>
+    <Nav lang={lang} altHref={altHref} showBlog={showBlog} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

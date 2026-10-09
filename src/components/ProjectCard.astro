@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, t } from "../i18n/utils.ts";
+import { slugOf } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+  project: CollectionEntry<"projects">;
+}
+
+const { lang, project } = Astro.props;
+const { title, summary, image, imageAlt, tags, metric } = project.data;
+const href = localizePath(lang, "project", slugOf(project));
+---
+
+<article class="group relative flex flex-col overflow-hidden rounded-xl border border-line bg-surface/40 transition-colors hover:border-faint">
+  <div class="aspect-[16/9] overflow-hidden border-b border-line bg-surface">
+    <Image
+      src={image}
+      alt={imageAlt}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+      class="size-full object-cover object-top opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+    />
+  </div>
+  <div class="flex flex-1 flex-col p-5">
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <h3 class="text-lg font-semibold tracking-tight">
+        <a href={href} class="after:absolute after:inset-0 focus:outline-none">{title}</a>
+      </h3>
+      {metric && (
+        <span class="shrink-0 rounded-full border border-accent/30 px-2 py-0.5 font-mono text-[11px] text-accent">{metric}</span>
+      )}
+    </div>
+    <p class="mb-4 flex-1 text-sm leading-relaxed text-muted">{summary}</p>
+    <div class="flex items-center justify-between gap-3">
+      <p class="font-mono text-[11px] text-faint">{tags.join(" · ")}</p>
+      <span class="shrink-0 text-sm text-fg" aria-hidden="true">
+        <span class="sr-only">{t(lang, "project.caseStudy")}</span>→
+      </span>
+    </div>
+  </div>
+</article>

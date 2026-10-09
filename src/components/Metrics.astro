@@ -1,0 +1,25 @@
+---
+import type { Metric } from "../data/profile.ts";
+
+interface Props {
+  items: Metric[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="grid grid-cols-2 overflow-hidden rounded-xl border border-line font-mono sm:grid-cols-4">
+  {items.map((m, i) => (
+    <div
+      class:list={[
+        "flex flex-col-reverse gap-1 border-line px-4 py-4",
+        i % 2 === 0 && "border-r",
+        i < 2 && "border-b sm:border-b-0",
+        i === 1 && "sm:border-r",
+      ]}
+    >
+      <dt class="text-[11px] uppercase leading-snug tracking-wider text-faint">{m.label}</dt>
+      <dd class="text-2xl font-semibold tracking-tight text-fg">{m.value}</dd>
+    </div>
+  ))}
+</dl>

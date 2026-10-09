@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import ProjectLinks from "./ProjectLinks.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, t } from "../i18n/utils.ts";
+import { slugOf } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+  project: CollectionEntry<"projects">;
+}
+
+const { lang, project } = Astro.props;
+const { title, summary, image, imageAlt, tags, role, links, caseStudy } = project.data;
+---
+
+<article class="flex gap-4 border-b border-line py-5 last:border-b-0 sm:gap-6">
+  <Image
+    src={image}
+    alt={imageAlt}
+    width={160}
+    height={100}
+    class="hidden h-[72px] w-[112px] shrink-0 rounded-md border border-line object-cover object-top sm:block"
+  />
+  <div class="min-w-0 flex-1">
+    <div class="mb-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+      <h3 class="font-semibold tracking-tight">
+        {caseStudy ? <a href={localizePath(lang, "project", slugOf(project))} class="hover:text-accent">{title}</a> : title}
+      </h3>
+      {role && <span class="rounded-full border border-line px-2 py-0.5 font-mono text-[11px] text-muted">{role}</span>}
+    </div>
+    <p class="mb-3 text-sm leading-relaxed text-muted">{summary}</p>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-mono text-[11px] text-faint">{tags.join(" · ")}</p>
+      {caseStudy ? (
+        <a href={localizePath(lang, "project", slugOf(project))} class="text-xs text-fg hover:text-accent">{t(lang, "project.caseStudy")} →</a>
+      ) : (
+        <ProjectLinks lang={lang} links={links} />
+      )}
+    </div>
+  </div>
+</article>

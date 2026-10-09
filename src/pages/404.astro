@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { t } from "../i18n/utils.ts";
+---
+
+<BaseLayout lang="es" title={`404 — ${t("es", "notFound.title")}`} description={t("es", "notFound.text")} altHref={null}>
+  <section class="mx-auto max-w-5xl px-4 py-24 sm:px-6 sm:py-32">
+    <p class="font-mono text-sm text-accent">404</p>
+    <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{t("es", "notFound.title")}</h1>
+    <p class="mt-4 text-lg text-muted">{t("es", "notFound.text")}</p>
+    <p class="mt-1 text-muted" lang="en">{t("en", "notFound.title")}. {t("en", "notFound.text")}</p>
+    <div class="mt-8 flex gap-3">
+      <a href="/" class="rounded-lg bg-fg px-4 py-2.5 text-sm font-semibold text-bg">{t("es", "notFound.home")}</a>
+      <a href="/en/" lang="en" class="rounded-lg border border-line px-4 py-2.5 text-sm">{t("en", "notFound.home")}</a>
+    </div>
+  </section>
+</BaseLayout>

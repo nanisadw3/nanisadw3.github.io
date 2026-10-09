@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectLinks from "../components/ProjectLinks.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { hasTranslation, slugOf } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+  project: CollectionEntry<"projects">;
+}
+
+const { lang, project } = Astro.props;
+const { title, summary, image, imageAlt, tags, metric, links } = project.data;
+const slug = slugOf(project);
+const { Content } = await render(project);
+const altHref = (await hasTranslation("projects", otherLang(lang), slug))
+  ? localizePath(otherLang(lang), "project", slug)
+  : null;
+---
+
+<BaseLayout lang={lang} title={`${title} — Iñaki Sobera`} description={summary} image={image} altHref={altHref} type="article">
+  <article class="mx-auto max-w-5xl px-4 pt-12 pb-20 sm:px-6 sm:pt-16">
+    <a href={localizePath(lang, "projects")} class="text-sm text-muted transition-colors hover:text-fg">← {t(lang, "project.back")}</a>
+
+    <header class="mt-8 max-w-3xl">
+      <p class="font-mono text-xs uppercase tracking-[0.15em] text-faint">{tags.join(" · ")}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{title}</h1>
+      <p class="mt-5 text-lg leading-relaxed text-muted text-pretty">{summary}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        {metric && <span class="rounded-full border border-accent/30 px-3 py-1 font-mono text-xs text-accent">{metric}</span>}
+        <ProjectLinks lang={lang} links={links} size="md" />
+      </div>
+    </header>
+
+    <div class="mt-10 overflow-hidden rounded-xl border border-line bg-surface">
+      <Image src={image} alt={imageAlt} widths={[640, 1024, 1280]} sizes="(min-width: 1024px) 1024px, 100vw" class="w-full" loading="eager" />
+    </div>
+
+    <div class="prose-site mt-12">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

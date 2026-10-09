@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Lang } from "../i18n/ui.ts";
+import { formatDate, localizePath } from "../i18n/utils.ts";
+import { slugOf } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+  post: CollectionEntry<"blog">;
+}
+
+const { lang, post } = Astro.props;
+const { title, description, date, draft } = post.data;
+---
+
+<article class="group grid gap-1 border-b border-line py-5 last:border-b-0 sm:grid-cols-[160px_1fr] sm:gap-8">
+  <time datetime={date.toISOString()} class="font-mono text-xs text-faint sm:pt-1">{formatDate(lang, date)}</time>
+  <div>
+    <h3 class="font-semibold tracking-tight">
+      <a href={localizePath(lang, "post", slugOf(post))} class="group-hover:text-accent transition-colors">{title}</a>
+      {draft && <span class="ml-2 rounded border border-amber-500/40 px-1.5 py-0.5 font-mono text-[10px] text-amber-400">DRAFT</span>}
+    </h3>
+    <p class="mt-1 text-sm leading-relaxed text-muted">{description}</p>
+  </div>
+</article>

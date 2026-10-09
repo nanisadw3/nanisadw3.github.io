@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ExperienceItem from "../components/ExperienceItem.astro";
+import PostItem from "../components/PostItem.astro";
+import ContactLinks from "../components/ContactLinks.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { contact, profile } from "../data/profile.ts";
+import { getPosts, getProjects } from "../content/queries.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const p = profile[lang];
+const featured = (await getProjects(lang)).filter((x) => x.data.featured).slice(0, 3);
+const posts = (await getPosts(lang)).slice(0, 3);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: p.name,
+  jobTitle: p.role,
+  url: new URL(localizePath(lang, "home"), Astro.site).href,
+  email: `mailto:${contact.email}`,
+  worksFor: { "@type": "Organization", name: "PEMEX" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: "UNITEC" },
+  sameAs: [contact.github, contact.linkedin, contact.x],
+  knowsAbout: ["Retrieval-Augmented Generation", "Model Context Protocol", "Python", "Linux", "AI agents"],
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={t(lang, "meta.homeTitle")}
+  description={t(lang, "meta.homeDescription")}
+  altHref={localizePath(otherLang(lang), "home")}
+  jsonLd={jsonLd}
+>
+  <Hero lang={lang} />
+
+  <Section title={t(lang, "home.featured")} href={localizePath(lang, "projects")} hrefLabel={t(lang, "home.allProjects")}>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {featured.map((project) => <ProjectCard lang={lang} project={project} />)}
+    </div>
+  </Section>
+
+  <Section title={t(lang, "home.experience")} href={localizePath(lang, "about")} hrefLabel={t(lang, "nav.about")}>
+    <div class="space-y-12">
+      {p.experience.map((item) => <ExperienceItem item={item} />)}
+    </div>
+  </Section>
+
+  {posts.length > 0 && (
+    <Section title={t(lang, "home.writing")} href={localizePath(lang, "blog")} hrefLabel={t(lang, "home.allPosts")}>
+      {posts.map((post) => <PostItem lang={lang} post={post} />)}
+    </Section>
+  )}
+
+  <Section id="contacto" title={t(lang, "home.contact")}>
+    <ContactLinks lang={lang} />
+  </Section>
+</BaseLayout>

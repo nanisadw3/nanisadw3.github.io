@@ -1,0 +1,74 @@
+---
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { contact } from "../data/profile.ts";
+
+interface Props {
+  lang: Lang;
+  altHref: string | null;
+  showBlog: boolean;
+}
+
+const { lang, altHref, showBlog } = Astro.props;
+const path = Astro.url.pathname;
+
+const links = [
+  { href: localizePath(lang, "projects"), label: t(lang, "nav.projects") },
+  ...(showBlog ? [{ href: localizePath(lang, "blog"), label: t(lang, "nav.blog") }] : []),
+  { href: localizePath(lang, "about"), label: t(lang, "nav.about") },
+];
+const isActive = (href: string) => path.startsWith(href);
+const switchHref = altHref ?? localizePath(otherLang(lang), "home");
+---
+
+<header class="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-md">
+  <nav class="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6" aria-label="Principal">
+    <a href={localizePath(lang, "home")} class="text-sm font-semibold tracking-tight text-fg hover:text-accent transition-colors">
+      Iñaki Sobera
+    </a>
+
+    <div class="hidden items-center gap-1 sm:flex">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          aria-current={isActive(l.href) ? "page" : undefined}
+          class:list={[
+            "rounded-md px-3 py-1.5 text-sm transition-colors",
+            isActive(l.href) ? "text-fg" : "text-muted hover:text-fg",
+          ]}
+        >
+          {l.label}
+        </a>
+      ))}
+      <a href={contact.cv} class="rounded-md px-3 py-1.5 text-sm text-muted transition-colors hover:text-fg">
+        {t(lang, "nav.cv")}
+      </a>
+      <a
+        href={switchHref}
+        hreflang={otherLang(lang)}
+        lang={otherLang(lang)}
+        class="ml-2 rounded-md border border-line px-2.5 py-1 font-mono text-xs text-muted transition-colors hover:border-faint hover:text-fg"
+      >
+        {otherLang(lang).toUpperCase()}
+      </a>
+    </div>
+
+    <details class="group relative sm:hidden">
+      <summary class="flex cursor-pointer list-none items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm text-muted [&::-webkit-details-marker]:hidden">
+        {t(lang, "nav.menu")}
+        <svg class="size-3 transition-transform group-open:rotate-180" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
+      <div class="absolute right-0 mt-2 w-48 rounded-lg border border-line bg-surface p-1.5 shadow-xl">
+        {links.map((l) => (
+          <a href={l.href} class="block rounded-md px-3 py-2 text-sm text-muted hover:bg-line/50 hover:text-fg">{l.label}</a>
+        ))}
+        <a href={contact.cv} class="block rounded-md px-3 py-2 text-sm text-muted hover:bg-line/50 hover:text-fg">{t(lang, "nav.cv")}</a>
+        <a href={switchHref} hreflang={otherLang(lang)} lang={otherLang(lang)} class="block rounded-md px-3 py-2 text-sm text-muted hover:bg-line/50 hover:text-fg">
+          {t(lang, "nav.switch")}
+        </a>
+      </div>
+    </details>
+  </nav>
+</header>
