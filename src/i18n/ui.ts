@@ -17,7 +17,6 @@ const es = {
   "nav.skip": "Saltar al contenido",
 
   "hero.cv": "Descargar CV",
-  "hero.scroll": "desliza para ver más",
   "hero.open": "abierto a roles de IA · remoto o presencial",
   "hero.followers": "seguidores",
   "hero.contrib": "contrib. este año",
@@ -111,7 +110,6 @@ const en: Record<UiKey, string> = {
   "nav.skip": "Skip to content",
 
   "hero.cv": "Download CV",
-  "hero.scroll": "scroll for more",
   "hero.open": "open to AI roles · remote or on-site",
   "hero.followers": "followers",
   "hero.contrib": "contrib. this year",
