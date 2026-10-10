@@ -62,9 +62,9 @@ const chips = lang === "es"
 ---
 
 <BaseLayout lang={lang} title={`${t(lang, "terminal.title")} — Iñaki Sobera`} description={t(lang, "meta.terminalDescription")} altHref={localizePath(otherLang(lang), "terminal")}>
-  <!-- Fills the viewport between the header (57px) and the floating dock. -->
-  <div class="mx-auto w-full max-w-[1500px] px-2 pt-3 pb-[104px] sm:px-5 sm:pt-4">
-    <div class="flex h-[max(420px,calc(100dvh-57px-120px))] flex-col overflow-hidden rounded-xl border border-line-strong bg-bg-dark shadow-[0_30px_80px_-30px_#000]">
+  <!-- Fills the viewport above the floating dock. -->
+  <div class="mx-auto w-full max-w-[1500px] px-2 pt-3 pb-[104px] sm:px-5 sm:pt-5">
+    <div class="flex h-[max(420px,calc(100dvh-130px))] flex-col overflow-hidden rounded-xl border border-line-strong bg-bg-dark shadow-[0_30px_80px_-30px_#000]">
       <div class="flex items-center gap-1.5 border-b border-line bg-bg px-3 py-2 font-mono text-[11px] text-dim">
         <i class="size-2.5 rounded-full bg-red"></i><i class="size-2.5 rounded-full bg-yellow"></i><i class="size-2.5 rounded-full bg-green"></i>
         <span class="ml-2 text-fg-2">inaki@arch: ~</span>

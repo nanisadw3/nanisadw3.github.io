@@ -3,7 +3,6 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
-import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Dock from "../components/Dock.astro";
 import type { Lang } from "../i18n/ui.ts";
@@ -72,12 +71,11 @@ const esHref = lang === "es" ? Astro.url.pathname : altHref;
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-fg focus:px-3 focus:py-2 focus:text-bg">
       {t(lang, "nav.skip")}
     </a>
-    <Nav lang={lang} altHref={altHref} />
     <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer lang={lang} />
-    <Dock lang={lang} />
+    <Dock lang={lang} altHref={altHref} />
 
     <script>
       // Reveal sections as they scroll into view. Re-runs after every client-side navigation.
