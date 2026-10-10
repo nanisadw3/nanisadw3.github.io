@@ -2,6 +2,8 @@ import type { Lang } from "../i18n/ui.ts";
 
 export const contact = {
   email: "yo@inakisobera.me",
+  /** WhatsApp number in international format, digits only (for wa.me links). */
+  whatsapp: "525510310275",
   github: "https://github.com/nanisadw3",
   githubUser: "nanisadw3",
   linkedin: "https://www.linkedin.com/in/inakisobera/",
@@ -9,6 +11,15 @@ export const contact = {
   cv: "/cv/cv_inaki_sobera.pdf",
   siteSource: "https://github.com/nanisadw3/nanisadw3.github.io",
 } as const;
+
+/** wa.me link that opens a chat with a greeting already typed in the visitor's language. */
+export function whatsappUrl(lang: Lang): string {
+  const text =
+    lang === "es"
+      ? "Hola Iñaki, vi tu página y me gustaría platicar contigo sobre una oportunidad en IA."
+      : "Hi Iñaki, I saw your website and would like to talk with you about an AI opportunity.";
+  return `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`;
+}
 
 /** Which live number backs a specialty's evidence line (see src/data/live.json). */
 export type Evidence = "xerebro" | "pypi" | "gordito";

@@ -7,7 +7,7 @@ import LangBar from "../components/LangBar.astro";
 import PostItem from "../components/PostItem.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
-import { contact, profile } from "../data/profile.ts";
+import { contact, profile, whatsappUrl } from "../data/profile.ts";
 import { compact, evidenceText, formatNumber, github, lastWeeks, weeklyTotals } from "../data/live.ts";
 import { getPosts } from "../content/queries.ts";
 
@@ -214,13 +214,22 @@ const jsonLd = {
   <!-- Contact -->
   <section class="border-t border-line py-16">
     <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
-      <div class="flex flex-col gap-5 rounded-xl border border-line bg-panel p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+      <div class="flex flex-col gap-5 rounded-xl border border-line bg-panel p-6 sm:p-8">
         <div>
           <h2 class="font-mono text-[22px] font-bold text-fg">{t(lang, "home.contactTitle")}</h2>
           <p class="mt-1 max-w-lg">{t(lang, "home.contactText")}</p>
         </div>
         <div class="flex flex-wrap gap-2.5">
           <a href={`mailto:${contact.email}`} class={btnPrimary}>{contact.email}</a>
+          <a
+            href={whatsappUrl(lang)}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-md border border-[#25d366] bg-[#25d366] px-4 py-2 font-mono text-[13px] font-bold text-bg-dark transition-opacity hover:opacity-90"
+          >
+            <svg viewBox="0 0 24 24" class="size-4 fill-current" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.8h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.98 1-3.63-.24-.37a9.78 9.78 0 0 1-1.5-5.21c0-5.41 4.41-9.82 9.84-9.82 2.63 0 5.1 1.03 6.95 2.88a9.76 9.76 0 0 1 2.88 6.95c0 5.42-4.41 9.83-9.84 9.83zm8.37-18.2A11.76 11.76 0 0 0 12.05 0C5.5 0 .17 5.33.16 11.88c0 2.1.55 4.14 1.59 5.94L.06 24l6.33-1.66a11.88 11.88 0 0 0 5.66 1.44h.01c6.55 0 11.88-5.33 11.89-11.88 0-3.18-1.24-6.16-3.48-8.41z"/></svg>
+            WhatsApp
+          </a>
           <a href={contact.linkedin} class={btn}>LinkedIn</a>
           <a href={contact.github} class={btn}>GitHub</a>
           <a href={contact.cv} class={btn}>CV</a>

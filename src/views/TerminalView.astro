@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
-import { contact, profile } from "../data/profile.ts";
+import { contact, profile, whatsappUrl } from "../data/profile.ts";
 import { banxico, evidenceText, formatNumber, github, pypi, xerebro } from "../data/live.ts";
 import { getProjects, slugOf } from "../content/queries.ts";
 import logo from "../data/arch-logo.txt?raw";
@@ -49,7 +49,7 @@ const data = {
   xerebro,
   pypi: pypi.lastMonth,
   banxico,
-  contact,
+  contact: { ...contact, whatsappUrl: whatsappUrl(lang) },
   links: {
     home: localizePath(lang, "home"),
     github: localizePath(lang, "github"),
@@ -299,6 +299,7 @@ const chips = lang === "es"
         help: [es ? "contacto" : "contact", es ? "cómo encontrarme" : "how to reach me"],
         run: () => {
           print(`${c("text-blue", "email   ")} <a class="text-cyan underline" href="mailto:${esc(d.contact.email)}">${esc(d.contact.email)}</a>`);
+          print(`${c("text-blue", "whatsapp")} <a class="text-cyan underline" href="${esc(d.contact.whatsappUrl)}" target="_blank" rel="noopener">+52 55 1031 0275</a>`);
           print(`${c("text-blue", "linkedin")} <a class="text-cyan underline" href="${esc(d.contact.linkedin)}">${esc(d.contact.linkedin)}</a>`);
           print(`${c("text-blue", "github  ")} <a class="text-cyan underline" href="${esc(d.contact.github)}">${esc(d.contact.github)}</a>`);
         },
