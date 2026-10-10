@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>CV — Iñaki Sobera Sotomayor</title>
+<!-- Source of public/cv/cv_inaki_sobera.pdf. Rebuild with: npm run cv -->
+<style>
+  /* Gelasio (SIL Open Font License), variable weight, Latin subset. */
+  @font-face { font-family: Gelasio; src: url(fonts/gelasio-latin.woff2) format("woff2"); font-weight: 400 700; font-style: normal; }
+  @font-face { font-family: Gelasio; src: url(fonts/gelasio-italic-latin.woff2) format("woff2"); font-weight: 400 700; font-style: italic; }
+  @page { size: letter; margin: 0.4in 0.55in 0.4in; }
+  :root { --ink: #1b2236; --muted: #5a6274; --line: #1b2236; --navy: #1b2236; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: Gelasio, Georgia, serif; color: var(--ink); font-size: 9.2pt; line-height: 1.32; }
+  a { color: inherit; }
+
+  header { position: relative; display: grid; grid-template-columns: 1fr 150px 1fr; align-items: start; min-height: 116px; margin-bottom: 6px; }
+  header::before {
+    content: ""; position: absolute; left: 50%; top: -0.4in; transform: translateX(-50%);
+    width: 300px; height: 150px; background: var(--navy); clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+  .name { font-size: 20pt; font-weight: 700; line-height: 1.08; padding-top: 4px; }
+  .role { font-style: italic; color: var(--muted); font-size: 11pt; line-height: 1.25; margin-top: 6px; }
+  .photo { position: relative; justify-self: center; width: 110px; height: 110px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 0 0 1px #d4d7de; }
+  .contact { text-align: right; color: var(--muted); font-size: 9pt; line-height: 1.75; padding-top: 6px; }
+  .contact a { text-decoration: underline; text-underline-offset: 2px; }
+  .contact .links a { margin-left: 8px; }
+
+  section { border-top: 1px solid var(--line); padding: 5px 0 6px; }
+  h2 { font-size: 7.4pt; font-weight: 400; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 4px; }
+  .row { display: grid; grid-template-columns: 132px 1fr; gap: 12px; margin-bottom: 4px; }
+  .row:last-child { margin-bottom: 0; }
+  .when { color: var(--muted); font-size: 8.8pt; }
+  .what b { font-weight: 700; }
+  .sub { color: var(--ink); }
+  .tech { color: var(--muted); font-size: 8.8pt; margin-top: 1px; }
+  ul { padding-left: 14px; margin-top: 2px; }
+  li { margin-bottom: 0; }
+  .skills .row { margin-bottom: 1px; }
+  .profile { text-align: justify; }
+  .certs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .certs .row { grid-template-columns: 62px 1fr; gap: 8px; }
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="name">Iñaki Sobera<br>Sotomayor</div>
+      <div class="role">Ingeniero de IA ·<br>RAG y agentes en producción</div>
+    </div>
+    <img class="photo" src="foto.jpg" alt="">
+    <div class="contact">
+      Estado de México, MX<br>
+      <a href="mailto:yo@inakisobera.me">yo@inakisobera.me</a><br>
+      <span class="links"><a href="https://inakisobera.me">inakisobera.me</a><a href="https://github.com/nanisadw3">GitHub</a><a href="https://www.linkedin.com/in/inakisobera/">LinkedIn</a></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Perfil</h2>
+    <p class="profile">Ingeniero en Sistemas Computacionales con IA corriendo en producción. En PEMEX diseñé, construí y opero una
+      plataforma RAG que responde preguntas en lenguaje natural sobre los reportes operativos del Sistema Nacional de Refinación,
+      citando la fuente, con base vectorial Qdrant, LLMs (Gemini, Groq) con conmutación automática ante fallas y un pipeline propio
+      de embeddings. Fuera del trabajo publico servidores MCP de código abierto, como mcp-banxico (más de 1,700 descargas al mes en
+      PyPI). Busco seguir aplicando IA donde elimine trabajo manual y el resultado se pueda medir.</p>
+  </section>
+
+  <section>
+    <h2>Experiencia laboral</h2>
+    <div class="row">
+      <div class="when">may. 2026 – actualidad</div>
+      <div class="what">
+        <b>Analista en Tecnologías de Operación, PEMEX</b>
+        <ul>
+          <li>Diseñé y desplegué de punta a punta la plataforma RAG del SNR: indexa el reporte diario de las siete refinerías desde
+            enero de 2026 (282 días a octubre) y responde citando reporte, fecha y turno.</li>
+          <li>Implementé una cascada de LLMs con failover automático e identificación de intención (conceptual/operativa/híbrida),
+            disminuyendo errores por cuota y llamadas innecesarias a la base vectorial.</li>
+          <li>Automatizo captura y análisis con flujos de IA en n8n y Python, orquestados en Docker, reduciendo trabajo manual y
+            ofreciendo una PaaS interna para áreas usuarias.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Proyectos</h2>
+    <div class="row">
+      <div class="when">2026 – actualidad</div>
+      <div class="what"><b>mcp-banxico — servidor MCP en PyPI</b>
+        <div class="sub">Conecta a Claude, Cursor y otros agentes con la API oficial del Banco de México; cada respuesta trae fecha de
+          corte e ID de serie. Más de 1,700 descargas al mes, endpoint remoto público y la página Banxico al Día con 22 indicadores
+          actualizados cada día hábil.</div>
+        <div class="tech">Python · Model Context Protocol · PyPI · GitHub Actions · Nginx</div></div>
+    </div>
+    <div class="row">
+      <div class="when">2026 – actualidad</div>
+      <div class="what"><b>Xerebro — RAG de reportes operativos del SNR</b> · en producción
+        <div class="tech">Python · Qdrant · Gemini / Groq · Flask · Docker · Linux · 85 pruebas automatizadas</div></div>
+    </div>
+    <div class="row">
+      <div class="when">sep. 2026</div>
+      <div class="what"><b>Contribución open source — MCP Guard</b>
+        <div class="sub">PR #35 aceptado: reglas de bloqueo para servidores y herramientas MCP (exactas, comodines y por servidor),
+          configuración YAML y pruebas; +525 líneas.</div></div>
+    </div>
+    <div class="row">
+      <div class="when">2026</div>
+      <div class="what"><b>Gordito — agente de IA local</b> · <b>MCP Relational AI Gateway</b>
+        <div class="tech">Ollama · MCP · Playwright · Gemini / Claude · SQL Server · PostgreSQL</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Formación</h2>
+    <div class="row">
+      <div class="when">2026 – actualidad</div>
+      <div class="what"><b>Maestría en Dirección de Proyectos, UNITEC</b><div class="sub">Graduación esperada: junio–julio de 2027.</div></div>
+    </div>
+    <div class="row">
+      <div class="when">2023 – 2026</div>
+      <div class="what"><b>Ingeniería en Sistemas Computacionales, UNITEC · Atizapán</b>
+        <div class="sub">Egresado, en proceso de titulación. Proyecto destacado: videojuego en Python (Pygame) con agentes controlados
+          por IA para patrullaje, seguimiento del jugador y gestión de recursos.</div></div>
+    </div>
+  </section>
+
+  <section class="skills">
+    <h2>Habilidades</h2>
+    <div class="row"><div class="when">IA / ML</div><div>LLMs (Gemini, Groq, OpenRouter) • RAG • Embeddings • Qdrant • MCP • Ollama • TensorFlow • OpenCV</div></div>
+    <div class="row"><div class="when">Automatización</div><div>n8n • Python • Bash • Orquestación de procesos en Linux • Integración vía APIs REST</div></div>
+    <div class="row"><div class="when">Lenguajes</div><div>Python • Java • SQL • C# • TypeScript • Ruby • Bash</div></div>
+    <div class="row"><div class="when">Datos</div><div>PostgreSQL • MySQL • SQL Server • Redis • Power BI • Bases vectoriales</div></div>
+    <div class="row"><div class="when">Idiomas</div><div>Español (lengua materna) • Inglés (avanzado)</div></div>
+    <div class="row"><div class="when">Infraestructura</div><div>Docker • Linux (CLI, SSH, systemd) • Nginx • Gunicorn • AWS S3 • CI/CD • Oracle Cloud Infrastructure</div></div>
+  </section>
+
+  <section>
+    <h2>Certificaciones</h2>
+    <div class="certs">
+      <div class="row"><div class="when">oct. 2025</div><div><b>Oracle AI Foundations</b> · Oracle (OCI)</div></div>
+      <div class="row"><div class="when">jul. 2025</div><div><b>Administración Avanzada de Linux</b> · Hack4u.io</div></div>
+      <div class="row"><div class="when">2026</div><div><b>GitHub Foundations</b> · GitHub</div></div>
+      <div class="row"><div class="when">2024</div><div><b>Python Ofensivo</b> · Hack4u.io</div></div>
+    </div>
+  </section>
+
+</body>
+</html>

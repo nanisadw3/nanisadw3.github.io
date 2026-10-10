@@ -12,7 +12,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node --test src/i18n/utils.test.ts scripts/live-lib.test.mjs && node scripts/check-links.mjs"
+    "test": "node --test src/i18n/utils.test.ts scripts/live-lib.test.mjs && node scripts/check-links.mjs",
+    "cv": "google-chrome-stable --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=5000 --print-to-pdf=public/cv/cv_inaki_sobera.pdf \"file://$PWD/cv/cv.es.html\""
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
