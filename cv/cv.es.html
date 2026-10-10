@@ -8,21 +8,25 @@
   /* Gelasio (SIL Open Font License), variable weight, Latin subset. */
   @font-face { font-family: Gelasio; src: url(fonts/gelasio-latin.woff2) format("woff2"); font-weight: 400 700; font-style: normal; }
   @font-face { font-family: Gelasio; src: url(fonts/gelasio-italic-latin.woff2) format("woff2"); font-weight: 400 700; font-style: italic; }
-  @page { size: letter; margin: 0.4in 0.55in 0.4in; }
-  :root { --ink: #1b2236; --muted: #5a6274; --line: #1b2236; --navy: #1b2236; }
+  @page { size: letter; margin: 0 0.55in 0.35in; }
+  /* No top page margin so the header shape can touch the top edge; the body adds it back. */
+  body { padding-top: 0.4in; }
+  :root { --ink: #1b2236; --muted: #5a6274; --line: #1b2236; --navy: #121826; }
   * { box-sizing: border-box; margin: 0; }
-  body { font-family: Gelasio, Georgia, serif; color: var(--ink); font-size: 9.2pt; line-height: 1.32; }
+  body { font-family: Gelasio, Georgia, serif; color: var(--ink); font-size: 8.9pt; line-height: 1.3; }
   a { color: inherit; }
 
-  header { position: relative; display: grid; grid-template-columns: 1fr 150px 1fr; align-items: start; min-height: 116px; margin-bottom: 6px; }
+  header { position: relative; display: grid; grid-template-columns: 1fr 150px 1fr; align-items: start; min-height: 146px; margin-bottom: 6px; }
+  /* Navy "V" with a rounded tip hanging from the top edge of the page (matches the original CV). */
   header::before {
-    content: ""; position: absolute; left: 50%; top: -0.4in; transform: translateX(-50%);
-    width: 300px; height: 150px; background: var(--navy); clip-path: polygon(0 0, 100% 0, 50% 100%);
+    content: ""; position: absolute; left: 50%; top: -0.4in; transform: translateX(-50%); z-index: 0;
+    width: 394px; height: 176px; background: var(--navy);
+    clip-path: path("M0 0 L394 0 L282.8 134.6 A111.3 111.3 0 0 1 111.2 134.6 Z");
   }
-  .name { font-size: 20pt; font-weight: 700; line-height: 1.08; padding-top: 4px; }
+  .name { font-size: 20pt; font-weight: 700; line-height: 1.08; padding-top: 10px; }
   .role { font-style: italic; color: var(--muted); font-size: 11pt; line-height: 1.25; margin-top: 6px; }
-  .photo { position: relative; justify-self: center; width: 110px; height: 110px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 0 0 1px #d4d7de; }
-  .contact { text-align: right; color: var(--muted); font-size: 9pt; line-height: 1.75; padding-top: 6px; }
+  .photo { position: relative; justify-self: center; margin-top: -10px; width: 126px; height: 126px; border-radius: 50%; border: 6px solid #fff; object-fit: cover; }
+  .contact { text-align: right; color: var(--muted); font-size: 9pt; line-height: 1.75; padding-top: 10px; }
   .contact a { text-decoration: underline; text-underline-offset: 2px; }
   .contact .links a { margin-left: 8px; }
 
