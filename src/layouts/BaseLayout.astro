@@ -25,7 +25,7 @@ const site = Astro.site!;
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = image
   ? new URL((await getImage({ src: image, width: 1200, format: "jpg" })).src, site).href
-  : new URL(lang === "en" ? "/og-image-en.jpg" : "/og-image.jpg", site).href;
+  : new URL(lang === "en" ? "/og-share-en.jpg" : "/og-share.jpg", site).href;
 const alt = otherLang(lang);
 const hreflang = { es: "es-MX", en: "en-US" } as const;
 const esHref = lang === "es" ? Astro.url.pathname : altHref;
