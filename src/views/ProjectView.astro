@@ -21,12 +21,22 @@ const { title, summary, image, imageAlt, tags, metric, links, live, repo } = pro
 const liveSite = project.data.liveSite ?? (links.demo ? { url: links.demo, label: new URL(links.demo).host, text: "" } : undefined);
 const slug = slugOf(project);
 const { Content } = await render(project);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  name: title,
+  description: summary,
+  url: new URL(localizePath(lang, "project", slug), Astro.site).href,
+  ...(links.github ? { codeRepository: links.github } : {}),
+  keywords: tags.join(", "),
+  author: { "@id": "https://inakisobera.me/#person", "@type": "Person", name: "Iñaki Sobera Sotomayor" },
+};
 const altHref = (await hasTranslation("projects", otherLang(lang), slug))
   ? localizePath(otherLang(lang), "project", slug)
   : null;
 ---
 
-<BaseLayout lang={lang} title={`${title} — Iñaki Sobera`} description={summary} image={image} altHref={altHref} type="article">
+<BaseLayout lang={lang} title={`${title} — Iñaki Sobera`} description={summary} image={image} altHref={altHref} type="article" jsonLd={jsonLd}>
   <article class="mx-auto max-w-5xl px-5 pt-12 pb-20 sm:px-7">
     <a href={localizePath(lang, "projects")} class="font-mono text-[13px] text-dim transition-colors hover:text-fg">← {t(lang, "projects.back")}</a>
 

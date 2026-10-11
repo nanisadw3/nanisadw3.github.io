@@ -18,6 +18,7 @@ const es = {
 
   "hero.cv": "Descargar CV",
   "hero.open": "abierto a roles de IA · remoto o presencial",
+  "hero.scroll": "desliza para ver más",
   "hero.followers": "seguidores",
   "hero.contrib": "contrib. este año",
 
@@ -94,9 +95,9 @@ const es = {
   "notFound.text": "Puede que el enlace haya cambiado con el rediseño del sitio.",
   "notFound.home": "Ir al inicio",
 
-  "meta.homeTitle": "Iñaki Sobera — Ingeniero de IA: RAG y agentes en producción",
+  "meta.homeTitle": "Iñaki Sobera — Ingeniero de IA en México · RAG, agentes y MCP",
   "meta.homeDescription":
-    "Ingeniero de IA. Opero un RAG en producción en PEMEX y publico servidores MCP de código abierto como mcp-banxico. Abierto a roles de IA.",
+    "Iñaki Sobera, ingeniero de inteligencia artificial en México: RAG en producción en PEMEX, servidores MCP de código abierto (mcp-banxico) y contribuidor del kernel de Linux. Abierto a roles de IA.",
   "meta.projectsDescription": "Proyectos de Iñaki Sobera: mcp-banxico, Xerebro (RAG en producción), Gordito y más.",
   "meta.githubDescription": "Actividad de Iñaki Sobera en GitHub: contribuciones, lenguajes, repositorios y PRs aceptados.",
   "meta.blogDescription": "Notas técnicas de Iñaki Sobera sobre IA aplicada, MCP y RAG.",
@@ -116,6 +117,7 @@ const en: Record<UiKey, string> = {
 
   "hero.cv": "Download CV",
   "hero.open": "open to AI roles · remote or on-site",
+  "hero.scroll": "scroll to see more",
   "hero.followers": "followers",
   "hero.contrib": "contrib. this year",
 
@@ -192,9 +194,9 @@ const en: Record<UiKey, string> = {
   "notFound.text": "The link may have changed with the site redesign.",
   "notFound.home": "Go home",
 
-  "meta.homeTitle": "Iñaki Sobera — AI engineer: RAG and agents in production",
+  "meta.homeTitle": "Iñaki Sobera — AI Engineer in Mexico · RAG, agents and MCP",
   "meta.homeDescription":
-    "AI engineer. I run a production RAG system at PEMEX and publish open-source MCP servers like mcp-banxico. Open to AI roles.",
+    "Iñaki Sobera, AI engineer based in Mexico: production RAG at PEMEX, open-source MCP servers (mcp-banxico) and Linux kernel contributor. Open to remote or on-site AI roles.",
   "meta.projectsDescription": "Projects by Iñaki Sobera: mcp-banxico, Xerebro (production RAG), Gordito and more.",
   "meta.githubDescription": "Iñaki Sobera's GitHub activity: contributions, languages, repositories and merged PRs.",
   "meta.blogDescription": "Technical notes by Iñaki Sobera on applied AI, MCP and RAG.",

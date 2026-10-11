@@ -27,17 +27,46 @@ const other = lang === "es" ? "otros" : "other";
 const btn = "inline-flex items-center gap-2 rounded-md border border-line px-4 py-2 font-mono text-[13px] text-fg transition-colors hover:border-blue";
 const btnPrimary = "inline-flex items-center gap-2 rounded-md border border-blue bg-blue px-4 py-2 font-mono text-[13px] font-bold text-bg-dark transition-opacity hover:opacity-90";
 
+const siteUrl = new URL(localizePath(lang, "home"), Astro.site).href;
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: `${p.name.first} ${p.name.last}`,
-  jobTitle: p.role,
-  url: new URL(localizePath(lang, "home"), Astro.site).href,
-  email: `mailto:${contact.email}`,
-  worksFor: { "@type": "Organization", name: "PEMEX" },
-  alumniOf: { "@type": "CollegeOrUniversity", name: "UNITEC" },
-  sameAs: [contact.github, contact.linkedin, contact.x],
-  knowsAbout: ["Retrieval-Augmented Generation", "Model Context Protocol", "AI agents", "Python", "Linux"],
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://inakisobera.me/#person",
+      name: `${p.name.first} ${p.name.last}`,
+      alternateName: "Iñaki Sobera",
+      jobTitle: lang === "es" ? "Ingeniero de Inteligencia Artificial" : "AI Engineer",
+      description: t(lang, "meta.homeDescription"),
+      url: siteUrl,
+      image: new URL("/cv/foto.jpg", Astro.site).href,
+      email: `mailto:${contact.email}`,
+      address: { "@type": "PostalAddress", addressRegion: "Estado de México", addressCountry: "MX" },
+      worksFor: { "@type": "Organization", name: "PEMEX" },
+      alumniOf: { "@type": "CollegeOrUniversity", name: "UNITEC" },
+      sameAs: [contact.github, contact.linkedin, contact.x, "https://pypi.org/project/mcp-banxico/"],
+      knowsAbout: [
+        "Artificial Intelligence",
+        "Retrieval-Augmented Generation",
+        "Model Context Protocol",
+        "AI agents",
+        "Large Language Models",
+        "Python",
+        "Linux kernel",
+        "Qdrant",
+        "Docker",
+      ],
+      knowsLanguage: ["es", "en"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://inakisobera.me/#website",
+      url: "https://inakisobera.me/",
+      name: "Iñaki Sobera",
+      inLanguage: ["es-MX", "en-US"],
+      author: { "@id": "https://inakisobera.me/#person" },
+    },
+  ],
 };
 ---
 
@@ -49,7 +78,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <!-- Hero -->
-  <section class="flex min-h-dvh items-center pt-10 pb-[150px]">
+  <section class="relative flex min-h-dvh items-center pt-10 pb-[150px]">
     <div class="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-7 lg:grid-cols-[0.95fr_1.05fr]">
       <div>
         <h1 class="font-mono text-4xl leading-[1.05] font-extrabold tracking-tight text-fg sm:text-[46px]">
@@ -90,10 +119,18 @@ const jsonLd = {
 
       <Neofetch lang={lang} />
     </div>
+    <a
+      href="#lo-que-hago"
+      data-scroll-hint
+      class="absolute bottom-[92px] left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 font-mono text-[12px] text-dim transition-opacity duration-500 hover:text-fg sm:bottom-[104px]"
+    >
+      {t(lang, "hero.scroll")}
+      <svg viewBox="0 0 24 24" class="size-5 animate-bounce motion-reduce:animate-none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </a>
   </section>
 
   <!-- What I do in AI -->
-  <section class="border-t border-line py-16">
+  <section id="lo-que-hago" class="scroll-mt-4 border-t border-line py-16">
     <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
       <SectionHead n="01" title={t(lang, "home.ai")} />
       <div class="grid gap-3 md:grid-cols-3">
@@ -240,3 +277,13 @@ const jsonLd = {
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Hide the "scroll for more" hint as soon as the visitor starts scrolling.
+  const syncHint = () => {
+    const hint = document.querySelector<HTMLElement>("[data-scroll-hint]");
+    if (hint) hint.style.opacity = window.scrollY > 40 ? "0" : "1";
+  };
+  window.addEventListener("scroll", syncHint, { passive: true });
+  document.addEventListener("astro:page-load", syncHint);
+</script>
