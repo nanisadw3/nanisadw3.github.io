@@ -1,21 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Iñaki Sobera brand mark: a small network (an agent and its tools) whose top node is the dot of an "i". -->
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#bb9af7"/>
-      <stop offset=".55" stop-color="#7aa2f7"/>
       <stop offset="1" stop-color="#7dcfff"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <!-- penguin -->
-  <ellipse cx="32" cy="38" rx="16.5" ry="20" fill="#16161e"/>
-  <circle cx="32" cy="22" r="12.5" fill="#16161e"/>
-  <ellipse cx="32" cy="42" rx="10.5" ry="13.5" fill="#f4f5fb"/>
-  <ellipse cx="27.6" cy="21" rx="3.6" ry="4.4" fill="#f4f5fb"/>
-  <ellipse cx="36.4" cy="21" rx="3.6" ry="4.4" fill="#f4f5fb"/>
-  <circle cx="28.4" cy="21.8" r="1.8" fill="#16161e"/>
-  <circle cx="35.6" cy="21.8" r="1.8" fill="#16161e"/>
-  <path d="M26.5 27.2c0-2 2.5-3 5.5-3s5.5 1 5.5 3-2.6 3.6-5.5 3.6-5.5-1.6-5.5-3.6z" fill="#ff9e64"/>
-  <ellipse cx="23.5" cy="57" rx="7" ry="3.2" fill="#ff9e64"/>
-  <ellipse cx="40.5" cy="57" rx="7" ry="3.2" fill="#ff9e64"/>
+  <rect width="64" height="64" rx="15" fill="#0d0e14"/>
+  <g stroke="#7aa2f7" stroke-width="2.6" stroke-linecap="round" stroke-opacity=".7">
+    <line x1="32" y1="17" x2="15" y2="31"/>
+    <line x1="32" y1="17" x2="49" y2="31"/>
+    <line x1="15" y1="31" x2="32" y2="50"/>
+    <line x1="49" y1="31" x2="32" y2="50"/>
+    <line x1="32" y1="17" x2="32" y2="50"/>
+  </g>
+  <circle cx="15" cy="31" r="5" fill="#bb9af7"/>
+  <circle cx="49" cy="31" r="5" fill="#7dcfff"/>
+  <circle cx="32" cy="50" r="5.5" fill="#7aa2f7"/>
+  <circle cx="32" cy="17" r="11.5" fill="none" stroke="#7dcfff" stroke-opacity=".35" stroke-width="2"/>
+  <circle cx="32" cy="17" r="7.5" fill="url(#top)"/>
 </svg>
