@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test src/i18n/utils.test.ts scripts/live-lib.test.mjs && node scripts/check-links.mjs",
-    "cv": "google-chrome-stable --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=5000 --print-to-pdf=public/cv/cv_inaki_sobera.pdf \"file://$PWD/cv/cv.es.html\""
+    "cv": "google-chrome-stable --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=5000 --print-to-pdf=public/cv/cv_inaki_sobera.pdf \"file://$PWD/cv/cv.es.html\"",
+    "og": "for l in es en; do f=public/og-image.jpg; [ $l = en ] && f=public/og-image-en.jpg; google-chrome-stable --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 --virtual-time-budget=3000 --screenshot=/tmp/og-$l.png \"file://$PWD/og/og.html?lang=$l\" && magick /tmp/og-$l.png -quality 88 $f; done"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- Source of public/og-image.jpg (?lang=es) and public/og-image-en.jpg (?lang=en). Rebuild: npm run og -->
+<style>
+  @font-face { font-family: Inter; src: url(../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: JBM; src: url(../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2) format("woff2"); font-weight: 100 800; }
+  :root { --bg:#1a1b26; --bg2:#0d0e14; --line:#292e42; --fg:#c0caf5; --fg2:#a9b1d6; --dim:#565f89; --blue:#7aa2f7; --cyan:#7dcfff; --mag:#bb9af7; --green:#9ece6a; --orange:#ff9e64; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { background: var(--bg); color: var(--fg); font-family: Inter, sans-serif; position: relative; }
+  /* faint grid fading out to the left */
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: linear-gradient(90deg, transparent 20%, #000 75%); }
+  .glow { position: absolute; width: 760px; height: 760px; right: -220px; top: -180px; background: radial-gradient(closest-side, #7aa2f733, transparent 70%), radial-gradient(closest-side at 30% 70%, #bb9af726, transparent 70%); }
+  .net { position: absolute; right: 40px; top: 70px; width: 470px; height: 470px; }
+  .content { position: absolute; left: 72px; top: 52px; width: 660px; }
+  .brand { display: flex; align-items: center; gap: 14px; font-family: JBM; font-size: 22px; color: var(--fg2); }
+  .brand img { width: 52px; height: 52px; }
+  h1 { font-family: JBM; font-weight: 800; font-size: 66px; line-height: 1.02; letter-spacing: -1.5px; margin-top: 30px; color: #e3e8ff; }
+  h1 .grad { background: linear-gradient(90deg, var(--mag), var(--blue) 55%, var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .role { font-size: 30px; font-weight: 600; color: var(--fg); margin-top: 18px; }
+  .chips { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 24px; }
+  .chip { font-family: JBM; font-size: 19px; padding: 9px 14px; border-radius: 10px; border: 1px solid #414868; background: #1f2335; color: var(--fg); }
+  .chip b { color: var(--orange); font-weight: 700; }
+  .footer { position: absolute; left: 72px; right: 72px; bottom: 34px; display: flex; justify-content: space-between; align-items: center; font-family: JBM; font-size: 22px; }
+  .status { color: var(--green); display: flex; align-items: center; gap: 12px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--green); box-shadow: 0 0 14px var(--green); }
+  .url { color: #e3e8ff; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="glow"></div>
+
+  <!-- the brand network, large, as the visual on the right -->
+  <svg class="net" viewBox="0 0 64 64" aria-hidden="true">
+    <defs><linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bb9af7"/><stop offset="1" stop-color="#7dcfff"/></linearGradient></defs>
+    <g stroke="#7aa2f7" stroke-width="1.2" stroke-linecap="round" stroke-opacity=".55">
+      <line x1="32" y1="17" x2="15" y2="31"/><line x1="32" y1="17" x2="49" y2="31"/><line x1="15" y1="31" x2="32" y2="50"/><line x1="49" y1="31" x2="32" y2="50"/><line x1="32" y1="17" x2="32" y2="50"/>
+    </g>
+    <g stroke="#414868" stroke-width=".6" stroke-dasharray="1.2 1.6">
+      <line x1="15" y1="31" x2="5" y2="42"/><line x1="49" y1="31" x2="60" y2="22"/><line x1="32" y1="50" x2="46" y2="60"/><line x1="15" y1="31" x2="8" y2="18"/>
+    </g>
+    <circle cx="5" cy="42" r="1.5" fill="#414868"/><circle cx="60" cy="22" r="1.5" fill="#414868"/><circle cx="46" cy="60" r="1.5" fill="#414868"/><circle cx="8" cy="18" r="1.5" fill="#414868"/>
+    <circle cx="15" cy="31" r="4" fill="#bb9af7"/>
+    <circle cx="49" cy="31" r="4" fill="#7dcfff"/>
+    <circle cx="32" cy="50" r="4.4" fill="#7aa2f7"/>
+    <circle cx="32" cy="17" r="10" fill="none" stroke="#7dcfff" stroke-opacity=".3" stroke-width="1.2"/>
+    <circle cx="32" cy="17" r="6.5" fill="url(#top)"/>
+  </svg>
+
+  <div class="content">
+    <div class="brand"><img src="../public/favicon.svg" alt=""></div>
+    <h1>Iñaki<br><span class="grad">Sobera Sotomayor</span></h1>
+    <p class="role" data-t="role"></p>
+    <div class="chips">
+      <span class="chip" data-t="c1"></span>
+      <span class="chip" data-t="c2"></span>
+      <span class="chip" data-t="c3"></span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="status"><span class="dot"></span><span data-t="status"></span></span>
+    <span class="url">inakisobera.me</span>
+  </div>
+
+  <script>
+    const t = {
+      es: {
+        role: "Ingeniero de IA · RAG, agentes y MCP",
+        c1: "<b>RAG</b> en producción · PEMEX",
+        c2: "<b>mcp-banxico</b> · 1.7k descargas/mes",
+        c3: "🐧 Contribuidor del <b>kernel de Linux</b>",
+        status: "abierto a roles de IA · remoto o presencial",
+      },
+      en: {
+        role: "AI Engineer · RAG, agents and MCP",
+        c1: "<b>Production RAG</b> · PEMEX",
+        c2: "<b>mcp-banxico</b> · 1.7k downloads/mo",
+        c3: "🐧 <b>Linux kernel</b> contributor",
+        status: "open to AI roles · remote or on-site",
+      },
+    };
+    const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "es";
+    document.querySelectorAll("[data-t]").forEach((el) => (el.innerHTML = t[lang][el.dataset.t]));
+  </script>
+</body>
+</html>

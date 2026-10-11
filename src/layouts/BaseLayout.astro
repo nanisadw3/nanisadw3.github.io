@@ -25,7 +25,7 @@ const site = Astro.site!;
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = image
   ? new URL((await getImage({ src: image, width: 1200, format: "jpg" })).src, site).href
-  : new URL("/og-image.jpg", site).href;
+  : new URL(lang === "en" ? "/og-image-en.jpg" : "/og-image.jpg", site).href;
 const alt = otherLang(lang);
 const hreflang = { es: "es-MX", en: "en-US" } as const;
 const esHref = lang === "es" ? Astro.url.pathname : altHref;
@@ -56,6 +56,8 @@ const esHref = lang === "es" ? Astro.url.pathname : altHref;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Iñaki Sobera" />
     <meta property="og:locale" content={lang === "es" ? "es_MX" : "en_US"} />
     <meta name="twitter:card" content="summary_large_image" />

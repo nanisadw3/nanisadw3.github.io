@@ -22,6 +22,7 @@ npm run preview    # sirve dist/ como en producción
 npm run check      # tipos y validación del contenido
 npm test           # tests + enlaces rotos en dist/ (correr después de build)
 npm run cv         # regenera public/cv/cv_inaki_sobera.pdf desde cv/cv.es.html (usa Chrome)
+npm run og         # regenera las imágenes para compartir desde og/og.html (Chrome + ImageMagick)
 ```
 
 `npm run fetch` necesita `GH_TOKEN` (o `GITHUB_TOKEN`) para GitHub y `XEREBRO_TOKEN` para el MCP
@@ -47,6 +48,7 @@ su último valor en `live.json`.
 | Una nota del blog | `src/content/blog/{es,en}/<slug>.md` (`draft: true` = solo en `npm run dev`) |
 | Colores y fuentes | `src/styles/global.css` |
 | El CV en PDF | `cv/cv.es.html` y luego `npm run cv` |
+| Imagen al compartir el link | `og/og.html` y luego `npm run og` |
 | Comandos de la terminal | `src/views/TerminalView.astro` |
 
 ## Agregar un proyecto
