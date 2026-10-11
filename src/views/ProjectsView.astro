@@ -37,7 +37,7 @@ const rest = projects.filter((p) => !p.data.featured);
           <article class="group reveal relative grid overflow-hidden rounded-xl border border-line bg-panel transition-colors hover:border-blue/70 md:grid-cols-[1.05fr_1fr]">
             <div class:list={["relative overflow-hidden border-line bg-bg-dark max-md:border-b md:border-r", i % 2 === 1 && "md:order-2 md:border-r-0 md:border-l"]}>
               {p.data.liveSite && <LiveSiteBadge lang={lang} url={p.data.liveSite.url} label={p.data.liveSite.label} />}
-              <Image src={p.data.image} alt={p.data.imageAlt} widths={[560, 900]} sizes="(min-width: 768px) 560px, 100vw" class="aspect-[16/10] size-full object-cover object-left-top transition duration-500 group-hover:scale-[1.02]" />
+              <Image src={p.data.image} alt={p.data.imageAlt} widths={[400, 560, 900]} sizes="(min-width: 1152px) 560px, (min-width: 768px) 48vw, 100vw" loading={i === 0 ? "eager" : "lazy"} fetchpriority={i === 0 ? "high" : "auto"} class="aspect-[16/10] size-full object-cover object-left-top transition duration-500 group-hover:scale-[1.02]" />
             </div>
             <div class="flex flex-col p-6">
               <p class="font-mono text-[11.5px] text-orange">{p.data.live ? evidenceText(lang, p.data.live) : p.data.metric}</p>

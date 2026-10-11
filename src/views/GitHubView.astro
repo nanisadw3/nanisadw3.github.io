@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHead from "../components/SectionHead.astro";
 import ContribGraph from "../components/ContribGraph.astro";
 import LangBar from "../components/LangBar.astro";
+import KernelCard from "../components/KernelCard.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { formatDate, localizePath, otherLang, t } from "../i18n/utils.ts";
 import { contact } from "../data/profile.ts";
@@ -24,7 +25,7 @@ const repos = Object.entries(github.repoStats)
   .slice(0, 9);
 const stats = [
   [formatNumber(lang, github.contributions), t(lang, "gh.contributions")],
-  [String(github.externalPrs.length), t(lang, "gh.prs")],
+  [String(github.externalPrs.length + 1), t(lang, "gh.prs")],
   [`${github.repos} · ★ ${github.stars}`, `${t(lang, "gh.repos")} · ${t(lang, "gh.stars")}`],
   [String(github.followers), t(lang, "gh.followers")],
 ];
@@ -63,6 +64,7 @@ const fetched = formatDate(lang, new Date(github.fetchedAt));
 
     <section class="reveal mt-12">
       <SectionHead title={t(lang, "gh.external")} />
+      <div class="mb-3"><KernelCard lang={lang} /></div>
       <ul class="grid gap-3 md:grid-cols-2">
         {github.externalPrs.map((pr) => (
           <li>

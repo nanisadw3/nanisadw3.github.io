@@ -1,0 +1,30 @@
+---
+// Highlights the accepted Linux kernel patch, with links to the commit and the original email.
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+import { kernelPatch } from "../data/profile.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const link = "rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2 transition-colors hover:border-blue hover:text-fg";
+---
+
+<article class="flex flex-col gap-4 rounded-xl border border-blue/30 bg-gradient-to-br from-blue/10 via-panel to-panel p-5 sm:flex-row sm:items-center">
+  <img src="/favicon.svg" alt="" width="52" height="52" class="size-13 shrink-0 rounded-xl" loading="lazy" />
+  <div class="min-w-0 flex-1">
+    <p class="font-mono text-[15px] font-bold text-fg">{t(lang, "kernel.title")}</p>
+    <p class="mt-1 text-[13.5px]">
+      {t(lang, "kernel.accepted")} <b class="font-semibold text-fg">{kernelPatch.maintainer}</b> {t(lang, "kernel.where")}
+    </p>
+    <p class="mt-1.5 truncate font-mono text-[11.5px] text-dim" title={kernelPatch.subject}>
+      <span class="text-mag">{kernelPatch.commit}</span> {kernelPatch.subject} <span class="text-red">−{kernelPatch.stats.deletions}</span>
+    </p>
+  </div>
+  <div class="flex shrink-0 flex-wrap gap-2">
+    <a href={kernelPatch.commitUrl} class={link}>{t(lang, "kernel.commit")} ↗</a>
+    <a href={kernelPatch.mailUrl} class={link}>{t(lang, "kernel.mail")} ↗</a>
+  </div>
+</article>

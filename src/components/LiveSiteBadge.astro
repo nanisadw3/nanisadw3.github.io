@@ -23,7 +23,7 @@ const { lang, url, label, inline = false, size = "md" } = Astro.props;
   rel="noopener"
   title={label}
   class:list={[
-    "live-btn inline-flex shrink-0 items-center rounded-full bg-green font-mono font-bold text-bg-dark transition hover:scale-[1.04] hover:brightness-110",
+    "live-btn relative inline-flex shrink-0 items-center rounded-full bg-green font-mono font-bold text-bg-dark transition hover:scale-[1.04] hover:brightness-110",
     size === "md" ? "gap-2.5 px-4 py-2 text-[13px]" : "gap-2 px-3 py-1.5 text-[11.5px]",
     !inline && (size === "md" ? "absolute top-3 right-3 z-20 sm:top-4 sm:right-4" : "absolute top-2.5 right-2.5 z-20"),
   ]}
@@ -40,18 +40,27 @@ const { lang, url, label, inline = false, size = "md" } = Astro.props;
   .live-btn {
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--color-green) 60%, transparent),
-      0 8px 28px -6px color-mix(in srgb, var(--color-green) 70%, transparent);
+      0 8px 24px -8px color-mix(in srgb, var(--color-green) 70%, transparent);
+  }
+  /* Pulsing glow on its own layer: only opacity animates, so the GPU composites it without
+     repainting (animating box-shadow repainted every frame and made phones stutter). */
+  .live-btn::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    box-shadow: 0 0 22px 2px color-mix(in srgb, var(--color-green) 75%, transparent);
+    opacity: 0.25;
+    pointer-events: none;
     animation: live-glow 2.4s ease-in-out infinite;
   }
   @keyframes live-glow {
     50% {
-      box-shadow:
-        0 0 0 4px color-mix(in srgb, var(--color-green) 25%, transparent),
-        0 8px 36px -4px color-mix(in srgb, var(--color-green) 90%, transparent);
+      opacity: 0.85;
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .live-btn {
+    .live-btn::after {
       animation: none;
     }
   }

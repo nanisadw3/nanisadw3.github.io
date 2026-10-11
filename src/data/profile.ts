@@ -12,6 +12,17 @@ export const contact = {
   siteSource: "https://github.com/nanisadw3/nanisadw3.github.io",
 } as const;
 
+/** Accepted Linux kernel patch (authored by Iñaki, applied by Greg Kroah-Hartman). */
+export const kernelPatch = {
+  subject: "staging: rtl8723bs: remove unused NDIS association and auth defines",
+  commit: "6f18b14bf35a",
+  date: "2026-09-23",
+  stats: { files: 1, deletions: 15 },
+  maintainer: "Greg Kroah-Hartman",
+  commitUrl: "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=6f18b14bf35a",
+  mailUrl: "https://lkml.iu.edu/2609.2/21330.html",
+} as const;
+
 /** wa.me link that opens a chat with a greeting already typed in the visitor's language. */
 export function whatsappUrl(lang: Lang): string {
   const text =
@@ -122,7 +133,7 @@ export const profile: Record<Lang, Profile> = {
     neofetch: [
       ["OS", "Ingeniero de IA x86_64"],
       ["Host", "PEMEX · Tec. de Operación"],
-      ["Kernel", "Ing. Sistemas · UNITEC"],
+      ["Kernel", "Linux · 1 parche aceptado"],
       ["Uptime", "3 años programando"],
       ["Packages", "{repos} (github), 1 (pypi)"],
       ["Shell", "zsh"],
@@ -199,7 +210,7 @@ export const profile: Record<Lang, Profile> = {
     neofetch: [
       ["OS", "AI Engineer x86_64"],
       ["Host", "PEMEX · Operations Tech"],
-      ["Kernel", "Computer Systems Eng. · UNITEC"],
+      ["Kernel", "Linux · 1 patch merged"],
       ["Uptime", "3 years coding"],
       ["Packages", "{repos} (github), 1 (pypi)"],
       ["Shell", "zsh"],

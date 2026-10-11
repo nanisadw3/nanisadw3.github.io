@@ -5,6 +5,7 @@ import SectionHead from "../components/SectionHead.astro";
 import ContribGraph from "../components/ContribGraph.astro";
 import LangBar from "../components/LangBar.astro";
 import PostItem from "../components/PostItem.astro";
+import KernelCard from "../components/KernelCard.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 import { contact, profile, whatsappUrl } from "../data/profile.ts";
@@ -188,11 +189,12 @@ const jsonLd = {
   <section class="border-t border-line py-16">
     <div class="reveal mx-auto max-w-6xl px-5 sm:px-7">
       <SectionHead n="04" title={t(lang, "home.github")} href={localizePath(lang, "github")} hrefLabel={t(lang, "home.githubMore")} />
+      <div class="mb-4"><KernelCard lang={lang} /></div>
       <div class="grid items-center gap-7 rounded-xl border border-line bg-bg-dark p-5 lg:grid-cols-[auto_1fr]">
         <div class="overflow-x-auto"><ContribGraph lang={lang} days={lastWeeks(github.calendar as [string, number][], 26)} cell={9} /></div>
         <div class="grid grid-cols-2 gap-x-6 gap-y-3 font-mono">
           <div><p class="text-base font-bold text-fg">{formatNumber(lang, github.contributions)}</p><p class="text-[11px] text-dim">{t(lang, "gh.contributions")}</p></div>
-          <div><p class="text-base font-bold text-fg">{github.externalPrs.length}</p><p class="text-[11px] text-dim">{t(lang, "gh.prs")}</p></div>
+          <div><p class="text-base font-bold text-fg">{github.externalPrs.length + 1}</p><p class="text-[11px] text-dim">{t(lang, "gh.prs")}</p></div>
           <div><p class="text-base font-bold text-fg">{github.repos} · ★ {github.stars}</p><p class="text-[11px] text-dim">{t(lang, "gh.repos")} · {t(lang, "gh.stars")}</p></div>
           <div><p class="text-base font-bold text-fg">{compact(github.followers)}</p><p class="text-[11px] text-dim">{t(lang, "gh.followers")}</p></div>
           <div class="col-span-2 mt-1"><LangBar otherLabel={other} /></div>
