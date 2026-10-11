@@ -32,15 +32,15 @@ const jsonLd = {
   <article class="mx-auto max-w-3xl px-5 pt-12 pb-20 sm:px-7">
     <a href={localizePath(lang, "blog")} class="font-mono text-[13px] text-dim transition-colors hover:text-fg">← {t(lang, "blog.back")}</a>
     <header class="mt-8">
-      {tags.length > 0 && <p class="font-mono text-xs text-blue">{tags.join(" · ")}</p>}
+      <p class="font-mono text-xs">
+        <time datetime={date.toISOString()} class="text-dim">{formatDate(lang, date)}</time>
+        {tags.length > 0 && <span class="text-blue"> · {tags.join(" · ")}</span>}
+      </p>
       <h1 class="mt-2 font-mono text-3xl font-extrabold tracking-tight text-fg sm:text-4xl">{title}</h1>
       <p class="mt-4 text-lg leading-relaxed text-pretty">{description}</p>
     </header>
     <div class="prose-site mt-10">
       <Content />
     </div>
-    <p class="mt-12 border-t border-line pt-4 font-mono text-[11.5px] text-dim">
-      <time datetime={date.toISOString()}>{formatDate(lang, date)}</time>
-    </p>
   </article>
 </BaseLayout>

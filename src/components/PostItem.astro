@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { Lang } from "../i18n/ui.ts";
-import { localizePath, t } from "../i18n/utils.ts";
+import { formatDate, localizePath, t } from "../i18n/utils.ts";
 import { slugOf } from "../content/queries.ts";
 
 interface Props {
@@ -10,14 +10,15 @@ interface Props {
 }
 
 const { lang, post } = Astro.props;
-const { title, description, tags, draft } = post.data;
+const { title, description, date, tags, draft } = post.data;
 ---
 
 <a
   href={localizePath(lang, "post", slugOf(post))}
   class="group mb-3 block rounded-xl border border-line bg-panel p-5 transition-colors last:mb-0 hover:border-blue/60"
 >
-  <h3 class="font-semibold text-fg group-hover:text-blue">
+  <time datetime={date.toISOString()} class="font-mono text-[11.5px] text-dim">{formatDate(lang, date)}</time>
+  <h3 class="mt-1 font-semibold text-fg group-hover:text-blue">
     {title}
     {draft && <span class="ml-2 rounded border border-yellow/40 px-1.5 py-0.5 font-mono text-[10px] text-yellow">DRAFT</span>}
   </h3>
