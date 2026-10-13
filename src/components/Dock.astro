@@ -1,6 +1,7 @@
 ---
-// "Dynamic island" navigation: a capsule with the brand mark and every section always visible,
-// the current one highlighted. Keys 1–4 jump between sections. Solid background (no backdrop blur) for smooth scrolling.
+// "Dynamic island" navigation: a frosted-glass capsule with the brand mark and every section always
+// visible. A glowing pill sits under the current section, follows the pointer, and slides from the
+// previous section to the new one after a navigation. Keys 1–4 jump between sections.
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 
@@ -42,7 +43,8 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
       <img src="/favicon.svg" alt="" width="42" height="42" />
     </a>
 
-    <ul class="flex items-center">
+    <ul class="track flex items-center" data-track>
+      <span class="pill" aria-hidden="true"></span>
       {items.map((i) => (
         <li>
           <a
@@ -75,12 +77,14 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
     gap: 4px;
     padding: 6px;
     border-radius: 999px;
-    background: #0d0e14;
-    border: 1px solid var(--color-line-strong);
+    background: rgb(17 18 27 / 0.55);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    backdrop-filter: blur(18px) saturate(170%);
+    border: 1px solid rgb(255 255 255 / 0.1);
     box-shadow:
-      0 18px 40px -12px #000,
-      0 0 0 4px rgb(122 162 247 / 0.06),
-      inset 0 1px 0 rgb(255 255 255 / 0.06);
+      0 20px 45px -15px rgb(0 0 0 / 0.85),
+      inset 0 1px 0 rgb(255 255 255 / 0.12),
+      inset 0 -1px 0 rgb(0 0 0 / 0.3);
     font-family: var(--font-mono);
   }
   .brand {
@@ -89,7 +93,6 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
     flex: none;
     margin-right: 4px;
     border-radius: 999px;
-    cursor: pointer;
     transition: transform 0.3s;
   }
   .brand img {
@@ -101,8 +104,38 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
     transform: rotate(-12deg) scale(1.05);
   }
 
-  /* every section is always visible so the island reads as a menu at a glance */
+  .track {
+    position: relative;
+  }
+  /* the sliding highlight; positioned by the script, hidden until it knows where to go */
+  .pill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgb(187 154 247 / 0.42), rgb(122 162 247 / 0.42));
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.14),
+      0 0 22px -4px rgb(122 162 247 / 0.65);
+    transition:
+      transform 0.5s cubic-bezier(0.3, 1.3, 0.4, 1),
+      width 0.5s cubic-bezier(0.3, 1.3, 0.4, 1),
+      opacity 0.25s;
+  }
+  .pill.ready {
+    opacity: 1;
+  }
+  .pill.instant {
+    transition: none;
+  }
+
   .it {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -112,24 +145,24 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
     color: var(--color-fg-2);
     font-size: 14px;
     white-space: nowrap;
-    transition:
-      background-color 0.2s,
-      color 0.2s;
+    transition: color 0.25s;
   }
   .it svg {
     width: 19px;
     height: 19px;
     flex: none;
   }
-  .it:not(.on):hover {
-    background: rgb(255 255 255 / 0.08);
+  .it:hover,
+  .it.on,
+  .it.lit {
     color: #fff;
   }
   .it.on {
-    color: #fff;
     font-weight: 700;
-    background: linear-gradient(135deg, rgb(187 154 247 / 0.32), rgb(122 162 247 / 0.32));
-    box-shadow: inset 0 0 0 1px rgb(122 162 247 / 0.35);
+  }
+  /* without the script, the current section keeps a static highlight */
+  .track:not(.live) .it.on {
+    background: linear-gradient(135deg, rgb(187 154 247 / 0.42), rgb(122 162 247 / 0.42));
   }
   .it.lang {
     color: var(--color-cyan);
@@ -151,24 +184,105 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
       height: 54px;
       min-width: 62px;
       padding: 0 8px;
-      border-radius: 22px;
       font-size: 11px;
     }
     .it svg {
       width: 20px;
       height: 20px;
     }
+    .pill {
+      border-radius: 22px;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .it,
-    .brand {
+    .brand,
+    .pill {
       transition: none;
     }
   }
 </style>
 
 <script>
+  // Sliding pill: where it sat before a navigation is kept in sessionStorage so the new page can
+  // start it there and slide it to the new section.
+  const KEY = "dock-pill";
+  let onResize: (() => void) | null = null;
+  const place = (pill: HTMLElement, el: HTMLElement | null) => {
+    if (!el) {
+      pill.classList.remove("ready");
+      return;
+    }
+    pill.style.transform = `translateX(${el.offsetLeft}px)`;
+    pill.style.width = `${el.offsetWidth}px`;
+    pill.classList.add("ready");
+  };
+
+  const init = () => {
+    const track = document.querySelector<HTMLElement>("[data-track]");
+    if (!track || track.dataset.ready) return;
+    track.dataset.ready = "1";
+    track.classList.add("live");
+    const pill = track.querySelector<HTMLElement>(".pill")!;
+    const links = [...track.querySelectorAll<HTMLAnchorElement>("a.it")];
+    const current = track.querySelector<HTMLElement>("a.it.on");
+
+    let from: { x: number; w: number } | null = null;
+    try {
+      from = JSON.parse(sessionStorage.getItem(KEY) || "null");
+      sessionStorage.removeItem(KEY);
+    } catch {}
+
+    if (from && current) {
+      pill.classList.add("instant", "ready");
+      pill.style.transform = `translateX(${from.x}px)`;
+      pill.style.width = `${from.w}px`;
+      pill.getBoundingClientRect();
+      pill.classList.remove("instant");
+      requestAnimationFrame(() => place(pill, current));
+    } else {
+      pill.classList.add("instant");
+      place(pill, current);
+      pill.getBoundingClientRect();
+      pill.classList.remove("instant");
+    }
+
+    const light = (el: HTMLElement | null) => links.forEach((a) => a.classList.toggle("lit", a === el));
+    for (const a of links) {
+      a.addEventListener("pointerenter", (e) => {
+        if (e.pointerType !== "mouse") return;
+        place(pill, a);
+        light(a);
+      });
+      a.addEventListener("focus", () => {
+        place(pill, a);
+        light(a);
+      });
+      a.addEventListener("click", () => {
+        place(pill, a);
+        try {
+          sessionStorage.setItem(KEY, JSON.stringify({ x: a.offsetLeft, w: a.offsetWidth }));
+        } catch {}
+      });
+    }
+    const back = () => {
+      place(pill, current);
+      light(null);
+    };
+    track.addEventListener("pointerleave", back);
+    track.addEventListener("focusout", (e) => {
+      if (!track.contains(e.relatedTarget as Node)) back();
+    });
+    if (onResize) removeEventListener("resize", onResize);
+    onResize = () => place(pill, current);
+    addEventListener("resize", onResize);
+  };
+
+  // This module can load after Astro fired astro:page-load for the first page, so run now too.
+  init();
+  document.addEventListener("astro:page-load", init);
+
   // Keys 1–4 jump to the sections (ignored while typing or with modifiers).
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
