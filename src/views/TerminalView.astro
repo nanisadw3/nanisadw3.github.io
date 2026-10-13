@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
-import { contact, kernelPatch, profile, whatsappUrl } from "../data/profile.ts";
+import { contact, kernel, profile, whatsappUrl } from "../data/profile.ts";
 import { banxico, evidenceText, formatNumber, github, pypi, xerebro } from "../data/live.ts";
 import { getProjects, slugOf } from "../content/queries.ts";
 import logo from "../data/arch-logo.txt?raw";
@@ -44,7 +44,7 @@ const data = {
     stars: github.stars,
     followers: github.followers,
     languages: github.languages.slice(0, 4).map((l) => `${l.name} ${l.percent}%`),
-    prs: [`linux (kernel) ${kernelPatch.commit} — ${kernelPatch.subject}`, ...github.externalPrs.map((pr) => `${pr.repo}#${pr.number} — ${pr.title}`)],
+    prs: [...kernel.patches.map((k) => `linux (kernel) ${k.commit} — ${k.subject}`), ...github.externalPrs.map((pr) => `${pr.repo}#${pr.number} — ${pr.title}`)],
   },
   xerebro,
   pypi: pypi.lastMonth,

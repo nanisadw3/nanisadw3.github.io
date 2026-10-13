@@ -12,15 +12,18 @@ export const contact = {
   siteSource: "https://github.com/nanisadw3/nanisadw3.github.io",
 } as const;
 
-/** Accepted Linux kernel patch (authored by Iñaki, applied by Greg Kroah-Hartman). */
-export const kernelPatch = {
-  subject: "staging: rtl8723bs: remove unused NDIS association and auth defines",
-  commit: "6f18b14bf35a",
-  date: "2026-09-23",
-  stats: { files: 1, deletions: 15 },
+const kernelCommit = (id: string) => `https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/commit/?id=${id}`;
+
+/** Linux kernel patches authored by Iñaki and applied by Greg Kroah-Hartman, newest first. */
+export const kernel = {
   maintainer: "Greg Kroah-Hartman",
-  commitUrl: "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=6f18b14bf35a",
-  mailUrl: "https://lkml.iu.edu/2609.2/21330.html",
+  /** Every patch of Iñaki's in Greg's staging tree. */
+  contribUrl: "https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/log/?h=staging-testing&qt=author&q=Sobera",
+  patches: [
+    { subject: "staging: rtl8723bs: remove unused PCI ASPM OSC definitions", commit: "e6b71a87395", date: "2026-10-06", deletions: 5, url: kernelCommit("e6b71a873954d6193e1f40b1f095138ef9c73d71") },
+    { subject: "staging: rtl8723bs: remove unused EEPROM definitions", commit: "f1124ffde07", date: "2026-10-06", deletions: 12, url: kernelCommit("f1124ffde0749eaf910ad1e7ab4c7e9ed0449a9b") },
+    { subject: "staging: rtl8723bs: remove unused NDIS association and auth defines", commit: "6f18b14bf35", date: "2026-09-23", deletions: 15, url: kernelCommit("6f18b14bf35abf4dbf010ba49cd3f930b15dca56") },
+  ],
 } as const;
 
 /** wa.me link that opens a chat with a greeting already typed in the visitor's language. */

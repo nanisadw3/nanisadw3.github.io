@@ -8,8 +8,8 @@ import PostItem from "../components/PostItem.astro";
 import KernelCard from "../components/KernelCard.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
-import { contact, profile, whatsappUrl } from "../data/profile.ts";
-import { compact, evidenceText, formatNumber, github, lastWeeks, weeklyTotals } from "../data/live.ts";
+import { contact, kernel, profile, whatsappUrl } from "../data/profile.ts";
+import { compact, evidenceText, formatNumber, github, lastWeeks, pypi, weeklyTotals, xerebro } from "../data/live.ts";
 import { getPosts } from "../content/queries.ts";
 
 interface Props {
@@ -23,6 +23,82 @@ const spark = weeklyTotals(github.calendar as [string, number][]).slice(-26);
 const sparkMax = Math.max(...spark, 1);
 const topLang = github.languages[0];
 const other = lang === "es" ? "otros" : "other";
+
+// Proof row under the hero: real numbers that the daily rebuild keeps current.
+const stats = [
+  { value: String(kernel.patches.length), label: t(lang, "hero.stat.kernel"), href: localizePath(lang, "post", "dos-parches-mas-kernel"), icon: "tux" },
+  { value: compact(pypi.lastMonth), label: t(lang, "hero.stat.pypi"), href: localizePath(lang, "project", "mcp-banxico"), icon: "package" },
+  { value: formatNumber(lang, xerebro.daysWithReport), label: t(lang, "hero.stat.rag"), href: localizePath(lang, "project", "xerebro"), icon: "database" },
+  { value: String(github.externalPrs.length + 1), label: t(lang, "gh.prs"), href: localizePath(lang, "github"), icon: "merge" },
+] as const;
+// Faint code behind the hero: real snippets from mcp-banxico, banxico-datos and the kernel workflow.
+const ghost = [
+  `@server.tool()
+async def tipo_cambio_usd(
+    tipo: str = "FIX",
+    fecha_inicio: str | None = None,
+    fecha_fin: str | None = None,
+) -> str:
+    """Tipo de cambio oficial USD/MXN."""
+    key = "TIPO_CAMBIO_LIQUIDACION" if tipo.upper() == "LIQUIDACION" else "TIPO_CAMBIO_FIX"
+    serie_info = SERIES[key]
+    data = await client.get_series_data(
+        serie_info["id"], fecha_inicio, fecha_fin
+    )
+    return json.dumps({
+        "indicador": serie_info["nombre"],
+        "serie_id": serie_info["id"],
+    })
+
+@server.tool()
+async def inflacion_mexico(tipo: str = "anual") -> str:
+
+@server.tool()
+async def valor_udis(fecha: str | None = None) -> str:
+
+@server.tool()
+async def reservas_internacionales() -> str:`,
+  `def pedir(id_serie, desde, hasta, token):
+    url = f"{API}/{id_serie}/datos/{desde}/{hasta}"
+    req = urllib.request.Request(
+        url, headers={"Bmx-Token": token}
+    )
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        cuerpo = json.load(resp)
+    datos = cuerpo["bmx"]["series"][0].get("datos") or []
+    filas = []
+    for d in datos:
+        valor = d["dato"].replace(",", "")
+        if valor in ("N/E", ""):
+            continue
+        filas.append((d["fecha"], float(valor)))
+    return filas
+
+for s in SERIES:
+    puntos = pedir(s["id"], desde, hoy, token)
+    escribir_csv(DIR_DATOS / f"{s['clave']}.csv", puntos)`,
+  `$ git fetch staging staging-testing
+$ git rebase staging/staging-testing
+$ make W=1 drivers/staging/rtl8723bs/
+$ ./scripts/checkpatch.pl --strict 000*.patch
+total: 0 errors, 0 warnings, 0 checks
+$ git format-patch -2 --cover-letter
+$ git send-email --to=gregkh@linuxfoundation.org \\
+    --cc=linux-staging@lists.linux.dev 000*.patch
+
+$ uv run pytest -q
+$ uv build && uv publish
+
+$ curl -s https://banxico-mcp.duckdns.org/mcp
+$ systemctl --user status banxico-sincronizar
+$ git log --oneline --author="Sobera"`,
+];
+
+const statIcons = {
+  package: '<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 8.7 5 8.7-5"/>',
+  database: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>',
+  merge: '<circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/>',
+};
 
 const btn = "inline-flex items-center gap-2 rounded-md border border-line px-4 py-2 font-mono text-[13px] text-fg transition-colors hover:border-blue";
 const btnPrimary = "inline-flex items-center gap-2 rounded-md border border-blue bg-blue px-4 py-2 font-mono text-[13px] font-bold text-bg-dark transition-opacity hover:opacity-90";
@@ -78,8 +154,14 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <!-- Hero -->
-  <section class="relative flex min-h-dvh items-center pt-10 pb-[150px]">
-    <div class="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-7 lg:grid-cols-[0.95fr_1.05fr]">
+  <section class="relative isolate flex min-h-dvh items-center overflow-hidden pt-10 pb-[150px]">
+    <div class="hero-bg" aria-hidden="true" data-nosnippet>
+      <i class="glow glow-a"></i><i class="glow glow-b"></i>
+      {ghost.map((code, i) => (
+        <div class={`ghost ghost-${i + 1}`}><pre>{code}</pre><pre>{code}</pre></div>
+      ))}
+    </div>
+    <div class="mx-auto grid w-full max-w-6xl items-center gap-x-12 gap-y-10 px-5 sm:px-7 lg:grid-cols-[0.95fr_1.05fr]">
       <div>
         <h1 class="font-mono text-4xl leading-[1.05] font-extrabold tracking-tight text-fg sm:text-[46px]">
           {p.name.first}<br /><span class="grad-text">{p.name.last}</span>
@@ -118,6 +200,22 @@ const jsonLd = {
       </div>
 
       <Neofetch lang={lang} />
+
+      <ul class="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:col-span-2">
+        {stats.map((st) => (
+          <li>
+            <a href={st.href} class="stat group flex h-full flex-col gap-2 rounded-xl border border-line p-4 transition hover:-translate-y-0.5 hover:border-blue/60">
+              <span class="flex items-center justify-between">
+                <span class="font-mono text-[28px] leading-none font-extrabold text-fg">{st.value}</span>
+                {st.icon === "tux"
+                  ? <img src="/images/tux.svg" alt="" width="26" height="26" class="size-6.5" loading="lazy" />
+                  : <svg viewBox="0 0 24 24" class="size-6 text-blue" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={statIcons[st.icon]} />}
+              </span>
+              <span class="text-[13px] leading-snug text-fg-2 group-hover:text-fg">{st.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
     <a
       href="#lo-que-hago"
@@ -277,6 +375,75 @@ const jsonLd = {
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* hero backdrop: real code drifting upward, very faint, plus two slow colour glows */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ghost {
+    position: absolute;
+    top: 0;
+    width: 34rem;
+    max-width: 90vw;
+    font: 12.5px/1.75 var(--font-mono);
+    color: rgb(169 177 214 / 0.05);
+    filter: blur(0.7px);
+    mask-image: linear-gradient(transparent, #000 18%, #000 78%, transparent);
+    animation: rise linear infinite;
+  }
+  .ghost pre {
+    margin: 0;
+    padding-bottom: 3rem;
+    white-space: pre;
+    font: inherit;
+  }
+  .ghost-1 { left: 2%; animation-duration: 95s; }
+  .ghost-2 { left: 36%; animation-duration: 120s; animation-delay: -40s; color: rgb(187 154 247 / 0.05); }
+  .ghost-3 { left: 68%; animation-duration: 105s; animation-delay: -20s; color: rgb(125 207 255 / 0.05); }
+  @keyframes rise {
+    to { transform: translateY(-50%); }
+  }
+  @media (max-width: 1023px) {
+    .ghost-2, .ghost-3 { display: none; }
+    .ghost-1 { left: 4%; color: rgb(169 177 214 / 0.045); }
+  }
+  .glow {
+    position: absolute;
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    will-change: transform;
+  }
+  .glow-a {
+    top: -140px;
+    left: -120px;
+    background: radial-gradient(circle, rgb(187 154 247 / 0.26), transparent 65%);
+    animation: drift-a 22s ease-in-out infinite alternate;
+  }
+  .glow-b {
+    right: -160px;
+    top: 120px;
+    background: radial-gradient(circle, rgb(122 162 247 / 0.22), transparent 65%);
+    animation: drift-b 26s ease-in-out infinite alternate;
+  }
+  @keyframes drift-a {
+    to { transform: translate(140px, 90px) scale(1.15); }
+  }
+  @keyframes drift-b {
+    to { transform: translate(-120px, -70px) scale(1.1); }
+  }
+  .stat {
+    background: linear-gradient(160deg, #23253a, #1d1e2c);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glow, .ghost { animation: none; }
+  }
+</style>
 
 <script>
   // Hide the "scroll for more" hint as soon as the visitor starts scrolling.

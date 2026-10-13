@@ -1,30 +1,41 @@
 ---
-// Highlights the accepted Linux kernel patch, with links to the commit and the original email.
+// Highlights the accepted Linux kernel patches, each linked to its commit, plus a link to all of them.
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
-import { kernelPatch } from "../data/profile.ts";
+import { kernel } from "../data/profile.ts";
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const link = "rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fg-2 transition-colors hover:border-blue hover:text-fg";
+const total = kernel.patches.reduce((n, k) => n + k.deletions, 0);
 ---
 
-<article class="flex flex-col gap-4 rounded-xl border border-blue/30 bg-gradient-to-br from-blue/10 via-panel to-panel p-5 sm:flex-row sm:items-center">
-  <img src="/images/tux.svg" alt="" width="52" height="52" class="size-13 shrink-0 rounded-xl" loading="lazy" />
-  <div class="min-w-0 flex-1">
-    <p class="font-mono text-[15px] font-bold text-fg">{t(lang, "kernel.title")}</p>
-    <p class="mt-1 text-[13.5px]">
-      {t(lang, "kernel.accepted")} <b class="font-semibold text-fg">{kernelPatch.maintainer}</b> {t(lang, "kernel.where")}
-    </p>
-    <p class="mt-1.5 truncate font-mono text-[11.5px] text-dim" title={kernelPatch.subject}>
-      <span class="text-mag">{kernelPatch.commit}</span> {kernelPatch.subject} <span class="text-red">−{kernelPatch.stats.deletions}</span>
-    </p>
+<article class="rounded-xl border border-blue/30 bg-gradient-to-br from-blue/10 via-panel to-panel p-5">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+    <img src="/images/tux.svg" alt="" width="52" height="52" class="size-13 shrink-0 rounded-xl" loading="lazy" />
+    <div class="min-w-0 flex-1">
+      <p class="font-mono text-[15px] font-bold text-fg">{t(lang, "kernel.title")}</p>
+      <p class="mt-1 text-[13.5px]">
+        {kernel.patches.length} {t(lang, "kernel.accepted")} <b class="font-semibold text-fg">{kernel.maintainer}</b> {t(lang, "kernel.where")}
+        · <span class="font-mono text-red">−{total}</span> {t(lang, "kernel.lines")}
+      </p>
+    </div>
+    <a
+      href={kernel.contribUrl}
+      class="shrink-0 rounded-md border border-blue/60 bg-blue/10 px-3 py-1.5 font-mono text-xs text-fg transition-colors hover:border-blue hover:bg-blue/20"
+    >{t(lang, "kernel.all")} ↗</a>
   </div>
-  <div class="flex shrink-0 flex-wrap gap-2">
-    <a href={kernelPatch.commitUrl} class={link}>{t(lang, "kernel.commit")} ↗</a>
-    <a href={kernelPatch.mailUrl} class={link}>{t(lang, "kernel.mail")} ↗</a>
-  </div>
+  <ul class="mt-4 space-y-1 border-t border-dashed border-line pt-3 font-mono text-[12px]">
+    {kernel.patches.map((k) => (
+      <li>
+        <a href={k.url} class="group flex items-baseline gap-2 rounded px-1 py-0.5 hover:bg-white/5" title={k.subject}>
+          <span class="shrink-0 text-mag">{k.commit}</span>
+          <span class="min-w-0 flex-1 truncate text-fg-2 group-hover:text-fg"><span class="hidden sm:inline">staging: rtl8723bs: </span>{k.subject.replace("staging: rtl8723bs: ", "")}</span>
+          <span class="shrink-0 text-red">−{k.deletions}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
 </article>
