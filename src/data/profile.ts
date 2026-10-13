@@ -133,7 +133,7 @@ export const profile: Record<Lang, Profile> = {
     neofetch: [
       ["OS", "Ingeniero de IA x86_64"],
       ["Host", "PEMEX · Tec. de Operación"],
-      ["Kernel", "Linux · 1 parche aceptado"],
+      ["Kernel", "Linux · 3 parches aceptados"],
       ["Uptime", "3 años programando"],
       ["Packages", "{repos} (github), 1 (pypi)"],
       ["Shell", "zsh"],
@@ -210,7 +210,7 @@ export const profile: Record<Lang, Profile> = {
     neofetch: [
       ["OS", "AI Engineer x86_64"],
       ["Host", "PEMEX · Operations Tech"],
-      ["Kernel", "Linux · 1 patch merged"],
+      ["Kernel", "Linux · 3 patches accepted"],
       ["Uptime", "3 years coding"],
       ["Packages", "{repos} (github), 1 (pypi)"],
       ["Shell", "zsh"],
