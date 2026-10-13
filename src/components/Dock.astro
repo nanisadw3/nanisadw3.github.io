@@ -1,7 +1,6 @@
 ---
-// "Dynamic island" navigation: at rest a small capsule with the brand mark and the current
-// section; it expands to every section on hover, keyboard focus, or a tap on touch screens.
-// Keys 1–4 jump between sections. Solid background (no backdrop blur) for smooth scrolling.
+// "Dynamic island" navigation: a capsule with the brand mark and every section always visible,
+// the current one highlighted. Keys 1–4 jump between sections. Solid background (no backdrop blur) for smooth scrolling.
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 
@@ -30,7 +29,6 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
   const active = page === "home" ? path === href : path.startsWith(href);
   return { page, href, active, key: String(i + 1), label: t(lang, `nav.${page}`) };
 });
-const hasActive = items.some((i) => i.active);
 ---
 
 <nav
@@ -39,10 +37,10 @@ const hasActive = items.some((i) => i.active);
   transition:name="dock"
   transition:animate="none"
 >
-  <div class:list={["island", !hasActive && "no-active"]} data-island>
-    <button type="button" class="brand" data-island-toggle aria-expanded="false" aria-label={lang === "es" ? "Mostrar secciones" : "Show sections"}>
-      <img src="/favicon.svg" alt="" width="34" height="34" />
-    </button>
+  <div class="island">
+    <a href={items[0].href} class="brand" tabindex="-1" aria-hidden="true">
+      <img src="/favicon.svg" alt="" width="42" height="42" />
+    </a>
 
     <ul class="flex items-center">
       {items.map((i) => (
@@ -74,13 +72,14 @@ const hasActive = items.some((i) => i.active);
   .island {
     display: flex;
     align-items: center;
-    gap: 2px;
-    padding: 5px;
+    gap: 4px;
+    padding: 6px;
     border-radius: 999px;
     background: #0d0e14;
     border: 1px solid var(--color-line-strong);
     box-shadow:
       0 18px 40px -12px #000,
+      0 0 0 4px rgb(122 162 247 / 0.06),
       inset 0 1px 0 rgb(255 255 255 / 0.06);
     font-family: var(--font-mono);
   }
@@ -88,92 +87,76 @@ const hasActive = items.some((i) => i.active);
     display: grid;
     place-items: center;
     flex: none;
+    margin-right: 4px;
     border-radius: 999px;
     cursor: pointer;
     transition: transform 0.3s;
   }
   .brand img {
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
     border-radius: 999px;
   }
-  .island:hover .brand,
-  .island.open .brand {
+  .island:hover .brand {
     transform: rotate(-12deg) scale(1.05);
   }
 
+  /* every section is always visible so the island reads as a menu at a glance */
   .it {
     display: flex;
     align-items: center;
     gap: 8px;
-    height: 34px;
+    height: 44px;
+    padding: 0 16px;
     border-radius: 999px;
-    color: var(--color-fg);
-    font-size: 12.5px;
+    color: var(--color-fg-2);
+    font-size: 14px;
     white-space: nowrap;
-    overflow: hidden;
-    /* collapsed: hidden but still in the accessibility tree and tab order */
-    max-width: 0;
-    opacity: 0;
-    padding: 0;
     transition:
-      max-width 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.1),
-      opacity 0.3s,
-      padding 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.1),
       background-color 0.2s,
       color 0.2s;
   }
   .it svg {
-    width: 16px;
-    height: 16px;
+    width: 19px;
+    height: 19px;
     flex: none;
   }
+  .it:not(.on):hover {
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+  }
   .it.on {
-    max-width: 180px;
-    opacity: 1;
-    padding: 0 14px;
     color: #fff;
     font-weight: 700;
-    background: linear-gradient(135deg, rgb(187 154 247 / 0.28), rgb(122 162 247 / 0.28));
-  }
-
-  /* expanded: hover, keyboard focus inside, a tap (.open), or a page with no section of its own */
-  .island:hover .it,
-  .island:focus-within .it,
-  .island.open .it,
-  .island.no-active .it {
-    max-width: 180px;
-    opacity: 1;
-    padding: 0 12px;
-  }
-  .island:hover .it:not(.on):hover,
-  .island.open .it:not(.on):hover {
-    background: rgb(255 255 255 / 0.07);
-    color: #fff;
+    background: linear-gradient(135deg, rgb(187 154 247 / 0.32), rgb(122 162 247 / 0.32));
+    box-shadow: inset 0 0 0 1px rgb(122 162 247 / 0.35);
   }
   .it.lang {
     color: var(--color-cyan);
   }
 
-  /* phones: icon over a small label so the expanded island fits a 360 px screen */
+  /* phones: icon over a label so all five items fit a 360 px screen */
   @media (max-width: 639px) {
+    .island {
+      gap: 0;
+      padding: 5px;
+    }
+    .brand {
+      display: none;
+    }
     .it {
       flex-direction: column;
       justify-content: center;
-      gap: 1px;
-      height: 42px;
-      font-size: 10px;
+      gap: 3px;
+      height: 54px;
+      min-width: 62px;
+      padding: 0 8px;
+      border-radius: 22px;
+      font-size: 11px;
     }
-    .it.on,
-    .island:hover .it,
-    .island:focus-within .it,
-    .island.open .it,
-    .island.no-active .it {
-      padding: 0 9px;
-    }
-    .brand img {
-      width: 38px;
-      height: 38px;
+    .it svg {
+      width: 20px;
+      height: 20px;
     }
   }
 
@@ -186,35 +169,6 @@ const hasActive = items.some((i) => i.active);
 </style>
 
 <script>
-  const islands = () => document.querySelectorAll<HTMLElement>("[data-island]");
-  const setOpen = (island: HTMLElement, open: boolean) => {
-    island.classList.toggle("open", open);
-    island.querySelector("[data-island-toggle]")?.setAttribute("aria-expanded", String(open));
-  };
-
-  document.addEventListener("click", (e) => {
-    const target = e.target as Element;
-    const island = target.closest<HTMLElement>("[data-island]");
-    if (!island) {
-      islands().forEach((i) => setOpen(i, false));
-      return;
-    }
-    if (target.closest("[data-island-toggle]")) {
-      setOpen(island, !island.classList.contains("open"));
-      return;
-    }
-    // On touch screens the first tap on the current section opens the island instead of reloading.
-    const link = target.closest<HTMLAnchorElement>("a.it.on");
-    if (link && !island.classList.contains("open") && matchMedia("(hover: none)").matches) {
-      e.preventDefault();
-      setOpen(island, true);
-    }
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") islands().forEach((i) => setOpen(i, false));
-  });
-  document.addEventListener("astro:after-swap", () => islands().forEach((i) => setOpen(i, false)));
-
   // Keys 1–4 jump to the sections (ignored while typing or with modifiers).
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
