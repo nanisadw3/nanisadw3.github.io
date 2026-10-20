@@ -1,6 +1,6 @@
 import { defaultLang, languages, routes, ui, type Lang, type UiKey } from "./ui.ts";
 
-export type PageKey = "home" | "projects" | "project" | "blog" | "post" | "github" | "terminal";
+export type PageKey = "home" | "projects" | "project" | "blog" | "post" | "github" | "terminal" | "itzamna";
 
 export function t(lang: Lang, key: UiKey): string {
   return ui[lang][key];
@@ -22,6 +22,7 @@ export function localizePath(lang: Lang, page: PageKey, slug?: string): string {
     post: `${r.blog}/${slug}/`,
     github: `${r.github}/`,
     terminal: `${r.terminal}/`,
+    itzamna: `${r.itzamna}/`,
   };
   return `${r.prefix}/${parts[page]}`;
 }

@@ -1,0 +1,209 @@
+---
+// Itzamná: the umbrella project for open-source MCP servers over Mexico's official public data.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHead from "../components/SectionHead.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { localizePath, otherLang, t } from "../i18n/utils.ts";
+import { compact, pypi } from "../data/live.ts";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const es = lang === "es";
+const org = "https://github.com/itzamna-mx";
+
+const c = es
+  ? {
+      kicker: "Proyecto en construcción",
+      lead: "Los datos públicos de México, listos para la IA.",
+      intro:
+        "Itzamná es un proyecto de código abierto para que cualquier asistente de IA (Claude, ChatGPT, Gemini o uno local) pueda consultar la información oficial de México y contestar citando la fuente, en lugar de inventar cifras.",
+      cta: "Ver en GitHub",
+      ideaTitle: "La idea",
+      idea: [
+        "Pregúntale a un modelo de IA cuánto está el dólar, la inflación de septiembre o cuántos negocios hay en tu colonia: va a contestar con seguridad, aunque el dato sea viejo o inventado. Los modelos no tienen acceso a las fuentes oficiales de México, y ese hueco es enorme para empresas, contadores, periodistas y cualquiera que tome decisiones con datos.",
+        "La respuesta no es entrenar un modelo nuevo, sino darles herramientas. Cada servidor MCP de Itzamná conecta a la IA con una fuente oficial (Banxico, INEGI, SAT…) y devuelve el dato con su serie, su fecha de corte y su origen, para que cualquiera lo pueda verificar.",
+      ],
+      nameTitle: "Por qué Itzamná",
+      name:
+        "Itzamná era el dios maya de la sabiduría; según la tradición, inventó la escritura y el calendario, la forma de dejar registro de lo que se sabe. El logo es una greca escalonada, el xicalcoliuhqui, que aparece en templos de todo México.",
+      flowTitle: "Cómo funciona",
+      flow: [
+        ["Tú", "Le preguntas algo de México a tu asistente de IA."],
+        ["El modelo", "Cualquiera: Claude, GPT, Gemini o uno local con Ollama."],
+        ["Itzamná", "El servidor MCP consulta la fuente oficial correcta."],
+        ["La respuesta", "El dato con su fuente y su fecha de corte."],
+      ],
+      catalogTitle: "Servidores",
+      states: { live: "En producción", wip: "En construcción", plan: "Planeado" },
+      catalog: [
+        ["mcp-banxico", "Banco de México: tipo de cambio, inflación, UDIS, TIIE, reservas y cualquier serie del SIE.", "live"],
+        ["mcp-inegi", "INEGI: indicadores económicos y el directorio de más de 5 millones de negocios (DENUE).", "wip"],
+        ["mcp-sat", "SAT: estado de una factura (CFDI) y las listas 69 y 69-B de contribuyentes incumplidos.", "plan"],
+        ["mcp-gasolina", "Precios de combustibles por estación en todo el país.", "plan"],
+      ],
+      principlesTitle: "Principios",
+      principles: [
+        ["Ningún dato sin fuente", "Cada respuesta dice de dónde viene y de qué fecha es."],
+        ["Código abierto y gratis", "Licencia MIT, paquetes en PyPI y endpoints públicos sin registro."],
+        ["Hecho en México", "En español y pensado para los casos de uso de aquí."],
+      ],
+      roadmapTitle: "Hacia dónde va",
+      roadmap: [
+        ["Servidores MCP", "Uno por cada fuente pública importante de México."],
+        ["El agente Itzamná", "Un asistente que funciona con cualquier modelo y siempre consulta la fuente oficial."],
+        ["Un modelo abierto", "Más adelante, un modelo afinado para usar estas herramientas, publicado en Hugging Face."],
+      ],
+      downloads: "descargas/mes",
+      blogLink: "Lee la historia del proyecto en el blog",
+    }
+  : {
+      kicker: "Work in progress",
+      lead: "Mexico's public data, ready for AI.",
+      intro:
+        "Itzamná is an open-source project so that any AI assistant (Claude, ChatGPT, Gemini or a local one) can query Mexico's official information and answer citing the source, instead of making numbers up.",
+      cta: "View on GitHub",
+      ideaTitle: "The idea",
+      idea: [
+        "Ask an AI model for the peso exchange rate, September's inflation or how many businesses are in your neighborhood: it will answer confidently, even if the figure is stale or invented. Models have no access to Mexico's official sources, and that gap matters to companies, accountants, journalists and anyone making decisions with data.",
+        "The answer isn't training a new model, it's giving them tools. Each Itzamná MCP server connects AI to an official source (Banxico, INEGI, SAT…) and returns the figure with its series, cut-off date and origin, so anyone can verify it.",
+      ],
+      nameTitle: "Why Itzamná",
+      name:
+        "Itzamná was the Maya god of wisdom; tradition says he invented writing and the calendar, the way to keep a record of what is known. The logo is a stepped fret, the xicalcoliuhqui, found on temples all over Mexico.",
+      flowTitle: "How it works",
+      flow: [
+        ["You", "Ask your AI assistant something about Mexico."],
+        ["The model", "Any of them: Claude, GPT, Gemini or a local one with Ollama."],
+        ["Itzamná", "The MCP server queries the right official source."],
+        ["The answer", "The figure with its source and cut-off date."],
+      ],
+      catalogTitle: "Servers",
+      states: { live: "In production", wip: "In progress", plan: "Planned" },
+      catalog: [
+        ["mcp-banxico", "Bank of Mexico: exchange rates, inflation, UDIS, TIIE, reserves and any SIE series.", "live"],
+        ["mcp-inegi", "INEGI: economic indicators and the directory of 5+ million businesses (DENUE).", "wip"],
+        ["mcp-sat", "SAT (tax authority): invoice (CFDI) status and the 69 and 69-B non-compliant taxpayer lists.", "plan"],
+        ["mcp-gasolina", "Fuel prices by gas station across the country.", "plan"],
+      ],
+      principlesTitle: "Principles",
+      principles: [
+        ["No figure without a source", "Every answer says where it comes from and how current it is."],
+        ["Open source and free", "MIT license, PyPI packages and public endpoints with no sign-up."],
+        ["Made in Mexico", "In Spanish, built for local use cases."],
+      ],
+      roadmapTitle: "Where it's going",
+      roadmap: [
+        ["MCP servers", "One for each major public data source in Mexico."],
+        ["The Itzamná agent", "An assistant that works with any model and always checks the official source."],
+        ["An open model", "Later, a model fine-tuned to use these tools, published on Hugging Face."],
+      ],
+      downloads: "downloads/mo",
+      blogLink: "Read the story behind the project on the blog",
+    };
+
+const stateClass = { live: "text-green border-green/40", wip: "text-orange border-orange/40", plan: "text-dim border-line" } as const;
+const links: Record<string, string> = {
+  "mcp-banxico": localizePath(lang, "project", "mcp-banxico"),
+};
+---
+
+<BaseLayout lang={lang} title={`Itzamná — Iñaki Sobera`} description={t(lang, "meta.itzamnaDescription")} altHref={localizePath(otherLang(lang), "itzamna")}>
+  <div class="mx-auto max-w-5xl px-5 pt-14 pb-20 sm:px-7">
+    <!-- Hero -->
+    <section class="flex flex-col items-start gap-7 sm:flex-row sm:items-center">
+      <img src="/images/itzamna.svg" alt="Logo de Itzamná: una greca escalonada" width="132" height="132" class="size-28 shrink-0 rounded-[28px] shadow-[0_18px_50px_-18px_rgb(122_162_247/0.6)] sm:size-33" />
+      <div>
+        <p class="font-mono text-xs tracking-wider text-orange uppercase">{c.kicker}</p>
+        <h1 class="mt-1 font-mono text-4xl font-extrabold tracking-tight text-fg sm:text-5xl"><span class="grad-text">Itzamná</span></h1>
+        <p class="mt-2 text-lg font-medium text-fg">{c.lead}</p>
+      </div>
+    </section>
+    <p class="mt-6 max-w-3xl text-[16px] leading-relaxed">{c.intro}</p>
+    <div class="mt-6 flex flex-wrap gap-2.5">
+      <a href={org} class="inline-flex items-center gap-2 rounded-md border border-blue bg-blue px-4 py-2 font-mono text-[13px] font-bold text-bg-dark transition-opacity hover:opacity-90">{c.cta} ↗</a>
+      <a href={localizePath(lang, "post", "itzamna")} class="inline-flex items-center gap-2 rounded-md border border-line px-4 py-2 font-mono text-[13px] text-fg transition-colors hover:border-blue">{c.blogLink} →</a>
+    </div>
+
+    <!-- Idea -->
+    <section class="mt-16">
+      <SectionHead n="01" title={c.ideaTitle} />
+      <div class="grid gap-4 md:grid-cols-2">
+        {c.idea.map((par) => <p class="leading-relaxed">{par}</p>)}
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="mt-14">
+      <SectionHead n="02" title={c.flowTitle} />
+      <ol class="grid gap-3 sm:grid-cols-4">
+        {c.flow.map(([title, text], i) => (
+          <li class="relative rounded-xl border border-line bg-panel p-4">
+            <p class="font-mono text-xs text-blue">0{i + 1}</p>
+            <p class="mt-1 font-semibold text-fg">{title}</p>
+            <p class="mt-1 text-[13.5px] leading-relaxed">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- Catalog -->
+    <section class="mt-14">
+      <SectionHead n="03" title={c.catalogTitle} href={org} hrefLabel="itzamna-mx" />
+      <div class="grid gap-3 sm:grid-cols-2">
+        {c.catalog.map(([name, text, state]) => {
+          const href = links[name];
+          const Tag = href ? "a" : "div";
+          return (
+            <Tag href={href} class:list={["flex flex-col rounded-xl border border-line bg-panel p-5", href && "transition hover:-translate-y-0.5 hover:border-blue/60"]}>
+              <div class="flex items-center justify-between gap-3">
+                <p class="font-mono font-bold text-cyan">{name}</p>
+                <span class:list={["rounded-full border px-2 py-0.5 font-mono text-[11px]", stateClass[state as keyof typeof stateClass]]}>{c.states[state as keyof typeof c.states]}</span>
+              </div>
+              <p class="mt-2 flex-1 text-[13.5px] leading-relaxed">{text}</p>
+              {name === "mcp-banxico" && <p class="mt-3 font-mono text-[12px] text-orange">{compact(pypi.lastMonth)} {c.downloads} · PyPI</p>}
+            </Tag>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Principles -->
+    <section class="mt-14">
+      <SectionHead n="04" title={c.principlesTitle} />
+      <div class="grid gap-3 sm:grid-cols-3">
+        {c.principles.map(([title, text]) => (
+          <div class="rounded-xl border border-line bg-panel p-5">
+            <p class="font-semibold text-fg">{title}</p>
+            <p class="mt-1 text-[13.5px] leading-relaxed">{text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Name -->
+    <section class="mt-14 flex flex-col gap-5 rounded-2xl border border-blue/30 bg-gradient-to-br from-blue/10 via-panel to-panel p-6 sm:flex-row sm:items-center">
+      <img src="/images/itzamna-greca.svg" alt="" width="72" height="72" class="size-18 shrink-0" loading="lazy" />
+      <div>
+        <h2 class="font-mono text-lg font-bold text-fg">{c.nameTitle}</h2>
+        <p class="mt-1 leading-relaxed">{c.name}</p>
+      </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="mt-14">
+      <SectionHead n="05" title={c.roadmapTitle} />
+      <ol class="space-y-3 border-l border-line pl-6">
+        {c.roadmap.map(([title, text], i) => (
+          <li class="relative">
+            <span class:list={["absolute top-1.5 -left-[31px] size-2.5 rounded-full", i === 0 ? "bg-green shadow-[0_0_8px_var(--color-green)]" : "bg-line-strong"]}></span>
+            <p class="font-semibold text-fg">{title}</p>
+            <p class="text-[14px] leading-relaxed">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+</BaseLayout>

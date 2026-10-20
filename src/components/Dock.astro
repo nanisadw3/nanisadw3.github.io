@@ -1,7 +1,7 @@
 ---
 // "Dynamic island" navigation: a frosted-glass capsule with the brand mark and every section always
 // visible. A glowing pill sits under the current section, follows the pointer, and slides from the
-// previous section to the new one after a navigation. Keys 1–4 jump between sections.
+// previous section to the new one after a navigation. Keys 1–5 jump between sections.
 import type { Lang } from "../i18n/ui.ts";
 import { localizePath, otherLang, t } from "../i18n/utils.ts";
 
@@ -22,10 +22,12 @@ const icons = {
   projects: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
   blog: '<path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>',
   terminal: '<polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/>',
+  // Itzamná's stepped fret (xicalcoliuhqui), the project's logo.
+  itzamna: '<path d="M6.4 17.6V6.4h11.2v7.5h-7.5v-3.8h3.8"/>',
   globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
 };
 
-const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) => {
+const items = (["home", "projects", "itzamna", "blog", "terminal"] as const).map((page, i) => {
   const href = localizePath(lang, page);
   const active = page === "home" ? path === href : path.startsWith(href);
   return { page, href, active, key: String(i + 1), label: t(lang, `nav.${page}`) };
@@ -168,7 +170,7 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
     color: var(--color-cyan);
   }
 
-  /* phones: icon over a label so all five items fit a 360 px screen */
+  /* phones: icon over a label so all six items fit a 360 px screen */
   @media (max-width: 639px) {
     .island {
       gap: 0;
@@ -182,9 +184,9 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
       justify-content: center;
       gap: 3px;
       height: 54px;
-      min-width: 62px;
-      padding: 0 8px;
-      font-size: 11px;
+      min-width: 50px;
+      padding: 0 6px;
+      font-size: 10.5px;
     }
     .it svg {
       width: 20px;
@@ -283,7 +285,7 @@ const items = (["home", "projects", "blog", "terminal"] as const).map((page, i) 
   init();
   document.addEventListener("astro:page-load", init);
 
-  // Keys 1–4 jump to the sections (ignored while typing or with modifiers).
+  // Keys 1–5 jump to the sections (ignored while typing or with modifiers).
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
     if ((e.target as HTMLElement).closest("input, textarea, select, [contenteditable='true']")) return;

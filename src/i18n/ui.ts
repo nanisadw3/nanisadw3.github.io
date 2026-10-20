@@ -12,6 +12,7 @@ const es = {
   "nav.github": "github",
   "nav.blog": "blog",
   "nav.terminal": "terminal",
+  "nav.itzamna": "itzamná",
   "nav.home": "inicio",
   "nav.switch": "English",
   "nav.skip": "Saltar al contenido",
@@ -104,6 +105,7 @@ const es = {
   "meta.projectsDescription": "Proyectos de Iñaki Sobera: mcp-banxico, Xerebro (RAG en producción), Gordito y más.",
   "meta.githubDescription": "Actividad de Iñaki Sobera en GitHub: contribuciones, lenguajes, repositorios y PRs aceptados.",
   "meta.blogDescription": "Notas técnicas de Iñaki Sobera sobre IA aplicada, MCP y RAG.",
+  "meta.itzamnaDescription": "Itzamná: servidores MCP de código abierto que conectan la IA con los datos públicos oficiales de México, siempre con su fuente.",
   "meta.terminalDescription": "Conoce a Iñaki Sobera desde una terminal interactiva.",
 } as const;
 
@@ -114,6 +116,7 @@ const en: Record<UiKey, string> = {
   "nav.github": "github",
   "nav.blog": "blog",
   "nav.terminal": "terminal",
+  "nav.itzamna": "itzamná",
   "nav.home": "home",
   "nav.switch": "Español",
   "nav.skip": "Skip to content",
@@ -206,6 +209,7 @@ const en: Record<UiKey, string> = {
   "meta.projectsDescription": "Projects by Iñaki Sobera: mcp-banxico, Xerebro (production RAG), Gordito and more.",
   "meta.githubDescription": "Iñaki Sobera's GitHub activity: contributions, languages, repositories and merged PRs.",
   "meta.blogDescription": "Technical notes by Iñaki Sobera on applied AI, MCP and RAG.",
+  "meta.itzamnaDescription": "Itzamná: open-source MCP servers that connect AI to Mexico's official public data, always citing the source.",
   "meta.terminalDescription": "Meet Iñaki Sobera through an interactive terminal.",
 };
 
@@ -213,6 +217,6 @@ export const ui: Record<Lang, Record<UiKey, string>> = { es, en };
 
 /** Path segments per language. Spanish lives at the root, English under /en. */
 export const routes = {
-  es: { prefix: "", projects: "proyectos", blog: "blog", github: "github", terminal: "terminal" },
-  en: { prefix: "/en", projects: "projects", blog: "blog", github: "github", terminal: "terminal" },
-} as const satisfies Record<Lang, Record<"prefix" | "projects" | "blog" | "github" | "terminal", string>>;
+  es: { prefix: "", projects: "proyectos", blog: "blog", github: "github", terminal: "terminal", itzamna: "itzamna" },
+  en: { prefix: "/en", projects: "projects", blog: "blog", github: "github", terminal: "terminal", itzamna: "itzamna" },
+} as const satisfies Record<Lang, Record<"prefix" | "projects" | "blog" | "github" | "terminal" | "itzamna", string>>;
