@@ -40,7 +40,7 @@ const c = es
       states: { live: "En producción", wip: "En construcción", plan: "Planeado" },
       catalog: [
         ["mcp-banxico", "Banco de México: tipo de cambio, inflación, UDIS, TIIE, reservas y cualquier serie del SIE.", "live"],
-        ["mcp-inegi", "INEGI: población, inflación, empleo, PIB e IGAE por país, estado y municipio. Próximamente, el directorio de más de 5 millones de negocios (DENUE).", "live"],
+        ["mcp-inegi", "INEGI: población, inflación, empleo, PIB e IGAE por país, estado y municipio, y el directorio de más de 5 millones de negocios (DENUE).", "live"],
         ["mcp-sat", "SAT: estado de una factura (CFDI) y las listas 69 y 69-B de contribuyentes incumplidos.", "plan"],
         ["mcp-gasolina", "Precios de combustibles por estación en todo el país.", "plan"],
       ],
@@ -84,7 +84,7 @@ const c = es
       states: { live: "In production", wip: "In progress", plan: "Planned" },
       catalog: [
         ["mcp-banxico", "Bank of Mexico: exchange rates, inflation, UDIS, TIIE, reserves and any SIE series.", "live"],
-        ["mcp-inegi", "INEGI: population, inflation, employment, GDP and IGAE by country, state and municipality. Coming soon: the directory of 5+ million businesses (DENUE).", "live"],
+        ["mcp-inegi", "INEGI: population, inflation, employment, GDP and IGAE by country, state and municipality, plus the directory of 5+ million businesses (DENUE).", "live"],
         ["mcp-sat", "SAT (tax authority): invoice (CFDI) status and the 69 and 69-B non-compliant taxpayer lists.", "plan"],
         ["mcp-gasolina", "Fuel prices by gas station across the country.", "plan"],
       ],
@@ -165,7 +165,7 @@ const links: Record<string, string> = {
               </div>
               <p class="mt-2 flex-1 text-[13.5px] leading-relaxed">{text}</p>
               {name === "mcp-banxico" && <p class="mt-3 font-mono text-[12px] text-orange">{compact(pypi.lastMonth)} {c.downloads} · PyPI</p>}
-              {name === "mcp-inegi" && <p class="mt-3 font-mono text-[12px] text-orange">v0.1.0 · PyPI · GitHub ↗</p>}
+              {name === "mcp-inegi" && <p class="mt-3 font-mono text-[12px] text-orange">v0.2.0 · PyPI · GitHub ↗</p>}
             </Tag>
           );
         })}
